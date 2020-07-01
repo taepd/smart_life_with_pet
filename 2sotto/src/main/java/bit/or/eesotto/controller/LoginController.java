@@ -27,7 +27,7 @@ public class LoginController {
 	
 	// 로그인 view
 	@RequestMapping(value = "login.bit", method = RequestMethod.GET) 
-	public String login() { return "index"; }
+	public String login() { return "login/loginForm"; }
 	 
 
 	// 일반 로그인 처리
@@ -48,7 +48,8 @@ public class LoginController {
 
 		} else {
 			msg = "로그인 실패";
-			url = "./index.html";
+			url = "Main.bit";
+			/* url = "./index.html"; */
 		}
 
 		model.addAttribute("msg", msg);

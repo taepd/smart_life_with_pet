@@ -2,7 +2,7 @@
 CREATE TABLE USER (
 	USERID   VARCHAR(40)  NOT NULL, -- USERID
 	NICK     VARCHAR(20)  NOT NULL, -- 닉네임
-	PWD      VARCHAR(100) NULL,     -- 비밀번호
+	PWD      VARCHAR(5000) NULL,     -- 비밀번호
 	LOC      VARCHAR(300) NOT NULL, -- 위치정보
 	CPNUMBER VARCHAR(40)  NOT NULL, -- 휴대전화번호
 	ENABLED  VARCHAR(4)   NOT NULL, -- ENABLED
@@ -264,6 +264,7 @@ CREATE TABLE DONATE (
 	DOBJECT VARCHAR(60)   NOT NULL, -- 기부대상
 	RTIME   DATE          NOT NULL, -- 등록일시
 	CTIME   DATE          NULL      -- 완료일시
+	IMG      VARCHAR(100) NULL  --사진	
 );
 
 -- 기부게시판

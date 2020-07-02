@@ -136,7 +136,7 @@ CREATE TABLE MESSAGE (
 	TITLE     VARCHAR(100) NOT NULL, -- 쪽지내용
 	QATIME    VARCHAR(40)  NOT NULL, -- 보낸일시
 	ID        VARCHAR(20)  NOT NULL, -- 읽은일시
-	READSATAE VARCHAR(4)   NULL      -- 읽음여부
+	READSTATE VARCHAR(4)   NULL      -- 읽음여부
 );
 
 
@@ -267,7 +267,7 @@ CREATE TABLE POINT (
 	PTYPE   VARCHAR(4)  NULL,     -- 포인트 유형
 	PCOUNT  INT         NULL,     -- 포인트 수량
 	PAMOUNT INT         NULL,     -- 포인트 총량
-	PDATE   INT         NULL      -- 포인트 일시
+	PDATE   DATE         NULL      -- 포인트 일시
 );
 
 

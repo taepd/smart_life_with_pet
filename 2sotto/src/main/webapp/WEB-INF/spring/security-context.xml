@@ -9,21 +9,21 @@
 
 	<security:http>
 		<security:csrf disabled="true" />
-		<security:form-login  default-target-url="/login/index.bit" login-page="/login/loginform.bit" authentication-failure-url="/login/index.bit?error" />
+		<security:form-login  default-target-url="/index.bit" login-page="/login/loginform.bit" authentication-failure-url="/login/index.bit?error" />
 		<security:logout logout-success-url="/index.bit" />
 	<!-- 	
 	<security:intercept-url pattern="/customer/noticeDetail.do" access="hasRole('ROLE_USER')" />
 	<security:intercept-url pattern="/customer/noticeReg.do" access="hasRole('ROLE_ADMIN')" /> 
 	-->
-		<security:intercept-url pattern="/customer/*Reg.do" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/customer/*Reg.bit" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service 
-			authorities-by-username-query="select m.userid, r.role_name from member m join roll r on m.userid=r.userid where m.userid=?"
-			users-by-username-query="select userid, pwd as password, 1 enabled from member where userid=?"
+			authorities-by-username-query="select u.userid, r.roleid from user u join userrole r on u.userid=r.userid where u.userid=?"
+			users-by-username-query="select userid, pwd as password, 1 enabled from user where userid=?"
 			data-source-ref="driverManagerDataSource" />
 		
 			<security:password-encoder ref="bCryptPasswordEncoder" />

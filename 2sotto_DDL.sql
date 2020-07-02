@@ -6,7 +6,7 @@ CREATE TABLE USER (
 	LOC      VARCHAR(300) NOT NULL, -- 위치정보
 	CPNUMBER VARCHAR(40)  NOT NULL, -- 휴대전화번호
 	ENABLED  VARCHAR(4)   NOT NULL, -- ENABLED
-	PROFILE  VARCHAR(100) NULL,     -- 프로필 사진
+	UIMG  VARCHAR(500) NULL,     -- 프로필 사진
 	RTIME    VARCHAR(40)  NOT NULL, -- 가입일시
 	LAT      VARCHAR(40)  NULL,     -- 위도
 	LOT      VARCHAR(40)  NULL,     -- 경도
@@ -40,28 +40,22 @@ ALTER TABLE QNAREPLY
 
 -- 반려동물
 CREATE TABLE PET (
-	PETINDEX  INT          NOT NULL, -- 동물식별번호
+	PETINDEX  INT  PRIMARY KEY AUTO_INCREMENT, -- 동물식별번호
 	USERID    VARCHAR(40)  NOT NULL, -- USERID
 	MCATEGORY VARCHAR(20)  NOT NULL, -- 대분류코드
 	SCATEGORY VARCHAR(20)  NOT NULL, -- 소분류코드
 	PETNAME   VARCHAR(20)  NOT NULL, -- 반려동물명
 	SEX       VARCHAR(20)  NOT NULL, -- 성별
 	AGE       INT          NOT NULL, -- 나이
-	SIZE      INT          NULL,     -- 크기
+	SIZE      VARCHAR(20)         NOT NULL,     -- 크기
 	WEIGHT    INT          NULL,     -- 몸무게
-	HLEGTH    INT          NULL,     -- 털길이
+	HLENGTH    INT          NULL,     -- 털길이
 	NSTATE    VARCHAR(4)   NOT NULL, -- 중성화여부
-	PETPIMG   VARCHAR(100) NULL,     -- 사진
+	PETIMG   VARCHAR(500) NULL,     -- 사진
 	MEMO      VARCHAR(200) NULL      -- 메모
 );
 
--- 반려동물
-ALTER TABLE PET
-	ADD
-		CONSTRAINT PK_PET -- 반려동물 기본키
-		PRIMARY KEY (
-			PETINDEX -- 동물식별번호
-		);
+
 
 -- 동물카테고리/대분류
 CREATE TABLE MAINCATEGORY (
@@ -79,7 +73,7 @@ ALTER TABLE MAINCATEGORY
 
 -- 접종/검사 
 CREATE TABLE INSPECTION (
-	IINDEX   INT          NOT NULL, -- 글번호
+	IINDEX   INT    PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX INT          NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)  NOT NULL, -- USERID
 	LIST     VARCHAR(100) NOT NULL, -- 항목
@@ -88,17 +82,11 @@ CREATE TABLE INSPECTION (
 	VCOUNT   INT          NULL      -- 잔여접종횟수
 );
 
--- 접종/검사 
-ALTER TABLE INSPECTION
-	ADD
-		CONSTRAINT PK_INSPECTION -- 접종/검사  기본키
-		PRIMARY KEY (
-			IINDEX -- 글번호
-		);
+
 
 -- 동물 병원 이용 기록
 CREATE TABLE MRECORD (
-	MINDEX   INT         NOT NULL, -- 글번호
+	MINDEX   INT        PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX INT         NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40) NOT NULL, -- USERID
 	VDATE    DATE        NOT NULL, -- 방문날짜
@@ -106,17 +94,11 @@ CREATE TABLE MRECORD (
 	HNAME    VARCHAR(20) NOT NULL  -- 병원명
 );
 
--- 동물 병원 이용 기록
-ALTER TABLE MRECORD
-	ADD
-		CONSTRAINT PK_MRECORD -- 동물 병원 이용 기록 기본키
-		PRIMARY KEY (
-			MINDEX -- 글번호
-		);
+
 
 -- 게시글
 CREATE TABLE POST (
-	BDINDEX  INT           NOT NULL, -- 글번호
+	BDINDEX  INT           PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX INT           NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)   NOT NULL, -- USERID
 	BLIKE    INT           NULL,     -- 추천수(보류)
@@ -125,20 +107,14 @@ CREATE TABLE POST (
 	RTIME    DATE          NOT NULL, -- 등록시간
 	DELSTATE VARCHAR(4)    NOT NULL, -- 삭제유무
 	COUNT    INT           NOT NULL, -- 조회수
-	IMG      VARCHAR(500)  NULL      -- 이미지
+	PIMG      VARCHAR(500)  NULL      -- 이미지
 );
 
--- 게시글
-ALTER TABLE POST
-	ADD
-		CONSTRAINT PK_POST -- 게시글 기본키2
-		PRIMARY KEY (
-			BDINDEX -- 글번호
-		);
+
 
 -- 댓글
 CREATE TABLE COMMENT (
-	RPINDEX INT          NOT NULL, -- 댓글번호
+	RPINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	BDINDEX INT          NOT NULL, -- 글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
 	RPLIKE  INT          NULL,     -- 추천수(보류)
@@ -150,36 +126,24 @@ CREATE TABLE COMMENT (
 	STEP    INT          NOT NULL  -- step
 );
 
--- 댓글
-ALTER TABLE COMMENT
-	ADD
-		CONSTRAINT PK_COMMENT -- 댓글 기본키3
-		PRIMARY KEY (
-			RPINDEX -- 댓글번호
-		);
+
 
 -- 쪽지
 CREATE TABLE MESSAGE (
-	QAINDEX   INT          NOT NULL, -- 쪽지번호
+	MSINDEX   INT          PRIMARY KEY AUTO_INCREMENT, -- 쪽지번호
 	RUSERID   VARCHAR(40)  NOT NULL, -- 받은사람ID
 	SUSERID2  VARCHAR(40)  NOT NULL, -- 보낸사람ID
 	TITLE     VARCHAR(100) NOT NULL, -- 쪽지내용
 	QATIME    VARCHAR(40)  NOT NULL, -- 보낸일시
 	ID        VARCHAR(20)  NOT NULL, -- 읽은일시
-	READSATAE VARCHAR(4)   NULL      -- 읽음여부
+	READSTATE VARCHAR(4)   NULL      -- 읽음여부
 );
 
--- 쪽지
-ALTER TABLE MESSAGE
-	ADD
-		CONSTRAINT PK_MESSAGE -- 쪽지 기본키
-		PRIMARY KEY (
-			QAINDEX -- 쪽지번호
-		);
+
 
 -- 일정
 CREATE TABLE SCHEDULE (
-	NO          INT          NOT NULL, -- 글번호
+	SINDEX          INT          PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX    INT          NOT NULL, -- 동물식별번호
 	USERID      VARCHAR(40)  NOT NULL, -- USERID
 	TITLE       VARCHAR(60)  NOT NULL, -- 제목
@@ -191,33 +155,21 @@ CREATE TABLE SCHEDULE (
 	ADNCDNOTI   VARCHAR(40)  NULL      -- 미리알림
 );
 
--- 일정
-ALTER TABLE SCHEDULE
-	ADD
-		CONSTRAINT PK_SCHEDULE -- 일정 기본키
-		PRIMARY KEY (
-			NO -- 글번호
-		);
+
 
 -- 추천
 CREATE TABLE RECOM (
-	LIKEINDEX INT         NOT NULL, -- 구분번호
+	LIKEINDEX INT      PRIMARY KEY AUTO_INCREMENT, -- 구분번호
 	USERID    VARCHAR(40) NOT NULL, -- USERID
 	BDINDEX   INT         NOT NULL, -- 글번호
 	RPINDEX   INT         NOT NULL  -- 댓글번호
 );
 
--- 추천
-ALTER TABLE RECOM
-	ADD
-		CONSTRAINT PK_RECOM -- 추천 기본키
-		PRIMARY KEY (
-			LIKEINDEX -- 구분번호
-		);
+
 
 -- 질의응답
 CREATE TABLE QNA (
-	QAINDEX  INT          NOT NULL, -- 글번호
+	QAINDEX  INT   PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	USERID   VARCHAR(40)  NULL,     -- USERID
 	TITLE    VARCHAR(100) NOT NULL, -- 제목
 	QATIME   VARCHAR(40)  NOT NULL, -- 등록시간
@@ -228,13 +180,7 @@ CREATE TABLE QNA (
 	AWSTATE  VARCHAR(4)   NOT NULL  -- 답변완료여부
 );
 
--- 질의응답
-ALTER TABLE QNA
-	ADD
-		CONSTRAINT PK_QNA -- 질의응답 기본키3
-		PRIMARY KEY (
-			QAINDEX -- 글번호
-		);
+
 
 -- user_role
 CREATE TABLE USERROLE (
@@ -258,26 +204,21 @@ ALTER TABLE ROLES
 
 -- 기부게시판
 CREATE TABLE DONATE (
-	DINDEX  INT           NOT NULL, -- 기부글번호
+	DINDEX  INT  PRIMARY KEY AUTO_INCREMENT, -- 기부글번호
 	TITLE   VARCHAR(120)  NOT NULL, -- 제목
 	CONTENT VARCHAR(4000) NOT NULL, -- 내용
 	DOBJECT VARCHAR(60)   NOT NULL, -- 기부대상
 	RTIME   DATE          NOT NULL, -- 등록일시
-	CTIME   DATE          NULL      -- 완료일시
-	IMG      VARCHAR(100) NULL  --사진	
+	CTIME   DATE          NULL,
+    	DIMG    VARCHAR(500)  NULL
+		
 );
 
--- 기부게시판
-ALTER TABLE DONATE
-	ADD
-		CONSTRAINT PK_DONATE -- 기부게시판 기본키
-		PRIMARY KEY (
-			DINDEX -- 기부글번호
-		);
+
 
 -- 결제(돈내고 한 것만)
 CREATE TABLE PAY (
-	PINDEX  INT         NOT NULL, -- 결제번호
+	PINDEX  INT   PRIMARY KEY AUTO_INCREMENT, -- 결제번호
 	USERID  VARCHAR(40) NOT NULL, -- USERID
 	DINDEX  INT         NOT NULL, -- 기부글번호
 	PAMOUNT INT         NULL,     -- 결제금액
@@ -285,43 +226,25 @@ CREATE TABLE PAY (
 	PTYPE   VARCHAR(20) NULL      -- 결제유형
 );
 
--- 결제(돈내고 한 것만)
-ALTER TABLE PAY
-	ADD
-		CONSTRAINT PK_PAY -- 결제(돈내고 한 것만) 기본키
-		PRIMARY KEY (
-			PINDEX -- 결제번호
-		);
+
 
 -- 즐겨찾기/게시글
 CREATE TABLE BLIKE (
-	BMINDEX INT         NOT NULL, -- 즐겨찾기번호
+	BMINDEX INT   PRIMARY KEY AUTO_INCREMENT, -- 즐겨찾기번호
 	USERID  VARCHAR(40) NOT NULL, -- USERID
 	BDINDEX INT         NOT NULL  -- 글번호
 );
 
--- 즐겨찾기/게시글
-ALTER TABLE BLIKE
-	ADD
-		CONSTRAINT PK_BLIKE -- 즐겨찾기/게시글 기본키
-		PRIMARY KEY (
-			BMINDEX -- 즐겨찾기번호
-		);
+
 
 -- 즐겨찾기/반려동물
 CREATE TABLE PETLIKE (
-	LINDEX   INT         NOT NULL, -- 즐겨찾기번호
+	LINDEX   INT   PRIMARY KEY AUTO_INCREMENT, -- 즐겨찾기번호
 	USERID   VARCHAR(40) NOT NULL, -- USERID
 	PETINDEX INT         NOT NULL  -- 동물식별번호
 );
 
--- 즐겨찾기/반려동물
-ALTER TABLE PETLIKE
-	ADD
-		CONSTRAINT PK_PETLIKE -- 즐겨찾기/반려동물 기본키
-		PRIMARY KEY (
-			LINDEX -- 즐겨찾기번호
-		);
+
 
 -- 동물카테고리/소분류
 CREATE TABLE SUBCATEGORY (
@@ -339,21 +262,15 @@ ALTER TABLE SUBCATEGORY
 
 -- 포인트내역
 CREATE TABLE POINT (
-	PINDEX  INT         NOT NULL, -- 포인트내역번호
+	PTINDEX  INT    PRIMARY KEY AUTO_INCREMENT, -- 포인트내역번호
 	USERID  VARCHAR(40) NULL,     -- USERID
 	PTYPE   VARCHAR(4)  NULL,     -- 포인트 유형
 	PCOUNT  INT         NULL,     -- 포인트 수량
 	PAMOUNT INT         NULL,     -- 포인트 총량
-	PDATE   INT         NULL      -- 포인트 일시
+	PDATE   DATE         NULL      -- 포인트 일시
 );
 
--- 포인트내역
-ALTER TABLE POINT
-	ADD
-		CONSTRAINT PK_POINT -- 포인트내역 기본키
-		PRIMARY KEY (
-			PINDEX -- 포인트내역번호
-		);
+
 
 
 

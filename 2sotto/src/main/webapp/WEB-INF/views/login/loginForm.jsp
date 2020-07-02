@@ -18,7 +18,7 @@
 	<jsp:include page="/WEB-INF/views/include/headerAndNavi.jsp" />
 	
 	<div class="side_overlay">
-		<div class="container" style="margin-top: 100px">
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 ml-auto mr-auto">
 					<div class="card card-login">

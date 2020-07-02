@@ -67,3 +67,13 @@
 	margin-top: 200px;
 }
 
+.sideMenu-close {
+	font-size: 24px;
+	color: #E0E0E0;
+	/* color: #B4B4B4; */
+	position: relative;
+	left: 230px;
+	top: 8px;
+	
+}
+

@@ -15,4 +15,9 @@ $(document).ready(function(){
 		    $('.side_overlay').fadeOut();
 		}); */
 	
+	$('.sideMenu-close').on('click', function () {
+		$('#wrapSideMenu').removeClass('side_show');
+		$('#wrapSideMenu').fadeOut();
+	}); 
+	
 });

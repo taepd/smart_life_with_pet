@@ -24,7 +24,7 @@
 <body>
 
 	<!-- header -->
-	<nav class="navbar navbar-default" role="navigation-demo">
+	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
 		<span id="header-title">슬기로운 반려생활</span>
 		<ul class="navbar-nav ml-auto">
@@ -42,7 +42,11 @@
 	<!-- navi -->
 	<div id="wrapSideMenu" class="sidenav">
 		<div id="sideMenu">
-			<div class="user-pic-wrapper">
+			<span class="sideMenu-close"><i class="fas fa-times"></i></span>
+			<!-- <span class="sideMenu-close"><i class="far fa-window-close"></i></span>
+			<span class="sideMenu-close"><i class="far fa-times-circle"></i></span> -->
+			<div class="use
+			r-pic-wrapper">
 				<span class="user-pic"><i class="far fa-user-circle"></i></span>
 				<div class="nickname">
 					닉네임 자리

@@ -1027,6 +1027,7 @@ pre code {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
+    margin-top: 156px;
   }
 }
 
@@ -14655,7 +14656,7 @@ textarea {
   border: 0;
   border-radius: 3px;
   padding: 0.85rem 0;
-  margin-bottom: 20px;
+  margin-bottom: 100px;
   color: #555;
   background-color: #ffffff !important;
   box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
@@ -18272,7 +18273,7 @@ footer .pull-center {
 }
 
 .section {
-  padding: 70px 0;
+  /* padding: 70px 0; */ /* 원래 70px 0 */
 }
 
 .profile-page .page-header {

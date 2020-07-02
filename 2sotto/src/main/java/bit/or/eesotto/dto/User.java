@@ -9,17 +9,17 @@ import lombok.ToString;
 @ToString
 public class User {
 	
-	String userid;
-	String nick;
-	String pwd;
-	String loc;
-	String cpnumber;
-	String enabled;
-	String profile;
-	String rtime;
-	String lat;
-	String lot;
-	int point;
+	private String userid;
+	private String nick;
+	private String pwd;
+	private String loc;
+	private String cpnumber;
+	private String enabled;
+	private String profile;
+	private String rtime;
+	private String lat;
+	private String lot;
+	private int point;
 	
 //	public String getUserid() {
 //		return userid;

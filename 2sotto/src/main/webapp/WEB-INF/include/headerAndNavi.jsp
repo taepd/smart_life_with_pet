@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
+
+
 
 	<title>Insert title here</title>
 
@@ -31,7 +28,7 @@
 				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="login.bit" class="btn btn-rose btn-raised btn-round">
+                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>
@@ -67,7 +64,7 @@
 		</div>
 	</div>
 
-</body>
+
 
 	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
@@ -92,4 +89,3 @@
 	
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	
-</html>

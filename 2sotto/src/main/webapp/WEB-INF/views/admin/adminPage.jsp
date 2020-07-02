@@ -20,7 +20,7 @@
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/headerAndNavi.jsp"%>
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 
 

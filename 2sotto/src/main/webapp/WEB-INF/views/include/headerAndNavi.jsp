@@ -29,10 +29,10 @@
 		<span id="header-title">슬기로운 반려생활</span>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item" id="item01">
-				<a href="javascript:;" class="nav-link">로그인</a>
+				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="javascript:;" class="btn btn-rose btn-raised btn-round">
+                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>

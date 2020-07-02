@@ -24,20 +24,19 @@
 <body>
 
 	<!-- header -->
-	<nav class="navbar navbar-default navbar-expand-lg" role="navigation-demo">
+	<nav class="navbar navbar-default" role="navigation-demo">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
-        <div class="collapse navbar-collapse">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a href="javascript:;" class="nav-link">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <a href="javascript:;" class="btn btn-rose btn-raised btn-round" data-toggle="dropdown">
-                      	시작하기
-                    </a>
-				</li>
-			</ul>
-		</div>
+		<span id="header-title">슬기로운 반려생활</span>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item" id="item01">
+				<a href="javascript:;" class="nav-link">로그인</a>
+            </li>
+            <li class="nav-item" id="item02">
+                <a href="javascript:;" class="btn btn-rose btn-raised btn-round">
+                	시작하기
+                </a>
+			</li>
+		</ul>
 	</nav>
 	
 	<!-- navi -->
@@ -45,9 +44,22 @@
 		<div id="sideMenu">
 			<div class="user-pic-wrapper">
 				<span class="user-pic"><i class="far fa-user-circle"></i></span>
-			</div>
-			<div class="nickname">
-				닉네임
+				<div class="nickname">
+					닉네임 자리
+					<br>
+					포인트 자리
+					<br>
+					<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
+				</div>
+				<div class="menuList">
+					<ul class="navbar-nav ml-auto">
+						<li>반려동물 관리</li>
+						<li>블로그</li>
+						<li>즐겨찾기</li>
+						<li>마이페이지</li>
+						<li>후원게시판</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

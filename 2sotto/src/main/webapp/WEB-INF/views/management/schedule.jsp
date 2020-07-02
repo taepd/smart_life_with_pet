@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>여기까지 오면 성공 </h3>
+	<h3>스케쥴 페이지</h3>
+	
+	
 </body>
 </html>

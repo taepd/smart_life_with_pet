@@ -44,11 +44,11 @@ public class LoginController {
 		if (user != null && userid.equals(user.getUserid()) && pwd.equals(user.getPwd())) {
 			session.setAttribute("userid", userid);
 			msg = "로그인 성공";
-			url = "Main.bit";
+			url = "main.bit";
 
 		} else {
 			msg = "로그인 실패";
-			url = "Main.bit";
+			url = "main.bit";
 			/* url = "./index.html"; */
 		}
 

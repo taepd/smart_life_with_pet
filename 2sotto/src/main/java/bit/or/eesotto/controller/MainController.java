@@ -17,11 +17,11 @@ public class MainController {
 		
 	
 	    // 메인 페이지 
-		@RequestMapping("Main.bit")
+		@RequestMapping("main.bit")
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
 
 
-			return "Main";
+			return "main";
 		}
 
 }

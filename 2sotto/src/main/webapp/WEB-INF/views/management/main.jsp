@@ -2,20 +2,15 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head>	
 
-	<title>동물관리 홈</title>
-	
-	<!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png" type="image/x-icon">
+    <title>동물관리 홈</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
     
 </head>
 <body>
-	<h3>관리 페이지</h3>
-	<button type="button" onclick="location.href='main.bit'">관리 홈</button>
-	<button type="button" onclick="location.href='schedule.bit'">일정</button>
-	<button type="button" onclick="location.href='hospitalRecord.bit'">병원 기록</button>
+	
 	
 	<div class="side_overlay">
 		<div class="container">
@@ -84,6 +79,6 @@
 		</div> <!-- container end -->
 	</div> <!-- side_overlay end -->
 	
-	<jsp:include page="/WEB-INF/views/include/headerAndNavi.jsp" />
+	<jsp:include page="/WEB-INF/include/headerAndNavi.jsp" />
 </body>
 </html>

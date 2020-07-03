@@ -38,7 +38,8 @@
 	</c:otherwise>
 </c:choose>
 </header>
-
+	<div class="side_overlay">
+		<div class="container">
 	<div class="section">
 		<div class="container tim-container">
 		</div>
@@ -89,10 +90,14 @@
 					<a href="javascript:addpost()" class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a>
 				</td>
 			</tr>
-		</table><br>
+		</table>
+		<br>
 	</form>
 	</div>
 	</div>
+	</div>
+	</div>
+	
 	<!-- 게시판 등록 -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	<script type="text/javascript">

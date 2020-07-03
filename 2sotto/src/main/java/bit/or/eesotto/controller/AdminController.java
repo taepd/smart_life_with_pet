@@ -14,8 +14,8 @@ public class AdminController {
 
 
 	//admin 보러가기
-	@RequestMapping(value = "adminMain.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView register(HttpSession session) throws IOException {
+	@RequestMapping(value = "adminPage.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView adminPage(HttpSession session) throws IOException {
 
 
 		/* 생성한 url 전달 */

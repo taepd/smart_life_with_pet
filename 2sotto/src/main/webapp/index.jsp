@@ -6,11 +6,12 @@
 
     <title>홈_슬기로운 반려생활</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png" type="image/x-icon">
+     <%@ include file="/WEB-INF/include/import.jsp"%>
     
-	<!-- 인클루드 안에 헤드 닫는 태그와 바디 여는 태그 있음 -->
+</head>
+
+<body>
+
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
     
     <div class="side_overlay">
@@ -76,7 +77,7 @@
 				<button type="button" onclick="location.href='login.bit'">로그인 화면 가기</button>
 				<button type="button" onclick="location.href='register.bit'">회원가입 화면 가기</button>
 				<button type="button" onclick="location.href='adminMain.bit'">어드민보러가기</button>
-			</div>
+	</div>
         </div> <!-- carousel end -->
     </div> <!-- side_overlay end -->
     

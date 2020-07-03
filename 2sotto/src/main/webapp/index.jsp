@@ -14,6 +14,7 @@
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
     
     <div class="side_overlay">
+
           <div class="container">
         <div class="section" id="carousel">
             <div class="row">
@@ -69,6 +70,7 @@
               </div>
             </div>
           </div> <!-- section end  -->
+>>>>>>> master
             <div class="row">
                 text area 여기는 인덱스 화면
             </div>

@@ -1,26 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
 
-	<title>Insert title here</title>
-
-	<meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/material-kit.css?v=2.0.4" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/headerAndNavi.css">
-
-	<!-- Fonts and icons -->
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-	
-</head>
-
-<body>
 
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
@@ -31,7 +10,11 @@
 				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
+<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
                 <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
+=======
+                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
+>>>>>>> c9456519ca5fa243d94627012447e183e543d54b:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
                 	시작하기
                 </a>
 			</li>
@@ -77,7 +60,6 @@
 		</div>
 	</div>
 
-</body>
 
 	<!--   Core JS Files   -->
 	<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js" type="text/javascript"></script>
@@ -102,4 +84,7 @@
 
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	
+<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
 </html>  
+=======
+>>>>>>> c9456519ca5fa243d94627012447e183e543d54b:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp

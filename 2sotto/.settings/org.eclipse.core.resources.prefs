@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp=UTF-8
+=======
+encoding//src/main/webapp/WEB-INF/include/import.jsp=UTF-8
+>>>>>>> c9456519ca5fa243d94627012447e183e543d54b

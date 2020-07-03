@@ -5,18 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>sotto</title>
+	
+    <title>홈_슬기로운 반려생활</title>
+    
+    <%@ include file="/WEB-INF/include/import.jsp"%>
+    
+  	<link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
+  	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/favicon.png">
+
+  
 	<!-- 리디 폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&amp;display=swap&amp;subset=korean"
-    rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:500,700&amp;display=swap&amp;text=1234567890,/%"
-        rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&amp;display=swap&amp;subset=korean" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:500,700&amp;display=swap&amp;text=1234567890,/%" rel="stylesheet">
 
 </head>
 <body>

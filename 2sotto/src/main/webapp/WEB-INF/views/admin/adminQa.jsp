@@ -2,18 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>2sotto</title>
+<head>	
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png"
-	type="image/x-icon">
+    <title>홈_슬기로운 반려생활</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
+    
 </head>
-
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>

@@ -2,23 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
-<%
-//코드구현
-request.setCharacterEncoding("UTF-8");
-%>
 
 <html>
-<head>
-	<title>2sotto</title>
+<head>	
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png"
-	type="image/x-icon">
-
-
+    <title>홈_슬기로운 반려생활</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
+    
 </head>
 <body>
 

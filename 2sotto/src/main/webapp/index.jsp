@@ -30,7 +30,7 @@
 	                      <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
 	                    </ol>
 	                    <div class="carousel-inner">
-	                      <div class="carousel-item">
+	                      	<div class="carousel-item">
 	                        <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide">
 	                        <div class="carousel-caption d-none d-md-block">
 	                          <!-- <h4>
@@ -57,7 +57,7 @@
 	                          </h4> -->
 	                        </div>
 	                      </div>
-	                    </div>
+	                    </div> 
 	                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 	                      <i class="material-icons">keyboard_arrow_left</i>
 	                      <span class="sr-only">Previous</span>

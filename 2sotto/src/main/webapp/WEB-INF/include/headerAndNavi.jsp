@@ -53,7 +53,7 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-						<a href="management/main.bit"><li>반려동물 관리</li></a>
+						<a href="management/managementMain.bit"><li>반려동물 관리</li></a>
 						<a href="blog/main.bit"><li>블로그</li></a>
 						<a href="management/management.bit"><li>즐겨찾기</li></a>
 						<a href="management/management.bit"><li>마이페이지</li></a>

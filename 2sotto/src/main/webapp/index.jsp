@@ -12,7 +12,7 @@
 
 <body>
 
-    <%@ include file="/WEB-INF/views/include/headerAndNavi.jsp"%>
+    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
     
     <div class="side_overlay">
           <div class="container">

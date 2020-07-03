@@ -26,6 +26,9 @@ public interface UserDao {
 	public int insert(User user) throws ClassNotFoundException, SQLException;
 		
 	public int updateMember(User user);
+	
+	//가입시 id중복 체크
+	public int idCheck(User user); 
 
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")

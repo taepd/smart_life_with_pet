@@ -10,15 +10,15 @@
 				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
+
 
                 <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
 
                 <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
 
-=======
-                <a href="${pageContext.request.contextPath}/joinForm.bit" class="btn btn-rose btn-raised btn-round">
->>>>>>> 297c58dda3464560993fe71df00c24bbce3fb2fa:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
+
+                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
+
                 	시작하기
                 </a>
 			</li>
@@ -40,7 +40,6 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
 
 						<li><a href="management/management.bit">반려동물 관리</a></li>
 						<li><a href="management/management.bit">블로그</li>
@@ -59,13 +58,11 @@
 						<a href="management/management.bit"><li>마이페이지</li></a>
 						<a href="management/management.bit"><li>후원게시판</li></a>
 
-=======
 						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+						<a href="${pageContext.request.contextPath}/blike.bit"><li>즐겨찾기</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>마이페이지</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>후원게시판</li></a>
->>>>>>> 297c58dda3464560993fe71df00c24bbce3fb2fa:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
 					</ul>
 				</div>
 			</div>

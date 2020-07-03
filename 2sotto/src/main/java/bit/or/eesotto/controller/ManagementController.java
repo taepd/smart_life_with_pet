@@ -20,25 +20,11 @@ public class ManagementController {
 //	LoginService ls;
 
 	// 관리페이지 view
-	@RequestMapping(value = "managementMain.bit", method = RequestMethod.GET)
+	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String mainView() {
-		return "management/managementMain";
+		return "management/main";
 	}
 
-	// 아래 두 개 필요 없음... 곧 지울 예정//////////////////////////////////////////////////////
-	// 관리>일정 페이지 view
-	@RequestMapping(value = "schedule.bit", method = RequestMethod.GET)
-	public String scheduleView() {
-		return "management/schedule";
-	}
-
-	// 관리>병원기록 페이지 view
-	@RequestMapping(value = "hospitalRecord.bit", method = RequestMethod.GET)
-	public String hospitalRecord() {
-		return "management/hospitalRecord";
-	}
-	
-	////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "registerPets.bit", method = RequestMethod.GET)
 	public String registerPets() {
 		return "management/registerPets";

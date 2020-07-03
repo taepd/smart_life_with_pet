@@ -6,14 +6,15 @@
 
 	<title>반려동물 등록하기</title>
 	
-	<!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png" type="image/x-icon">
-    
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	
 </head>
 
 <body>
 
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+	
+	 <div class="side_overlay">
 	<div class="container">
 	
 		<h3>반려동물 등록하기</h3>
@@ -124,7 +125,6 @@
 			<button type="reset" class="btn btn-primary" onclick="location.href='#'">취소</button>
 		</form>
 	</div>
-
-	<jsp:include page="/WEB-INF/include/headerAndNavi.jsp" />
+	</div>
 </body>
 </html>

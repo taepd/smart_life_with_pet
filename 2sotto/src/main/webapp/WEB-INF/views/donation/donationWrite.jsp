@@ -9,7 +9,9 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-    
+    <link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
 </head>
 
 <body>

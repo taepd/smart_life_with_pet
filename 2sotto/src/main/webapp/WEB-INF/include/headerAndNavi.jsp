@@ -4,13 +4,13 @@
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
-		<span id="header-title">슬기로운 반려생활</span>
+		<span id="header-title"><a href="${pageContext.request.contextPath}/index.jsp">슬기로운 반려생활</a></span>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item" id="item01">
-				<a href="login.bit" class="nav-link">로그인</a>
+				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
+                <a href="${pageContext.request.contextPath}/joinForm.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>
@@ -32,11 +32,11 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-						<a href="management/main.bit"><li>반려동물 관리</li></a>
-						<a href="blog/main.bit"><li>블로그</li></a>
-						<a href="management/management.bit"><li>즐겨찾기</li></a>
-						<a href="management/management.bit"><li>마이페이지</li></a>
-						<a href="management/management.bit"><li>후원게시판</li></a>
+						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
+						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>마이페이지</li></a>
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>후원게시판</li></a>
 					</ul>
 				</div>
 			</div>

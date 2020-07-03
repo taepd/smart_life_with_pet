@@ -23,6 +23,8 @@ public class LoginController {
 
 	@Autowired
 	LoginService ls;
+	
+	
 
 	
 	// 로그인 view

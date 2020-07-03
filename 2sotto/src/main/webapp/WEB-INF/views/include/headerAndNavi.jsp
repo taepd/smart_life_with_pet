@@ -29,10 +29,10 @@
 		<span id="header-title">슬기로운 반려생활</span>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item" id="item01">
-				<a href="javascript:;" class="nav-link">로그인</a>
+				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="javascript:;" class="btn btn-rose btn-raised btn-round">
+                <a href="login.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>
@@ -57,11 +57,11 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-						<li>반려동물 관리</li>
-						<li>블로그</li>
-						<li>즐겨찾기</li>
-						<li>마이페이지</li>
-						<li>후원게시판</li>
+						<li><a href="management/management.bit">반려동물 관리</a></li>
+						<li><a href="management/management.bit">블로그</li>
+						<li><a href="blike.bit">즐겨찾기</li>
+						<li><a href="management/management.bit">마이페이지</li>
+						<li><a href="management/management.bit">후원게시판</li>
 					</ul>
 				</div>
 			</div>
@@ -93,4 +93,4 @@
 	
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	
-</html>
+</html>  

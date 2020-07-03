@@ -2,5 +2,13 @@
 <<<<<<<=HEAD
 >>>>>>>=c9456519ca5fa243d94627012447e183e543d54b
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/include/headerAndNavi.jsp=UTF-8
+=======
+<<<<<<< HEAD
+encoding//src/main/webapp/WEB-INF/include/headerAndNavi.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/management/managementMain.jsp=UTF-8
+=======
+>>>>>>> d2e913ff3f0f4c95081ea144de2955547b6c31fa
 encoding//src/main/webapp/WEB-INF/include/import.jsp=UTF-8
+>>>>>>> master

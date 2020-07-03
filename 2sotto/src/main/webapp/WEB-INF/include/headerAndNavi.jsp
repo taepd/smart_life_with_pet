@@ -42,7 +42,12 @@
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a> 
 						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
+<<<<<<< HEAD
 						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a> 					
+=======
+						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
+
+>>>>>>> d2e913ff3f0f4c95081ea144de2955547b6c31fa
 					</ul>
 				</div>
 			</div>

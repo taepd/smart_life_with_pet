@@ -10,11 +10,11 @@
 				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
+
                 <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
-=======
+
                 <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
->>>>>>> c9456519ca5fa243d94627012447e183e543d54b:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
+
                 	시작하기
                 </a>
 			</li>
@@ -83,8 +83,6 @@
 	<script src="${pageContext.request.contextPath}/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
-	
-<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
+
 </html>  
-=======
->>>>>>> c9456519ca5fa243d94627012447e183e543d54b:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
+

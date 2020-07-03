@@ -1,5 +1,7 @@
 package bit.or.eesotto.dao;
 
+import java.sql.SQLException;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -7,11 +9,23 @@ import org.apache.ibatis.annotations.Select;
 import bit.or.eesotto.dto.User;
 
 
+
 public interface UserDao {
 
 	// 일반 로그인
 	@Select("select * from user where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);
+	
+	/*
+	 //회원정보 얻기 public User getMember(String uid) throws ClassNotFoundException,
+	 SQLException;
+	 */
+	
+	//회원가입
+	
+	public int insert(User user) throws ClassNotFoundException, SQLException;
+		
+	public int updateMember(User user);
 
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")

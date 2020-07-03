@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
 
+<style>
+
+.fixed-top{
+	position: relative;
+}
+</style>
 
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
@@ -10,21 +16,9 @@
 				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-<<<<<<< HEAD
-
-
-                <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
-
-                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
-
-
                 <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
-
-=======
-                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
->>>>>>> 502d19e68fa2263268137b2b5133ab5d7345a18b
                 	시작하기
-                </a>
+                </a> 
 			</li>
 		</ul>
 	</nav>
@@ -44,35 +38,11 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-
-						<li><a href="management/management.bit">반려동물 관리</a></li>
-						<li><a href="management/management.bit">블로그</li>
-						<li><a href="blike.bit">즐겨찾기</li>
-
-						<li><a href="management/main.bit">반려동물 관리</a></li>
-						<li><a href="blog/main.bit">블로그</li>
-						<li><a href="management/management.bit">즐겨찾기</li>
-
-						<li><a href="management/management.bit">마이페이지</li>
-						<li><a href="management/management.bit">후원게시판</li>
-
-						<a href="management/main.bit"><li>반려동물 관리</li></a>
-						<a href="blog/main.bit"><li>블로그</li></a>
-						<a href="blike.bit"><li>즐겨찾기</li></a>
-						<a href="management/management.bit"><li>마이페이지</li></a>
-						<a href="management/management.bit"><li>후원게시판</li></a>
-
 						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
-<<<<<<< HEAD
-						<a href="${pageContext.request.contextPath}/blike.bit"><li>즐겨찾기</li></a>
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>마이페이지</li></a>
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>후원게시판</li></a>
-=======
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a> 
 						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
-						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
->>>>>>> 502d19e68fa2263268137b2b5133ab5d7345a18b
+						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a> 					
 					</ul>
 				</div>
 			</div>
@@ -102,6 +72,4 @@
 	<script src="${pageContext.request.contextPath}/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
-
-</html>  
-
+	

@@ -24,12 +24,12 @@ public class JoinService {
 	}
 
 	@Autowired
-	UserDao UserDao;
+	UserDao userdao;
 
 	//회원 가입
 	public String insert(final User user) throws ClassNotFoundException, SQLException {
 		  
-	UserDao userdao = sqlsession.getMapper(UserDao.class);
+	userdao = sqlsession.getMapper(UserDao.class);
 			
 	try {
 			userdao.insert(user);			
@@ -37,7 +37,7 @@ public class JoinService {
 			e.printStackTrace();
 	}
 			
-	return "redirect:login.jsp";
+	return "redirect:login.bit";
 
 	}
 

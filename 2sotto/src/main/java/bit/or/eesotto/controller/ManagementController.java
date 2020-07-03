@@ -25,16 +25,9 @@ public class ManagementController {
 		return "management/main";
 	}
 
-	// 관리>일정 페이지 view
-	@RequestMapping(value = "schedule.bit", method = RequestMethod.GET)
-	public String scheduleView() {
-		return "management/schedule";
+	@RequestMapping(value = "registerPets.bit", method = RequestMethod.GET)
+	public String registerPets() {
+		return "management/registerPets";
 	}
-
-	// 관리>병원기록 페이지 view
-	@RequestMapping(value = "hospitalRecord.bit", method = RequestMethod.GET)
-	public String hospitalRecord() {
-		return "management/hospitalRecord";
-	}
-
+	
 }

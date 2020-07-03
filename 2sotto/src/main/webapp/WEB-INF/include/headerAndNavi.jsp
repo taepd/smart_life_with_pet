@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
 
+<style>
+
+.fixed-top{
+	position: relative;
+}
+</style>
 
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
@@ -37,6 +43,7 @@
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
 						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
 						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
+
 					</ul>
 				</div>
 			</div>

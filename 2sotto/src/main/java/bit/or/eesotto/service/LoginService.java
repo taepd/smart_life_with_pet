@@ -21,13 +21,13 @@ public class LoginService {
 	}
 
 	@Autowired
-	UserDao UserDao;
+	UserDao userDao;
 
 	public User normalLogin(String userid) {
 
-		UserDao = sqlsession.getMapper(UserDao.class);
+		userDao = sqlsession.getMapper(UserDao.class);
 
-		return UserDao.getUser(userid);
+		return userDao.getUser(userid);
 		
 	}
 

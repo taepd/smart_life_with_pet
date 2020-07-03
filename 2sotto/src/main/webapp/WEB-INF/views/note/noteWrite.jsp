@@ -20,7 +20,8 @@
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 	
-<c:set var="user_id" value="${sessionScope.user_id}"/>
+
+	<c:set var="user_id" value="${sessionScope.user_id}"/>
 <header>
 <c:choose>
 	<c:when test="${user_id != null}">
@@ -47,53 +48,42 @@
 	<div style="height: 10px;"></div>
 	<div class="row">
 	<div class= "col-md-9 ml-auto mr-auto" >
-	<form class="form form-row" enctype="multipart/form-data">
-		<table class="col" >
+	<form name="letterForm" >
+		<input type="hidden" name="id" value=""/>
+	<table border width="300" >
+		
+		<tr>
+			<th bgcolor="hotpink"> 받는사람</th>
+			<td> <input type ="text" name ="user" size="20" ></td>
+		</tr>
+
+		<tr>
+			<th bgcolor="hotpink"> 제목</th>
+			<td> <input type ="text" name ="title" size="20" ></td>
+		
+		<tr>
+			<td colspan=4>
+			
+				<textarea cols="30" rows="10"name="content"> </textarea>
+			</td>
+		</tr>
 	
-			<tr>
-				
-				<td> 
-					<input type="text" class="form-control" name="user_id" size="10" maxlength="10" placeholder="글쓴이" value="${user_id}" hidden />
-               		<input type="text" name="bookSeq" value="${param.bookSeq}" hidden/>
-               </td>
-              
-			</tr>
-			<tr>
-				
-				<td>
-					<div style="margin-bottom:8px;">
-						<input type="text" class="form-control" name="post_title"
-							placeholder="제목을 입력하세요" value="" required />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				
-				<td><textarea id="summernote" name="post_contents" cols="67"
-						rows="20"  required></textarea>
-				</td>
-			</tr>
-			<tr>
-				
-				<td><input name="file" type="file"/><br></td>
-			</tr>
-			<tr bgcolor="cccccc">
-				<td colspan="2" style="height: 1px;"></td>
-			</tr>
-			<tr>
-				<td colspan="2">&nbsp;</td>
-			</tr>
-			<tr>
-				<td align="center">
-					<a href="javascript:history.go(-1)" class="btn btn-round btn-white">&nbsp;&nbsp;뒤로&nbsp;&nbsp;</a>
-					<a href="javascript:addpost()" class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a>
-				</td>
-			</tr>
-		</table><br>
-	</form>
+	</table>
+	<table width="300">
+		<th>
+			<input type="reset" value="다시 쓰기"/>
+			<input type ="button" value="보내기" onClick="goURI('SEND')" />
+			<input type ="button" value="취소" onClick="self.close()"/>
+			
+	
+		</th>
+	</table>	
+</form>
+
+
 	</div>
 	</div>
-	<!-- 게시판 등록 -->
+	
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	<script type="text/javascript">
 		$(function() {

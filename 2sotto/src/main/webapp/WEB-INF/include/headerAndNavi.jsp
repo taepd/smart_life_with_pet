@@ -10,6 +10,7 @@
 				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
+<<<<<<< HEAD
 
 
                 <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
@@ -19,6 +20,9 @@
 
                 <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
 
+=======
+                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
+>>>>>>> 502d19e68fa2263268137b2b5133ab5d7345a18b
                 	시작하기
                 </a>
 			</li>
@@ -60,9 +64,15 @@
 
 						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
+<<<<<<< HEAD
 						<a href="${pageContext.request.contextPath}/blike.bit"><li>즐겨찾기</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>마이페이지</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>후원게시판</li></a>
+=======
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
+						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
+>>>>>>> 502d19e68fa2263268137b2b5133ab5d7345a18b
 					</ul>
 				</div>
 			</div>

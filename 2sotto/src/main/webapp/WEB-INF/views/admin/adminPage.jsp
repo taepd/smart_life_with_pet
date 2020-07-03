@@ -151,6 +151,8 @@
 			<button type="button" onclick="location.href='donationPage.bit'">도네이션페이지</button>
 			<button type="button" onclick="location.href='donationWrite.bit'">도네이션 글쓰기</button>
 			<button type="button" onclick="location.href='donationQaView.bit'">도네이션QaView</button>
+			<button type="button" onclick="location.href='noteWrite.bit'">쪽지보내기</button>
+			<button type="button" onclick="location.href='notePage.bit'">받은 쪽지함</button>
 	</div>
 			</div>
 		</div>

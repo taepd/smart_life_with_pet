@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
@@ -24,7 +23,7 @@ request.setCharacterEncoding("UTF-8");
 <body>
 
 	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/headerAndNavi.jsp"%>
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 
 

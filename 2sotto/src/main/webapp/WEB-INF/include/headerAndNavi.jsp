@@ -31,7 +31,7 @@
 				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="login.bit" class="btn btn-rose btn-raised btn-round">
+                <a href="joinForm.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>

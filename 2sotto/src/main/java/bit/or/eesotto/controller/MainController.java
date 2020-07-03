@@ -21,7 +21,7 @@ public class MainController {
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
 
 
-			return "main";
+			return "redirect:/";
 		}
 
 }

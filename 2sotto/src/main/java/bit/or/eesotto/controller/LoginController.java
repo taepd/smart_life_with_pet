@@ -37,7 +37,7 @@ public class LoginController {
 		
 		User user = null;
 		
-		user = ls.normalLogin(userid);
+		user = ls.normalLogin(userid); 
 		
 		String msg = "";
 		String url = "";

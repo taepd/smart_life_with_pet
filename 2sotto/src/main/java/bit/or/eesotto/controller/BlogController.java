@@ -13,28 +13,34 @@ import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.LoginService;
 
 @Controller
-@RequestMapping("/management/")
-public class ManagementController {
+@RequestMapping("/blog/")
+public class BlogController {
 
 //	@Autowired
 //	LoginService ls;
 
-	// 관리페이지 view
+	// 블로그 메인 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String mainView() {
-		return "management/main";
+		return "blog/main";
 	}
 
-	// 관리>일정 페이지 view
-	@RequestMapping(value = "schedule.bit", method = RequestMethod.GET)
-	public String scheduleView() {
-		return "management/schedule";
+	// 블로그>상세 페이지 view
+	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
+	public String detail() {
+		return "blog/detail";
 	}
 
-	// 관리>병원기록 페이지 view
-	@RequestMapping(value = "hospitalRecord.bit", method = RequestMethod.GET)
-	public String hospitalRecord() {
-		return "management/hospitalRecord";
+	// 블로그>글쓰기 페이지 view
+	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
+	public String write() {
+		return "blog/write";
+	}
+
+	// 블로그>즐겨찾기 페이지 view
+	@RequestMapping(value = "favorite.bit", method = RequestMethod.GET)
+	public String favorite() {
+		return "blog/favorite";
 	}
 
 }

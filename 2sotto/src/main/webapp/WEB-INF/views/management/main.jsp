@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h3>관리 페이지</h3>
-	<button type="button" onclick="location.href='management.bit'">관리 홈</button>
+	<button type="button" onclick="location.href='main.bit'">관리 홈</button>
 	<button type="button" onclick="location.href='schedule.bit'">일정</button>
 	<button type="button" onclick="location.href='hospitalRecord.bit'">병원 기록</button>
 	

@@ -14,7 +14,7 @@
 
 <body>
 
-    <jsp:include page="/WEB-INF/views/include/headerAndNavi.jsp" />
+    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
     
     <div class="side_overlay">
           <div class="container">
@@ -73,7 +73,7 @@
             </div>
           </div> <!-- section end  -->
             <div class="row">
-                text area
+                text area 여기는 인덱스 화면
             </div>
         </div> <!-- carousel end -->
     </div> <!-- side_overlay end -->

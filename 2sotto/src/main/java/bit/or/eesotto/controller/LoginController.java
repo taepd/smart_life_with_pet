@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.LoginService;
@@ -34,7 +35,7 @@ public class LoginController {
 
 	// 일반 로그인 처리
 	@RequestMapping(value="nomalLogin.bit", method = RequestMethod.POST)
-	public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
+	public String nomalLogin(String userid, String pwd, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
 		
 		User user = null;
 		
@@ -45,19 +46,13 @@ public class LoginController {
 
 		if (user != null && userid.equals(user.getUserid()) && pwd.equals(user.getPwd())) {
 			session.setAttribute("userid", userid);
-			msg = "로그인 성공";
-			url = "main.bit";
+			return "redirect:/";
 
-		} else {
-			msg = "로그인 실패";
-			url = "main.bit";
-			/* url = "./index.html"; */
+		}else {
+			redirectAttributes.addFlashAttribute("failedLogin", "failed"); //redirectAttributes 검색해 볼 것
+			return "redirect:/login.bit";
 		}
 
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
-		return "redirect";
 	}
 
 }

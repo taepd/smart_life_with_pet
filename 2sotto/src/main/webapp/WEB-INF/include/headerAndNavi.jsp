@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
     
 <!DOCTYPE html>
 <html>
@@ -57,9 +56,15 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
+<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
 						<li><a href="management/management.bit">반려동물 관리</a></li>
 						<li><a href="management/management.bit">블로그</li>
 						<li><a href="blike.bit">즐겨찾기</li>
+=======
+						<li><a href="management/main.bit">반려동물 관리</a></li>
+						<li><a href="blog/main.bit">블로그</li>
+						<li><a href="management/management.bit">즐겨찾기</li>
+>>>>>>> d1fc9db715d431a33310f81a035d57ebb9491a41:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
 						<li><a href="management/management.bit">마이페이지</li>
 						<li><a href="management/management.bit">후원게시판</li>
 					</ul>

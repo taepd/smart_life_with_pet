@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/include/headerAndNavi.jsp" />
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	
 	<div class="side_overlay">
 		<div class="container">
@@ -45,9 +45,14 @@
 												<i class="material-icons">lock_outline</i>
 											</span>
 										</div>
-					                  	<input type="password" class="form-control" placeholder="비밀번호" name="pwd">
-									</div>
+					                  	<input type="password" class="form-control" placeholder="비밀번호" name="pwd"/>
+					                </div>
 								</span>
+								<!-- 로그인 실패했을 때 뜨는 안내메시지 -->
+								<c:if test="${failedLogin != null}">
+								<p style="color:red;">아이디 또는 비밀번호가 잘못되었습니다.</p><!-- 스타일 나중에 수정할 것 -->
+								</c:if>
+								<!-- 로그인 실패했을 때 뜨는 안내메시지 -->
 							</div>
 							
 							<!-- 소셜로그인 아이콘인데 일단 둠 > 안쓰면 나중에 삭제

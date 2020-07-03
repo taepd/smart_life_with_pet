@@ -39,7 +39,8 @@
 	</c:otherwise>
 </c:choose>
 </header>
-
+	<div class="side_overlay">
+		<div class="container">
 	<div class="section">
 		<div class="container tim-container">
 		</div>
@@ -81,6 +82,8 @@
 </form>
 
 
+	</div>
+	</div>
 	</div>
 	</div>
 	

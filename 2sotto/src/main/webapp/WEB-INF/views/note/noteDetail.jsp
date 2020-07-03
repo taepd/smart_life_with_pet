@@ -39,6 +39,8 @@
 </c:choose>
 </header>
 <!-- 게시판 수정 -->
+	<div class="side_overlay">
+		<div class="container">
 <div style="max-width:1000px; margin:0 auto; padding: 100px 80px 170px 80px;background-color:white;">
 
 <table cellpadding="0" cellspacing="0" >
@@ -102,7 +104,9 @@
 	
 </table>
 </div>
-</form>
+</div>
+</div>
+
 <script>
 $('#confirmDelete').click(function() {
 	/* var result = confirm('정말로 삭제하시겠습니까?'); 

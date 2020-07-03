@@ -5,6 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="bit.or.eesotto.dao.LoginDaooo">
 
 
+	<select id="getUser" resultType="bit.or.eesotto.dto.User">
+		select userid, nick, pwd, loc, cpnumber, enabled, profile, rtime, lat, lot, point
+		from user
+		where userid=#{uid}	
+	</select>
+	
+	<insert id="insert" parameterType="bit.or.eesotto.dto.User">
+		INSERT INTO USER(USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, RTIME)
+		VALUES(#{userid}, #{pwd}, #{nick}, #{loc}, #{cpnumber}, 1, SYSDATE)
+	</insert>
+	
+	<update id="updateMember">
+		update member
+		set pwd = #{pwd}, name=#{name}, cphone=#{cphone}, email=#{email}
+		where userid = #{userid}
+	</update>
+
+
+
 	<!-- public Admin getAdmin(String id); -->
 <!-- 	<select id="getAdmin" resultType="dto.Admin">
 		SELECT USERID, PWD FROM ADMINLIST WHERE USERID=#{userid}

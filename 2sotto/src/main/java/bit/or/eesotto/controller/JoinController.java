@@ -44,7 +44,8 @@ public class JoinController {
 	@RequestMapping(value = "joinForm.bit", method = { RequestMethod.GET, RequestMethod.POST })
 	public String joinForm(HttpSession session, Model model)throws IOException {
 	
-	// 이메일 인증번호 확인을 위한 랜덤숫자 생성
+	
+		// 이메일 인증번호 확인을 위한 랜덤숫자 생성
 	//int ran = new Random().nextInt(900000) + 100000;
 	//model.addAttribute("random", ran);
 	

@@ -12,8 +12,7 @@
 <body>
 
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-    
-   
+       
     	<div class="container">
     	 <div class="side_overlay">
 	        <div class="section" id="carousel">

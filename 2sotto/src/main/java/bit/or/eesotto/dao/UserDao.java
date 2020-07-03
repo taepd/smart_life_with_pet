@@ -1,5 +1,7 @@
 package bit.or.eesotto.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,7 +14,9 @@ public interface UserDao {
 	// 일반 로그인
 	@Select("select * from user where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);
-
+	
+	@Select("select userid from user where userid = #{userid}")
+	public List<String> getUserId(@Param("userid") String userid);
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")
 //	public User snsLogin(@Param("uEmail") String uEmail);

@@ -1,5 +1,7 @@
 package bit.or.eesotto.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +13,7 @@ import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.User;
 
 @Service
-public class LoginService {
+public class JoinService {
 
 	private SqlSession sqlsession;
 
@@ -23,11 +25,21 @@ public class LoginService {
 	@Autowired
 	UserDao userDao;
 
-	public User normalLogin(String userid) {
+	public List<String> idCheck(String userid) { 
 
-		userDao = sqlsession.getMapper(UserDao.class);
+		List<String> list = null;
 
-		return userDao.getUser(userid);
+		try {
+			userDao = sqlsession.getMapper(UserDao.class);
+			
+			list = userDao.getUserId(userid);
+					
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return list;
 		
 	}
 

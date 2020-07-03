@@ -72,5 +72,40 @@ public class AdminController {
 
 					return mav;
 				}
+				//adminPoint List
+				@RequestMapping(value = "adminPointList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+				public ModelAndView adminPointList(HttpSession session) throws IOException {
+
+
+					/* 생성한 url 전달 */
+					ModelAndView mav = new ModelAndView();
+					mav.setViewName("admin/adminPointList");
+
+					return mav;
+				}
+				
+				//adminUser List
+				@RequestMapping(value = "adminUserList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+				public ModelAndView adminUserList(HttpSession session) throws IOException {
+
+
+					/* 생성한 url 전달 */
+					ModelAndView mav = new ModelAndView();
+					mav.setViewName("admin/adminUserList");
+
+					return mav;
+				}
+				
+				//adminUser Detail
+				@RequestMapping(value = "adminUserDetail.bit", method = { RequestMethod.GET, RequestMethod.POST })
+				public ModelAndView adminUserDetail(HttpSession session) throws IOException {
+
+
+					/* 생성한 url 전달 */
+					ModelAndView mav = new ModelAndView();
+					mav.setViewName("admin/adminUserDetail");
+
+					return mav;
+				}
 
 }

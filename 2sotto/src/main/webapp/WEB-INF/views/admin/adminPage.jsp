@@ -152,7 +152,11 @@
 			<button type="button" onclick="location.href='donationWrite.bit'">도네이션 글쓰기</button>
 			<button type="button" onclick="location.href='donationQaView.bit'">도네이션QaView</button>
 			<button type="button" onclick="location.href='noteWrite.bit'">쪽지보내기</button>
-			<button type="button" onclick="location.href='notePage.bit'">받은 쪽지함</button>
+			<button type="button" onclick="location.href='adminPointList.bit'">포인트목록</button>
+			<button type="button" onclick="location.href='adminPointDetail.bit'">포인트상세</button>
+			<button type="button" onclick="location.href='adminUserList.bit'">회원목록</button>
+			<button type="button" onclick="location.href='adminUserDetail.bit'">회원상세</button>
+			
 	</div>
 			</div>
 		</div>

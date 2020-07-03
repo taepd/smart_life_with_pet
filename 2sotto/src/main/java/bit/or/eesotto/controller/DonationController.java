@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class donationController {
+public class DonationController {
 
 	//donation 보러가기
 	@RequestMapping(value = "donationPage.bit", method = { RequestMethod.GET, RequestMethod.POST })

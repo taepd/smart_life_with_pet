@@ -43,10 +43,10 @@
 
 <table cellpadding="0" cellspacing="0" >
 	<tr style="color:tomato;">
-		<td colspan="5">후원게시판</td>
+		<td colspan="5">쪽지 상세보기</td>
 	<tr>
 		<td style="font-family:돋음; font-size:12">
-			<h2><b>${currentPost.post_title}후원글 제목</b></h2>
+			<h2><b>${currentPost.user}보낸사람</b></h2>
 		</td>
 	</tr>
 	
@@ -62,7 +62,7 @@
 			<table border=0 width=100% style="table-layout:fixed;min-height:280px;">
 				<tr>
 					<td valign=top style="font-family:돋음; font-size:12;">
-						<div style="margin:40px 40px 80px 40px;">${currentPost.post_contents}후원게시판 내용</div>
+						<div style="margin:40px 40px 80px 40px;">${currentPost.post_contents}쪽지 내용</div>
 					</td>
 				</tr>
 			</table>

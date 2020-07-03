@@ -1,26 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>2sotto</title>
+<head>	
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png"
-	type="image/x-icon">
-
+    <title>홈_슬기로운 반려생활</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
+    
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/headerAndNavi.jsp"%>
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 
 
@@ -157,6 +151,8 @@
 			<button type="button" onclick="location.href='donationPage.bit'">도네이션페이지</button>
 			<button type="button" onclick="location.href='donationWrite.bit'">도네이션 글쓰기</button>
 			<button type="button" onclick="location.href='donationQaView.bit'">도네이션QaView</button>
+			<button type="button" onclick="location.href='noteWrite.bit'">쪽지보내기</button>
+			<button type="button" onclick="location.href='notePage.bit'">받은 쪽지함</button>
 	</div>
 			</div>
 		</div>

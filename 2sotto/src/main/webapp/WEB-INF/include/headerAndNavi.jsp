@@ -1,37 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
 
-	<title>Insert title here</title>
-
-	<meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/material-kit.css?v=2.0.4" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/headerAndNavi.css">
-
-	<!-- Fonts and icons -->
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-	
-</head>
-
-<body>
 
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
-		<span id="header-title">슬기로운 반려생활</span>
+		<span id="header-title"><a href="${pageContext.request.contextPath}/index.jsp">슬기로운 반려생활</a></span>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item" id="item01">
-				<a href="login.bit" class="nav-link">로그인</a>
+				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="login.bit" class="btn btn-rose btn-raised btn-round">
+                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>
@@ -53,18 +32,18 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-						<a href="management/managementMain.bit"><li>반려동물 관리</li></a>
-						<a href="blog/main.bit"><li>블로그</li></a>
-						<a href="management/management.bit"><li>즐겨찾기</li></a>
-						<a href="management/management.bit"><li>마이페이지</li></a>
-						<a href="management/management.bit"><li>후원게시판</li></a>
+						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
+						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
+						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
+						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
+
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 
-</body>
 
 	<!--   Core JS Files   -->
 	<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js" type="text/javascript"></script>
@@ -89,4 +68,3 @@
 
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	
-</html>

@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>	
@@ -15,8 +13,9 @@
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	
 	<div class="container">
-		<h3>블로그 즐겨찾기 페이지</h3>
+		<h3>병원기록 페이지</h3>
 	</div>
-		
+	
+	
 </body>
 </html>

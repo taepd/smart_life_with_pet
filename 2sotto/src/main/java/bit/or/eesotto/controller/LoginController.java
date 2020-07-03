@@ -27,7 +27,7 @@ public class LoginController {
 
 	
 	// 로그인 view
-	@RequestMapping(value = "login.bit", method = RequestMethod.GET) 
+	@RequestMapping(value = "login.bit", method = RequestMethod.GET)  
 	public String login() { return "login/loginForm"; }
 	 
 

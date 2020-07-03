@@ -18,11 +18,15 @@
 	<div class="container">
 	
 		<h3>반려동물 등록하기</h3>
-		<form>
-			<div class="form-group">
-				<label for="exampleInputEmail1">이름</label>
-				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="반려동물의 이름을 입력하세요">
-			</div>
+		
+		<form action="#">
+		
+			<div class="form-group bmd-form-group">
+                <label for="exampleInput1" class="bmd-label-floating">이름</label>
+                <input type="email" class="form-control" id="exampleInput1">
+                <span class="bmd-help">반려동물의 이름을 입력하세요</span>
+            </div>
+		
 			<div class="form-check">
                 <label for="exampleInputEmail1">종류</label>
                 <br>
@@ -68,9 +72,25 @@
                 </label>
 			</div>
 			<!-- 크기 일단 뺌 >> 애매모호한 구석이 있음... -->
+			<div class="form-group bmd-form-group">
+                <label for="exampleInput1" class="bmd-label-floating">몸무게</label>
+                <input type="email" class="form-control" id="exampleInput1"> kg
+                <span class="bmd-help">반려동물의 몸무게를 입력하세요</span>
+            </div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">몸무게</label>
-				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="반려동물의 몸무게를 입력하세요"> kg
+				<label for="exampleInputEmail1">나이</label>
+				<select class="custom-select">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+				</select>
+				년
+				<select class="custom-select">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+				</select>
+				개월
 			</div>
 			<div class="form-check">
                 <label for="exampleInputEmail1">털 길이</label>
@@ -115,10 +135,11 @@
 					</span>
                 </label>
 			</div>
-			<div class="form-group">
-				<label for="exampleInputEmail1">특이사항</label>
-				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="반려동물의 특이사항을 입력하세요">
-			</div>
+			<div class="form-group bmd-form-group">
+                <label for="exampleInput1" class="bmd-label-floating">특이사항</label>
+                <input type="email" class="form-control" id="exampleInput1">
+                <span class="bmd-help">반려동물의 특이사항을 입력하세요</span>
+            </div>
 			
 			<button type="submit" class="btn btn-primary">등록</button>
 			<button type="reset" class="btn btn-primary">다시쓰기</button>

@@ -8,22 +8,14 @@
 
     <title>회원 가입</title>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
 
+	<!-- 카카오 api -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14e1cd5829baabce1e0239e9778eb76a&libraries=services"></script>
 	<!-- 카카오 주소 api 호출 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
-
-<script
-	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	
-
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
-	rel="stylesheet">
 <style>
 .btn-file {
 	position: relative;
@@ -309,11 +301,11 @@ input {
 		<!-- ============================================================== -->
 		<!-- Bread crumb and right sidebar toggle -->
 		<!-- ============================================================== -->
-		<div class="page-header">
+
 			<h1 class="logo" align="center" style="padding-bottom: 10px;">
 				<a href="register.bit" style="text-decoration:none "><b>2sotto</b></a>
 			</h1>
-		</div>
+
 		<br>
 		<br>
 		<!-- ============================================================== -->
@@ -433,6 +425,22 @@ input {
 									<div class="col-sm-12"></div>
 								</div>
 
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<div class="row row-space">
+											<div class="col-10">
+												<div class="input-group">
+													<label for="cono1" class="label" style="text-align: left">휴대폰 번호</label>
+													<input class="input--style-4" type="text" maxlength="20"
+														id="cpnumber" name="cpnumber" title="닉네임"
+														placeholder="휴대폰 번호를 입력해 주세요">
+												</div>
+											</div>
+											<div class="col-2"></div>
+										</div>
+									</div>
+									<div class="col-sm-12"></div>
+								</div>
 
 
 

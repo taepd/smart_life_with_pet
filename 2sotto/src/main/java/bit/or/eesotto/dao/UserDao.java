@@ -15,6 +15,7 @@ public interface UserDao {
 	@Select("select * from user where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);
 	
+	// 회원가입> 아이디 중복체크 ajax
 	@Select("select userid from user where userid = #{userid}")
 	public List<String> getUserId(@Param("userid") String userid);
 //	// SNS로그인 (가입한 소셜까지 확인)

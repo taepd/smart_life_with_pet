@@ -31,8 +31,9 @@ public class JoinService {
 
 		try {
 			userDao = sqlsession.getMapper(UserDao.class);
-			
+			System.out.println("요것"+userid);
 			list = userDao.getUserId(userid);
+			System.out.println("이것"+list);
 					
 
 		} catch (Exception e) {

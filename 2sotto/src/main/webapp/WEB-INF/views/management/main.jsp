@@ -7,6 +7,7 @@
 
 	<title>동물관리 홈</title>
 	
+<<<<<<< HEAD
 	<%@ include file="/WEB-INF/include/import.jsp"%>
     
     <!-- fullcalendar -->
@@ -121,10 +122,15 @@
 	 
 	<div class="side_overlay">
 		<div class="container">
+
 		
 		<button class="btn btn-primary btn-round" onclick="location.href='registerPets.bit'">반려동물 등록</button>
 		
+		<button class="btn btn-primary btn-round" onclick="location.href='registerPets.bit'">반려동물 등록</button>
 		
+
+		
+
 			<div class="card card-nav-tabs">
                 <div class="card-header card-header-primary">
                   <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -297,6 +303,7 @@
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                         <button type="button" class="btn btn-primary" id="save-event">저장</button>
+<<<<<<< HEAD
                     </div>
                     <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -341,6 +348,7 @@
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
                                 checked>지효</label>
                     </div>
+
                 </div>
 
             </div>
@@ -374,6 +382,7 @@
                     			<tbody> <tr> <td> Dakota Rice </td> <td> Niger </td> <td> Oud-Turnhout </td> <td class="text-right"> $36,738 </td>
                     				</tr> <tr> <td> Minerva Hooper </td> <td> Curaçao </td> <td> Sinaai-Waas </td> <td class="text-right"> $23,789 </td> </tr>
                     	</table>
+
                     </div>
                     
                     
@@ -399,6 +408,7 @@
                     
                     </div>
                     
+
 <!------------------------------------------ 끝 --------------------------------------------------------------- -->
                     
                     

@@ -7,18 +7,20 @@
 
 	<title>동물관리 홈</title>
 	
-<<<<<<< HEAD
 	<%@ include file="/WEB-INF/include/import.jsp"%>
     
     <!-- fullcalendar -->
+    <!-- 
     <link href='${pageContext.request.contextPath}/fullcalendar/packages/core/main.css' rel='stylesheet' />
 	<link href='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 	<link href='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.css' rel='stylesheet' />
+	
 	<script src='${pageContext.request.contextPath}/fullcalendar/packages/core/main.js'></script>
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script>
 	<script src='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.js'></script>
 	<script src='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.js'></script>
-	
+
+	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script>
+	 -->
 	<!-- <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
 	<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
  -->
@@ -34,11 +36,112 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/FullCalendar-Example-master/css/main.css">
    -->
+   
+   
+    <!-- <link href='fullcalendar/main.css' rel='stylesheet' />
+    <script src='fullcalendar/main.js'></script>
+     -->
+     
+    <!-- <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
+  	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
+ 	<style>
+		.fc-toolbar-title {
+			color: black;
+		} 	
+ 	</style> -->
+ 
+ 
+ 	<script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/fullcalendar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/ko.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/select2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/addEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/editEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/etcSetting.js"></script>
+ 
+ 
  
 	<script>
 
+
+	/* document.addEventListener('DOMContentLoaded', function() {
+
+		var calendarEl = document.getElementById('calendar');
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	      theme: true,
+	      initialView: 'dayGridMonth',
+	      initialDate: '2020-07-07',
+	      headerToolbar: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+	      },
+	      events: [
+	        {
+	          title: 'All Day Event',
+	          start: '2020-06-01'
+	        },
+	        {
+	          title: 'Long Event',
+	          start: '2020-06-07',
+	          end: '2020-06-10'
+	        },
+	        {
+	          groupId: '999',
+	          title: 'Repeating Event',
+	          start: '2020-06-09T16:00:00'
+	        },
+	        {
+	          groupId: '999',
+	          title: 'Repeating Event',
+	          start: '2020-06-16T16:00:00'
+	        },
+	        {
+	          title: 'Conference',
+	          start: '2020-06-11',
+	          end: '2020-06-13'
+	        },
+	        {
+	          title: 'Meeting',
+	          start: '2020-06-12T10:30:00',
+	          end: '2020-06-12T12:30:00'
+	        },
+	        {
+	          title: 'Lunch',
+	          start: '2020-06-12T12:00:00'
+	        },
+	        {
+	          title: 'Meeting',
+	          start: '2020-06-12T14:30:00'
+	        },
+	        {
+	          title: 'Birthday Party',
+	          start: '2020-06-13T07:00:00'
+	        },
+	        {
+	          title: 'Click for Google',
+	          url: 'http://google.com/',
+	          start: '2020-06-28'
+	        }
+	      ], 
+	     
+	    });
+
+	    calendar.render();
+
+
+	    calendar.on('dateClick', function(info) {
+	    	  console.log('clicked on ' + info.dateStr);
+	    });
+
+	    
+	  }); */
 	
-		document.addEventListener('DOMContentLoaded', function() {
+		/* document.addEventListener('DOMContentLoaded', function() {
 	      var calendarEl = document.getElementById('calendar');
 	    
 	      var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -69,7 +172,7 @@
 	    
 	      calendar.render();
 	    });
-  
+   */
 
 /* 
 		$(function(){
@@ -125,9 +228,6 @@
 
 		
 		<button class="btn btn-primary btn-round" onclick="location.href='registerPets.bit'">반려동물 등록</button>
-		
-		<button class="btn btn-primary btn-round" onclick="location.href='registerPets.bit'">반려동물 등록</button>
-		
 
 		
 
@@ -204,11 +304,11 @@
                     
                     </div>
                     <div class="tab-pane" id="schedule">
-                    	<div id="calendar"></div>
-                    </div>
+                    	<!-- <div id="calendar"></div>
+                    </div> -->
                     	<!-- 일자 클릭시 메뉴오픈 -->
                     	
-                    	<!-- 
+                    	
         <div id="contextMenu" class="dropdown clearfix">
             <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
                 style="display:block;position:static;margin-bottom:5px;">
@@ -225,10 +325,10 @@
             <div id="loading"></div>
             <div id="calendar"></div>
         </div>
- -->
+ 
 
         <!-- 일정 추가 MODAL -->
-        <!-- 
+         
         <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -303,7 +403,6 @@
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                         <button type="button" class="btn btn-primary" id="save-event">저장</button>
-<<<<<<< HEAD
                     </div>
                     <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -311,8 +410,8 @@
                         <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
                     </div>
                 </div><!-- /.modal-content -->
-           <!--  </div>/.modal-dialog
-        </div>/.modal
+           </div> <!-- /.modal-dialog -->
+        </div><!-- /.modal -->
  
         <div class="panel panel-default">
 
@@ -353,21 +452,11 @@
 
             </div>
         </div>
-        /.filter panel -->
+        <!-- filter panel -->
+        </div>
+   
         
-        <%-- <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/fullcalendar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/ko.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/select2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/addEvent.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/editEvent.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/etcSetting.js"></script>
-        
-                     --%>
+                     
 	                 
 	                 
 <!--------------------------------------------- 병원 기록 영역 ---------------------------------------------------- -->   

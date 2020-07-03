@@ -4,8 +4,7 @@
 
 
 <html>
-<head>	
-<<<<<<< HEAD
+<head>	 
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -37,7 +36,6 @@
 
 
 
-=======
 
     <title>회원 가입</title>
 
@@ -317,13 +315,10 @@ input {
 		});			
 	});
 </script>  
->>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
-  
-    
-     <%@ include file="/WEB-INF/include/import.jsp"%>
+<%@ include file="/WEB-INF/include/import.jsp"%>
     
 </head>
-<<<<<<< HEAD
+
 <script type="text/javascript">
 		$(document).ready(function(){
 			// 취소
@@ -504,7 +499,6 @@ input {
 		</section>
 		
 	</body>
-=======
 <body>
 <!-- header -->
 <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>

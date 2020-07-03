@@ -1,18 +1,26 @@
 package bit.or.eesotto.controller;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.sql.SQLException;
+=======
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+=======
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +28,19 @@ import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.JoinService;
 import bit.or.eesotto.service.idCheckService;
 import net.sf.json.JSONObject;
+=======
+import org.springframework.web.servlet.ModelAndView;
 
+import bit.or.eesotto.service.JoinService;
+
+
+
+@Controller
+public class JoinController {
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
+
+	@Autowired
+	JoinService joinService;
 
 @Controller
 public class JoinController {
@@ -62,8 +82,23 @@ public class JoinController {
 	@RequestMapping(value = "joinForm.bit", method = RequestMethod.GET)
 	public String joinForm(HttpSession session, Model model)throws IOException {	
 	
+<<<<<<< HEAD
 		return "join/joinForm";
 }
+=======
+	return "join/joinForm";
+	}
+	
+	// ID 중복체크 Ajax 호출
+	@ResponseBody
+	@RequestMapping(value = "idCheck.bit", method = {RequestMethod.POST })
+	public List<String> idCheck(HttpServletRequest request, Model model)throws IOException {
+	
+		String id = request.getParameter("userid");
+		
+		return joinService.idCheck(id);
+	}
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
 
 	
 	//회원가입처리

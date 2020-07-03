@@ -10,6 +10,7 @@
 </head>
 <body>
 	
+	<jsp:include page="/WEB-INF/include/headerAndNavi.jsp" />
 	
 	<div class="side_overlay">
 		<div class="container">
@@ -77,6 +78,5 @@
 		</div> <!-- container end -->
 	</div> <!-- side_overlay end -->
 	
-	<jsp:include page="/WEB-INF/include/headerAndNavi.jsp" />
 </body>
 </html>

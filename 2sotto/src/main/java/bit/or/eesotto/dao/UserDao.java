@@ -1,6 +1,10 @@
 package bit.or.eesotto.dao;
 
+<<<<<<< HEAD
 import java.sql.SQLException;
+=======
+import java.util.List;
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,6 +20,7 @@ public interface UserDao {
 	@Select("select * from user where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);
 	
+<<<<<<< HEAD
 	/*
 	 //회원정보 얻기 public User getMember(String uid) throws ClassNotFoundException,
 	 SQLException;
@@ -30,6 +35,10 @@ public interface UserDao {
 	//가입시 id중복 체크
 	public int idCheck(User user); 
 
+=======
+	@Select("select userid from user where userid = #{userid}")
+	public List<String> getUserId(@Param("userid") String userid);
+>>>>>>> 552709afc25e3406a4f47703ec4b4dd622d858d3
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")
 //	public User snsLogin(@Param("uEmail") String uEmail);

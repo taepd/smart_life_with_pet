@@ -14,7 +14,7 @@
 </head>
 <body>
 <!-- header -->
-<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+<%@ include file="/WEB-INF/views/include/headerAndNavi.jsp"%>
 <!-- header -->
 
 <div class="joinForm-wrapper container col-md-8">

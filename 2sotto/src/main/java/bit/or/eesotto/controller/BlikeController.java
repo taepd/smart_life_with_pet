@@ -12,15 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BlikeController {
-
-
-
-	
-	// 회원가입 view
 	@RequestMapping(value = "blike.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public String blike(HttpSession session, Model model)throws IOException {
+	public ModelAndView blike(HttpSession session) throws IOException {
+
+
+		/* 생성한 url 전달 */
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("blike");
+
+		return mav;
+	}
+
+
 	
-	return "blike";
-}
+	
+
 
 }

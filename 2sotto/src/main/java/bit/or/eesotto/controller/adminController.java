@@ -60,5 +60,17 @@ public class adminController {
 
 					return mav;
 				}
+				
+				//adminPointDetail 보러가기
+				@RequestMapping(value = "adminPointDetail.bit", method = { RequestMethod.GET, RequestMethod.POST })
+				public ModelAndView adminPointDetail(HttpSession session) throws IOException {
+
+
+					/* 생성한 url 전달 */
+					ModelAndView mav = new ModelAndView();
+					mav.setViewName("admin/adminPointDetail");
+
+					return mav;
+				}
 
 }

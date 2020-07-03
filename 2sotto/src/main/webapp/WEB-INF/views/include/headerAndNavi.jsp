@@ -31,7 +31,7 @@
 				<a href="login.bit" class="nav-link">로그인</a>
             </li>
             <li class="nav-item" id="item02">
-                <a href="login.bit" class="btn btn-rose btn-raised btn-round">
+                <a href="join/joinForm.bit" class="btn btn-rose btn-raised btn-round">
                 	시작하기
                 </a>
 			</li>
@@ -53,25 +53,24 @@
 				</div>
 				<div class="menuList">
 					<ul class="navbar-nav ml-auto">
-<<<<<<< HEAD
-<<<<<<< HEAD:2sotto/src/main/webapp/WEB-INF/views/include/headerAndNavi.jsp
+
 						<li><a href="management/management.bit">반려동물 관리</a></li>
 						<li><a href="management/management.bit">블로그</li>
 						<li><a href="blike.bit">즐겨찾기</li>
-=======
+
 						<li><a href="management/main.bit">반려동물 관리</a></li>
 						<li><a href="blog/main.bit">블로그</li>
 						<li><a href="management/management.bit">즐겨찾기</li>
->>>>>>> d1fc9db715d431a33310f81a035d57ebb9491a41:2sotto/src/main/webapp/WEB-INF/include/headerAndNavi.jsp
+
 						<li><a href="management/management.bit">마이페이지</li>
 						<li><a href="management/management.bit">후원게시판</li>
-=======
+
 						<a href="management/main.bit"><li>반려동물 관리</li></a>
 						<a href="blog/main.bit"><li>블로그</li></a>
-						<a href="management/management.bit"><li>즐겨찾기</li></a>
+						<a href="blike.bit"><li>즐겨찾기</li></a>
 						<a href="management/management.bit"><li>마이페이지</li></a>
 						<a href="management/management.bit"><li>후원게시판</li></a>
->>>>>>> f525e2c7bb286b0678a69c88be338d87cedb5079
+
 					</ul>
 				</div>
 			</div>

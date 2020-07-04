@@ -13,6 +13,7 @@
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
 </head>
+
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
@@ -29,6 +30,7 @@
 						<li class="list-group-item">미세먼지: 좋음</li>
 						<li class="list-group-item">습도: 40</li>
 					</ul>
+
 				</div>
 				<div class="card card-nav-tabs col-xs-6" style="width: 20rem;">
 					<div class="card-header card-header-rose">최신 Q&A</div>
@@ -40,36 +42,37 @@
 				</div>
 			</div>
 			<!-- 후원 게시판 시작 -->
-			<div class="container">
+			<div class="row">
 				<h5>후원 게시판</h5>
 				<div class="row">
-
-					<div class="card card-nav-tabs col-xs-3" style="width: 20rem;">
+					
+					<div class="card card-nav-tabs col-xs-3" style="width: 23rem;">
 						<div class="card-body">
 							<h4 class="card-title">후원 게시글1</h4>
 							<p class="card-text">관심과 사랑을 주세요.</p>
 						</div>
-						<button class="btn btn-rose btn-sm" onclick="javascript:;" >후원하기😛</button>
+						<button class="btn btn-rose btn-sm" onclick="javascript:;">후원하기😛</button>
 					</div>
-					
-					<div class="card card-nav-tabs col-xs-3" style="width: 20rem;">
+
+					<div class="card card-nav-tabs col-xs-3" style="width: 23rem;">
 						<div class="card-body">
 							<h4 class="card-title">후원 게시글2</h4>
 							<p class="card-text">관심과 사랑을 주세요.</p>
 						</div>
-						<button class="btn btn-rose btn-sm" onclick="javascript:;" >후원하기😛</button>
+						<button class="btn btn-rose btn-sm" onclick="javascript:;">후원하기😛</button>
 					</div>
-					<div class="card card-nav-tabs col-xs-3" style="width: 20rem;">
+					<div class="card card-nav-tabs col-xs-3" style="width: 23rem;">
 						<div class="card-body">
 							<h4 class="card-title">후원 게시글3</h4>
 							<p class="card-text">관심과 사랑을 주세요.</p>
 						</div>
-						<button class="btn btn-rose btn-sm" onclick="javascript:;" >후원하기😛</button>
+						<button class="btn btn-rose btn-sm" onclick="javascript:;">후원하기😛</button>
 					</div>
 				</div>
 			</div>
+
 			<!-- 이번주 인기글 시작 -->
-			<div class="container">
+			<div class="row">
 				<h5>이번주 인기글</h5>
 				<div class="row">
 

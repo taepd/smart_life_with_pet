@@ -11,81 +11,138 @@
 
 </head>
 <body>
+
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 
 	<div class="side_overlay">
+
 		<div class="container">
-			<h2>Q&A게시판</h2>
-			<h3 class="hidden">방문페이지 로그</h3>
-			<ul id="breadscrumb" class="block_hlist clear">
-				<li>Bocastle</li>
-				<li>관리자</li>
-				<li>배고프다</li>
-			</ul>
-			<h3 class="hidden">Q&A 목록</h3>
-			<form id="content-searchform" class="article-search-form"
-				action="adminQa.jsp" method="get">
-				<fieldset>
-					<legend class="hidden"> 목록 검색 폼 </legend>
-					<input type="hidden" name="pg" value="" /> <label for="f"
-						class="hidden">검색필드</label> <select name="f">
-						<option value="TITLE">제목</option>
-						<option value="CONTENT">내용</option>
-					</select> <label class="hidden" for="q">검색어</label> <input type="text"
-						name="q" value="" /> <input type="submit" value="검색" />
-				</fieldset>
-			</form>
-			<table class="article-search-form margin-small">
-				<caption class="hidden">공지사항</caption>
-				<thead>
-					<tr>
-						<th class="">글번호</th>
-						<th class="">제목</th>
-						<th class="">작성자</th>
-						<th class="">등록시간</th>
-						<th class="">조회수</th>
-						<th class="">답변여부</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${list}" var="n">
-						<tr>
-							<td class="seq">${n.seq}</td>
-							<td class="title"><a href="noticeDetail.htm?seq=${n.seq}">${n.title}</a></td>
-							<td class="writer">${n.writer}</td>
-							<td class="regdate">${n.regdate}</td>
-							<td class="hit">${n.hit}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<p class="article-comment margin-small">
-				<a class="btn-write button" href="">글쓰기(대기)</a>
-			</p>
-			<p id="cur-page" class="margin-small">
-				<span class="strong">1</span> / 10 page
-			</p>
-			<div id="pager-wrapper" class="margin-small">
-				<div class="pager clear">
-					<p id="btnPrev">
-						<a class="button btn-prev" href="notice.jsp">이전</a>
-					</p>
-					<ul>
-						<li><a class="strong" href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li><a href="">3</a></li>
-						<li><a href="">4</a></li>
-						<li><a href="">5</a></li>
-					</ul>
-					<p id="btnNext">
-						<span class="button btn-next">다음</span>
-					</p>
+
+
+			<button class="btn btn-primary btn-round"
+				onclick="location.href='adminQa.bit'">Q&A게시판</button>
+
+
+
+			<div class="card  card-nav-tabs ">
+
+
+				<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+				<div class="nav-tabs-navigation">
+					<div class="nav-tabs-wrapper">
+						<ul class="nav nav-tabs" data-tabs="tabs">
+
+							<form class="form-inline">
+								<div class="form-inline">
+									<span>Show:</span> <label for="selected">&nbsp;&nbsp;&nbsp;<select
+										class="custom-select">
+											<option>&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;</option>
+											<option>&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;</option>
+											<option>&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;</option>
+									</select>
+									</label>
+								</div>
+							</form>
+							<form class="form-inline ml-auto">
+								<div class="form-group has-primary">
+									<input type="text" class="form-control" placeholder="검색가능">
+								</div>
+								<button type="submit"
+									class="btn  btn-white btn-just-icon btn-round">
+									<i class="material-icons">search</i>
+								</button>
+							</form>
+						</ul>
+					</div>
+				</div>
+
+
+				<div class="card-body">
+					<div class="tab-content text-center">
+
+						<!---------- Q&A 게시판  ------------------>
+
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<tr>
+										<th>글번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>등록시간</th>
+										<th>조회수</th>
+										<th>답변여부</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>농구 좋아하세요?</td>
+										<td>슬램덩크</td>
+										<td>2020.7.5 23:20</td>
+										<td>2</td>
+										<td>Y</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>야식 좋아하세요?</td>
+										<td>보캐슬</td>
+										<td>2020.7.5 23:40</td>
+										<td>5</td>
+										<td>N</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>포청천 좋아하세요?</td>
+										<td>김건휘</td>
+										<td>2020.7.5 23:45</td>
+										<td>100</td>
+										<td>Y</td>
+									</tr>
+							</table>
+
+						</div>
+
+						<div class="table-responsive">
+							<table class="table" style="text-align: left">
+								<thead class="text ">
+									<tr>
+										<th>총 게시글 :</th>
+										<td><input type="text" name="text" size="130"
+											style="width: 100%; border: 0;"></td>
+									</tr>
+								</thead>
+							</table>
+						</div>
+
+
+
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-end ">
+								<li class="page-item disabled"><a class="page-link"
+									href="javascript:;" tabindex="-1">Previous</a></li>
+								<li class="page-item"><a class="page-link"
+									href="javascript:;">1</a></li>
+								<li class="page-item"><a class="page-link"
+									href="javascript:;">2</a></li>
+								<li class="page-item"><a class="page-link"
+									href="javascript:;">3</a></li>
+								<li class="page-item"><a class="page-link"
+									href="javascript:;">Next</a></li>
+							</ul>
+						</nav>
+
+					</div>
+
 				</div>
 			</div>
 		</div>
+
 	</div>
+
+
 
 </body>
 </html>

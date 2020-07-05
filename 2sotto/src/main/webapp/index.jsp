@@ -7,9 +7,6 @@
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
     
-    
-    
-    
 </head>
 
 <body>
@@ -81,10 +78,8 @@
 				<button type="button" onclick="location.href='adminPage.bit'">어드민보러가기</button>
 	</div>
         </div> <!-- carousel end -->
-        
     </div> <!-- side_overlay end -->
     
-    <%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 
 </html>

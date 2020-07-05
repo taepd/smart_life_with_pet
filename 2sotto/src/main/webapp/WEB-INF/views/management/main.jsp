@@ -8,215 +8,65 @@
 	<title>동물관리 홈</title>
 	
 	<%@ include file="/WEB-INF/include/import.jsp"%>
-    
-    <!-- fullcalendar -->
-    <!-- 
-    <link href='${pageContext.request.contextPath}/fullcalendar/packages/core/main.css' rel='stylesheet' />
-	<link href='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
-	<link href='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.css' rel='stylesheet' />
-	
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/core/main.js'></script>
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.js'></script>
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.js'></script>
-
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script>
-	 -->
-	<!-- <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
-	<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
- -->
- 
- <!--
- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/css/fullcalendar.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href='${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/css/select2.min.css' />
-    <link rel="stylesheet" href='${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/css/bootstrap-datetimepicker.min.css' />
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/FullCalendar-Example-master/css/main.css">
-   -->
-   
-   
-    <!-- <link href='fullcalendar/main.css' rel='stylesheet' />
-    <script src='fullcalendar/main.js'></script>
-     -->
-     
-    <!-- <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
-  	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
  	<style>
-		.fc-toolbar-title {
-			color: black;
-		} 	
- 	</style> -->
- 
- 
- 	<script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/fullcalendar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/ko.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/select2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/vendor/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/addEvent.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/editEvent.js"></script>
-    <script src="${pageContext.request.contextPath}/FullCalendar-Example-master/js/etcSetting.js"></script>
- 
- 
- 
-	<script>
 
+	/* body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+		background-color: #DDDDDD;
+		} */
 
-	/* document.addEventListener('DOMContentLoaded', function() {
+	#wrap {
+		width: 1100px;
+		margin: 0 auto;
+		}
 
-		var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	      theme: true,
-	      initialView: 'dayGridMonth',
-	      initialDate: '2020-07-07',
-	      headerToolbar: {
-	        left: 'prev,next today',
-	        center: 'title',
-	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-	      },
-	      events: [
-	        {
-	          title: 'All Day Event',
-	          start: '2020-06-01'
-	        },
-	        {
-	          title: 'Long Event',
-	          start: '2020-06-07',
-	          end: '2020-06-10'
-	        },
-	        {
-	          groupId: '999',
-	          title: 'Repeating Event',
-	          start: '2020-06-09T16:00:00'
-	        },
-	        {
-	          groupId: '999',
-	          title: 'Repeating Event',
-	          start: '2020-06-16T16:00:00'
-	        },
-	        {
-	          title: 'Conference',
-	          start: '2020-06-11',
-	          end: '2020-06-13'
-	        },
-	        {
-	          title: 'Meeting',
-	          start: '2020-06-12T10:30:00',
-	          end: '2020-06-12T12:30:00'
-	        },
-	        {
-	          title: 'Lunch',
-	          start: '2020-06-12T12:00:00'
-	        },
-	        {
-	          title: 'Meeting',
-	          start: '2020-06-12T14:30:00'
-	        },
-	        {
-	          title: 'Birthday Party',
-	          start: '2020-06-13T07:00:00'
-	        },
-	        {
-	          title: 'Click for Google',
-	          url: 'http://google.com/',
-	          start: '2020-06-28'
-	        }
-	      ], 
-	     
-	    });
+	#external-events {
+		float: left;
+		width: 150px;
+		padding: 0 10px;
+		text-align: left;
+		}
 
-	    calendar.render();
+	#external-events h4 {
+		font-size: 16px;
+		margin-top: 0;
+		padding-top: 1em;
+		}
 
+	.external-event { /* try to mimick the look of a real event */
+		margin: 10px 0;
+		padding: 2px 4px;
+		background: #3366CC;
+		color: #fff;
+		font-size: .85em;
+		cursor: pointer;
+		}
 
-	    calendar.on('dateClick', function(info) {
-	    	  console.log('clicked on ' + info.dateStr);
-	    });
+	#external-events p {
+		margin: 1.5em 0;
+		font-size: 11px;
+		color: #666;
+		}
 
-	    
-	  }); */
-	
-		/* document.addEventListener('DOMContentLoaded', function() {
-	      var calendarEl = document.getElementById('calendar');
-	    
-	      var calendar = new FullCalendar.Calendar(calendarEl, {
+	#external-events p input {
+		margin: 0;
+		vertical-align: middle;
+		}
 
-	        	plugins: [ 'interaction', 'dayGrid', 'bootstrap' ],
-	        	themeSystem: 'bootstrap',
-		      	header: {
-					left: 'prevYear, prev, next, nextYear, today',
-					center: 'title',
-					right: 'dayGridMonth, dayGridWeek, dayGridDay'
-			      },
-			      
-			    defaultDate: '2020-07-03',
-			    events: [
-					{
-						title: '스터디',
-						start: '2020-07-03',
-						end: '2020-07-03'
-						},
-						{
-							title: '스터디',
-							start: '2020-07-20',
-							end: '2020-07-20'
-							}
-	
-				    ]
-	      });
-	    
-	      calendar.render();
-	    });
-   */
+	/* #calendar {
+ 		float: right;
+        margin: 0 auto;
+		width: 900px;
+		background-color: #FFFFFF;
+		  border-radius: 6px;
+        box-shadow: 0 1px 2px #C3C3C3;
+		} */
 
-/* 
-		$(function(){
-			 calendarEvent();
-			});
+</style>
 
-			function calendarEvent(eventData){
-			 $("#calendar").html("");
-			 var date = new Date();
-			 var d = date.getDate();
-			 var m = date.getMonth();
-			 var y = date.getFullYear();
-			 var calendar = $('#calendar').fullCalendar({
-			  header: {
-			   left: "",
-			   center: "title",
-//			    right: "month,basicWeek,basicDay"
-			   right: "today prev,next"
-			   },
-			   editable: true,
-			   titleFormat: {
-			   month: "yyyy년 MMMM",
-			   week: "[yyyy] MMM dd일{ [yyyy] MMM dd일}",
-			   day: "yyyy년 MMM d일 dddd"
-			   },
-			   allDayDefault: false,
-			   defaultView: "month",
-			   editable: false,
-			   monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-			   monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-			   dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
-			   dayNamesShort: ["일","월","화","수","목","금","토"],
-			   buttonText: {
-			   today : "오늘",
-			   month : "월별",
-			   week : "주별",
-			   day : "일별",
-			   },
-			   events : eventData,
-			   timeFormat : "HH:mm",
-			 });
-			 */
-	</script>
-    
 </head>
 <body>
 	 
@@ -266,8 +116,9 @@
                 <div class="card-body">
                   <div class="tab-content text-center">
                     <div class="tab-pane active show" id="home">
+                  	<div class="row">
                     
-                      <div class="card" style="width: 20rem;">
+                      <div class="card col" style="width: 20rem;">
 						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
 							<h4>동물 이름</h4>
@@ -278,7 +129,7 @@
 						  </div>
 					</div>
 					
-					<div class="card" style="width: 20rem;">
+					<div class="card col" style="width: 20rem;">
 						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_cat.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
 							<h4>동물 이름</h4>
@@ -289,7 +140,7 @@
 						  </div>
 					</div>
 					
-					<div class="card" style="width: 20rem;">
+					<div class="card col" style="width: 20rem;">
 						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
 							<h4>동물 이름</h4>
@@ -299,165 +150,20 @@
 						    <span class=""><i class="fas fa-times"></i></span>
 						  </div>
 					</div>
-                    
-                    
-                    
                     </div>
+                    </div>
+                    
+<!-- 이 아래로 fullcalendar 작업 영역---------------------------------------------------------------------------------------------  -->
                     <div class="tab-pane" id="schedule">
-                    	<!-- <div id="calendar"></div>
-                    </div> -->
-                    	<!-- 일자 클릭시 메뉴오픈 -->
+                    	<div id='wrap'>
+							<div id='calendar'></div>
+							
+							<div style='clear:both'></div>
+						</div>
                     	
-                    	
-        <div id="contextMenu" class="dropdown clearfix">
-            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-                style="display:block;position:static;margin-bottom:5px;">
-                <li><a tabindex="-1" href="#">카테고리1</a></li>
-                <li><a tabindex="-1" href="#">카테고리2</a></li>
-                <li><a tabindex="-1" href="#">카테고리3</a></li>
-                <li><a tabindex="-1" href="#">카테고리4</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-            </ul>
-        </div>
-
-        <div id="wrapper">
-            <div id="loading"></div>
-            <div id="calendar"></div>
-        </div>
- 
-
-        <!-- 일정 추가 MODAL -->
-         
-        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
+                    
+                    
                     </div>
-                    <div class="modal-body">
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
-                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-title">일정명</label>
-                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
-                                    required="required" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-start">시작</label>
-                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-end">끝</label>
-                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-type">구분</label>
-                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-                                    <option value="카테고리1">카테고리1</option>
-                                    <option value="카테고리2">카테고리2</option>
-                                    <option value="카테고리3">카테고리3</option>
-                                    <option value="카테고리4">카테고리4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-color">색상</label>
-                                <select class="inputModal" name="color" id="edit-color">
-                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
-                                    <option value="#495057" style="color:#495057;">검정색</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-desc">설명</label>
-                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-                                    id="edit-desc"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-addEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-modifyEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-                    </div>
-                </div><!-- /.modal-content -->
-           </div> <!-- /.modal-dialog -->
-        </div><!-- /.modal -->
- 
-        <div class="panel panel-default">
-
-            <div class="panel-heading">
-                <h3 class="panel-title">필터</h3>
-            </div>
-
-            <div class="panel-body">
-
-                <div class="col-lg-6">
-                    <label for="calendar_view">구분별</label>
-                    <div class="input-group">
-                        <select class="filter" id="type_filter" multiple="multiple">
-                            <option value="카테고리1">카테고리1</option>
-                            <option value="카테고리2">카테고리2</option>
-                            <option value="카테고리3">카테고리3</option>
-                            <option value="카테고리4">카테고리4</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <label for="calendar_view">등록자별</label>
-                    <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
-                                checked>정연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현"
-                                checked>다현</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나"
-                                checked>사나</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연"
-                                checked>나연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
-                                checked>지효</label>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- filter panel -->
-        </div>
-   
-        
-                     
-	                 
 	                 
 <!--------------------------------------------- 병원 기록 영역 ---------------------------------------------------- -->   
                     
@@ -509,4 +215,170 @@
 	</div> <!-- side_overlay end -->
 	
 </body>
+
+<!-- <script src='../fullcalendar-master/assets/js/jquery-1.10.2.js' type="text/javascript"></script> -->
+<script src='../fullcalendar-master/assets/js/jquery-ui.custom.min.js' type="text/javascript"></script>
+<link href='../fullcalendar-master/assets/css/fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar-master/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='../fullcalendar-master/assets/js/fullcalendar.js' type="text/javascript"></script>
+
+<script>
+
+	$(document).ready(function() {
+	    var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+		/*  className colors
+
+		className: default(transparent), important(red), chill(pink), success(green), info(blue)
+
+		*/
+
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+
+		$('#external-events div.external-event').each(function() {
+
+			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+			// it doesn't need to have a start or end
+			var eventObject = {
+				title: $.trim($(this).text()) // use the element's text as the event title
+			};
+
+			// store the Event Object in the DOM element so we can get to it later
+			$(this).data('eventObject', eventObject);
+
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex: 999,
+				revert: true,      // will cause the event to go back to its
+				revertDuration: 0  //  original position after the drag
+			});
+
+		});
+
+
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+
+		var calendar =  $('#calendar').fullCalendar({
+			header: {
+				left: 'title',
+				center: 'agendaDay,agendaWeek,month',
+				right: 'prev,next today'
+			},
+			editable: true,
+			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+			selectable: true,
+			defaultView: 'month',
+
+			axisFormat: 'h:mm',
+			columnFormat: {
+                month: 'ddd',    // Mon
+                week: 'ddd d', // Mon 7
+                day: 'dddd M/d',  // Monday 9/7
+                agendaDay: 'dddd d'
+            },
+            titleFormat: {
+                month: 'MMMM yyyy', // September 2009
+                week: "MMMM yyyy", // September 2009
+                day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
+            },
+			allDaySlot: false,
+			selectHelper: true,
+			select: function(start, end, allDay) {
+				var title = prompt('Event Title:');
+				if (title) {
+					calendar.fullCalendar('renderEvent',
+						{
+							title: title,
+							start: start,
+							end: end,
+							allDay: allDay
+						},
+						true // make the event "stick"
+					);
+				}
+				calendar.fullCalendar('unselect');
+			},
+			droppable: true, // this allows things to be dropped onto the calendar !!!
+			drop: function(date, allDay) { // this function is called when something is dropped
+
+				// retrieve the dropped element's stored Event Object
+				var originalEventObject = $(this).data('eventObject');
+
+				// we need to copy it, so that multiple events don't have a reference to the same object
+				var copiedEventObject = $.extend({}, originalEventObject);
+
+				// assign it the date that was reported
+				copiedEventObject.start = date;
+				copiedEventObject.allDay = allDay;
+
+				// render the event on the calendar
+				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+				// is the "remove after drop" checkbox checked?
+				if ($('#drop-remove').is(':checked')) {
+					// if so, remove the element from the "Draggable Events" list
+					$(this).remove();
+				}
+
+			},
+
+			events: [
+				{
+					title: 'All Day Event',
+					start: new Date(y, m, 1)
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d-3, 16, 0),
+					allDay: false,
+					className: 'info'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d+4, 16, 0),
+					allDay: false,
+					className: 'info'
+				},
+				{
+					title: 'Meeting',
+					start: new Date(y, m, d, 10, 30),
+					allDay: false,
+					className: 'important'
+				},
+				{
+					title: 'Lunch',
+					start: new Date(y, m, d, 12, 0),
+					end: new Date(y, m, d, 14, 0),
+					allDay: false,
+					className: 'important'
+				},
+				{
+					title: 'Birthday Party',
+					start: new Date(y, m, d+1, 19, 0),
+					end: new Date(y, m, d+1, 22, 30),
+					allDay: false,
+				},
+				{
+					title: 'Click for Google',
+					start: new Date(y, m, 28),
+					end: new Date(y, m, 29),
+					url: 'http://google.com/',
+					className: 'success'
+				}
+			],
+		});
+
+
+	});
+
+</script>
+<%@ include file="/WEB-INF/include/footer.jsp"%>
 </html>

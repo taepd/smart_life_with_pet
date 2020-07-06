@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-
-.fixed-top{
+.fixed-top {
 	position: relative;
 }
 </style>
@@ -37,35 +37,36 @@
 		</ul>
 	</nav>
 	
-	<!-- navi -->
-	<div id="wrapSideMenu" class="sidenav">
-		<div id="sideMenu">
-			<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
-			<div class="user-pic-wrapper">
-				<span class="user-pic"><i class="far fa-user-circle"></i></span>
-				<div class="nickname">
-					닉네임 자리
-					<br>
-					포인트 자리
-					<br>
-					<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
-				</div>
-				<div class="menuList">
-					<ul class="navbar-nav ml-auto">
-						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
-						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
-						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
-						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
-						<a href="${pageContext.request.contextPath}/admin/adminMain.bit"><li>관리자</li></a>
 
 
-					</ul>
-				</div>
+<!-- navi -->
+<div id="wrapSideMenu" class="sidenav">
+	<div id="sideMenu">
+		<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
+		<div class="user-pic-wrapper">
+			<span class="user-pic"><i class="far fa-user-circle"></i></span>
+			<div class="nickname">
+				닉네임 자리 <br> 포인트 자리 <br>
+				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
+			</div>
+			<div class="menuList">
+				<ul class="navbar-nav ml-auto">
+					<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물
+							관리</li></a>
+					<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
+					<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
+					<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
+					<a href="${pageContext.request.contextPath}/donation/main.bit"><li>후원게시판</li></a>
+					<a href="${pageContext.request.contextPath}/note/main.bit"><li>쪽지함</li></a>
+					<a href="${pageContext.request.contextPath}/qa/main.bit"><li>Q&A</li></a>
+					<a href="${pageContext.request.contextPath}/point/main.bit"><li>포인트관리</li></a>
+				<a href="${pageContext.request.contextPath}/admin/main.bit"><li>관리자 페이지</li></a>
+				</ul>
 			</div>
 		</div>
 	</div>
+</div>
 
 
-	
-	
+
+

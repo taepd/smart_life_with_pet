@@ -22,7 +22,9 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='adminQa.bit'">Q&A게시판</button>
+				onclick="location.href='main.bit'">Q&A게시판</button>
+				<button class="btn btn-primary btn-round"
+				onclick="location.href='write.bit'">글쓰기</button>
 
 
 
@@ -79,7 +81,7 @@
 								<tbody>
 									<tr>
 										<td>1</td>
-										<td>농구 좋아하세요?</td>
+										<td style="cursor:pointer;color:#blue;" onclick="location.href='view.bit'">농구 좋아하세요?</td>
 										<td>슬램덩크</td>
 										<td>2020.7.5 23:20</td>
 										<td>2</td>

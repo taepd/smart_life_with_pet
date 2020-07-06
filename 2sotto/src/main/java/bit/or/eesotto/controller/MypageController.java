@@ -91,6 +91,41 @@ public class MypageController {
 	public String withdrawal() {
 		return "mypage/withdrawal";
 	}
+	
+	// 마이페이지 > 회원 탈퇴 view
+	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.POST)
+	public String withdrawalOk(Model model, HttpSession session) {
+		
+		String userid = (String)session.getAttribute("userid");
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		int result = ms.deleteUser(userid);
+		
+		String msg = null;
+		String url = null;
+		
+		if(result==1) {
+			session.removeAttribute("userid");
+			session.invalidate();
+			
+			logger.info("회원탈퇴 처리완료");
+			msg = "회원 탈퇴가 정상적으로 처리되었습니다.";
+	        url = "../index.jsp";
+			
+		}else { 
+			
+			logger.info("회원탈퇴 처리실패");
+			msg = "문제가 생겨 회원탈퇴가 정상적으로 이루어지지 않았습니다.";
+	        url = "withdrawal.bit";
+
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+	}
 
 	// 마이페이지 > 반려동물 상세페이지 view
 	@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)

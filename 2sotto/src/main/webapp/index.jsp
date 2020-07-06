@@ -69,9 +69,6 @@
 	              </div>
 	            </div>
 	          </div> <!-- section end  -->
-            <div class="row">
-                text area 여기는 인덱스 화면
-            </div>
             <div align="center">
 				<button type="button" onclick="location.href='login.bit'">로그인 화면 가기</button>
 				<button type="button" onclick="location.href='register.bit'">회원가입 화면 가기</button>

@@ -41,5 +41,15 @@ public class MypageService {
 		
 	}
 	
+	//유저 정보 삭제하기
+	public int deleteUser(String userid) {
+
+		userDao = sqlsession.getMapper(UserDao.class);
+
+		return userDao.deleteUser(userid);
+		
+	}	
+	
+	
 
 }

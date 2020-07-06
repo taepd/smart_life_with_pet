@@ -28,7 +28,7 @@ import bit.or.eesotto.service.LoginService;
 @Controller
 public class LoginController {
 
-	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;

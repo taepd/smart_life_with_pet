@@ -104,19 +104,12 @@
 	<div align="center">
 		<button type="button" onclick="location.href='adminQaView.bit'">어드민QaView</button>
 		<button type="button" onclick="location.href='adminQa.bit'">어드민Qa</button>
-		<button type="button" onclick="location.href='adminWrite.bit'">어드민
-			글쓰기</button>
-		<button type="button" onclick="location.href='donationPage.bit'">도네이션페이지</button>
-		<button type="button" onclick="location.href='donationWrite.bit'">도네이션
-			글쓰기</button>
-		<button type="button" onclick="location.href='donationQaView.bit'">도네이션QaView</button>
-		<button type="button" onclick="location.href='noteWrite.bit'">쪽지보내기</button>
-		<button type="button" onclick="location.href='notePage.bit'">받은
-			쪽지함</button>
+		<button type="button" onclick="location.href='adminWrite.bit'">어드민 글쓰기</button>
+		
 	</div>
 
 
-
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
 </html>

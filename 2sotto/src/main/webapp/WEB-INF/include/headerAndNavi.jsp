@@ -25,7 +25,7 @@
 				</c:when>
 				<c:otherwise>
 					<li class="nav-item" id="item01">
-						<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">마이 페이지</a>
+						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link">마이 페이지</a>
 		            </li>
 		            <li class="nav-item" id="item02">
 		                <a href="${pageContext.request.contextPath}/logout.bit" class="btn btn-rose btn-raised btn-round">
@@ -56,7 +56,8 @@
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
 						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
 						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
-						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
+						<a href="${pageContext.request.contextPath}/donation/main.bit"><li>후원게시판</li></a>
+						<a href="${pageContext.request.contextPath}/note/main.bit"><li>쪽지함</li></a>
 
 					</ul>
 				</div>

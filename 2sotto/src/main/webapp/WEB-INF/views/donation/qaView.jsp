@@ -43,7 +43,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='donationQaView.bit'">후원게시판</button>
+				onclick="location.href='main.bit'">후원게시판</button>
 
 
 
@@ -125,7 +125,7 @@
 		</div>
 
 	</div>
-
+<%@ include file="/WEB-INF/include/footer.jsp"%>
 	<script>
 		$('#confirmDelete').click(function() {
 			/* var result = confirm('정말로 삭제하시겠습니까?'); 
@@ -136,18 +136,6 @@
 			}  */
 		});
 	</script>
-</body>
-</html>
-
-<script>
-	$('#confirmDelete').click(function() {
-		/* var result = confirm('정말로 삭제하시겠습니까?'); 
-		if(result) { //yes 
-			location.replace('./Delete.post?post_seq='+${currentPost.post_seq}); 
-		} else {
-			//no 
-		}  */
-	});
-</script>
+	
 </body>
 </html>

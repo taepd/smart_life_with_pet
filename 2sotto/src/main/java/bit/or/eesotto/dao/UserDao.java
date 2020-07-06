@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import bit.or.eesotto.dto.User;
 
@@ -22,6 +23,11 @@ public interface UserDao {
 	// 회원가입> 아이디 중복체크 ajax
 	@Select("select userid from user where userid = #{userid}")
 	public List<String> getUserId(@Param("userid") String userid);
+	
+	// 보통 회원가입
+	@Update("update user set cpnumber = #{cpnumber}, nick = #{nick}, loc=#{loc}	where userid=#{userid}")
+	public int editUser(User user);	
+	
 
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")

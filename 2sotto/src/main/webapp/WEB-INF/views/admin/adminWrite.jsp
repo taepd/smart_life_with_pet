@@ -1,18 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <html>
-<head>
+<head>	
 
-<title>홈_슬기로운 반려생활</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
-<link
+    <title>홈_슬기로운 반려생활</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
+     <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
 	rel="stylesheet">
-
+    
 </head>
 
 <body>

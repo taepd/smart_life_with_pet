@@ -147,5 +147,7 @@
 		</form>
 	</div>
 	</div>
+	
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>

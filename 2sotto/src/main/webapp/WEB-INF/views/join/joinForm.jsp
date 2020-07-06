@@ -7,8 +7,11 @@
 <head>	
 
     <title>회원 가입</title>
+    
+    <%@ include file="/WEB-INF/include/import.jsp"%>
 
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+	<!-- 아래 jquery cdn을 주석처리하면 중복체크 속성값이 인풋창 클릭시 리셋되는 문제 발생. 어째서? -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 	<!-- 카카오 api -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14e1cd5829baabce1e0239e9778eb76a&libraries=services"></script>
@@ -278,7 +281,7 @@ input {
 </script>  
   
     
-     <%@ include file="/WEB-INF/include/import.jsp"%>
+ 
     
 </head>
 <body>
@@ -321,7 +324,7 @@ input {
 			<div class="row">
 
 				<div class="card" style="width: 60%; margin: 0 auto;">
-					<form class="form-horizontal" action="joinForm.bit"
+					<form class="form-horizontal" action="normalJoin.bit"
 						enctype="multipart/form-data" method="post">
 						<div class="card-body">
 
@@ -425,7 +428,7 @@ input {
 									<div class="col-sm-12"></div>
 								</div>
 
-								<div class="form-group row">
+						 		<div class="form-group row">
 									<div class="col-sm-12">
 										<div class="row row-space">
 											<div class="col-10">
@@ -524,7 +527,7 @@ input {
 													
 													<div style="float: left;">
 														<label class="btn btn-primary btn-default btn-file" style="padding: 10px 20px; margin-right:80px"> 이미지 설정/변경 
-														<input class="input--style-4" type="file" name="profile" style="display: none;"
+														<input class="input--style-4" type="file" name="file" style="display: none;"
 														onchange="readURL(this);" multiple></label> &nbsp;&nbsp;&nbsp;&nbsp;
 														<img id="uimg" src="upload/${param.umig}" alt="" width="150px" height="150px" style="border-radius: 10px;" />
 														<span id="imgFileName">&nbsp;&nbsp;${param.uimg}</span> 
@@ -803,11 +806,7 @@ $('#currentLoc').click(function getLocation() {
     
     
     <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
-
+        
         /*colorpicker*/
         $('.demo').each(function() {
         //
@@ -835,8 +834,8 @@ $('#currentLoc').click(function getLocation() {
 
         });
         /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
+        $('.mydatepicker').datepicker();
+        $('#datepicker-autoclose').datepicker({
             autoclose: true,
             todayHighlight: true
         });

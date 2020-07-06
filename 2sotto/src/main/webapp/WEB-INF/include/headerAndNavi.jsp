@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>  
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 
 .fixed-top{
@@ -12,14 +12,28 @@
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
 		<span id="header-title"><a href="${pageContext.request.contextPath}/index.jsp">슬기로운 반려생활</a></span>
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item" id="item01">
-				<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
-            </li>
-            <li class="nav-item" id="item02">
-                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
-                	시작하기
-                </a>
-			</li>
+			<c:choose>
+				<c:when test="${userid == null}">
+					<li class="nav-item" id="item01">
+						<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">로그인</a>
+		            </li>
+		            <li class="nav-item" id="item02">
+		                <a href="${pageContext.request.contextPath}/register.bit" class="btn btn-rose btn-raised btn-round">
+		                	시작하기
+		                </a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item" id="item01">
+						<a href="${pageContext.request.contextPath}/login.bit" class="nav-link">마이 페이지</a>
+		            </li>
+		            <li class="nav-item" id="item02">
+		                <a href="${pageContext.request.contextPath}/logout.bit" class="btn btn-rose btn-raised btn-round">
+		                	로그아웃
+		                </a>
+					</li>
+				</c:otherwise>
+			</c:choose>	
 		</ul>
 	</nav>
 	
@@ -51,26 +65,5 @@
 	</div>
 
 
-	<!--   Core JS Files   -->
-	<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/plugins/moment.min.js"></script>
 	
-	<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-	<script src="${pageContext.request.contextPath}/assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-	
-	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-	<script src="${pageContext.request.contextPath}/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-	
-	<!--  Google Maps Plugin  -->
-	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-	
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
-	
-	<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-	<script src="${pageContext.request.contextPath}/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	

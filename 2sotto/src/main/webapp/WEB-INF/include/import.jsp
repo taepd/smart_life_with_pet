@@ -17,6 +17,33 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png" type="image/x-icon">
     
+    
+  <!-- heaerAndNavi.jsp에서 옮겨옴  -->
+	<!--   Core JS Files   -->
+	<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/plugins/moment.min.js"></script>
+	
+	<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+	<script src="${pageContext.request.contextPath}/assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	
+	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+	<script src="${pageContext.request.contextPath}/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+	
+	<!--  Google Maps Plugin  -->
+	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+	
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
+	
+	<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+	<script src="${pageContext.request.contextPath}/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+
+	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
+	
+
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
+

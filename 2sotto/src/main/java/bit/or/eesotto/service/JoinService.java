@@ -24,24 +24,37 @@ public class JoinService {
 
 	@Autowired
 	UserDao userDao;
-
+	
+	
+	//아이디 중복체크
 	public List<String> idCheck(String userid) { 
 
 		List<String> list = null;
 
 		try {
+			
 			userDao = sqlsession.getMapper(UserDao.class);
-			System.out.println("요것"+userid);
 			list = userDao.getUserId(userid);
-			System.out.println("이것"+list);
-					
-
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
 		return list;
+	}
+	//일반 회원가입 
+	public int normalJoin(User user) { 
+		int result = 0;
+		try {
+			
+			userDao = sqlsession.getMapper(UserDao.class);
+			result = userDao.normalJoin(user);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
+		return result;
 	}
 
 }

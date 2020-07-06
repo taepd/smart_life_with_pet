@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
 
 	<title>동물관리 홈</title>
 	
-  	<!-- 위에 안 되면 여기 링크 풀어볼 것 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"> -->
-    
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+  	
     <style>
     
     	.fc-toolbar-title {
@@ -107,7 +107,7 @@
                     </div>
                     <div class="tab-pane" id="schedule">
                     
-                    	<div id="calendar"></div>
+                    	<%-- <%@ include file="/WEB-INF/views/management/fullcalendar.jsp"%> --%>
                     </div>
    
         
@@ -165,17 +165,19 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
+
     
     <!-- fullcalendar -->
-    <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
+    <!-- <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
   	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
-  	
-<script>
-
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+    -->
+<!-- <script>
+	
 
 	document.addEventListener('DOMContentLoaded', function() {
 
+		
 		var calendarEl = document.getElementById('calendar');
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
 	      theme: true,
@@ -247,5 +249,5 @@
 	    
 	  });
 	
-	</script>
+	</script> -->
 </html>

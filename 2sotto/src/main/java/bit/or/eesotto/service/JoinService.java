@@ -43,17 +43,18 @@ public class JoinService {
 		return list;
 	}
 	//일반 회원가입 
-	public void normalJoin(User user) { 
-
+	public int normalJoin(User user) { 
+		int result = 0;
 		try {
 			
 			userDao = sqlsession.getMapper(UserDao.class);
-			userDao.normalJoin(user);
+			result = userDao.normalJoin(user);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
+		return result;
 	}
 
 }

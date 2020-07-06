@@ -66,16 +66,24 @@ public class JoinController {
 		
 		
 		//비밀번호 암호화 
-		String inputPass = user.getPwd();
-		String encodingPW = pwEncoder.encode("1004");
+		String inputPwd = user.getPwd();
+		String encodingPW = pwEncoder.encode(inputPwd);
 		user.setPwd(encodingPW);		
 		logger.info("비밀번호 암호화 완료");		
 		
-		joinService.normalJoin(user);
-		logger.info("회원가입 처리 완료");
+		int result = joinService.normalJoin(user);
+		if(result==1) {
+			session.setAttribute("userid", user.getUserid());
+			logger.info("회원가입 처리 완료");
  
 			return "redirect:/";
+			
+		}else { //회원가입 실패시 어찌할지 로직구현해야 함
+			redirectAttributes.addFlashAttribute("failedLogin", "failed");
+			logger.info("회원가입 실패");
 
+			return "redirect:/";
+		}
 	} 
 
 	// ID 중복체크 Ajax 호출

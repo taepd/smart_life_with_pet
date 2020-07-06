@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icons8-cat-footprint-48.png" type="image/x-icon">
     
     
-    <!-- heaerAndNavi.jsp에서 옮겨옴  -->
+  <!-- heaerAndNavi.jsp에서 옮겨옴  -->
 	<!--   Core JS Files   -->
 	<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -42,3 +42,8 @@
 
 	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 	
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+

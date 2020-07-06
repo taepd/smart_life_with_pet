@@ -5,33 +5,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/admin/")
-public class AdminController {
+@RequestMapping("/point/")
+public class PointController {
 
-	// human 보러가기
+	// point 보러가기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String adminMain() {
+	public String pointMain() {
 
-		return "admin/main";
-	}
-	// detail 보러가기
-	@RequestMapping(value = "list.bit", method = RequestMethod.GET)
-	public String adminlist() {
-
-		return "admin/list";
+		return "point/main";
 	}
 
-	
-	
-	// detail 보러가기
+	// pointDetail 보러가기
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
-	public String adminDetail() {
+	public String pointDetail() {
 
-		return "admin/detail";
+		return "point/detail";
 	}
-
-	
-
-	
 
 }

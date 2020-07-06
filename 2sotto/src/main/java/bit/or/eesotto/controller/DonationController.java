@@ -10,40 +10,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/donation/")
 public class DonationController {
 
-	//donation 보러가기
-	@RequestMapping(value = "donationPage.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView donationPage(HttpSession session) throws IOException {
+	// donation 보러가기
+	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
+	public String donationMain() {
 
-
-		/* 생성한 url 전달 */
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("donation/donationPage");
-
-		return mav;
+		return "donation/main";
 	}
-	//donation글쓰기 보러가기
-	@RequestMapping(value = "donationWrite.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView donationWrite(HttpSession session) throws IOException {
 
+	// donation 상세보기보러가기
+	@RequestMapping(value = "qaView.bit", method = RequestMethod.GET)
+	public String donationQaView() {
 
-		/* 생성한 url 전달 */
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("donation/donationWrite");
-
-		return mav;
+		return "donation/qaView";
 	}
-	//donation글상세 보러가기
-	@RequestMapping(value = "donationQaView.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView donationQaView(HttpSession session) throws IOException {
 
+	// donation 글쓰러가기보러가기
+	@RequestMapping(value = "donationWrite.bit", method = RequestMethod.GET)
+	public String donationWrite() {
 
-		/* 생성한 url 전달 */
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("donation/donationQaView");
-
-		return mav;
+		return "donation/donationWrite";
 	}
+
 
 }

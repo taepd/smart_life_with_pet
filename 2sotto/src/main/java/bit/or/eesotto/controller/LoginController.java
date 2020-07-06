@@ -51,9 +51,6 @@ public class LoginController {
 		//db 유저정보 가져오기 
 		user = ls.normalLogin(userid); 
 		
-		
-		
-
 		if (user != null && userid.equals(user.getUserid()) && pwEncoder.matches(pwd, user.getPwd())) {
 			session.setAttribute("userid", userid);
 			logger.info("로그인 성공");
@@ -63,6 +60,7 @@ public class LoginController {
 		}else {
 			redirectAttributes.addFlashAttribute("failedLogin", "failed"); //redirectAttributes 검색해 볼 것
 			logger.info("로그인 실패");
+			
 			return "redirect:/login.bit";
 		}
 

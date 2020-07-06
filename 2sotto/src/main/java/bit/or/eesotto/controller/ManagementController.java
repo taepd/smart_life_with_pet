@@ -30,4 +30,9 @@ public class ManagementController {
 		return "management/registerPets";
 	}
 	
+	@RequestMapping(value = "registerPets.bit", method = RequestMethod.POST)
+	public String registerPets(int day) {
+		return "management/registerPets";
+	}
+	
 }

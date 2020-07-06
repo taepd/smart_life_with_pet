@@ -19,7 +19,7 @@
 	
 		<h3>반려동물 등록하기</h3>
 		
-		<form action="#">
+		<form action="registerPets.bit" method="post" enctype="multipart/form-data">
 		
 			<div class="form-group bmd-form-group">
                 <label for="exampleInput1" class="bmd-label-floating">이름</label>
@@ -140,6 +140,19 @@
                 <input type="email" class="form-control" id="exampleInput1">
                 <span class="bmd-help">반려동물의 특이사항을 입력하세요</span>
             </div>
+            
+            <br>
+            <div class= "profile">
+						<img src="${pageContext.request.contextPath}/img/headerLogin.png" class="basic_img"/>
+								<div class="choosePick">
+								 <input type="text" readonly="readonly" id="file_route">
+								 <label>이미지 선택
+								 <input type="file" id="showImg" name="file" onchange="javascript:document.getElementById('file_route').value=this.value">
+								 </label>
+						<p class="info_profile">정보 변경 가능 알리기</p>
+						</div>
+					</div>
+            
 			
 			<button type="submit" class="btn btn-primary">등록</button>
 			<button type="reset" class="btn btn-primary">다시쓰기</button>

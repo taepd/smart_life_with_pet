@@ -24,7 +24,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">포인트 변동 내역</button>
+				onclick="history.go(-1)">포인트 변동 내역</button>
 
 			
 
@@ -63,7 +63,7 @@
 									<tr align="center" valign="middle">
 										<td colspan="4"><c:if
 												test="${currentPost.user_id == user_id }">
-												<a class="btn btn btn-round" href="main.bit"> &nbsp;뒤로가기&nbsp; </a>
+												<a class="btn btn btn-round" href="javascript:history.back();"> &nbsp;뒤로가기&nbsp; </a>
 
 											</c:if></td>
 

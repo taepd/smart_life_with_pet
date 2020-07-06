@@ -58,9 +58,9 @@
 										<td><input name="file" type="file" /><br></td>
 									</tr>
 									<tr>
-										<td align="center"><a href="javascript:history.go(-1)"
+										<td align="center"><a href=""
 											class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a>
-											<a href="javascript:addpost()" class="btn btn-round btn-white">&nbsp;&nbsp;취소&nbsp;&nbsp;</a>
+											<a  href="javascript:history.back();" class="btn btn-round btn-white">&nbsp;&nbsp;취소&nbsp;&nbsp;</a>
 										</td>
 									</tr>
 							</table>

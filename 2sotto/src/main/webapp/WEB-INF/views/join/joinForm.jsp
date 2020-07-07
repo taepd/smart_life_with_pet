@@ -434,9 +434,9 @@ input {
 												</div>
 											</div>
 										</div>
-										<!-- 비밀번호가 다릅니다. -->
+										<!-- 닉네임 응원. -->
 										<div class="col-sm-12 tdnick" align="left"></div>
-										<!-- 비밀번호가 다릅니다. -->
+										<!-- 닉네임 응원. -->
 									</div>
 
 									<div class="form-group row">
@@ -450,7 +450,10 @@ input {
 															placeholder="휴대폰 번호를 입력해 주세요">
 													</div>
 												</div>
-												<div class="col-2"></div>
+												<div class="col-2" style="padding-top: 22px">
+													<button type="button" class="btn btn-primary"
+														id="btn-cpnumberchk" style="padding: 10px 20px">인증 </button>
+												</div>
 											</div>
 										</div>
 										<div class="col-sm-12"></div>
@@ -814,9 +817,9 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'nickCheck.bit', //이부분 수정해야합니다.
+								url : 'join/nickCheck.bit', 
 								data : {
-									userid : $('#nick').val()
+									nick : $('#nick').val()
 								},
 								datatype : 'json',
 								success : function(data) {
@@ -837,6 +840,64 @@ input {
 								}
 							});
 						});
+
+		//***********************************//
+		//  휴대폰번호 중복 체크
+		//***********************************//	
+
+		$('#btn-cpnumberchk')
+				.click(
+						/* function() {
+							//휴대폰 번호 적합성 체크
+							let cpnumber = /^\d{3}-\d{3,4}-\d{4}$/;
+							if (!cpnumber.test($('#cpnumber').val())) {
+								alert('적합하지 않은 휴대폰 번호 형식입니다');
+								$('#cpnumber').focus();
+								return;
+							}
+							;
+							//휴대폰 중복 체크
+							$('#cpnumber').change(function() {
+								//$('#id_check_sucess').hide();
+								$('#btn-cpnumberchk').show();
+								$('#cpnumber').attr("check_result", "fail");
+						 	});
+							
+
+							if ($('#cpnumber').val() == '') {
+								alert('휴대폰 번호를 입력해주세요.')
+								return;
+							}
+
+							console.log($('#cpnumber').val());
+
+							$.ajax({
+								type : "POST",
+								url : 'join/cpnumberCheck.bit',
+								data : {
+									cpnumber : $('#cpnumber').val()
+								},
+								datatype : 'json',
+								success : function(data) {
+									console.log(data);
+									if (data[0] != null) {
+										alert("이미 존재하는 휴대폰 번호 입니다.");
+										$("#cpnumber").val('');
+										$("#cpnumber").focus();
+										return;
+									} else {
+										alert("사용가능한 휴대폰 번호 입니다.");
+										$('#cpnumber').attr("check_result",
+												"success");
+										// $('#id_check_sucess').show();
+										//$('#btn-idchk').hide();
+										return;
+									}
+								}
+							});
+						});  */
+
+		
 	</script>
 
 

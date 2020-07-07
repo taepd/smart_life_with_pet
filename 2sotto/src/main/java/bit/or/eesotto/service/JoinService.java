@@ -24,53 +24,69 @@ public class JoinService {
 
 	@Autowired
 	UserDao userDao;
-	
-	
-	//아이디 중복체크
-	public List<String> idCheck(String userid) { 
+
+	// 아이디 중복체크
+	public List<String> idCheck(String userid) {
 
 		List<String> list = null;
 
 		try {
-			
+
 			userDao = sqlsession.getMapper(UserDao.class);
 			list = userDao.getUserId(userid);
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return list;
 	}
-	
-	//닉네임 중복체크
-		public List<String> nickCheck(String nick) { 
 
-			List<String> list = null;
+	// 닉네임 중복체크
+	public List<String> nickCheck(String nick) {
 
-			try {
-				
-				userDao = sqlsession.getMapper(UserDao.class);
-				list = userDao.getNick(nick);
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			
-			return list;
-		}
-	//일반 회원가입 
-	public int normalJoin(User user) { 
-		int result = 0;
+		List<String> list = null;
+
 		try {
-			
+
 			userDao = sqlsession.getMapper(UserDao.class);
-			result = userDao.normalJoin(user);
-			
+			list = userDao.getNick(nick);
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
+		return list;
+	}
+
+	/*
+	   
+	  휴대폰 번호 중복체크 public List<String> cpnumberCheck(String cpnumber) {
+	  
+	  List<String> list = null;
+	  
+	  try {
+	  
+	 userDao = sqlsession.getMapper(UserDao.class); list =
+	  userDao.getCpnumber(cpnumber);
+	  
+	 } catch (Exception e) { System.out.println(e.getMessage()); }
+	  
+	  return list; }
+	 */
+
+	// 일반 회원가입
+	public int normalJoin(User user) {
+		int result = 0;
+		try {
+
+			userDao = sqlsession.getMapper(UserDao.class);
+			result = userDao.normalJoin(user);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 		return result;
 	}
 

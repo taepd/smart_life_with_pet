@@ -15,13 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.JoinService;
 
 @Controller
+@RequestMapping("/join/")
 public class JoinController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
@@ -101,7 +101,7 @@ public class JoinController {
 
 	// ID 중복체크 Ajax 호출
 	@ResponseBody
-	@RequestMapping(value = "idCheck.bit", method = { RequestMethod.POST })
+	@RequestMapping(value = "join/idCheck.bit", method = { RequestMethod.POST })
 	public List<String> idCheck(HttpServletRequest request, Model model) throws IOException {
 
 		String id = request.getParameter("userid");

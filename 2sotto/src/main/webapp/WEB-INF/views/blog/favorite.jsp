@@ -175,16 +175,18 @@
 
 	$(document).ready(function(){
 
-		 $("[id^='bm']").on('click', function() {
+		 $(".bookmark > i").on('click', function() {
 
 			 /* s=채운거, r=빈거 */
-			   if( $("[id^='bm']").hasClass("fas fa-bookmark") ) {
-				   $("[id^='bm']" ).removeClass("fas fa-bookmark").addClass("far fa-bookmark");
+			   if( $(this).hasClass("fas fa-bookmark") ) {
+				   $(this).removeClass("fas fa-bookmark").addClass("far fa-bookmark");
 				   /* $('a').attr('style', 'display: none'); */
 
-				} else if( $("[id^='bm']").hasClass("far fa-bookmark")) {
+				} else if( $(this).hasClass("far fa-bookmark")) {
 					   $(this).removeClass("far fa-bookmark").addClass("fas fa-bookmark");
 				}
+
+				return false;
 		 });
 
 		 /* 

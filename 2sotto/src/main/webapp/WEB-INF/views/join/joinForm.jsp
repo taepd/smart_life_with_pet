@@ -764,7 +764,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'idCheck.bit',
+								url : 'join/idCheck.bit',
 								data : {
 									userid : $('#userid').val()
 								},
@@ -840,13 +840,6 @@ input {
 	</script>
 
 
-
-
-
-
-
-
-
 	<script>
 		/*colorpicker*/
 		$('.demo').each(function() {
@@ -862,7 +855,6 @@ input {
 			$(this).minicolors({
 				control : $(this).attr('data-control') || 'hue',
 				position : $(this).attr('data-position') || 'bottom left',
-
 				change : function(value, opacity) {
 					if (!value)
 						return;

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.MypageService;
 
@@ -190,15 +191,39 @@ public class MypageController {
 	}
 
 	// 마이페이지 > 반려동물 상세페이지 view
-	@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
-	public String myPetPage() {
-		return "mypage/myPetPage";
-	}
+	// 마이페이지 > 반려동물 상세페이지 view
+		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
+		public String myPetPage() {
+			return "mypage/myPetPage";
+		}
 
-	// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
-	@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
-	public String editPet() {
-		return "mypage/editPet";
-	}
+		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
+		@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
+		public String editPet(Pet pet, Model model, HttpSession session) {
+			String userid = (String) session.getAttribute("userid");
+			int result = ms.editPet(pet, userid);
+
+			String msg = null;
+			String url = null;
+			if (result == 1) {
+
+				logger.info("반려동물 정보 수정 완료");
+				msg = "반려동물 정보 수정 완료";
+				url = "editPet.bit";
+
+			} else {
+
+				logger.info("정보 수정 실패");
+				msg = "정보 수정 실패";
+				url = "editPet.bit";
+
+			}
+
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			return "redirect";
+
+		}
 
 }

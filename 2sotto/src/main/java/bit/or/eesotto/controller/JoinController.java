@@ -108,5 +108,15 @@ public class JoinController {
 
 		return joinService.idCheck(id);
 	}
+	
+	// nick 중복체크 Ajax 호출
+		@ResponseBody
+		@RequestMapping(value = "nickCheck.bit", method = { RequestMethod.POST })
+		public List<String> nickCheck(HttpServletRequest request, Model model) throws IOException {
+
+			String id = request.getParameter("nick");
+
+			return joinService.nickCheck(id);
+		}
 
 }

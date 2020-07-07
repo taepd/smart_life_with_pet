@@ -24,6 +24,9 @@ public interface UserDao {
 	@Select("select userid from user where userid = #{userid}")
 	public List<String> getUserId(@Param("userid") String userid);
 	
+	// 회원가입 > 닉네임 중복체크 ajax
+	@Select("select nick from user where nick = #{nick}")
+	public List<String> getNick(@Param("nick") String nick);
 	// 마이페이지 >  회원정보 수정
 	@Update("update user set cpnumber = #{cpnumber}, nick = #{nick}, loc=#{loc}	where userid=#{userid}")
 	public int editUser(User user);	

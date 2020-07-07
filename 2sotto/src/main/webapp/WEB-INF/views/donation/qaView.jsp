@@ -109,7 +109,7 @@
 									</tr>
 									<tr align="center" valign="middle">
 										<td colspan="5"><br> <a
-											class="btn btn-block btn-gray btn-round" href="">
+											class="btn btn-block btn-gray btn-round"  href="javascript:history.back();">
 												&nbsp;&nbsp;&nbsp;이전 돌아가기&nbsp;&nbsp;&nbsp; </a></td>
 									</tr>
 							</table>

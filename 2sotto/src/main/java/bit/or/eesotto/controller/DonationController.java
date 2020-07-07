@@ -28,10 +28,10 @@ public class DonationController {
 	}
 
 	// donation 글쓰러가기보러가기
-	@RequestMapping(value = "donationWrite.bit", method = RequestMethod.GET)
+	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
 	public String donationWrite() {
 
-		return "donation/donationWrite";
+		return "donation/write";
 	}
 
 

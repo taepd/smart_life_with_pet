@@ -28,7 +28,7 @@
 		<div class="container">
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='donationWrite.bit'">글쓰기</button>
+				onclick="location.href='write.bit'">글쓰기</button>
 			<!-- 탭 아이콘 영역 -->
 			<!--  탭영역 음....기다린다 -->
 			<div class="card card-nav-tabs">

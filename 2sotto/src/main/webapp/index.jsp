@@ -69,12 +69,9 @@
 	              </div>
 	            </div>
 	          </div> <!-- section end  -->
-            <div align="center">
-				<button type="button" onclick="location.href='login.bit'">로그인 화면 가기</button>
-				<button type="button" onclick="location.href='register.bit'">회원가입 화면 가기</button>
-				
-	</div>
-        </div> <!-- carousel end -->
+            <div align="center">							
+		</div>
+      </div> <!-- carousel end -->
     </div> <!-- side_overlay end -->
     
 	<%@ include file="/WEB-INF/include/footer.jsp"%>

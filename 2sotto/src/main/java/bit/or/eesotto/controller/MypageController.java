@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,9 @@ import bit.or.eesotto.service.MypageService;
 public class MypageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	
+	@Autowired
+	BCryptPasswordEncoder pwEncoder;
 	
 	@Autowired		
 	MypageService ms;
@@ -53,12 +57,18 @@ public class MypageController {
 	
 	// 마이페이지 > 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
-	public String editUser(User user, Model model) {
+	public String editUser(HttpSession session, String crntPwd, String pwd, Model model) {
 							
-		int result = ms.editUser(user);
+		String userid = (String)session.getAttribute("userid");
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		User user = ms.getUserInfo(userid);
 		
 		String msg = null;
 		String url = null;
+			
+		int result = ms.editUser(user);
+	
 		if(result==1) {
 			
 			logger.info("회원정보 수정 완료");
@@ -85,6 +95,58 @@ public class MypageController {
 	public String editPwd() {
 		return "mypage/editPwd";
 	}
+	
+	// 마이페이지 > 비밀번호 변경 처리
+	@RequestMapping(value = "editPwd.bit", method = RequestMethod.POST)
+	public String editPwd(HttpSession session, String crntPwd, String pwd, Model model) {
+							
+		String userid = (String)session.getAttribute("userid");
+		logger.info("로그인 유저 아이디: "+userid);
+		User user = ms.getUserInfo(userid);
+		
+		String msg = null;
+		String url = null;
+		
+		//현재 비밀번호 제대로 입력했는지 확인
+		if(!pwEncoder.matches(crntPwd, user.getPwd())) {
+			
+			logger.info("현재 비밀번호 입력 불일치");
+			msg = "현재 비밀번호 입력이 일치하지 않습니다";
+	        url = "javascript:history.back();";
+	    
+	        //현재 비밀번호와 변경할 비밀번호가 같은 경우    
+		}else if(crntPwd.equals(pwd)){
+			
+			logger.info("현재 비밀번호와 변경 비밀번호 동일");
+			msg = "현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다";
+	        url = "javascript:history.back();";
+			
+		}else {
+			
+			int result = ms.editPwd(pwEncoder.encode(pwd), userid);
+						
+			if(result==1) {
+				
+				logger.info("비밀번호 변경 완료");
+				msg = "비밀번호 변경 완료";
+		        url = "main.bit";
+				
+			}else { 
+				
+				logger.info("비밀번호 변경 실패");
+				msg = "비밀번호 변경 실패";
+		        url = "javascript:history.back();";
+		        
+			}
+		}
+				
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+	}
+	
 
 	// 마이페이지 > 회원 탈퇴 view
 	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.GET)

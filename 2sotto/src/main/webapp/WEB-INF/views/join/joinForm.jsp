@@ -772,7 +772,7 @@ $('#currentLoc').click(function getLocation() {
 			
     	$.ajax({
       		type: "POST",
-      		url: 'idCheck.bit',
+      		url: 'join/idCheck.bit',
       		data: {
         			userid: $('#userid').val()
       		 	 },

@@ -86,10 +86,11 @@
 			<hr>
 			
 			
-				<div class="row">
+			<div class="row">
+				<c:forEach var="post" items="${postList}">
 					<div class="col-9">
 						<div class="contents">
-						<h3>여기는 row - boot 이용 제목 자리</h3>
+						<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${board.title}</a></h3>
 						포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
 							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
 							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
@@ -118,7 +119,8 @@
 							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="게시물 이미지">
 						</div>
 					</div>
-				</div>
+				</c:forEach>
+			</div>
 
 			
     

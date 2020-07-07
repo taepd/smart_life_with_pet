@@ -34,9 +34,13 @@ public class BlogController {
 
 	// 블로그>상세 페이지 view
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
-	public String detail() {
+	public String detail(String bdindex) {
+		
+		
+		//Post post  여기 하던 중
+		
 		return "blog/detail";
-	}
+	}	
 
 	// 블로그>글쓰기 페이지 view
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)

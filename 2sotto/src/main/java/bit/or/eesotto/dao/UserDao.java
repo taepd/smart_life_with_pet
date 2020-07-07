@@ -20,13 +20,24 @@ public interface UserDao {
 			+ " values (#{userid}, #{pwd}, #{nick}, #{loc}, #{cpnumber}, 1, now())")
 	public int normalJoin(User user);
 
-	// 회원가입> 아이디 중복체크 ajax
+	// 회원가입 > 아이디 중복체크 ajax
 	@Select("select userid from user where userid = #{userid}")
 	public List<String> getUserId(@Param("userid") String userid);
 	
-	// 보통 회원가입
+	// 회원가입 > 닉네임 중복체크 ajax
+	@Select("select nick from user where nick = #{nick}")
+	public List<String> getNick(@Param("nick") String nick);
+	// 마이페이지 >  회원정보 수정
 	@Update("update user set cpnumber = #{cpnumber}, nick = #{nick}, loc=#{loc}	where userid=#{userid}")
 	public int editUser(User user);	
+	
+	// 마이페이지 >  회원정보 삭제
+	@Update("delete from user where userid=#{userid}")
+	public int deleteUser(String userid);	
+
+	// 마이페이지 >  비밀번호 수정
+	@Update("update user set pwd=#{pwd}	where userid = #{userid}")
+	public int editPwd(@Param("pwd") String pwd, @Param("userid") String userid);	
 	
 
 //	// SNS로그인 (가입한 소셜까지 확인)

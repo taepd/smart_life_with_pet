@@ -42,6 +42,23 @@ public class JoinService {
 		
 		return list;
 	}
+	
+	//닉네임 중복체크
+		public List<String> nickCheck(String nick) { 
+
+			List<String> list = null;
+
+			try {
+				
+				userDao = sqlsession.getMapper(UserDao.class);
+				list = userDao.getNick(nick);
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			return list;
+		}
 	//일반 회원가입 
 	public int normalJoin(User user) { 
 		int result = 0;

@@ -19,9 +19,9 @@
 		<h3>회원 탈퇴</h3>
 		<p></p>
 		<button type="button" onclick="location.href='main.bit'">마이페이지 홈</button>
-		<button type="button" onclick="location.href='edit.bit'">내 정보 수정</button>
-		<button type="button" onclick="location.href='editPwd.bit'">비밀번호 변경</button>
-		<button type="button" onclick="location.href='withdrawal.bit'">회원 탈퇴</button>
+		<form action="withdrawal.bit" method="post">
+			<button type="submit">회원 탈퇴</button>
+		</form>
 	</div>
 	
 </body>

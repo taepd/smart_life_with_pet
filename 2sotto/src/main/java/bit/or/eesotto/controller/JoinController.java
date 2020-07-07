@@ -15,13 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.JoinService;
 
 @Controller
+@RequestMapping("/join/")
 public class JoinController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
@@ -34,8 +34,8 @@ public class JoinController {
 	
 
 	// 회원가입 화면 보러가기
-	@RequestMapping(value = "register.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView register(HttpSession session) throws IOException {
+	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
+	public String register(Model model) throws IOException {
 
 		/* 구글code 발행 */
 		// OAuth2Operations oauthOperations =
@@ -43,10 +43,8 @@ public class JoinController {
 		/* SNS 로그인 인증을 위한 url 생성 */
 
 		/* 생성한 url 전달 */
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("join/register");
-
-		return mav;
+		
+		return "join/register";
 	}
 
 	// 회원가입 view
@@ -72,28 +70,53 @@ public class JoinController {
 		logger.info("비밀번호 암호화 완료");		
 		
 		int result = joinService.normalJoin(user);
+		
+		String msg = null;
+		String url = null;
+		
 		if(result==1) {
 			session.setAttribute("userid", user.getUserid());
 			logger.info("회원가입 처리 완료");
- 
-			return "redirect:/";
 			
-		}else { //회원가입 실패시 어찌할지 로직구현해야 함
+			msg = "회원가입 성공";
+	        url = "../index.jsp";
+			
+		}else { 
+			
 			redirectAttributes.addFlashAttribute("failedLogin", "failed");
 			logger.info("회원가입 실패");
+			
+			msg = "문제가 생겨 회원가입이 정상적으로 이루어지지 않았습니다.";
+			url = "javascript:history.back();";
 
-			return "redirect:/";
 		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+		
 	} 
 
 	// ID 중복체크 Ajax 호출
 	@ResponseBody
-	@RequestMapping(value = "idCheck.bit", method = { RequestMethod.POST })
+	@RequestMapping(value = "join/idCheck.bit", method = { RequestMethod.POST })
 	public List<String> idCheck(HttpServletRequest request, Model model) throws IOException {
 
 		String id = request.getParameter("userid");
 
 		return joinService.idCheck(id);
 	}
+	
+	// nick 중복체크 Ajax 호출
+		@ResponseBody
+		@RequestMapping(value = "nickCheck.bit", method = { RequestMethod.POST })
+		public List<String> nickCheck(HttpServletRequest request, Model model) throws IOException {
+
+			String id = request.getParameter("nick");
+
+			return joinService.nickCheck(id);
+		}
 
 }

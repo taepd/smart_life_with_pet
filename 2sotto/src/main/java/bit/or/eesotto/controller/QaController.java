@@ -10,29 +10,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/donation/")
-public class DonationController {
+@RequestMapping("/qa/")
+public class QaController {
 
-	// donation 보러가기
+	// admin 보러가기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String donationMain() {
+	public String qaMain() {
 
-		return "donation/main";
+		return "qa/main";
 	}
 
-	// donation 상세보기보러가기
-	@RequestMapping(value = "qaView.bit", method = RequestMethod.GET)
-	public String donationQaView() {
 
-		return "donation/qaView";
+	// view 보러가기
+	@RequestMapping(value = "view.bit", method = RequestMethod.GET)
+	public String qaview() {
+
+		return "qa/view";
 	}
 
-	// donation 글쓰러가기보러가기
+	// write보러가기
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
-	public String donationWrite() {
+	public String qaWrite() {
 
-		return "donation/write";
+		return "qa/write";
 	}
 
+	
 
 }

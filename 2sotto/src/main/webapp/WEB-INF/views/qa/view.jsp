@@ -24,7 +24,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='adminQa.bit'">Q&A내용</button>
+				onclick="location.href='view.bit'">Q&A내용</button>
 
 
 
@@ -81,7 +81,7 @@
 									<tr align="center" valign="middle">
 										<td colspan="5"><c:if
 												test="${currentPost.user_id == user_id }">
-												<a class="btn btn btn-round" href=""> &nbsp;이전&nbsp; </a>
+												<a class="btn btn btn-round" href="javascript:history.back();"> &nbsp;이전&nbsp; </a>
 												<a class="btn btn-rose btn-round" href="">
 													&nbsp;수정&nbsp; </a>
 												<a id="confirmDelete" class="btn btn-white btn-round"

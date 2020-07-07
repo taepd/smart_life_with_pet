@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="se" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +53,21 @@
 						</div>
 					</div>
 				</div>
-
+				
+				<!-- 뭔지는 모르겠는데 정보 가져오는 것? 히든으로.. 추가한 거니까 삭제해도 됨. -->
+				<form id="content-searchform" class="article-search-form"
+		action="donationWrite.bit" method="get">
+					<fieldset>
+						<legend class="hidden"> 목록 검색 폼 </legend>
+						<input type="hidden" name="pg" value="" /> <label for="f"
+							class="hidden">검색필드</label> <select name="f">
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+						</select> <label class="hidden" for="q">검색어</label> <input type="text"
+							name="q" value="" /> <input type="submit" value="검색" />
+					</fieldset>
+				</form>
+				
 				<div class="card-body">
 					<div class="tab-content text-center">
 						<div class="tab-pane active show" id="donationlist">
@@ -61,46 +75,32 @@
 
 							<div class="table-responsive">
 								<table class="table">
+									<caption class="hidden">후원글 목록</caption>
 									<thead class=" text-primary">
 										<tr>
-											<th>글번호</th>
-											<th>제목</th>
-											<th>작성자</th>
-											<th>등록시간</th>
-											<th>조회수</th>
+											<th class="seq">글번호</th>
+											<th class="title">제목</th>
+											<th class="writer">작성자</th>
+											<th class="regdate">등록시간</th>
+											<th class="dobject">도움이 필요한 아이</th>
+											<th class="blike">좋아요 수</th>
 
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach items="${list}" var="donate">
 										<tr>
-											<td>1</td>
-											<td style="cursor:pointer;color:#blue;" onclick="location.href='qaView.bit'">후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
+											<td class="seq">${donate.dindex}</td>
+											<td style="cursor:pointer;color:#blue;" onclick="location.href='donationDetial.bit'"><a href="donationDetail.bit?dindex=${donate.dindex}">${donate.title}</a></td>
+											<td class="writer">관리자</td>
+											<th class="dobject">${donate.dobject}</th>
+											<td class="regdate">${donate.rtime}</td>
+											<td></td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
+										</c:forEach>
+										
 								</table>
+								
 							</div>
 
 
@@ -108,14 +108,14 @@
 
 
 
-						<div class="tab-pane" id="reply">
-							<!---------- 댓글많은순 ------------------>
+						<!-- <div class="tab-pane" id="reply">
+							-------- 댓글많은순 ----------------
 
 							<div class="table-responsive">
 								<table class="table">
 									<thead class=" text-primary">
 										<tr>
-											<th>글번호</th>
+											<th >글번호</th>
 											<th>제목</th>
 											<th>작성자</th>
 											<th>등록시간</th>
@@ -159,7 +159,7 @@
 
 						</div>
 
-						<!---------- 좋아요 많은순 ------------------>
+						-------- 좋아요 많은순 ----------------
 						<div class="tab-pane" id="favorite">
 
 							<div class="table-responsive">
@@ -208,7 +208,7 @@
 
 
 
-						</div>
+						</div> -->
 
 
 						<!-------------- 끝 ---------------->

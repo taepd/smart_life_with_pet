@@ -21,59 +21,39 @@
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
 
-	<div class="side_overlay">
-
-		<div class="container">
-
-			<div class="card  card-nav-tabs ">
 
 
-				<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-	
-				<div class="card-body">
-					<div class="tab-content text-center">
 
-						<!---------- 글쓰기  ------------------>
-
-						<div class="table-responsive">
-							<table class="table">
-								<thead class=" text-primary">
+							<form action="donationWrite.bit" method="post" enctype="multipart/form-data">
+							  <table>
 									<tr>
-										<td>
-											<div style="margin-bottom: 8px;">
-												<input type="text" class="form-control" name="post_title"
-													placeholder="제목" value="" required />
-											</div>
-										</td>
+										<td><input type="text" value="관리자" readonly></td>
 									</tr>
-								</thead>
-								<tbody>
 									<tr>
-
-										<td><textarea id="summernote" name="post_contents"
-												cols="67" rows="20" required></textarea></td>
+										<td><input type="text" name="title"  ></td>
+									</tr>
+									<tr>										
+										<td><input type="text" name="dobject"  ></td>
 									</tr>
 									<tr>
 
-										<td><input name="file" type="file" /><br></td>
+										<td><textarea id="summernote" name="content"
+												cols="67" rows="20" ></textarea></td>
 									</tr>
 									<tr>
-										<td align="center"><a href="javascript:history.go(-1)"
-											class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a>
-											<a href="javascript:addpost()" class="btn btn-round btn-white">&nbsp;&nbsp;취소&nbsp;&nbsp;</a>
+
+										<td><input name="files" type="file" /><br></td>
+									</tr>
+									<tr>
+										<td align="center"><!-- <a href="javascript:history.go(-1)"
+											class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a> -->
+											<input type="submit"  value="글 등록" />
+											<input type="reset"  value="다시쓰기" />
 										</td>
 									</tr>
 							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-	</div>
+						</form>
+					
 
 
 

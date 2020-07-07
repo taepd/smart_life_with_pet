@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
 
 	<title>동물관리 홈</title>
 	
-  	<!-- 위에 안 되면 여기 링크 풀어볼 것 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"> -->
-    
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+  	
     <style>
     
     	.fc-toolbar-title {
@@ -17,6 +17,7 @@
     	}
     
     </style>
+    
     
 </head>
 <body>
@@ -39,18 +40,18 @@
                     <div class="nav-tabs-wrapper">
                       <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
-                          <a class="nav-link active show" href="#home" data-toggle="tab">
+                          <a class="nav-link active show" href="#schedule" data-toggle="tab">
                             <!-- <i class="material-icons">face</i> -->
                             <i class="fas fa-home"></i>
-                            Home
+                            	일정
                           <div class="ripple-container"></div></a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#schedule" data-toggle="tab">
+                          <a class="nav-link" href="#home" data-toggle="tab">
                             <!-- <i class="material-icons">chat</i> -->
                             <i class="far fa-calendar-alt"></i>
-                            Schedule
-                          <div class="ripple-container"></div></a>
+								홈
+	                          <div class="ripple-container"></div></a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#hospitalRecord" data-toggle="tab">
@@ -66,9 +67,9 @@
                 
                 <div class="card-body">
                   <div class="tab-content text-center">
-                    <div class="tab-pane active show" id="home">
-                    
-                    	<div class="row">
+                    <div class="tab-pane active show" id="schedule">
+                    <div id="calendar"></div>
+                    	<%-- <div class="row">
                       <div class="card col-4" style="width: 20rem;">
 						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
@@ -101,13 +102,15 @@
 						    <span class=""><i class="fas fa-times"></i></span>
 						  </div>
 					</div>
-                    </div>
+                    </div> --%>
                     
                     
                     </div>
-                    <div class="tab-pane" id="schedule">
+                    <div class="tab-pane" id="home">
+                    	
+                    	<!-- <div id="calendar"></div> -->
                     
-                    	<div id="calendar"></div>
+                    
                     </div>
    
         
@@ -165,17 +168,28 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
+
     
     <!-- fullcalendar -->
     <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
   	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
-  	
-<script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+    
+    <%-- <link href='${pageContext.request.contextPath}/fullcalendar/packages/core/main.css' rel='stylesheet' />
+	<link href='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+	<link href='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.css' rel='stylesheet' />
+	
+	<script src='${pageContext.request.contextPath}/fullcalendar/packages/core/main.js'></script>
+	<script src='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.js'></script>
+	<script src='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.js'></script>
 
+	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script> --%>
+<script>
+	
 
 	document.addEventListener('DOMContentLoaded', function() {
 
+		console.log("DOMContentLoaded");
 		var calendarEl = document.getElementById('calendar');
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
 	      theme: true,

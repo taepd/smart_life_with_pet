@@ -26,6 +26,7 @@ import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.LoginService;
 
 @Controller
+@RequestMapping("/login/")
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
@@ -51,9 +52,6 @@ public class LoginController {
 		//db 유저정보 가져오기 
 		user = ls.normalLogin(userid); 
 		
-		
-		
-
 		if (user != null && userid.equals(user.getUserid()) && pwEncoder.matches(pwd, user.getPwd())) {
 			session.setAttribute("userid", userid);
 			logger.info("로그인 성공");
@@ -63,7 +61,8 @@ public class LoginController {
 		}else {
 			redirectAttributes.addFlashAttribute("failedLogin", "failed"); //redirectAttributes 검색해 볼 것
 			logger.info("로그인 실패");
-			return "redirect:/login.bit";
+			
+			return "redirect:/login/login.bit";
 		}
 
 	}
@@ -96,7 +95,7 @@ public class LoginController {
 			logger.info("로그아웃 성공");
 		}
 		
-		return "redirect:/"; 
+		return "redirect:/";   
 	}
 
 }

@@ -97,9 +97,10 @@
 
 
 						</div>
+						
+						<!---------- 회원 반려동물 ------------------>
 						<div class="tab-pane" id="userAnimal">
-							<!---------- 회원 반려동물 ------------------>
-
+							
 							<div class="table-responsive">
 								<table class="table">
 									<thead class="text">

@@ -54,10 +54,10 @@
 					<ul class="navbar-nav ml-auto">
 						<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물 관리</li></a>
 						<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
-						<a href="${pageContext.request.contextPath}/management/management.bit"><li>즐겨찾기</li></a>
 						<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
 						<a href="${pageContext.request.contextPath}/management/donationPage.bit"><li>후원게시판</li></a>
 						<a href="${pageContext.request.contextPath}/admin/adminMain.bit"><li>관리자</li></a>
+						<a href="${pageContext.request.contextPath}/blog/favorite.bit"><li>즐겨찾기한 글</li></a>
 
 
 					</ul>

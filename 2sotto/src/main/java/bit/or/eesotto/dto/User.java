@@ -21,5 +21,4 @@ public class User {
 	private String lot;
 	private int point;
 	
-
 }

@@ -33,7 +33,7 @@
 						<p>계정 생성 후 모든 기능을 이용하실 수 있습니다.</p>
 						<a href="joinForm.bit" class="btn btn-lg btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일반회원가입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
 						<br>
-						<a href="login.bit" class="btn btn-lg btn-primary">이미 계정이 있으신가요?</a>
+						<a href="../login/login.bit" class="btn btn-lg btn-primary">이미 계정이 있으신가요?</a>
 						<br>
 						<h4 class="card-title">SNS 회원가입</h4>
 						<button class="btn btn-success">

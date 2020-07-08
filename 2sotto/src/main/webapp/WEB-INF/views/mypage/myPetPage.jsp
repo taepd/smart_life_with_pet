@@ -28,15 +28,11 @@
 				핸드폰 번호<input type="text" name="mcategory" value="${pet.mcategory}" >
 			</div>
 			<div>
-				<input type="text" name="authNumber" placeholder="인증번호">
-				<button>인증번호 전송</button>
-			</div>
-			<div>
 				닉네임<input type="text" name="scategory" value="${pet.scategory}" >
 				<button>중복 확인</button>
 			</div>
 			<div>
-				주소<input type="text" name="loc" value="${user.loc}" >
+				주소<input type="text" name="loc" value="${pet.petindex}" >
 				<button>주소 검색</button>
 			</div>		
 			

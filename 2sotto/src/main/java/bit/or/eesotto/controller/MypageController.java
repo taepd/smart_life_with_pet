@@ -2,12 +2,14 @@ package bit.or.eesotto.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -191,39 +193,85 @@ public class MypageController {
 	}
 
 	// 마이페이지 > 반려동물 상세페이지 view
-	// 마이페이지 > 반려동물 상세페이지 view
 		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
-		public String myPetPage() {
+		public String myPetPage(HttpSession session, Model model) {
+			String userid = (String)session.getAttribute("userid");
+			
+			logger.info("로그인 유저 아이디: "+userid);
+			
+			Pet pet = ms.getPetInfo(userid);
+			
+			if(pet!=null) {
+				
+				logger.info("반려동물 정보 가져오기 성공");
+				model.addAttribute(pet);
+			}else {
+				
+				logger.info("반려동물 정보 가져오기 실패");
+				
+				return "redirect:/newPet.bit";
+			}
+			
 			return "mypage/myPetPage";
 		}
 
 		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
 		@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
-		public String editPet(Pet pet, Model model, HttpSession session) {
+		public String editPetView(Model model, HttpSession session) {
 			String userid = (String) session.getAttribute("userid");
-			int result = ms.editPet(pet, userid);
-
-			String msg = null;
-			String url = null;
-			if (result == 1) {
-
-				logger.info("반려동물 정보 수정 완료");
-				msg = "반려동물 정보 수정 완료";
-				url = "editPet.bit";
-
-			} else {
-
-				logger.info("정보 수정 실패");
-				msg = "정보 수정 실패";
-				url = "editPet.bit";
-
+		
+			logger.info("로그인 유저 아이디: "+userid);
+			
+			Pet pet = ms.getPetInfo(userid);
+			
+			if(pet!=null) {
+				
+				logger.info("유저 정보 가져오기 성공");
+				model.addAttribute(pet);
+				
+				return "mypage/editPet";
+			}else {
+				
+				logger.info("유저 정보 가져오기 실패");
+				
+				return "redirect:/login.bit";
 			}
 
+		
+		}
+		//반려동물 수정처리
+		@RequestMapping(value = "editPet.bit", method = RequestMethod.POST)
+		public String editPet(HttpSession session, Model model, @Param("userid")String userid) {
+								
+			userid = (String)session.getAttribute("userid");
+			logger.info("로그인 유저 아이디: "+userid);
+			
+			Pet pet = ms.getPetInfo(userid);
+			
+			String msg = null;
+			String url = null;
+				
+			int result = ms.editPet(pet, userid);
+		
+			if(result==1) {
+				
+				logger.info("정보 수정 완료");
+				msg = "정보 수정 완료";
+		        url = "editPet.bit";
+				
+			}else { 
+				
+				logger.info("정보 수정 실패");
+				msg = "정보 수정 실패";
+		        url = "editPet.bit";
+
+			}
+			
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-
-			return "redirect";
-
-		}
+			
+			return "redirect";	
+			
+		}	
 
 }

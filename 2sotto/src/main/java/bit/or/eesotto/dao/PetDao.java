@@ -25,10 +25,11 @@ public interface PetDao {
 		public int newPet(Pet pet, String userid);
 
 		// 수정
-		@Update("update pet set scategory = #{scategory}, age = #{age}, size = #{size}, "
+		@Update("update pet set   scategory = #{scategory}, age = #{age}, size = #{size}, "
 				+ "weight = #{weight}, nstate = #{nstate}, petimg = #{petimg}, memo = #{memo}"
 				+ "	where userid=#{userid}")
 		public int editPet(Pet pet, String userid);	
+
 
 	
 }

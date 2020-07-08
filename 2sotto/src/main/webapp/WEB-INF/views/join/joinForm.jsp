@@ -290,12 +290,20 @@ input {
 					case 2:
 						$('#pwdCheck').focus();
 						return false;
+					case 3:
+						$('#nick').focus();
+						return false;
 					}
 				}
 			}
 			if ($('#userid').attr("check_result") == "fail") {
 				alert("아이디 중복확인을 해주시기 바랍니다.");
 				$('#userid').focus();
+				return false;
+			}
+			if ($('#nick').attr("check_result") == "fail") {
+				alert("닉네임 중복확인을 해주시기 바랍니다.");
+				$('#nick').focus();
 				return false;
 			}
 		});
@@ -767,7 +775,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/idCheck.bit',
+								url : 'idCheck.bit',
 								data : {
 									userid : $('#userid').val()
 								},
@@ -803,7 +811,7 @@ input {
 							//닉네임 중복 체크
 							$('#nick').change(function() {
 								//$('#id_check_sucess').hide();
-								$('#btn-nicchk').show();
+								$('#btn-nickchk').show();
 								$('#nick').attr("check_result", "fail");
 							});
 							
@@ -817,7 +825,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/nickCheck.bit', 
+								url : 'nickCheck.bit', 
 								data : {
 									nick : $('#nick').val()
 								},

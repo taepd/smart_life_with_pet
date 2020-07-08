@@ -64,12 +64,12 @@ public class BlogService {
 			cp = "1"; // 1번째 페이지 보겠다
 		}
 		
-		int pagesize = Integer.parseInt(ps);
+		int pageSize = Integer.parseInt(ps);
 		int cpage = Integer.parseInt(cp);
-		int pagecount = 0;
+		int pageCount = 0;
 
-		logger.info("pagesize" + pagesize);
-		logger.info("cpage" + cpage);
+		logger.info("pageSize :" + pageSize);
+		logger.info("cpage :" + cpage);
 		
 		// DAO 데이터 받아오기
 		List<Post> postList = null;
@@ -77,22 +77,22 @@ public class BlogService {
 		// mapper 를 통한 인터페이스 연결
 		PostDao postDao = sqlsession.getMapper(PostDao.class);
 
-		int totalempcount = postDao.getPostCount(userid);
+		int totalPostCount = postDao.getPostCount(userid);
 		//
-		postList = postDao.getPostList(cpage, pagesize, userid);
+		postList = postDao.getPostList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
-		if (totalempcount % pagesize == 0) {
-			pagecount = totalempcount / pagesize;
+		if (totalPostCount % pageSize == 0) {
+			pageCount = totalPostCount / pageSize;
 		} else {
-			pagecount = (totalempcount / pagesize) + 1;
+			pageCount = (totalPostCount / pageSize) + 1;
 		}
 		
 		map.put("postList", postList);
 		map.put("cpage", cpage);
-		map.put("pagesize", pagesize);
-		map.put("pagecount", pagecount);
-		map.put("totalempcount", totalempcount);
+		map.put("pageSize", pageSize);
+		map.put("pageCount", pageCount);
+		map.put("totalPostCount", totalPostCount);
 		
 		return map;
 	}

@@ -30,10 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 블로그 포스팅 수 조회 -->
+	<!-- 
 	<select id="getPostCount" resultType="int">
-		select count(*) from post where #{param1}
+		select count(*) from post where userid=#{param1}
 	</select>
-	
+	-->	
 	
 
 	<!-- 

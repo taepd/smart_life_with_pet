@@ -767,7 +767,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/idCheck.bit',
+								url : 'idCheck.bit',
 								data : {
 									userid : $('#userid').val()
 								},
@@ -817,7 +817,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/nickCheck.bit', 
+								url : 'nickCheck.bit', 
 								data : {
 									nick : $('#nick').val()
 								},
@@ -844,10 +844,10 @@ input {
 		//***********************************//
 		//  휴대폰번호 중복 체크
 		//***********************************//	
-
+		/* 
 		$('#btn-cpnumberchk')
 				.click(
-						/* function() {
+						function() {
 							//휴대폰 번호 적합성 체크
 							let cpnumber = /^\d{3}-\d{3,4}-\d{4}$/;
 							if (!cpnumber.test($('#cpnumber').val())) {

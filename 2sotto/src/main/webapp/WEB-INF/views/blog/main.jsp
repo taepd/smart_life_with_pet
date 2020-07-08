@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -85,11 +86,12 @@
 			
 			<hr>
 			
-			<a href="#">
-				<div class="row">
+			
+			<div class="row">
+				<c:forEach var="post" items="${postList}">
 					<div class="col-9">
 						<div class="contents">
-						<h3>여기는 row - boot 이용 제목 자리</h3>
+						<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${post.title}</a></h3>
 						포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
 							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
 							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
@@ -99,65 +101,30 @@
 							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
 							여긴 네줄	 
 						</div>
+						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
 							<div id="like-area">
 								<span class="heart"><i class="fas fa-heart"></i></span>
 								<span>20</span>
 							</div>
+							
 							<div id="comment-area">
 								<span class="icon"><i class="far fa-comment"></i></span>
 								<span>20</span>
 							</div>
 						</div>
 					</div>	
-					
+					<!-- 게시글 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
-							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="">
+							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="게시물 이미지">
 						</div>
 					</div>
-				</div>
-			</a>
+				</c:forEach>
+			</div>
+
 			
-			
-			
-			<a href="#">
-				<div class="row">
-					<div class="col-8">
-						<div class="contents">
-						<h3>여기는 row - boot 이용 제목 자리</h3>
-						포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							여긴 네줄	 
-						포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 포스트 내용 
-							여긴 네줄	 
-						</div>
-						<div class="heart-and-comment">
-							<div id="like-area">
-								<span class="heart"><i class="fas fa-heart"></i></span>
-								<span>20</span>
-							</div>
-							<div id="comment-area">
-								<span class="icon"><i class="far fa-comment"></i></span>
-								<span>20</span>
-							</div>
-						</div>
-					</div>	
-					
-					<div class="col-3 test">
-						<div class="wrapper">
-							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="">
-						</div>
-					</div>
-				</div>
-			</a>
-			
-			
-        
-        
+    
         
         
 		</div> <!-- /.container  -->

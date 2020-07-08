@@ -767,7 +767,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/idCheck.bit',
+								url : 'idCheck.bit',
 								data : {
 									userid : $('#userid').val()
 								},
@@ -817,7 +817,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'join/nickCheck.bit', 
+								url : 'nickCheck.bit', 
 								data : {
 									nick : $('#nick').val()
 								},

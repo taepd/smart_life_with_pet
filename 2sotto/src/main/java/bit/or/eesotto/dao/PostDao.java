@@ -12,7 +12,7 @@ public interface PostDao {
 
 	// 블로그 > 글쓰기  //petindex 입력 수정해야 함
 	@Insert("insert into post (petindex, userid, blike, title, content, rtime, delstate, count, pimg)"
-			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, now(), 0, 0,  #{pimg})")
+			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, date_format(now(),'%Y-%m-%d %T'), 0, 0,  #{pimg})")
 	public int writePost(Post post);
 	
 	// 블로그 > 포스트 리스트 조회  

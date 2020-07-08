@@ -37,10 +37,10 @@ public class BlogController {
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
-		model.addAttribute("pagesize", map.get("pagesize"));
+		model.addAttribute("pageSize", map.get("pageSize"));
 		model.addAttribute("postList", map.get("postList")); 		
-		model.addAttribute("pagecount", map.get("pagecount"));
-		model.addAttribute("totalempcount", map.get("totalempcount"));
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalPostCount", map.get("totalPostCount"));
 
 		return "blog/main";
 

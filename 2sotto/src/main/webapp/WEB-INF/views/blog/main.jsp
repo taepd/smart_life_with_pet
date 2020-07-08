@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -91,8 +92,12 @@
 				<c:forEach var="post" items="${postList}">
 					<div class="col-9">
 						<div class="contents">
-						<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${post.title}</a></h3>
-						${post.content} 
+							<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${post.title}</a></h3>
+							${post.content}
+							<!-- timestamp 날짜시간 표시 포맷 변환 -->
+							<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd hh:mm"/>
+							<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+							<h3>${rtime}</h3>
 						</div>
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
@@ -115,11 +120,52 @@
 					</div>
 				</c:forEach>
 			</div>
+			<div>
+			<h3>${cpage }/${pageSize }/${pageCount }</h3>
+			</div>
 
-			
-    
-        
-        
+			<!-- 페이징 -->
+			<div class="pagination justify-content-center">
+			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+					<ul class="pagination" id="pagingview">
+						<c:if test="${cpage > 1}">
+							<li class="page-item"><a class="page-link"
+								href="BitBoardList.bit?cp=${cpage-1}&ps=${pageSize}"
+								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
+									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+						</c:if>
+
+						<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+							<c:choose>
+								<c:when test="${cpage==i }">
+									<li class="page-item active"><a class="page-link"
+										href="BitBoardList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										ps="${pageSize}">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="BitBoardList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										ps="${pageSize}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+
+						</c:forEach>
+
+						<c:if test="${cpage < pageCount}">
+
+							<li class="page-item"><a class="page-link"
+								href="BitBoardList.bit?cp=${cpage+1}&ps=${pageSize}"
+								cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> <span
+									aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+						</c:if>
+					</ul>
+			<!-- </nav> -->
+			</div>
+
+
+
+
+
 		</div> <!-- /.container  -->
 	</div> <!-- /.side_overlay -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>

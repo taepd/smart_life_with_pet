@@ -49,7 +49,7 @@
     		height: 25px;
     	}
     	
-    	#like-area, #comment-area, #time-area {
+    	.heart-comment-time-area {
     		display: inline-block;
     		margin-right: 10px;
     	}

@@ -33,6 +33,7 @@ public class BlogController {
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
+		logger.info("내 블로그 글 조회 완료");
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -100,17 +101,18 @@ public class BlogController {
 		post.setPetindex(1);
 
 		int result = bs.writePost(post);
+		
 		if (result == 1) {
 
 			logger.info("블로그 글 입력 성공");
 
-			return "blog/main";
+			return "redirect:/blog/main.bit";
 
 		} else { // 회원가입 실패시 어찌할지 로직구현해야 함
 
 			logger.info("블로그 글 입력 실패");
 
-			return "blog/main";
+			return "redirect:/blog/main.bit";
 		}
 
 	}

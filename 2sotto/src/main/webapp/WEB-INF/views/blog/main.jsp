@@ -36,6 +36,12 @@
 						<div class="contents">
 							<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${post.title}</a></h3>
 							${post.content}
+
+							<!-- timestamp 날짜시간 표시 포맷 변환 -->
+							<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+							<h3>${rtime}</h3>
+
 						</div>
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
@@ -60,8 +66,9 @@
 							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="게시물 이미지">
 						</div>
 					</div>
-			</div>
-				</c:forEach>
+				</div>
+			</c:forEach>
+
 			<div>
 			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}</h4>
 			</div>
@@ -83,12 +90,12 @@
 							<c:choose>
 								<c:when test="${cpage==i }">
 									<li class="page-item active"><a class="page-link"
-										href="BitBoardList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link"
-										href="BitBoardList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -96,10 +103,13 @@
 
 						<c:if test="${cpage < pageCount}">
 
-							<li class="page-item"><a class="page-link"
-								href="BitBoardList.bit?cp=${cpage+1}&ps=${pageSize}"
-								cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> <span
-									aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+							<li class="page-item">
+								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+									<span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
 						</c:if>
 					</ul>
 			<!-- </nav> -->

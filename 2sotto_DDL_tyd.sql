@@ -627,7 +627,7 @@ select * from user;
 
 desc user;
 
-select * from userrole;
+
 
 select userid from user where userid = 'a@aa.aa';
 
@@ -636,7 +636,10 @@ DELETE FROM user WHERE (`USERID` = 'TYD');
 desc post;
 desc pet;
 desc maincategory;
+desc message;
 
+select * from userrole;
+select * from message;
 select * from user;
 select * from post;
 select * from pet;
@@ -648,5 +651,12 @@ values (1, 'a', 0, 'title', 'content', date_format(now(),'%Y-%m-%d %T'), '0', 0)
 
 -- 타입 변경
 -- ALTER TABLE [TABLE명] MODIFY [컬럼명] [타입];
+
+alter table post modify rtime timestamp;
+
 -- 자동 증가(시퀀스) 초기화
 -- ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
+
+select count(*) from post where userid='a';
+
+

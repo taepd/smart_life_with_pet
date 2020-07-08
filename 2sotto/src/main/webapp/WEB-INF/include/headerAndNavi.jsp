@@ -48,6 +48,7 @@
 				닉네임 자리 <br> 포인트 자리 <br>
 				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
 			</div>
+			
 			<div class="menuList">
 				<ul class="navbar-nav ml-auto">
 					<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물관리</li></a>

@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.heart {
+    		color: #F35454;
+    		font-size: 16px;
+    	}
+    	
+    	.wrapper {
+    		text-align: center;
+    		margin: 0 auto;
+    		line-height: 100px;
+    	}
+    	
+    	.test {
+    		margin-top: 3px; /* h3 margin-bottom과 동일한 값 유지할 것 */
+    	}
+    	
+    	.wrapper img {
+    		width: 180px;
+    		height: auto;
+    		position: absolute;
+    		top: 50%;
+    		left: 50%;
+    		transform: translate(-50%, -50%);
+    		
+    	}
+    	
+    	h3 {
+    		margin-top: 0;
+    		margin-bottom: 3px;
+    	}
+    	
+    	.row {
+    		margin-top: 100px;
+    		margin-bottom: 100px;
+    	}
+    	
+    	.contents {
+    		overflow: hidden;
+    		height: 108px;
+    		margin-bottom: 10px;
+    	}
+    	
+    	.icon {
+    		color: #000000;
+    	}
+    	
+    	.heart-and-comment {
+    		height: 25px;
+    	}
+    	
+    	#like-area, #comment-area, #time-area {
+    		display: inline-block;
+    		margin-right: 10px;
+    	}
+    	
+    	a:visited, a:link {
+	 		color: #000000;
+		}

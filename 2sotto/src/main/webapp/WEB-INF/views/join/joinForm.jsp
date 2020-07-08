@@ -290,12 +290,20 @@ input {
 					case 2:
 						$('#pwdCheck').focus();
 						return false;
+					case 3:
+						$('#nick').focus();
+						return false;
 					}
 				}
 			}
 			if ($('#userid').attr("check_result") == "fail") {
 				alert("아이디 중복확인을 해주시기 바랍니다.");
 				$('#userid').focus();
+				return false;
+			}
+			if ($('#nick').attr("check_result") == "fail") {
+				alert("닉네임 중복확인을 해주시기 바랍니다.");
+				$('#nick').focus();
 				return false;
 			}
 		});
@@ -803,7 +811,7 @@ input {
 							//닉네임 중복 체크
 							$('#nick').change(function() {
 								//$('#id_check_sucess').hide();
-								$('#btn-nicchk').show();
+								$('#btn-nickchk').show();
 								$('#nick').attr("check_result", "fail");
 							});
 							
@@ -844,10 +852,10 @@ input {
 		//***********************************//
 		//  휴대폰번호 중복 체크
 		//***********************************//	
-		/* 
+/*
 		$('#btn-cpnumberchk')
 				.click(
-						function() {
+						 function() {
 							//휴대폰 번호 적합성 체크
 							let cpnumber = /^\d{3}-\d{3,4}-\d{4}$/;
 							if (!cpnumber.test($('#cpnumber').val())) {

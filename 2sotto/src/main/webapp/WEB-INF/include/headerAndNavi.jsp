@@ -56,7 +56,7 @@
 					<a href="${pageContext.request.contextPath}/blog/favorite.bit"><li>즐겨찾기한 글</li></a>
 					<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
 					<a href="${pageContext.request.contextPath}/donation/main.bit"><li>후원게시판</li></a>
-					<a href="${pageContext.request.contextPath}/note/main.bit"><li>쪽지함</li></a>
+					<a href="${pageContext.request.contextPath}/message/main.bit"><li>쪽지함</li></a>
 					<a href="${pageContext.request.contextPath}/qa/main.bit"><li>Q&A</li></a>
 					<a href="${pageContext.request.contextPath}/point/main.bit"><li>포인트관리</li></a>
 				<a href="${pageContext.request.contextPath}/admin/main.bit"><li>관리자 페이지</li></a>

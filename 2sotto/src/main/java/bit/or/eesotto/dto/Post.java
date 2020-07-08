@@ -9,15 +9,15 @@ import lombok.ToString;
 @ToString
 public class Post {
 	
-	private int bdindex;
-	private int petindex;
-	private String userid;
-	private int blike;
-	private String title;
-	private String content;
-	private String rtime;
-	private String delstate;
-	private int count;
-	private String pimg;
+	private int bdindex; //글번호
+	private int petindex; //동물식별번호
+	private String userid; //Userid
+	private int blike; //추천수
+	private String title; //제목
+	private String content; //내용
+	private String rtime; //등록시간
+	private String delstate; //삭제유무
+	private int count; //조회수
+	private String pimg; //이미지
 
 }

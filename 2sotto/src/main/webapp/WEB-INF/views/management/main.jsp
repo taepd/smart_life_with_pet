@@ -47,7 +47,7 @@
                           <div class="ripple-container"></div></a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#home" data-toggle="tab">
+                          <a class="nav-link" href="#home" data-toggle="tab" id="draw-calendar">
                             <!-- <i class="material-icons">chat</i> -->
                             <i class="far fa-calendar-alt"></i>
 								홈
@@ -69,6 +69,42 @@
                   <div class="tab-content text-center">
                     <div class="tab-pane active show" id="schedule">
                     <div id="calendar"></div>
+                    
+                    <!--Add event modal-->
+					<div id="createEventModal" class="modal fade">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+					                <h4>Add an Event</h4>
+					            </div>
+					            <div id="modalBody" class="modal-body">
+					               <div class="form-group">
+					                    <input class="form-control" type="text" placeholder="Event Name">
+					                </div>
+					
+					                <div class="form-group form-inline">
+					                    <div class="input-group date" data-provide="datepicker">
+					                        <input type="text" class="form-control" placeholder="Due Date mm/dd/yyyy">
+					                        <div class="input-group-addon">
+					                            <span class="glyphicon glyphicon-calendar"></span>
+					                        </div>
+					                    </div>
+					                </div>
+					
+					                <div class="form-group">
+					                    <textarea class="form-control" type="text" rows="4" placeholder="Event Description"></textarea>
+					                </div>
+					            </div>
+					            <div class="modal-footer">
+					                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+					                <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+
                     	<%-- <div class="row">
                       <div class="card col-4" style="width: 20rem;">
 						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
@@ -189,10 +225,23 @@
 
 	document.addEventListener('DOMContentLoaded', function() {
 
+
+	/* $('#draw-calendar').click(function() {
+		console.log("달력 그리기~~");
+		calendar();
+	}); */
+	//안된다.... 환장할 노릇
+
+
+	/* function calendar() { */
+		
 		console.log("DOMContentLoaded");
+		
 		var calendarEl = document.getElementById('calendar');
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
 	      theme: true,
+		  editable: true,
+		  selectable: true,
 	      initialView: 'dayGridMonth',
 	      initialDate: '2020-07-07',
 	      headerToolbar: {
@@ -200,6 +249,7 @@
 	        center: 'title',
 	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
 	      },
+	      
 	      events: [
 	        {
 	          title: 'All Day Event',
@@ -247,7 +297,10 @@
 	          url: 'http://google.com/',
 	          start: '2020-07-28'
 	        }
-	      ], 
+	      ],
+	      select: function(start, end, allDay) {
+		      $('#createEventModal').modal('show');
+		  }
 	     
 	    });
 
@@ -257,9 +310,9 @@
 	    calendar.on('dateClick', function(info) {
 	    	  console.log('clicked on ' + info.dateStr);
 	    });
-
+	    /*}		/.function calendar() */
 	    
-	  });
+	 });
 	
 	</script>
 </html>

@@ -8,20 +8,21 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-   <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> --> 
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     
 </head>
 <body>
-    
+
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<div class="side_overlay">
 		<div class="container">
-			<h3>블로그 글쓰기 페이지</h3>
 
-			<form action="write.bit" method="post">
+			<form action="edit.bit" method="post">
+				<!-- bindex 가져가기 위해서 -->
+				<input hidden name="bindex" value="${post.bindex}"/>
 				<div class="form-group bmd-form-group">
 				  <label class="bmd-label-static">제목</label>
-				  <input type="text" name="title" class="form-control" placeholder="">
+				  <input type="text" name="title" value="${post.title}" class="form-control" placeholder="">
 				</div>
 				
 				<!-- <div id="summernote">
@@ -30,7 +31,7 @@
 				<!-- <textarea id="summernote" name="post_contents" cols="67" rows="20"></textarea> -->
 				
 				<!-- ckeditor 일단 cdn으로 걸었음 -->
-				<textarea name="content"></textarea>
+				<textarea name="content">${post.content}</textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
 						<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
@@ -97,8 +98,14 @@
 	$(function() {
 
 		CKEDITOR.replace( 'content' );
+		/* $('#summernote').summernote({
+			height : 500,
+			minHeight : null,
+			maxHeight : null,
+			focus : true
+		});
 
-		
+		jQuery.noConflict(); */
 	});
 </script>
 </html>

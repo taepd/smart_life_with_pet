@@ -14,11 +14,11 @@ import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
 import bit.or.eesotto.dao.MessageDao;
-import bit.or.eesotto.dao.PostDao;
+import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.QnaDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Message;
-import bit.or.eesotto.dto.Post;
+import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.User;
 
@@ -102,7 +102,7 @@ public class QnaService {
 //		return map;
 //	}
 
-	public HashMap<String, Object> QnaView(String cp, String ps, String userid) {
+	public HashMap<String, Object> mainView(String cp, String ps, String userid) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -130,23 +130,23 @@ public class QnaService {
 		// mapper 를 통한 인터페이스 연결
 		QnaDao qnaDao = sqlsession.getMapper(QnaDao.class);
 
-		int totalMsgcount = qnaDao.getQnaCount(userid);
+		int totalQnacount = qnaDao.getQnaCount(userid);
 
 		//
 		qnaList = qnaDao.getQnaList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
-		if (totalMsgcount % pageSize == 0) {
-			pageCount = totalMsgcount / pageSize;
+		if (totalQnacount % pageSize == 0) {
+			pageCount = totalQnacount / pageSize;
 		} else {
-			pageCount = (totalMsgcount / pageSize) + 1;
+			pageCount = (totalQnacount / pageSize) + 1;
 		}
 
 		map.put("qnaList", qnaList);
 		map.put("cpage", cpage);
 		map.put("pageSize", pageSize);
 		map.put("pageCount", pageCount);
-		map.put("totalMsgcount", totalMsgcount);
+		map.put("totalQnacount", totalQnacount);
 
 		return map;
 	}

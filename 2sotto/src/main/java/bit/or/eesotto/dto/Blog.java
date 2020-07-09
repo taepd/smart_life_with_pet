@@ -7,9 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Post {
+public class Blog {
 	
-	private int bdindex; //글번호
+	private int bindex; //글번호
 	private int petindex; //동물식별번호
 	private String userid; //Userid
 	private int blike; //추천수

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bit.or.eesotto.dao.PostDao">
+<mapper namespace="bit.or.eesotto.dao.BlogDao">
 
 
 
@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 
 	<!-- 블로그 리스트 조회 -->
-	<select id="getPostList" resultType="bit.or.eesotto.dto.Post">
+	<select id="getPostList" resultType="bit.or.eesotto.dto.Blog">
 		<!-- SET @ROWNUM:= 0;
 		SELECT E.*
 		FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, E.* FROM EMP E WHERE
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM POST P WHERE USERID = #{param3}) S WHERE ROWNUM 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM BLOG P WHERE USERID = #{param3}) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
 		

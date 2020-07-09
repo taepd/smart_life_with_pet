@@ -1,19 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 
 <!DOCTYPE html>
 <html>
-<head>
+<head>	
 
-<title>마이 페이지</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
-
+    <title>마이 페이지</title>
+    
+     <%@ include file="/WEB-INF/include/import.jsp"%>
+    
 </head>
 <body>
-
-	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+    
+    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 
 
 
@@ -32,34 +31,21 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-								<a class="nav-link " onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-									<i class="material-icons">email</i> 마이 페이지</a>
-								</li>
-								<li class="nav-item"><a class="nav-link active show" onclick="location.href='myPetPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+								<a class="nav-link active show" href="#myPetPage" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 									<i class="material-icons">email</i> 내 반려동물 페이지</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='edit.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-								 	<i class="material-icons">email</i> 내 정보 수정</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='editPwd.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-									<i class="material-icons">email</i> 비밀번호 변경</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='withdrawal.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-									<i class="material-icons">email</i> 회원 탈퇴</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-
+				
+				
 				<div class="card-body">
 					<div class="tab-content text-center">
-						
-						<!---------- 내 반려동물 수정 페이지  ------------------>
-						<div class="tab-pane active show" id="">
-							
-							
-								<div class="table-responsive">
+						<div class="tab-pane active show" id="main">
+							<!---------- 동물 수정 페이지 ------------------>
+
+							<div class="table-responsive">
 								<table class="table">
 									<thead class="text">
 										
@@ -108,30 +94,16 @@
 									
 								</table>
 							</div>
-                    
-                    
-                    </div>
+							</div>
+							</div>
+							</div>
+							
+							</div>
+							</div>
+							<%@ include file="/WEB-INF/include/footer.jsp"%>
+
 
 						
-
-
-						
-
-						
-									<!-------------- 끝 ---------------->
-
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<!-- container end -->
-	</div>
-	<!-- side_overlay end -->
-	<%@ include file="/WEB-INF/include/footer.jsp"%>
-
 	
-
-
 </body>
 </html>

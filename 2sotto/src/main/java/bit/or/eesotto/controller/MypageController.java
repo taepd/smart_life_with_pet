@@ -195,6 +195,10 @@ public class MypageController {
 		return "mypage/myPetPage";
 	}
 
+	
+	
+	
+	
 	// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
 	@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
 	public String editPet() {

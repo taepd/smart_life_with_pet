@@ -60,10 +60,14 @@
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" >
 
-							<form action="write.bit" method="post">
+							
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">글번호</label> 
+									<input type="text" class="form-control" value="${donate.dindex}" readonly> 
+								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">제목</label> 
-									<input type="text" name="title" class="form-control" placeholder="제목"> 
+									<input type="text" name="title" class="form-control" value="${donate.title}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">작성자</label> 
@@ -71,21 +75,26 @@
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원이 필요한 아이</label> 
-									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
+									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
-									<input type="text" name="gcoll" class="form-control" > 
-								</div>	
-								<textarea name="content" class="form-control"  rows="10" placeholder="여기에  내용을 입력합니다"></textarea>
+									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">현재모금액</label> 
+									<input type="text" class="form-control" value="${donate.ccoll}" readonly> 
+								</div>
+								
+									   <textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>글 등록</b></button>
-										<button type="reset" class="btn btn-primary">글 등록 취소</button>
+										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
+										<button type="button" id="delete" >삭제</button>
 								</div>
 							</div>
-						</form>
+						
 
 
 
@@ -106,5 +115,16 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript">
+//삭제 전 확인 창 띄우기
+$('#delete').click(function(){
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='delete.bit?dindex=${donate.dindex}';
+	}else{
+		return;
+	}
+});
+</script>
 </html>
 

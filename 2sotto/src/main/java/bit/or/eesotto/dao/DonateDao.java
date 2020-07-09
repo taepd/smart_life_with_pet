@@ -20,7 +20,7 @@ public interface DonateDao {
 	//후원글 입력
 	
 	@Insert("insert into donate (title,dobject,content,rtime,gcoll,ccoll)" +
-    "values(#{title},#{dobject},#{content},now(),#{gcoll},#{ccoll})")
+    "values(#{title},#{dobject},#{content},now(),#{gcoll},0)")
 	public int write(Donate donate);
 	
 	//게시물 개수

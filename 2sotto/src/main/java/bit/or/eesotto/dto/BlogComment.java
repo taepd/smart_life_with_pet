@@ -7,12 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Comment {
+public class BlogComment {
 	
-	private int prindex;
-	private int bdindex;
+	private int bcindex;
+	private int bindex;  //블로그 인덱스(FK)
 	private String userid;
-	private int rplike;
+	private int bclike;
 	private String content;
 	private String scstate;
 	private String rtime;

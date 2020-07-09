@@ -14,11 +14,11 @@ import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
 import bit.or.eesotto.dao.MessageDao;
-import bit.or.eesotto.dao.PostDao;
+import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.QnaDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Message;
-import bit.or.eesotto.dto.Post;
+import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.User;
 

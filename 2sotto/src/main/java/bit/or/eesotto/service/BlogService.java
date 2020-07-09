@@ -1,5 +1,6 @@
 package bit.or.eesotto.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
-import bit.or.eesotto.dao.PostDao;
+import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.UserDao;
-import bit.or.eesotto.dto.Post;
+import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.User;
 
 @Service
@@ -31,16 +32,16 @@ public class BlogService {
 	}
 
 	@Autowired
-	PostDao postDao;
+	BlogDao blogDao;
 
-	// 일반 회원가입
-	public int writePost(Post post) {
+	// 블로그 > 새 글 쓰기
+	public int writePost(Blog blog) {
 		int result = 0;
 
 		try {
 
-			postDao = sqlsession.getMapper(PostDao.class);
-			result = postDao.writePost(post);
+			blogDao = sqlsession.getMapper(BlogDao.class);
+			result = blogDao.writePost(blog);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -48,7 +49,8 @@ public class BlogService {
 
 		return result;
 	}
-
+	
+	// 블로그 > 내 포스팅 리스트 조회
 	public HashMap<String, Object> mainView(String cp, String ps, String userid) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -72,14 +74,14 @@ public class BlogService {
 		logger.info("cpage :" + cpage);
 		
 		// DAO 데이터 받아오기
-		List<Post> postList = null;
+		List<Blog> postList = null;
 
 		// mapper 를 통한 인터페이스 연결
-		PostDao postDao = sqlsession.getMapper(PostDao.class);
+		BlogDao blogDao = sqlsession.getMapper(BlogDao.class);
 
-		int totalPostCount = postDao.getPostCount(userid);
+		int totalPostCount = blogDao.getPostCount(userid);
 		//
-		postList = postDao.getPostList(cpage, pageSize, userid);
+		postList = blogDao.getPostList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalPostCount % pageSize == 0) {
@@ -97,5 +99,33 @@ public class BlogService {
 		return map;
 	}
 
+	//글 상세보기 
+	public Blog getPost(String bindex) {
+				
+		Blog blog = null;
+
+		blogDao = sqlsession.getMapper(BlogDao.class);
+		blog = blogDao.getPost(bindex);
+							
+		return blog;
+	}
+	
+	//글 상세보기  서비스 다시
+	public int editPost(Blog post) {
+
+		blogDao = sqlsession.getMapper(BlogDao.class);
+		
+							
+		return blogDao.editPost(post);
+	}
+	
+	//글 상세보기  서비스 다시
+	public int deletePost(Blog post) {
+
+		blogDao = sqlsession.getMapper(BlogDao.class);
+		
+							
+		return blogDao.deletePost(post);
+	}
 }
 

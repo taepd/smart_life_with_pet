@@ -54,7 +54,7 @@ public class MessageController {
 
 			
 			
-			// 블로그>글쓰기 페이지 view
+		// 블로그>글쓰기 페이지 view
 		@RequestMapping(value = "write.bit", method = RequestMethod.POST)
 		public String write(Message message, HttpSession session) {
 

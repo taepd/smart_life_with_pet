@@ -61,13 +61,19 @@ SqlSessionTemplate
 	<mybatis-spring:scan base-package="bit.or.eesotto.dao"/> 
 <!-- Mybatis 설정  -->
  
- <!-- 공통 UI  -->
+  <!-- 공통 UI  -->
   <!-- 파일 업로드지원 Resolver -->
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10485760"></property> <!-- 10M -->
   </bean>
+<<<<<<< HEAD:2sottoNoGit/WebContent/WEB-INF/spring/root-context.xml
    <!-- 시큐리티 암호화 -->
 <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />	
+=======
+  
+   <!-- 암호화 -->
+  <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+>>>>>>> eb81faf4b16323553e889cc20d773e1b5117fb13:2sotto/src/main/webapp/WEB-INF/spring/root-context.xml
  
 </beans>
 

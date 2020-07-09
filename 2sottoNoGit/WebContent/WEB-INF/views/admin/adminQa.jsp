@@ -9,6 +9,7 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+
 </head>
 <body>
 
@@ -35,7 +36,9 @@
 				<div class="nav-tabs-navigation">
 					<div class="nav-tabs-wrapper">
 						<ul class="nav nav-tabs" data-tabs="tabs">
-
+						
+						
+		
 							<form class="form-inline">
 								<div class="form-inline">
 									<span>Show:</span> <label for="selected">&nbsp;&nbsp;&nbsp;<select
@@ -48,6 +51,7 @@
 								</div>
 							</form>
 							<form class="form-inline ml-auto">
+							
 								<div class="form-group has-primary">
 									<input type="text" class="form-control" placeholder="검색가능">
 								</div>
@@ -78,36 +82,27 @@
 										<th>답변여부</th>
 									</tr>
 								</thead>
+								<c:forEach var="qna" items="${qnaList}" >
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td style="cursor:pointer;color:#blue;" onclick="location.href='view.bit'">농구 좋아하세요?</td>
-										<td>슬램덩크</td>
-										<td>2020.7.5 23:20</td>
-										<td>2</td>
-										<td>Y</td>
+									<tr>    				
+											<td>${qna.qaindex}</td>
+											<!--  <td style="cursor:pointer;color:#blue;" onclick="location.href='detail.bit'">${qna.title}</td> -->
+											<td style="cursor:pointer;color:#blue;" onclick="location.href='detail.bit?qaindex=${qna.qaindex}'">${qna.title}</td>
+											<td>${qna.userid}</td>
+											<td>${qna.qatime}</td>
+											<td>${qna.count}</td>
+											<td>${qna.awstate}</td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>야식 좋아하세요?</td>
-										<td>보캐슬</td>
-										<td>2020.7.5 23:40</td>
-										<td>5</td>
-										<td>N</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>포청천 좋아하세요?</td>
-										<td>김건휘</td>
-										<td>2020.7.5 23:45</td>
-										<td>100</td>
-										<td>Y</td>
-									</tr>
+
+									</tbody>
+									
+									</c:forEach> 
 							</table>
 
 						</div>
-
+						<!--  -->
 						<div class="table-responsive">
+						
 							<table class="table" style="text-align: left">
 								<thead class="text ">
 									<tr>
@@ -117,24 +112,57 @@
 									</tr>
 								</thead>
 							</table>
+							
+						
+							
+							
+							<div class="pagination justify-content-center">
+			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+					<ul class="pagination" id="pagingview">
+						<c:if test="${cpage > 1}">
+							<li class="page-item"><a class="page-link"
+								href="main.bit?cp=${cpage-1}&ps=${pageSize}"
+								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
+									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+						</c:if>
+
+						<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+							<c:choose>
+								<c:when test="${cpage==i }">
+									<li class="page-item active"><a class="page-link"
+										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										ps="${pageSize}">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										ps="${pageSize}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+
+						</c:forEach>
+
+						<c:if test="${cpage < pageCount}">
+
+							<li class="page-item">
+								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+									<span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+			<!-- </nav> -->
+			</div>
+			<!-- 여기까지 페이징처리 -->
+							
+							
 						</div>
 
 
 
-						<nav aria-label="Page navigation">
-							<ul class="pagination justify-content-end ">
-								<li class="page-item disabled"><a class="page-link"
-									href="javascript:;" tabindex="-1">Previous</a></li>
-								<li class="page-item"><a class="page-link"
-									href="javascript:;">1</a></li>
-								<li class="page-item"><a class="page-link"
-									href="javascript:;">2</a></li>
-								<li class="page-item"><a class="page-link"
-									href="javascript:;">3</a></li>
-								<li class="page-item"><a class="page-link"
-									href="javascript:;">Next</a></li>
-							</ul>
-						</nav>
+						
 
 					</div>
 

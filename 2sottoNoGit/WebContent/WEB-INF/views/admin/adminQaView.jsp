@@ -11,6 +11,7 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+
 </head>
 <body>
 
@@ -32,63 +33,61 @@
 
 				<div class="card-body">
 					<div class="tab-content text-center">
-
 						<!---------- Q&A 내용  ------------------>
 
 						<div class="table-responsive">
+						
 							<table class="table">
+						 
 								<thead class=" text">
+									
 									<tr>
 										<th>작성자</th>
-										<td>포청천</td>
+										<td>${qna.userid}</td>
 										<th>작성일</th>
-										<td>2020.7.5 10:32</td>
+										<td>${qna.qatime}</td>
 									</tr>
 									<tr>
 										<th>조회수</th>
-										<td>6</td>
+										<td>${qna.count}</td>
 										<th>첨부파일명</th>
-										<td></td>
+										<td>${qna.filename}</td>
 									</tr>
 									<tr>
 										<th>글번호</th>
-										<td>2</td>
+										<td>${qna.qaindex}</td>
 										<th>제목</th>
-										<td>내일 버거킹?</td>
+										<td>${qna.title}</td>
 									</tr>
 								</thead>
+								 	
 								<tbody>
 									<tr>
 										<td valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${currentPost.post_contents}답글내용</div>
+											<div style="margin: 40px 40px 80px 40px;">답글내용</div>
 										</td>
-										<td valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${currentPost.post_contents}세뚜세뚜</div>
-										</td>
-
 									</tr>
 									<tr>
 										<td valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${currentPost.post_contents}글내용</div>
-										</td>
-										<td valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${currentPost.post_contents}사실...서브웨이
-												가고싶어요</div>
+											<div style="margin: 40px 40px 80px 40px;">${qna.content}</div>
 										</td>
 									</tr>
 
 
 									<tr align="center" valign="middle">
-										<td colspan="5"><c:if
-												test="${currentPost.user_id == user_id }">
+										<td colspan="5">
+										<!--<c:if test="${currentPost.user_id == user_id }"> -->
 												<a class="btn btn btn-round" href="javascript:history.back();"> &nbsp;이전&nbsp; </a>
-												<a class="btn btn-rose btn-round" href="">
+												<a class="btn btn-rose btn-round" href="edit.bit?qaindex=${qna.qaindex}">
 													&nbsp;수정&nbsp; </a>
 												<a id="confirmDelete" class="btn btn-white btn-round"
-													href=""> &nbsp;삭제&nbsp; </a>
-											</c:if></td>
+													href="delete.bit?qaindex=${qna.qaindex}"> &nbsp;삭제&nbsp; </a>
+											<!-- </c:if> --></td>
 
 									</tr>
+									</tbody>
+									
+								
 							</table>
 
 						</div>

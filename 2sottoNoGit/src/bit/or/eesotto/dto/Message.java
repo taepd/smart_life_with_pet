@@ -9,12 +9,12 @@ import lombok.ToString;
 @ToString
 public class Message {
 	
-	private int msindex;
-	private String ruserid;
-	private String suserid2;
-	private String title;
-	private String qatime;
-	private String id;
-	private String readstate;
+	private int msindex; //쪽지번호
+	private String ruserid; //받은사람ID
+	private String suserid2; //보낸사람ID
+	private String title; //쪽지내용
+	private String qatime; //보낸일시
+	private String id; //읽은일시
+	private String readstate; //읽음여부 
 
 }

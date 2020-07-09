@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.or.eesotto.dao.PetDao">
+
+	<update id="editPet" parameterType="bit.or.eesotto.dto.Pet">
+		update pet set   scategory = #{scategory}, age = #{age}, size = #{size},
+				weight = #{weight}, nstate = #{nstate}, petimg = #{petimg}, memo = #{memo}
+				where userid=#{userid}
+  </update>
+  
+</mapper>
+

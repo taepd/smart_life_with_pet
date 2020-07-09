@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -60,8 +62,10 @@
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<div class="side_overlay">
 		<div class="container">
-			<h1>제목 자리 Title</h1>
-			<h4>2020.05.03. 23:11 날짜 자리</h4>
+			<h1>${post.title}</h1>
+			<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+			<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+			<h4>${rtime}</h4>
 			
 			<!-- 직관적인 badge
 			<a href="#"><span class="badge badge-default">수정</span></a>
@@ -80,56 +84,11 @@
 			<br>
 			<hr>
 			<div>
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				<br> 
-				<br> 
-				<br> 
-				<br> 
-				<br> 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				<br> 
-				<br> 
-				<br> 
-				<br> 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 
-				<br> 
+				${post.content}
 			</div>
+			<hr>
+			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
+			<button type="button" onclick="location.href='delete.bit?bindex=${post.bindex}'">삭제</button>
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
 				<div id="replybox"></div>

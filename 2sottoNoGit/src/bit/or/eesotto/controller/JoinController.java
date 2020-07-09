@@ -101,7 +101,7 @@ public class JoinController {
 
 	// ID 중복체크 Ajax 호출
 	@ResponseBody
-	@RequestMapping(value = "join/idCheck.bit", method = { RequestMethod.POST })
+	@RequestMapping(value = "idCheck.bit", method = { RequestMethod.POST })
 	public List<String> idCheck(HttpServletRequest request, Model model) throws IOException {
 
 		String id = request.getParameter("userid");
@@ -111,7 +111,7 @@ public class JoinController {
 	
 	// nick 중복체크 Ajax 호출
 		@ResponseBody
-		@RequestMapping(value = "join/nickCheck.bit", method = { RequestMethod.POST })
+		@RequestMapping(value = "nickCheck.bit", method = { RequestMethod.POST })
 		public List<String> nickCheck(HttpServletRequest request, Model model) throws IOException {
 
 			String id = request.getParameter("nick");

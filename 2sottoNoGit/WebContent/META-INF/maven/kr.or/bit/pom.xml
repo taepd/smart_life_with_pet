@@ -233,7 +233,7 @@
 			<version>1.18.12</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Spring Security-->
+		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -249,6 +249,12 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
+		<!-- Spring Security taglib -->
+		<dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-taglibs</artifactId>
+	        <version>4.0.1.RELEASE</version>
+	    </dependency>
 
 
 
@@ -276,6 +282,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<debug>true</debug>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>

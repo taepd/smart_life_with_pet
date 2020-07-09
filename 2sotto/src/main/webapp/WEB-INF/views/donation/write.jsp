@@ -34,7 +34,7 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+									<a class="nav-link " onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons">favorite</i> 좋아요 순
 									</a>
 								</li>
@@ -44,7 +44,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+									<a class="nav-link active show" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons">camera</i> 글쓰기
 									</a>
 								</li>

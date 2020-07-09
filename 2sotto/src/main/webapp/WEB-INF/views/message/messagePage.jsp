@@ -70,11 +70,11 @@
 									<tbody>
 									
 										<tr>
-											<td>${message.RUSERID}</td>
-											<td>${message.CONTENT}</td>
-											<td>${message.SENDTIME}</td>
-											<td>${message.READSTATE}</td>
-											<td>${message.READTIME}</td>
+											<td>${message.ruserid}</td>
+											<td>${message.content}</td>
+											<td>${message.sendtime}</td>
+											<td>${message.readstate}</td>
+											<td>${message.readtime}</td>
 
 										</tr>
 										</tbody>

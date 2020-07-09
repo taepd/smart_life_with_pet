@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 블로그 포스팅 수 조회 -->
 	<select id="getMessageCount" resultType="int">
-		select count(*) from message where SUSERID = #{param1}
+		select count(*) from message where suserid = #{param1}
 	</select>
 	
 	

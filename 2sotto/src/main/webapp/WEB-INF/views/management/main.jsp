@@ -29,7 +29,7 @@
 		<div class="container">
 
 		
-		<button class="btn btn-primary btn-round" onclick="location.href='registerPets.bit'">반려동물 등록</button>
+		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'">반려동물 등록</button>
 
 		
 

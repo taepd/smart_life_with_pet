@@ -87,8 +87,8 @@
 				${post.content}
 			</div>
 			<hr>
-			<button type="button" onclick="location.href='.bit?bindex=${post.bindex}'">수정</button>
-			<button type="button" onclick="location.href='delete.bit?bindex=${post.bindex}'">삭제</button>
+			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
+			<button type="button" id="delete">삭제</button>
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
 				<div id="replybox"></div>
@@ -114,6 +114,17 @@
 </body>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
+
+// 삭제 전 확인 창 띄우기
+$('#delete').click(function(){
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='delete.bit?bindex=${post.bindex}';
+	}else{
+		return;
+	}
+});
 
 //모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
 $(function() {

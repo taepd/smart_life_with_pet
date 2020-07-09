@@ -60,29 +60,38 @@
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" >
 
-							<form action="write.bit" method="post">
+							<form action="update.bit" method="post">
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">글번호</label> 
+									<input type="text" name="dindex" class="form-control" value="${donate.dindex}" readonly> 
+								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">제목</label> 
-									<input type="text" name="title" class="form-control" placeholder="제목"> 
+									<input type="text" name="title" class="form-control" value="${donate.title}" > 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">작성자</label> 
-									<input type="text"  class="form-control" placeholder="관리자" readonly> 
+									<input type="text" class="form-control" placeholder="관리자" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원이 필요한 아이</label> 
-									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
+									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" > 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
-									<input type="text" name="gcoll" class="form-control" > 
-								</div>	
-								<textarea name="content" class="form-control"  rows="10" placeholder="여기에  내용을 입력합니다"></textarea>
+									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" > 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">현재모금액</label> 
+									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
+								</div>
+								
+									   <textarea name="content" class="form-control"  rows="10" >${donate.content}</textarea>
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>글 등록</b></button>
-										<button type="reset" class="btn btn-primary">글 등록 취소</button>
+										<button type="submit" class="btn btn-primary"><b>글 수정 완료</b></button>
+										<button type="reset" class="btn btn-primary">글 수정 취소</button>
 								</div>
 							</div>
 						</form>

@@ -28,7 +28,7 @@
 		<div class="container">
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='write.bit'">글쓰기</button>
+				onclick="location.href='main.bit'">게시글</button>
 			<!-- 탭 아이콘 영역 -->
 			<!--  탭영역 음....기다린다 -->
 			<div class="card card-nav-tabs">
@@ -37,18 +37,21 @@
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item"><a class="nav-link active show"
-									href="#donationlist" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons">favorite</i> 후원글
-										<div class="ripple-container"></div></a></li>
-								<li class="nav-item"><a class="nav-link" href="#reply"
-									data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons">favorite</i> 댓글 많은 순
-										<div class="ripple-container"></div></a></li>
-								<li class="nav-item"><a class="nav-link" href="#favorite"
-									data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons">camera</i> 좋아요 많은순
-										<div class="ripple-container"></div></a></li>
+								<li class="nav-item">
+									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons">favorite</i> 좋아요 순
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" onclick="location.href='messagePage.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+										<i class="material-icons">favorite</i> 게시 일자 순
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+										<i class="material-icons">camera</i> 글쓰기
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -67,49 +70,73 @@
 											<th>제목</th>
 											<th>작성자</th>
 											<th>등록시간</th>
-											<th>조회수</th>
+											<th>모금률</th>
+											
 
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td style="cursor:pointer;color:#blue;" onclick="location.href='qaView.bit'">후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>후원이 필요합니다.</td>
-											<td>김건휘</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
+									<c:forEach var="donate" items="${donateList}">
+										<tbody>
+											<tr>
+												<td>${donate.dindex}</td>
+												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
+															${donate.title}</a></td>
+												<td class="text-center">관리자</td>
+												<td class="text-center">${donate.rtime}</td>
+												<td class="text-center">${donate.ccoll}</td> 
+												
+											</tr>
+										</tbody>
+									</c:forEach>
+										
 								</table>
+								 <!-- 페이징  -->
+								<div class="pagination justify-content-center">
+									<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+									<ul class="pagination" id="pagingview">
+										<c:if test="${cpage > 1}">
+											<li class="page-item"><a class="page-link"
+												href="main.bit?cp=${cpage-1}&ps=${pageSize}" 
+												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> 
+												<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+										</c:if>
+
+										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+											<c:choose>
+												<c:when test="${cpage==i }">
+													<li class="page-item active"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+
+										<c:if test="${cpage < pageCount}">
+
+											<li class="page-item">
+											<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}" 
+												cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+												<span aria-hidden="true">&raquo;</span> 
+												<span class="sr-only">Next</span>
+											</a></li>
+										</c:if>
+									</ul>
+									<!-- </nav> -->
+								</div>
 							</div>
-
-
+	
 						</div>
 
+						
 
-
-						<div class="tab-pane" id="reply">
-							<!---------- 댓글많은순 ------------------>
+						<!-- <div class="tab-pane" id="reply">
+							-------- 댓글많은순 ----------------
 
 							<div class="table-responsive">
 								<table class="table">
@@ -159,7 +186,7 @@
 
 						</div>
 
-						<!---------- 좋아요 많은순 ------------------>
+						-------- 좋아요 많은순 ----------------
 						<div class="tab-pane" id="favorite">
 
 							<div class="table-responsive">
@@ -208,7 +235,7 @@
 
 
 
-						</div>
+						</div> -->
 
 
 						<!-------------- 끝 ---------------->
@@ -217,7 +244,7 @@
 					</div>
 				</div>
 			</div>
-
+                
 		</div>
 		<!-- container end -->
 	</div>

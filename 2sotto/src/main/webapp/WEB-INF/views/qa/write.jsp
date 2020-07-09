@@ -35,6 +35,7 @@
 
 						<!---------- 글쓰기  ------------------>
 
+						<form action="write.bit" method="post">
 						<div class="table-responsive">
 							<table class="table">
 								<thead class=" text-primary">

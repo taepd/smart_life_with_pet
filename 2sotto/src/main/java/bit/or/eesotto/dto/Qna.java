@@ -9,14 +9,14 @@ import lombok.ToString;
 @ToString
 public class Qna {
 	
-	private int qaindex;
-	private String userid;
-	private String title;
-	private String qatime;
-	private int count;
-	private String scstate;
-	private String content;
-	private String filename;
-	private String awstate;
+	private int qaindex; //글번호
+	private String userid; //USERID
+	private String title; //제목
+	private String qatime; //등록시간
+	private int count; //조회수
+	private String scstate; //비밀유무
+	private String content; //내용
+	private String filename; //첨부파일
+	private String awstate; //답변완료
 
 }

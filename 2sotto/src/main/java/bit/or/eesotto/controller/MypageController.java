@@ -54,7 +54,7 @@ public class MypageController {
 			
 			logger.info("유저 정보 가져오기 실패");
 			
-			return "redirect:/login.bit";
+			return "redirect:/login/login.bit";
 		}
 	}
 	
@@ -181,7 +181,7 @@ public class MypageController {
 			
 			logger.info("회원탈퇴 처리실패");
 			msg = "문제가 생겨 회원탈퇴가 정상적으로 이루어지지 않았습니다.";
-	        url = "withdrawal.bit";
+	        url = "main.bit";
 
 		}
 		

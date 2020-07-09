@@ -18,10 +18,10 @@
 		<div class="container">
 			<h3>블로그 글쓰기 페이지</h3>
 
-			<form action="" method="post">
+			<form action="write.bit" method="post">
 				<div class="form-group bmd-form-group">
 				  <label class="bmd-label-static">제목</label>
-				  <input type="text" class="form-control" placeholder="">
+				  <input type="text" name="title" class="form-control" placeholder="">
 				</div>
 				
 				<!-- <div id="summernote">
@@ -30,9 +30,13 @@
 				<!-- <textarea id="summernote" name="post_contents" cols="67" rows="20"></textarea> -->
 				
 				<!-- ckeditor 일단 cdn으로 걸었음 -->
-				<textarea name="editor1"></textarea>
-				<a href="javascript:history.go(-1)" class="btn btn-round btn-rose">&nbsp;&nbsp;등록&nbsp;&nbsp;</a>
-				<a href="javascript:addpost()" class="btn btn-round btn-white">&nbsp;&nbsp;취소&nbsp;&nbsp;</a>
+				<textarea name="content"></textarea>
+				<div class="border-top">
+					<div class="card-body" style="text-align: center;">
+						<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
+						<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
+					</div>
+				</div>
 			</form>									
 
 			<!-- <div class="card  card-nav-tabs ">
@@ -92,7 +96,7 @@
 
 	$(function() {
 
-		CKEDITOR.replace( 'editor1' );
+		CKEDITOR.replace( 'content' );
 		/* $('#summernote').summernote({
 			height : 500,
 			minHeight : null,

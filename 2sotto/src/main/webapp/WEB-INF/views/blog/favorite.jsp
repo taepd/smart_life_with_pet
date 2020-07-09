@@ -175,21 +175,23 @@
 
 	$(document).ready(function(){
 
-		 $("[id^='bm']").on('click', function() {
+		 $(".bookmark > i").on('click', function() {
 
 			 /* s=채운거, r=빈거 */
-			   if( $("[id^='bm']").hasClass("fas fa-bookmark") ) {
-				   $("[id^='bm']" ).removeClass("fas fa-bookmark").addClass("far fa-bookmark");
+			   if( $(this).hasClass("fas fa-bookmark") ) {
+				   $(this).removeClass("fas fa-bookmark").addClass("far fa-bookmark");
 				   /* $('a').attr('style', 'display: none'); */
 
-				} else if( $("[id^='bm']").hasClass("far fa-bookmark")) {
+				} else if( $(this).hasClass("far fa-bookmark")) {
 					   $(this).removeClass("far fa-bookmark").addClass("fas fa-bookmark");
 				}
+
+				return false;
 		 });
 
 		 /* 
 		 	앞으로 할일
-		 	1. <i> 태그에 동적으로 id 부여하기
+		 	1. <i> 태그에 동적으로 id 부여하기(글 목록 뿌릴 때 설정할 듯?)
 		 	2. 북마크 풀었을 때 display none + 애니메이션 설정
 		 
 		  */

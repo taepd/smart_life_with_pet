@@ -1,6 +1,7 @@
 package bit.or.eesotto.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,13 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dto.Qna;
 
 import bit.or.eesotto.service.QnaService;
+
 
 @Controller
 @RequestMapping("/qa/")
@@ -28,16 +32,43 @@ public class QaController {
 	
 	// Qa 보러가기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String qaMain() {
-
+	public String mainView(String cp, String ps, HttpSession session, Model model) {
+		
+		String userid = (String) session.getAttribute("userid");
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = qa.mainView(cp, ps, userid);
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("qnaList", map.get("qnaList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalMsgcount", map.get("totalMsgcount"));
+		
 		return "qa/main";
 	}
 
 
 	// view 보러가기
 	@RequestMapping(value = "view.bit", method = RequestMethod.GET)
-	public String qaview() {
+	public String qnaview(String cp, String ps, HttpSession session, Model model) {
 
+		String userid = (String) session.getAttribute("userid");
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = qa.mainView(cp, ps, userid);
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("qnaList", map.get("qnaList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalMsgcount", map.get("totalMsgcount"));
+		
+		
+		
+		
 		return "qa/view";
 	}
 

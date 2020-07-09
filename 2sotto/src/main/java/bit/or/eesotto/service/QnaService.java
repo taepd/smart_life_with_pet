@@ -130,25 +130,56 @@ public class QnaService {
 		// mapper 를 통한 인터페이스 연결
 		QnaDao qnaDao = sqlsession.getMapper(QnaDao.class);
 
-		int totalQnacount = qnaDao.getQnaCount(userid);
+		int totalQnaCount = qnaDao.getQnaCount(userid);
 
 		//
 		qnaList = qnaDao.getQnaList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
-		if (totalQnacount % pageSize == 0) {
-			pageCount = totalQnacount / pageSize;
+		if (totalQnaCount % pageSize == 0) {
+			pageCount = totalQnaCount / pageSize;
 		} else {
-			pageCount = (totalQnacount / pageSize) + 1;
+			pageCount = (totalQnaCount / pageSize) + 1;
 		}
 
 		map.put("qnaList", qnaList);
 		map.put("cpage", cpage);
 		map.put("pageSize", pageSize);
 		map.put("pageCount", pageCount);
-		map.put("totalQnacount", totalQnacount);
+		map.put("totalQnaCount", totalQnaCount);
 
 		return map;
 	}
 
+	
+	//글 상세보기 
+		public Qna getPost(String qaindex) {
+					
+			Qna qna = null;
+
+			qnaDao = sqlsession.getMapper(QnaDao.class);
+			qna = qnaDao.getPost(qaindex);
+								
+			return qna;
+		}
+		
+		//글 상세보기  서비스 다시
+		public int editPost(Qna post) {
+
+			qnaDao = sqlsession.getMapper(QnaDao.class);
+			
+								
+			return qnaDao.editPost(post);
+		}
+		
+		//글 상세보기  서비스 다시
+		public int deletePost(Qna post) {
+
+			qnaDao = sqlsession.getMapper(QnaDao.class);
+			
+								
+			return qnaDao.deletePost(post);
+		}
+	
+	
 }

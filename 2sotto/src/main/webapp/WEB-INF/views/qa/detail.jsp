@@ -11,6 +11,7 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+
 </head>
 <body>
 
@@ -32,13 +33,12 @@
 
 				<div class="card-body">
 					<div class="tab-content text-center">
-
 						<!---------- Q&A 내용  ------------------>
 
 						<div class="table-responsive">
 						
 							<table class="table">
-							<c:forEach var="qna" items="${qnaList}" >
+						 
 								<thead class=" text">
 									
 									<tr>
@@ -60,8 +60,7 @@
 										<td>${qna.title}</td>
 									</tr>
 								</thead>
-									</c:forEach> 
-									<c:forEach var="qna" items="${qnaList}" >
+								 	
 								<tbody>
 									<tr>
 										<td valign=top style="font-family: 돋음; font-size: 12;">
@@ -70,25 +69,25 @@
 									</tr>
 									<tr>
 										<td valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${qna.content}글내용</div>
+											<div style="margin: 40px 40px 80px 40px;">${qna.content}</div>
 										</td>
 									</tr>
 
 
 									<tr align="center" valign="middle">
-										<td colspan="5"><c:if
-												test="${currentPost.user_id == user_id }">
+										<td colspan="5">
+										<!--<c:if test="${currentPost.user_id == user_id }"> -->
 												<a class="btn btn btn-round" href="javascript:history.back();"> &nbsp;이전&nbsp; </a>
-												<a class="btn btn-rose btn-round" href="">
+												<a class="btn btn-rose btn-round" href="edit.bit?qaindex=${qna.qaindex}">
 													&nbsp;수정&nbsp; </a>
 												<a id="confirmDelete" class="btn btn-white btn-round"
-													href=""> &nbsp;삭제&nbsp; </a>
-											</c:if></td>
+													href="delete.bit?qaindex=${qna.qaindex}"> &nbsp;삭제&nbsp; </a>
+											<!-- </c:if> --></td>
 
 									</tr>
 									</tbody>
 									
-									</c:forEach> 
+								
 							</table>
 
 						</div>

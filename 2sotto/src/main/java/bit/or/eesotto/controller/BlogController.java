@@ -12,7 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import bit.or.eesotto.dto.Post;
+import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.BlogService;
 
 
@@ -33,7 +34,7 @@ public class BlogController {
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
-		logger.info("내 블로그 글 조회 완료");
+		logger.info("내 블로그 글 리스트 조회 완료");
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -46,24 +47,98 @@ public class BlogController {
 
 	}
 
-	// 블로그>상세 페이지 view
+	// 블로그 > 상세 페이지 view
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
-	public String detail(String bdindex) {
-
-		// Post post 여기 하던 중
-
-		return "blog/detail";
+	public String detail(String bindex, Model model) {
+		
+		Blog post = bs.getPost(bindex);
+		logger.info("내 블로그 글 조회 완료");
+		model.addAttribute("post", post);
+		
+		return "blog/detail";	
 	}
+	
+	// 블로그 > 글 수정 view
+	@RequestMapping(value = "edit.bit", method = RequestMethod.GET)
+	public String update(String bindex, Model model) {
+		
+		Blog post = bs.getPost(bindex);
+		logger.info("내 블로그 글 조회 완료");
+		model.addAttribute("post", post);
+		
+		return "blog/edit";	
+	}
+	
+	// 마이페이지 > 글 수정 처리
+	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
+	public String update(Blog post, Model model) {
+											
+		String msg = null;
+		String url = null;
+			
+		int result = bs.editPost(post);
+	
+		if(result==1) {
+			
+			logger.info("블로그 글 수정 완료");
+			msg = "블로그 글 수정 완료";
+	        url = "main.bit";
+			
+		}else { 
+			
+			logger.info("블로그 글 수정 실패");
+			msg = "블로그 글 수정 실패";
+	        url = "javascript:history.back();";
 
-	// 블로그>글쓰기 페이지 view
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+	}
+	
+	// 마이페이지 > 글 삭제 처리
+	@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
+	public String delete(Blog post, Model model) {
+											
+		String msg = null;
+		String url = null;
+			
+		int result = bs.deletePost(post);
+	
+		if(result==1) {
+			
+			logger.info("블로그 글 삭제 완료");
+			msg = "블로그 글 삭제 완료";
+	        url = "main.bit";
+			
+		}else { 
+			
+			logger.info("블로그 글 삭제 실패");
+			msg = "블로그 글 삭제 실패";
+	        url = "javascript:history.back();";
+
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+	}
+	
+
+	// 블로그 > 글쓰기 페이지 view
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
 	public String write() {
 		return "blog/write";
 	}
 
-	// 블로그>글쓰기 페이지 view
+	// 블로그 > 글쓰기 처리
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Post post, HttpSession session) {
+	public String write(Blog blog, HttpSession session) {
 
 		String userid = (String) session.getAttribute("userid");
 		logger.info("로그인 유저 아이디: " + userid);
@@ -95,12 +170,12 @@ public class BlogController {
 		// int result = donationservice.donationWrite(donate, request, principal);
 
 		// 세션 userid post객체에 입력
-		post.setUserid(userid);
+		blog.setUserid(userid);
 
 		// 임시 petindex 입력
-		post.setPetindex(1);
+		blog.setPetindex(1);
 
-		int result = bs.writePost(post);
+		int result = bs.writePost(blog);
 		
 		if (result == 1) {
 
@@ -116,6 +191,8 @@ public class BlogController {
 		}
 
 	}
+	
+	
 
 	// 블로그>즐겨찾기 페이지 view
 	@RequestMapping(value = "favorite.bit", method = RequestMethod.GET)

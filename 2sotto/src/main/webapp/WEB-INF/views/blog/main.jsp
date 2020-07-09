@@ -22,7 +22,6 @@
 		<div class="container">
 			
 			<h3>블로그  페이지</h3>
-			<button type="button" onclick="location.href='detail.bit'">블로그 상세 페이지</button>
 			<button type="button" class="btn btn-warning" onclick="location.href='write.bit'">블로그 글쓰기</button>
 			<br>
 			<br>
@@ -34,7 +33,7 @@
 				<div class="row">
 					<div class="col-9">
 						<div class="contents">
-							<h3><a href="blog/detail.bit?bdindex=${post.bdindex}">${post.title}</a></h3>
+							<h3><a href="detail.bit?bindex=${post.bindex}">${post.title}</a></h3>
 							${post.content}
 
 							<!-- timestamp 날짜시간 표시 포맷 변환 -->
@@ -79,7 +78,7 @@
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
 							<li class="page-item">
-								<a class="page-link" href="BitBoardList.bit?cp=${cpage-1}&ps=${pageSize}" cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
+								<a class="page-link" href="main.bit?cp=${cpage-1}&ps=${pageSize}" cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 									<span class="sr-only">Previous</span>
 								</a>

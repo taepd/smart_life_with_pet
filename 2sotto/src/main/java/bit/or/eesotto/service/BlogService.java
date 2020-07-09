@@ -110,21 +110,19 @@ public class BlogService {
 		return blog;
 	}
 	
-	//글 상세보기  서비스 다시
+	//블로그 > 글 수정
 	public int editPost(Blog post) {
 
 		blogDao = sqlsession.getMapper(BlogDao.class);
-		
-							
+									
 		return blogDao.editPost(post);
 	}
 	
-	//글 상세보기  서비스 다시
+	//블로그 > 글 삭제
 	public int deletePost(Blog post) {
 
 		blogDao = sqlsession.getMapper(BlogDao.class);
 		
-							
 		return blogDao.deletePost(post);
 	}
 }

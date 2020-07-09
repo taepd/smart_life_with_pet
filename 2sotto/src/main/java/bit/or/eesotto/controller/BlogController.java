@@ -28,7 +28,7 @@ public class BlogController {
 
 	// 블로그 메인 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String mainView(String cp, String ps, HttpSession session, Model model) {
+	public String main(String cp, String ps, HttpSession session, Model model) {
 		
 		String userid = (String) session.getAttribute("userid");
 		logger.info("로그인 유저 아이디: " + userid);
@@ -82,7 +82,7 @@ public class BlogController {
 			
 			logger.info("블로그 글 수정 완료");
 			msg = "블로그 글 수정 완료";
-	        url = "main.bit";
+	        url = "detail.bit?bindex="+post.getBindex();
 			
 		}else { 
 			
@@ -103,29 +103,30 @@ public class BlogController {
 	@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
 	public String delete(Blog post, Model model) {
 											
-		String msg = null;
-		String url = null;
+//		String msg = null;
+//		String url = null;
 			
 		int result = bs.deletePost(post);
 	
 		if(result==1) {
 			
 			logger.info("블로그 글 삭제 완료");
-			msg = "블로그 글 삭제 완료";
-	        url = "main.bit";
+//			msg = "블로그 글 삭제 완료";
+//	        url = "main.bit";
+			return "redirect:/blog/main.bit";
 			
 		}else { 
 			
 			logger.info("블로그 글 삭제 실패");
-			msg = "블로그 글 삭제 실패";
-	        url = "javascript:history.back();";
-
+//			msg = "블로그 글 삭제 실패";
+//	        url = "javascript:history.back();";
+	        return "javascript:history.back()";
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
 		
-		return "redirect";	
+		//return "redirect";	
 		
 	}
 	

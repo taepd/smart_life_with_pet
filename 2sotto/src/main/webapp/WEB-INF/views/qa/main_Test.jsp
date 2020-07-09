@@ -84,10 +84,9 @@
 								</thead>
 								<c:forEach var="qna" items="${qnaList}" >
 								<tbody>
-									<tr>    				
+									<tr>
 											<td>${qna.qaindex}</td>
-											<!--  <td style="cursor:pointer;color:#blue;" onclick="location.href='detail.bit'">${qna.title}</td> -->
-											<td style="cursor:pointer;color:#blue;" onclick="location.href='detail.bit?qaindex=${qna.qaindex}'">${qna.title}</td>
+											<td style="cursor:pointer;color:#blue;" onclick="location.href='view.bit'">${qna.title}</td>
 											<td>${qna.userid}</td>
 											<td>${qna.qatime}</td>
 											<td>${qna.count}</td>

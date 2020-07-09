@@ -8,17 +8,30 @@ import bit.or.eesotto.dto.Pet;
 
 
 public interface PetDao {
+	
+	
 		// 댕댕이 정보 가져오기
 		@Select("select * from pet where userid = #{userid}")
 		public Pet getPetInfo(@Param("userid") String userid);
 
 		// 반려동물 등록
+		/*
 		@Insert("insert into pet (mcategory, scategory, petname, sex, age, size, weight, "
-				+ "hlength, nstate, petimg, memo)"
+				+ "hlength, nstate, memo)"
 				+ " select (#{mcategory}, #{scategory}, #{petname}, #{sex}, #{age}, "
-				+ "#{size}, #{weight}, #{hlength}, #{nstate}, #{petimg}, #{memo}) "
+				+ "#{size}, #{weight}, #{hlength}, #{nstate}, #{memo}) "
 				+ "from dual where exists (select userid from user where userid = #{userid}")
-		public int newPet(Pet pet, String userid);
+		public int newPet(Pet pet);
+		*/
+		
+		// 반려동물 등록
+		@Insert("insert into pet"
+				+ "(petindex, userid, mcategory, scategory, petname, sex, age, size, weight, hlength, nstate, petimg, memo)"
+				+ " values( #{petindex}, #{userid}, #{mcategory}, #{scategory}, #{petname}, #{sex}, #{age}, #{size}, #{weight}, "
+				+ "#{hlength}, #{nstate}, #{petimg}, #{memo} )")
+		public int newPet(Pet pet);
+		
+		
 
 		// 수정
 		public int editPet(Pet pet, String userid);	

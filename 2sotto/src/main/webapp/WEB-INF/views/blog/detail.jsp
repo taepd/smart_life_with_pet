@@ -89,6 +89,7 @@
 			<hr>
 			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
 			<button type="button" id="delete">삭제</button>
+
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
 				<div id="replybox"></div>

@@ -86,7 +86,7 @@
 												<a class="btn btn btn-round" href="../index.jsp"> &nbsp;메인화면&nbsp; </a>
 												<a class="btn btn-rose btn-round" href="javascript:history.back();">
 													&nbsp;이전&nbsp; </a>
-												<button type="submit" class="btn btn-white btn-round"> 
+												<button type="submit" id="delete" class="btn btn-white btn-round"> 
 												&nbsp;회원탈퇴&nbsp; 
 												</button>
 													</form>
@@ -173,6 +173,16 @@
 				}
 			});
 		});
+		// 탈퇴 전 확인 창 띄우기
+		$('#delete').click(function(){
+			let con = confirm("정말로 탈퇴하시겠습니까?");
+			if(con){
+				return location.href='delete.bit?userid=${userid.userid}';
+			}else{
+				return;
+			}
+		});
+		
 	</script>
 
 

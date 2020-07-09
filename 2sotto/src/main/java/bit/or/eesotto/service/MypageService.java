@@ -64,7 +64,7 @@ public class MypageService {
 			userid = userDao.getUser(userid).toString();
 			try {
 				petDao = sqlsession.getMapper(PetDao.class);
-				result = petDao.newPet(pet, userid);
+				result = petDao.newPet(pet);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

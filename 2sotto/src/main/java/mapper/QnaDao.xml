@@ -50,10 +50,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 블로그 포스팅 수 조회 -->
+	<!-- 
 	<select id="getQnaCount" resultType="int">
 		select count(*) from QNA where USERID = #{param1}
 	</select>
-	
+	-->
 	
 
 	<!-- 

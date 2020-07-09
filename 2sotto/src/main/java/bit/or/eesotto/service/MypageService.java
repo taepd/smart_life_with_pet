@@ -58,6 +58,7 @@ public class MypageService {
 			
 	}
 	//댕댕이 정보 넣기
+
 	public int newPet(Pet pet, String userid) {
 		int result = 0;
 		userDao = sqlsession.getMapper(UserDao.class);
@@ -80,8 +81,5 @@ public class MypageService {
 		petDao = sqlsession.getMapper(PetDao.class);
 			return petDao.editPet(pet, userid);
 	}
-	
-	
-	
 
 }

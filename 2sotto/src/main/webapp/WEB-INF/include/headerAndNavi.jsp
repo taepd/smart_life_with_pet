@@ -8,7 +8,9 @@
 	position: relative;
 }
 </style>
-
+		<!-- pageContext.request.userPrincipal.name -->
+		<se:authentication property="name" var="userid" />
+		<c:set var="user" value="${sessionScope.user}" />
 	<!-- header -->
 	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
@@ -25,11 +27,9 @@
 		                </a>
 					</li>
 		</se:authorize>	
-		<!-- pageContext.request.userPrincipal.name -->
-		<se:authentication property="name" var="loginuser" />
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link"></a>${loginuser}님 반갑습니다 
+						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link"></a>${userid}님 반갑습니다 
 		            </li>
 					<li class="nav-item" id="item01">
 						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link">마이 페이지</a>
@@ -51,7 +51,7 @@
 		<div class="user-pic-wrapper">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
 			<div class="nickname">
-				닉네임 자리 <br> 포인트 자리 <br>
+				${userid} <br> ${user.point}포인트 <br>
 				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
 			</div>
 			

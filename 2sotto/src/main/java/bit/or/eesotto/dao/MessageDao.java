@@ -13,8 +13,8 @@ import bit.or.eesotto.dto.User;
 public interface MessageDao {
 	
 		// 쪽지 > 쪽지보내기  
-		@Insert("insert into message (RUSERID, SUSERID, CONTENT, SENDTIME, READTIME, READSTATE)"
-				+ " values ( #{RUSERID}, #{SUSERID}, #{CONTENT}, 0, 0, 0)" )
+		@Insert("insert into message (ruserid, suserid, content, sendtime, readtime, readstate)"
+				+ " values ( #{ruserid}, #{suserid}, #{content}, now(), now(), 0)" )
 		public int writeMessage(Message message);
 		
 		// 쪽지 > 쪽지 리스트 조회  

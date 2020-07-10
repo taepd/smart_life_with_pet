@@ -80,7 +80,7 @@
 												<a class="btn btn btn-round" href="javascript:history.back();"> &nbsp;이전&nbsp; </a>
 												<a class="btn btn-rose btn-round" href="edit.bit?qaindex=${qna.qaindex}">
 													&nbsp;수정&nbsp; </a>
-												<a id="confirmDelete" class="btn btn-white btn-round"
+												<a id="delete" class="btn btn-white btn-round"
 													href="delete.bit?qaindex=${qna.qaindex}"> &nbsp;삭제&nbsp; </a>
 											<!-- </c:if> --></td>
 
@@ -103,14 +103,15 @@
 	</div>
 
 	<script>
-		$('#confirmDelete').click(function() {
-			/* var result = confirm('정말로 삭제하시겠습니까?'); 
-			if(result) { //yes 
-				location.replace('./Delete.post?post_seq='+${currentPost.post_seq}); 
-			} else {
-				//no 
-			}  */
-		});
+	// 삭제 전 확인 창 띄우기
+	$('#delete').click(function(){
+		let con = confirm("정말로 삭제 하시겠습니까?");
+		if(con){
+			return location.href='delete.bit?qaindex=${qna.qaindex}';
+		}else{
+			return false;
+		}
+	});
 	</script>
 	
 		<%@ include file="/WEB-INF/include/footer.jsp"%>

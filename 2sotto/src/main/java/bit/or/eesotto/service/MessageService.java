@@ -79,23 +79,23 @@ public class MessageService {
 		// mapper 를 통한 인터페이스 연결
 		MessageDao messageDao = sqlsession.getMapper(MessageDao.class);
 
-		int totalMsgcount = messageDao.getMessageCount(userid);
+		int totalMsgCount = messageDao.getMessageCount(userid);
 		
 		//
 		messageList = messageDao.getMessageSendList(cpage, pageSize, userid);
 		
 		// 페이지 크기에 맞춰 페이지 수 구하기
-		if (totalMsgcount % pageSize == 0) {
-			pageCount = totalMsgcount / pageSize;
+		if (totalMsgCount % pageSize == 0) {
+			pageCount = totalMsgCount / pageSize;
 		} else {
-			pageCount = (totalMsgcount / pageSize) + 1;
+			pageCount = (totalMsgCount / pageSize) + 1;
 		}
 		
 		map.put("messageList", messageList);
 		map.put("cpage", cpage);
 		map.put("pageSize", pageSize);
 		map.put("pageCount", pageCount);
-		map.put("totalMsgcount", totalMsgcount);
+		map.put("totalMsgCount", totalMsgCount);
 		
 		return map;
 	}
@@ -129,23 +129,23 @@ public HashMap<String, Object> messagePageView(String cp, String ps, String user
 		// mapper 를 통한 인터페이스 연결
 		MessageDao messageDao = sqlsession.getMapper(MessageDao.class);
 
-		int totalMsgcount = messageDao.getMessageCount(userid);
+		int totalMsgCount = messageDao.getMessageCount(userid);
 		
 		//
 		messageList = messageDao.getMessageList(cpage, pageSize, userid);
 		
 		// 페이지 크기에 맞춰 페이지 수 구하기
-		if (totalMsgcount % pageSize == 0) {
-			pageCount = totalMsgcount / pageSize;
+		if (totalMsgCount % pageSize == 0) {
+			pageCount = totalMsgCount / pageSize;
 		} else {
-			pageCount = (totalMsgcount / pageSize) + 1;
+			pageCount = (totalMsgCount / pageSize) + 1;
 		}
 		
 		map.put("messageList", messageList);
 		map.put("cpage", cpage);
 		map.put("pageSize", pageSize);
 		map.put("pageCount", pageCount);
-		map.put("totalMsgcount", totalMsgcount);
+		map.put("totalMsgCount", totalMsgCount);
 		
 		return map;
 	}

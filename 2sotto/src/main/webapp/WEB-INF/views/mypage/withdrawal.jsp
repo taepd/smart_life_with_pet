@@ -172,16 +172,20 @@
 					}
 				}
 			});
+
+			// 탈퇴 전 확인 창 띄우기
+			$('#delete').click(function(){
+				let con = confirm("정말로 탈퇴하시겠습니까?");
+				if(con){
+					return location.href='withdrawal.bit?userid=${userid}';
+				}else{
+					return false;
+				}
+			});
+			
+			
 		});
-		// 탈퇴 전 확인 창 띄우기
-		$('#delete').click(function(){
-			let con = confirm("정말로 탈퇴하시겠습니까?");
-			if(con){
-				return location.href='delete.bit?userid=${userid.userid}';
-			}else{
-				return;
-			}
-		});
+		
 		
 	</script>
 

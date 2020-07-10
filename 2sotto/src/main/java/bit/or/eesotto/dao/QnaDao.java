@@ -16,7 +16,7 @@ public interface QnaDao {
 	
 	// Qna > Qna보내기  
 			@Insert("insert into qna (userid, title, qatime, count, scstate, content, filename, awstate)"
-					+ " values ( #{userid}, #{title}, 0, 0, 0, #{content}, 0, 0)" )
+					+ " values ( #{userid}, #{title}, now(), 0, 0, #{content}, 0, 0)" )
 			public int writeQna(Qna qna);
 			
 			// Qna > Qna 리스트 조회  

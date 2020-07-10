@@ -70,9 +70,9 @@
 									 <c:forEach var="message" items="${messageList}" >
 									<tbody>
 										<tr>
-											<td>${message.SUSERID}</td>
-											<td>${message.CONTENT}</td>
-											<td class="text-right">${message.SENDTIME}</td>
+											<td>${message.suserid}</td>
+											<td>${message.content}</td>
+											<td class="text-right">${message.sendtime}</td>
 										</tr>
 									</tbody>
 								

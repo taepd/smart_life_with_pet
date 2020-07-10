@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -83,8 +84,11 @@
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
 															${donate.title}</a></td>
 												<td class="text-center">관리자</td>
-												<td class="text-center">${donate.rtime}</td> 	
-												<td class="text-center">${donate.ccoll/donate.gcoll*100}%</td> 											
+												<td class="text-center">${donate.rtime}</td> 
+												<td class="text-center">
+												<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###" />%
+												</td> 	
+																						
 											</tr>
 									
 										</tbody>

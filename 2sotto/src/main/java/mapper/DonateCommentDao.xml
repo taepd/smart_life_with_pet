@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.or.eesotto.dao.DonateCommentDao">
+
+
+	<select id="commentCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM DONATECOMMENT
+    </select>
+    
+    <select id="commentMain" resultType="bit.or.eesotto.dao.DonateCommentDao">
+        SELECT
+            *
+        FROM DONATECOMMENT
+    </select>
+    
+    
+    <insert id="commentWrite" parameterType="bit.or.eesotto.dao.DonateCommentDao">
+        INSERT INTO
+        DONATECOMMENT (dcindex, dindex, userid, content, rtime)
+        VALUES(#{dcindex},#{dindex},#{userid},#{content},now()) 
+    </insert>
+    
+    <update id="commentUpdate" parameterType="bit.or.eesotto.dao.DonateCommentDao">
+        UPDATE DONATECOMMENT
+            SET
+            CONTENT = #{content}
+        WHERE dcindex = #{dcindex}
+    </update>
+    
+    <delete id="commentDelete" parameterType="int">
+        DELETE FROM DONATECOMMENT WHERE dcindex = #{dcindex}
+    </delete>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

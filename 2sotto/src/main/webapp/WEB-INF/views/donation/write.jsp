@@ -34,18 +34,18 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-									<a class="nav-link " onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons">favorite</i> 좋아요 순
+								<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons">favorite</i>후원글 메인
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='messagePage.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons">favorite</i> 게시 일자 순
+									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+										<i class="material-icons"></i>최신순
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons">camera</i> 글쓰기
+									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
 							</ul>

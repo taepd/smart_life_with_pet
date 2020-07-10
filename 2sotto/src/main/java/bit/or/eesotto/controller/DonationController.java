@@ -148,7 +148,7 @@ public class DonationController {
 	
 	// 후원글메인 view
 		@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-		public String getDonationList(String cp, String ps, HttpSession session, Model model) {
+		public String main(String cp, String ps, HttpSession session, Model model) {
 			
 			
 			/* logger.info("로그인 유저 아이디: " + userid); */
@@ -166,6 +166,27 @@ public class DonationController {
 			return "donation/main";
 
 		}
+		
+		// 후원글메인 view 최신순으로
+				@RequestMapping(value = "mainbydate.bit", method = RequestMethod.GET)
+				public String mainbydate(String cp, String ps, HttpSession session, Model model) {
+					
+					
+					/* logger.info("로그인 유저 아이디: " + userid); */
+					
+					HashMap<String, Object> map = ds.mainbydate(cp, ps);
+							/* logger.info("내 블로그 글 조회 완료"); */
+					
+					// view까지 전달 (forward)
+					model.addAttribute("cpage", map.get("cpage"));
+					model.addAttribute("pageSize", map.get("pageSize"));
+					model.addAttribute("donateList", map.get("donateList")); 		
+					model.addAttribute("pageCount", map.get("pageCount"));
+					model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
+
+					return "donation/mainbydate";
+
+				}
 	
 	//글 상세보기
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)

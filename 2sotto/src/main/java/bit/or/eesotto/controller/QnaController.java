@@ -22,13 +22,13 @@ import bit.or.eesotto.service.QnaService;
 
 
 @Controller
-@RequestMapping("/qa/")
-public class QaController {
+@RequestMapping("/qna/")
+public class QnaController {
 
-	private static final Logger logger = LoggerFactory.getLogger(QaController.class);
+	private static final Logger logger = LoggerFactory.getLogger(QnaController.class);
 	
 	@Autowired
-	QnaService qa;
+	QnaService qnas;
 	
 	
 	// Qna 보러가기
@@ -38,7 +38,7 @@ public class QaController {
 		String userid = (String) session.getAttribute("userid");
 		logger.info("로그인 유저 아이디: " + userid);
 		
-		HashMap<String, Object> map = qa.mainView(cp, ps, userid);
+		HashMap<String, Object> map = qnas.mainView(cp, ps, userid);
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -47,7 +47,7 @@ public class QaController {
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalMsgcount", map.get("totalMsgcount"));
 		
-		return "qa/main";
+		return "qna/main";
 	}
 
 
@@ -55,22 +55,22 @@ public class QaController {
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
 	public String detail(String qaindex, Model model) {
 
-		Qna qna = qa.getPost(qaindex);
+		Qna qna = qnas.getPost(qaindex);
 		logger.info("내 Qna 글 조회 완료");
 		model.addAttribute("qna", qna);
 		
-		return "qa/detail";
+		return "qna/detail";
 	}
 	
 	// Qna > Qna글 수정 view
 		@RequestMapping(value = "edit.bit", method = RequestMethod.GET)
 		public String update(String qaindex, Model model) {
 			
-			Qna qna = qa.getPost(qaindex);
+			Qna qna = qnas.getPost(qaindex);
 			logger.info("내 블로그 글 조회 완료");
 			model.addAttribute("qna", qna);
 			
-			return "qa/edit";	
+			return "qna/edit";	
 		}
 	
 	
@@ -81,7 +81,7 @@ public class QaController {
 			String msg = null;
 			String url = null;
 				
-			int result = qa.editPost(qna);
+			int result = qnas.editPost(qna);
 		
 			if(result==1) {
 				
@@ -108,29 +108,29 @@ public class QaController {
 		@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
 		public String delete(Qna post, Model model) {
 												
-			String msg = null;
-			String url = null;
+			//String msg = null;
+			//String url = null;
 				
-			int result = qa.deletePost(post);
+			int result = qnas.deletePost(post);
 		
 			if(result==1) {
 				
 				logger.info("Qna 글 삭제 완료");
-				msg = "Qna 글 삭제 완료";
-		        url = "main.bit";
-				
+				//msg = "Qna 글 삭제 완료";
+		        //url = "main.bit";
+				return "redirect:/qna/main.bit";
 			}else { 
 				
 				logger.info("Qna 글 삭제 실패");
-				msg = "Qna 글 삭제 실패";
-		        url = "javascript:history.back();";
-
+				//msg = "Qna 글 삭제 실패";
+		        //url = "javascript:history.back();";
+				return "javascript:history.back()";
 			}
 			
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
+			//model.addAttribute("msg", msg);
+			//model.addAttribute("url", url);
 			
-			return "redirect";	
+			//return "redirect";	
 			
 		}
 	
@@ -139,7 +139,7 @@ public class QaController {
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
 	public String qaWrite() {
 	
-		return "qa/write";
+		return "qna/write";
 	}
 
 	// Qna>글쓰기 페이지 view
@@ -155,18 +155,18 @@ public class QaController {
 				// 임시 petindex 입력
 				//message.setMsindex(1);
 
-				int result = qa.writeQna(qna);
+				int result = qnas.writeQna(qna);
 				if (result == 1) {
 					
 					logger.info("Qna 글작성  성공");
 
-					return "redirect:/qa/main.bit";
+					return "redirect:/qna/main.bit";
 					
 				} else { // 회원가입 실패시 어찌할지 로직구현해야 함
 
 					logger.info("Qna 글작성 실패");
 
-					return "redirect:/qa/main.bit";
+					return "redirect:/qna/main.bit";
 				}
 	
 

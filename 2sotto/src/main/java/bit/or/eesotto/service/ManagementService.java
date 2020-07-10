@@ -1,5 +1,7 @@
 package bit.or.eesotto.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +50,63 @@ public class ManagementService {
 		}
 		
 		return result;
+	}
+	
+	//반려동물 정보 가져오기
+	public List<Pet> getPetInfo(String userid) {
+
+		petDao = sqlsession.getMapper(PetDao.class);
+		return petDao.getPetInfo(userid);
+		
+	}
+	
+	//반려동물 수정할 정보 가져오기
+	public Pet editPetInfo(int petindex) {
+		
+		Pet pet = null;
+		
+		try {
+			
+			petDao = sqlsession.getMapper(PetDao.class);
+			pet = petDao.editPetInfo(petindex);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pet;
+	}
+	
+	//반려동물 정보 수정
+	public int updatePetInfo(Pet pet) {
+		
+		int result = 0;
+		
+		try {
+			petDao = sqlsession.getMapper(PetDao.class);
+			result = petDao.updatePetInfo(pet);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	//반려동물 정보 삭제
+	public int deletePet(int petindex) {
+		
+		int result = 0;
+		
+		try {
+			petDao = sqlsession.getMapper(PetDao.class);
+			result = petDao.deletePet(petindex);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+
 	}
 	
 	

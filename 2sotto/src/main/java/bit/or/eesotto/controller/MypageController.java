@@ -153,7 +153,9 @@ public class MypageController {
 
 	// 마이페이지 > 회원 탈퇴 view
 	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.GET)
-	public String withdrawal() {
+	public String withdrawal(User userid) {
+		
+		
 		return "mypage/withdrawal";
 	}
 	
@@ -162,6 +164,8 @@ public class MypageController {
 	public String withdrawalOk(Model model, HttpSession session) {
 		
 		String userid = (String)session.getAttribute("userid");
+		
+		
 		logger.info("로그인 유저 아이디: "+userid);
 		
 		int result = ms.deleteUser(userid);
@@ -181,7 +185,7 @@ public class MypageController {
 			
 			logger.info("회원탈퇴 처리실패");
 			msg = "문제가 생겨 회원탈퇴가 정상적으로 이루어지지 않았습니다.";
-	        url = "main.bit";
+			url = "main.bit";
 
 		}
 		

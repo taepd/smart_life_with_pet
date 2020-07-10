@@ -34,8 +34,8 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i>후원글 메인
+								<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons">favorite</i>후원글 메인
 									</a>
 								</li>
 								<li class="nav-item">
@@ -45,7 +45,7 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i>글 작성
+										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
 							</ul>

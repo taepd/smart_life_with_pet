@@ -63,7 +63,7 @@
 									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
 								</div>
 								
-									   <textarea name="title" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
+									   <textarea name="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">

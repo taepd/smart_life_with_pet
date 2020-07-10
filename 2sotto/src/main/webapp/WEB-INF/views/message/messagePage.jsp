@@ -71,10 +71,10 @@
 									
 										<tr>
 											<td>${message.ruserid}</td>
-											<td>${message.title}</td>
-											<td>${message.qatime}</td>
+											<td>${message.content}</td>
+											<td>${message.sendtime}</td>
 											<td>${message.readstate}</td>
-											<td>${message.id}</td>
+											<td>${message.readtime}</td>
 
 										</tr>
 										</tbody>

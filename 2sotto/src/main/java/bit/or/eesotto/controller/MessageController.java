@@ -38,7 +38,7 @@ public class MessageController {
 			model.addAttribute("pageSize", map.get("pageSize"));
 			model.addAttribute("messageList", map.get("messageList")); 		
 			model.addAttribute("pageCount", map.get("pageCount"));
-			model.addAttribute("totalMsgcount", map.get("totalMsgcount"));
+			model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
 
 			return "message/main";
 		}
@@ -62,7 +62,7 @@ public class MessageController {
 			logger.info("로그인 유저 아이디: " + userid);
 		
 			// 세션 userid post객체에 입력
-			message.setSuserid2(userid);
+			message.setSuserid(userid);
 
 			// 임시 petindex 입력
 			//message.setMsindex(1);
@@ -104,7 +104,7 @@ public class MessageController {
 				model.addAttribute("pageSize", map.get("pageSize"));
 				model.addAttribute("messageList", map.get("messageList")); 		
 				model.addAttribute("pageCount", map.get("pageCount"));
-				model.addAttribute("totalMsgcount", map.get("totalMsgcount"));
+				model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
 
 			return "message/messagePage";
 		}

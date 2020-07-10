@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>반려동물 등록하기</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 	
 	<%@ include file="/WEB-INF/include/import.jsp"%>
-	
 	<style>
 		
 		.custom-select {
@@ -19,26 +20,22 @@
 		}
 		
 	</style>
-	
-	
-	
 </head>
-
 <body>
-
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	
+	 <div class="side_overlay">
 	<div class="container">
-		<div class="side_overlay">
-		<div class="card card-body">
-		<h3>반려동물 등록하기</h3>
+	
+		<h3>반려동물 정보 수정하기</h3>
 		
-		<form action="register.bit" method="post" enctype="multipart/form-data">
-		
+		<form action="edit.bit" method="post" enctype="multipart/form-data">
+			
+			<c:set value="${petInfo}" var="pet"/>
+			<input type="hidden" name="petindex" value="${pet.petindex}">
+				
 			<div class="form-group bmd-form-group">
                 <label for="petname" class="bmd-label-floating">이름</label>
-                <input type="text" class="form-control" id="petname" name="petname">
-                <span class="bmd-help">반려동물의 이름을 입력하세요</span>
+                <input type="text" class="form-control" id="petname" name="petname" value="${pet.petname}">
             </div>
 																							<!--
 																							 라디오 형태
@@ -62,21 +59,20 @@
 																				                </label>
 																							</div> -->
 			
-			
 			<div class="form-group">
 				<label for="mcategory">종류</label>
 				<select class="custom-select" id="mcategory" name="mcategory"> <!-- ex) ?mcategory=dog -->
-					<option value="1">dog</option>
-					<option value="2">cat</option>
+					<option value="dog">dog</option>
+					<option value="cat">cat</option>
 				</select>
 			</div>
 			
 			<div class="form-group">
 				<label for="scategory">종 선택하기</label>
 				<select class="custom-select" id="scategory" name="scategory">
-					<option value="1">a</option>
-					<option value="2">b</option>
-					<option value="3">c</option>
+					<option value="a">a</option>
+					<option value="b">b</option>
+					<option value="c">c</option>
 				</select>
 			</div>
 			
@@ -101,8 +97,7 @@
 			
 			<div class="form-group bmd-form-group">
                 <label for="weight" class="bmd-label-floating">몸무게</label>
-                <input type="text" class="form-control" id="weight" name="weight"> kg
-                <span class="bmd-help">반려동물의 몸무게를 입력하세요</span>
+                <input type="text" class="form-control" id="weight" name="weight" value="${pet.weight}"> kg
             </div>
             <br>
 			<div class="form-group">
@@ -171,6 +166,7 @@
 					</span>
                 </label>
 			</div>
+			
 			<div class="form-check">
                 <label for="nstate">중성화 여부</label>
                 <br>
@@ -189,23 +185,69 @@
 					</span>
                 </label>
 			</div>
+			
+			
 			<div class="form-group bmd-form-group">
                 <label for="memo" class="bmd-label-floating">특이사항</label>
-                <input type="text" class="form-control" id="memo" name="memo">
-                <span class="bmd-help">반려동물의 특이사항을 입력하세요</span>
+                <input type="text" class="form-control" id="memo" name="memo" value="${pet.memo}">
             </div>
             
             <br>
            <!-- <input type="file" id="petimg" name="petimg"> -->
-								 		
-			<button type="submit" class="btn btn-primary">등록</button>
-			<button type="reset" class="btn btn-primary">다시쓰기</button>
+								 
+						
+					
+            
+			
+			<button type="submit" class="btn btn-primary">수정하기</button>
 			<button type="reset" class="btn btn-primary" onclick="location.href='#'">취소</button>
 		</form>
-	</div>
 	</div>
 	</div>
 	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
+<script>
+
+	$(document).ready(function() {
+
+		$('#mcategory option').each(function() {
+			if( $(this).val() == "${pet.mcategory}" ) {
+					$(this).attr("selected", "selected");
+				}
+		});
+		
+		$('#scategory option').each(function() {
+			if( $(this).val() == "${pet.scategory}" ) {
+					$(this).attr("selected", "selected");
+				}
+		});
+
+		/* 나이도 추가하기 */
+		
+		if("${pet.hlength}" == 's') {
+				$('#hlength_short').attr("checked", "checked");
+			} else if ("${pet.hlength}" == 'm') {
+				$('#hlength_medium').attr("checked", "checked");
+			} else {
+				$('#hlength_long').attr("checked", "checked");
+				}
+
+		if("${pet.size}" == 's') {
+				$('#size_small').attr("checked", "checked");
+			} else if ("${pet.size}" == 'm') {
+				$('#size_medium').attr("checked", "checked");
+			} else {
+				$('#size_big').attr("checked", "checked");
+				}
+
+		if("${pet.nstate}" == 'y') {
+				$('#nstate_y').attr("checked", "checked");
+			} else {
+				$('#nstate_n').attr("checked", "checked");
+			}
+		
+	});
+		
+</script>
 </html>

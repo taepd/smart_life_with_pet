@@ -97,6 +97,10 @@
 									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">현재모금액</label> 
+									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">모금률</label>
 									<progress value="0" max="100" id="jb"></progress>
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>

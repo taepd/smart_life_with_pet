@@ -51,7 +51,7 @@
 		<div class="user-pic-wrapper">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
 			<div class="nickname">
-				닉네임 자리 <br> 포인트 자리 <br>
+				${loginuser}님 반갑습니다 <br> 포인트 자리 <br>
 				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
 			</div>
 			

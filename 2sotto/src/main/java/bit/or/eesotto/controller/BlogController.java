@@ -29,7 +29,7 @@ public class BlogController {
 
 	// 블로그 메인 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String main(String cp, String ps, HttpSession session, Principal principal, Model model) {
+	public String main(String cp, String ps, Principal principal, Model model) {
 				
 //		String userid = (String) session.getAttribute("userid");
 		String userid =  principal.getName();

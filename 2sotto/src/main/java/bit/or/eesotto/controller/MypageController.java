@@ -196,87 +196,87 @@ public class MypageController {
 		
 	}
 
-	// 마이페이지 > 반려동물 상세페이지 view
-		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
-		public String myPetPage(HttpSession session, Model model) {
-			String userid = (String)session.getAttribute("userid");
-			
-			logger.info("로그인 유저 아이디: "+userid);
-			
-			Pet pet = ms.getPetInfo(userid);
-			
-			if(pet!=null) {
-				
-				logger.info("반려동물 정보 가져오기 성공");
-				model.addAttribute(pet);
-			}else {
-				
-				logger.info("반려동물 정보 가져오기 실패");
-				
-				return "redirect:/newPet.bit";
-			}
-			
-			return "mypage/myPetPage";
-		}
+//	// 마이페이지 > 반려동물 상세페이지 view
+//		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
+//		public String myPetPage(HttpSession session, Model model) {
+//			String userid = (String)session.getAttribute("userid");
+//			
+//			logger.info("로그인 유저 아이디: "+userid);
+//			
+//			Pet pet = ms.getPetInfo(userid);
+//			
+//			if(pet!=null) {
+//				
+//				logger.info("반려동물 정보 가져오기 성공");
+//				model.addAttribute(pet);
+//			}else {
+//				
+//				logger.info("반려동물 정보 가져오기 실패");
+//				
+//				return "redirect:/newPet.bit";
+//			}
+//			
+//			return "mypage/myPetPage";
+//		}
 
 
-		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
-		@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
-		public String editPetView(Model model, HttpSession session) {
-			String userid = (String) session.getAttribute("userid");
-		
-			logger.info("로그인 유저 아이디: "+userid);
-			
-			Pet pet = ms.getPetInfo(userid);
-			
-			if(pet!=null) {
-				
-				logger.info("유저 정보 가져오기 성공");
-				model.addAttribute(pet);
-				
-				return "mypage/editPet";
-			}else {
-				
-				logger.info("유저 정보 가져오기 실패");
-				
-				return "redirect:/login.bit";
-			}
-
-		
-		}
-		//반려동물 수정처리
-		@RequestMapping(value = "editPet.bit", method = RequestMethod.POST)
-		public String editPet(HttpSession session, Model model, @Param("userid")String userid) {
-								
-			userid = (String)session.getAttribute("userid");
-			logger.info("로그인 유저 아이디: "+userid);
-			
-			Pet pet = ms.getPetInfo(userid);
-			
-			String msg = null;
-			String url = null;
-				
-			int result = ms.editPet(pet, userid);
-		
-			if(result==1) {
-				
-				logger.info("정보 수정 완료");
-				msg = "정보 수정 완료";
-		        url = "editPet.bit";
-				
-			}else { 
-				
-				logger.info("정보 수정 실패");
-				msg = "정보 수정 실패";
-		        url = "editPet.bit";
-
-			}
-			
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			return "redirect";	
-			
-		}	
+//		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
+//		@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
+//		public String editPetView(Model model, HttpSession session) {
+//			String userid = (String) session.getAttribute("userid");
+//		
+//			logger.info("로그인 유저 아이디: "+userid);
+//			
+//			Pet pet = ms.getPetInfo(userid);
+//			
+//			if(pet!=null) {
+//				
+//				logger.info("유저 정보 가져오기 성공");
+//				model.addAttribute(pet);
+//				
+//				return "mypage/editPet";
+//			}else {
+//				
+//				logger.info("유저 정보 가져오기 실패");
+//				
+//				return "redirect:/login.bit";
+//			}
+//
+//		
+//		}
+//		//반려동물 수정처리
+//		@RequestMapping(value = "editPet.bit", method = RequestMethod.POST)
+//		public String editPet(HttpSession session, Model model, @Param("userid")String userid) {
+//								
+//			userid = (String)session.getAttribute("userid");
+//			logger.info("로그인 유저 아이디: "+userid);
+//			
+//			Pet pet = ms.getPetInfo(userid);
+//			
+//			String msg = null;
+//			String url = null;
+//				
+//			int result = ms.editPet(pet, userid);
+//		
+//			if(result==1) {
+//				
+//				logger.info("정보 수정 완료");
+//				msg = "정보 수정 완료";
+//		        url = "editPet.bit";
+//				
+//			}else { 
+//				
+//				logger.info("정보 수정 실패");
+//				msg = "정보 수정 실패";
+//		        url = "editPet.bit";
+//
+//			}
+//			
+//			model.addAttribute("msg", msg);
+//			model.addAttribute("url", url);
+//			
+//			return "redirect";	
+//			
+//		}	
 
 }

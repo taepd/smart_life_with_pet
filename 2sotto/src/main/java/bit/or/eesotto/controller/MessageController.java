@@ -1,5 +1,6 @@
 package bit.or.eesotto.controller;
 
+import java.security.*;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -26,9 +27,10 @@ public class MessageController {
 	
 	//쪽지 메인 보러가기
 		@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-		public String mainView(String cp, String ps, HttpSession session, Model model) {
+		public String mainView(String cp, String ps, Principal principal, Model model) {
 
-			String userid = (String) session.getAttribute("userid");
+			//String userid = (String) session.getAttribute("userid");
+			String userid =  principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 			
 			HashMap<String, Object> map = ms.mainView(cp, ps, userid);
@@ -44,7 +46,7 @@ public class MessageController {
 		}
 		// 쪽지>보낸사람 view
 			@RequestMapping(value = "write.bit", method = RequestMethod.GET)
-			public String write(String suserid2) {
+			public String write(String suserid) {
 
 				// 쪽지 할예정
 
@@ -56,9 +58,10 @@ public class MessageController {
 			
 		// 블로그>글쓰기 페이지 view
 		@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-		public String write(Message message, HttpSession session) {
+		public String write(Message message, Principal principal) {
 
-			String userid = (String) session.getAttribute("userid");
+			//String userid = (String) session.getAttribute("userid");
+			String userid =  principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 		
 			// 세션 userid post객체에 입력
@@ -83,29 +86,24 @@ public class MessageController {
 
 		}
 		
-		
-		
-		
-		
-		
-		
 		//message보낸사람 보러가기
 		@RequestMapping(value = "messagePage.bit", method = RequestMethod.GET)
 		
-			public String messagePage(String cp, String ps, HttpSession session, Model model) {
-
-				String userid = (String) session.getAttribute("userid");
-				logger.info("로그인 유저 아이디: " + userid);
-				
-				HashMap<String, Object> map = ms.messagePageView(cp, ps, userid);
-				
-				// view까지 전달 (forward)
-				model.addAttribute("cpage", map.get("cpage"));
-				model.addAttribute("pageSize", map.get("pageSize"));
-				model.addAttribute("messageList", map.get("messageList")); 		
-				model.addAttribute("pageCount", map.get("pageCount"));
-				model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
-
+		public String messagePage(String cp, String ps, Principal principal, Model model) {
+	
+			//String userid = (String) session.getAttribute("userid");
+			String userid =  principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+			
+			HashMap<String, Object> map = ms.messagePageView(cp, ps, userid);
+			
+			// view까지 전달 (forward)
+			model.addAttribute("cpage", map.get("cpage"));
+			model.addAttribute("pageSize", map.get("pageSize"));
+			model.addAttribute("messageList", map.get("messageList")); 		
+			model.addAttribute("pageCount", map.get("pageCount"));
+			model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
+	
 			return "message/messagePage";
 		}
 

@@ -1,6 +1,7 @@
 package bit.or.eesotto.controller;
 
 import java.io.IOException;
+import java.security.*;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -33,9 +34,10 @@ public class QnaController {
 	
 	// Qna 보러가기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String mainView(String cp, String ps, HttpSession session, Model model) {
+	public String mainView(String cp, String ps, Principal principal, Model model) {
 		
-		String userid = (String) session.getAttribute("userid");
+		//String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = qnas.mainView(cp, ps, userid);
@@ -144,9 +146,10 @@ public class QnaController {
 
 	// Qna>글쓰기 페이지 view
 			@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-			public String write(Qna qna, HttpSession session) {
+			public String write(Qna qna, Principal principal) {
 
-				String userid = (String) session.getAttribute("userid");
+				//String userid = (String) session.getAttribute("userid");
+				String userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);
 			
 				// 세션 userid post객체에 입력

@@ -1,5 +1,6 @@
 package bit.or.eesotto.controller;
 
+import java.security.*;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +32,10 @@ public class ManagementController {
 
 	// 반려동물 관리 홈 보여주기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String mainView(HttpSession session, Model model) {
+	public String mainView(Principal principal, Model model) {
 		
-		String userid = (String)session.getAttribute("userid");
+		//String userid = (String)session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		
 		List<Pet> pet = managementService.getPetInfo(userid);
@@ -71,11 +73,12 @@ public class ManagementController {
 	
 	// 반려동물 등록 처리
 	@RequestMapping(value = "register.bit", method = RequestMethod.POST)
-	public String registerPets(Pet pet, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
+	public String registerPets(Pet pet, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		
 		//////////////////////////파일 업로드 구현 빠진 상태////////////////////////////
 		
-		String userid = (String)session.getAttribute("userid");
+		//String userid = (String)session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("반려동물을 등록한 유저 아이디: " + userid);
 		
 		// 반려동물 등록한 유저 아이디 저장

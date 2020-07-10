@@ -242,8 +242,8 @@ public class DonationService {
 		 return result;
 	 
 	 }
-	//글 삭제하기
-
+	 
+	 //글 삭제하기
 	 public int delete(Donate donate) throws ClassNotFoundException, SQLException {
 		 int result = 0;
 		 try 
@@ -257,6 +257,7 @@ public class DonationService {
 		 }
 		 
 		 return result;
-	 	 }
+		 
+	 }
 	
 }

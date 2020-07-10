@@ -642,14 +642,16 @@ select * from roles;
 select * from userrole;
 select * from message;
 select * from user;
-select * from post;
+select * from blog;
 select * from pet;
 select * from maincategory;
-select * from subcategory;
+select * from subcategory; 
 
 insert into post (petindex, userid, blike, title, content, rtime, delstate, count) 
 values (1, 'a', 0, 'title', 'content', date_format(now(),'%Y-%m-%d %T'), '0', 0);
 
+insert into userrole (userid, roleid) values('bb', '1'),
+											('bb', '2');
 -- 타입 변경
 -- ALTER TABLE [TABLE명] MODIFY [컬럼명] [타입];
 
@@ -667,4 +669,5 @@ select u.userid as username, r.rolename
 										   where u.userid='a';
                                            
 insert into userrole  
-values ('a' ,'2');
+values ('a@a.aa' ,'2');
+commit;

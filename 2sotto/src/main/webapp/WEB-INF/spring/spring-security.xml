@@ -126,7 +126,6 @@ error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실
 	<!-- 로그인 성공 후 작업 처리 클래스 -->
 	<bean id="loginSuccessHandler" class="bit.or.eesotto.security.LoginSuccessHandler">
         <property name="sqlSession" ref="sqlSession"></property>
-        <property name="userid" value="userid"/>
     	<property name="defaultUrl" value="/"/>
 	</bean>
 

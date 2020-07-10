@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +11,8 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
-	
-	
+
+
 
 </head>
 <body>
@@ -50,7 +49,7 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i>글 작성
+										<i class="material-icons"></i>글작성
 									</a>
 								</li>
 							</ul>
@@ -83,12 +82,11 @@
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
 															${donate.title}</a></td>
 												<td class="text-center">관리자</td>
-												<td class="text-center">${donate.rtime}</td> 	
-												<td class="text-center">${donate.ccoll/donate.gcoll*100}%</td> 											
+												<td class="text-center">${donate.rtime}</td>
+												<td class="text-center">${donate.ccoll}</td> 
+												
 											</tr>
-									
 										</tbody>
-											
 									</c:forEach>
 										
 								</table>
@@ -98,7 +96,7 @@
 									<ul class="pagination" id="pagingview">
 										<c:if test="${cpage > 1}">
 											<li class="page-item"><a class="page-link"
-												href="main.bit?cp=${cpage-1}&ps=${pageSize}" 
+												href="mainbydate.bit?cp=${cpage-1}&ps=${pageSize}" 
 												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> 
 												<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
 										</c:if>
@@ -107,12 +105,12 @@
 											<c:choose>
 												<c:when test="${cpage==i }">
 													<li class="page-item active"><a class="page-link"
-														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														href="mainbydate.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 														ps="${pageSize}">${i}</a></li>
 												</c:when>
 												<c:otherwise>
 													<li class="page-item"><a class="page-link"
-														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														href="mainbydate.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 														ps="${pageSize}">${i}</a></li>
 												</c:otherwise>
 											</c:choose>
@@ -122,7 +120,7 @@
 										<c:if test="${cpage < pageCount}">
 
 											<li class="page-item">
-											<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}" 
+											<a class="page-link" href="mainbydate.bit?cp=${cpage+1}&ps=${pageSize}" 
 												cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
 												<span aria-hidden="true">&raquo;</span> 
 												<span class="sr-only">Next</span>

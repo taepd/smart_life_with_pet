@@ -109,6 +109,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}*${param2}
 
 	</select> -->
+	
+	<!-- 게시날짜(최신) 순으로 정렬 -->
+	<select id="mainbydate" resultType="bit.or.eesotto.dto.Donate">
+		
+		
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATE D) S WHERE ROWNUM 
+		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2} ORDER BY RTIME DESC
+		
+		
+		
+	</select>
 
 
 

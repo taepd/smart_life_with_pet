@@ -8,10 +8,14 @@ import javax.servlet.http.*;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.web.*;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.*;
+
+import bit.or.eesotto.dao.*;
+import bit.or.eesotto.dto.User;
 
 
 //https://to-dy.tistory.com/94 참고
@@ -57,8 +61,21 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     	   
     	   //로그인 실패 에러 세션 지우기
     	   clearAuthenticationAttributes(request);
-    	   logger.info("로그인 실패 에러 세션 지우기 완료");
-    	
+    	   logger.info("로그인 실패 에러 세션 지우기 완료");   	
+    	   
+    	   //로그인 유저 정보 가져와서 세션객체에 저장
+    	   logger.info((String)authentication.getPrincipal().toString());
+    	   
+    	   UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+    	   
+    	   UserDao userDao = sqlSession.getMapper(UserDao.class);
+    	   User user = userDao.getUser(userDetails.getUsername());
+    	   logger.info("유저네임: "+userDetails.getUsername());      	   
+    	   
+    	   HttpSession session = request.getSession();
+    	   session.setAttribute("user", user);
+    	   //로그인 유저 정보 가져와서 세션객체에 저장 끝
+    	   
     }
     
     //로그인 성공 후 리다이렉트 경로 지정 메서드   
@@ -79,9 +96,5 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         
     }
     
- 
-
-
-
 
 }

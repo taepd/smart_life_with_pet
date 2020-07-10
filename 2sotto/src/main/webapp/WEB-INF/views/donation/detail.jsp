@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
 
 <html>
 <head>
@@ -10,6 +13,18 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+	<style>
+		#jb {
+			width: 100%;
+			height: 50px;
+		}
+	</style>
+	<script>
+	window.onload = function() {
+		document.getElementById( 'jb' ).value = '${donate.ccoll/donate.gcoll*100}';
+	}
+	</script>
+	
 
 </head>
 
@@ -35,17 +50,17 @@
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
 									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons">favorite</i> 좋아요 순
+										<i class="material-icons"></i>후원글 메인
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='messagePage.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons">favorite</i> 게시 일자 순
+									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+										<i class="material-icons"></i>최신순
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons">camera</i> 글쓰기
+										<i class="material-icons"></i>글 작성
 									</a>
 								</li>
 							</ul>
@@ -80,11 +95,7 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">현재모금액</label> 
-									<input type="text" class="form-control" value="${donate.ccoll}" readonly> 
-								</div>
+								</div>				
 								
 									   <textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
 								
@@ -93,6 +104,12 @@
 										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
 										<button type="button" id="delete" >삭제</button>
 								</div>
+								<div>
+									<progress value="0" max="100" id="jb"></progress>
+									<p>${donate.ccoll/donate.gcoll*100}%</p>
+								</div>
+								 
+								
 							</div>
 						
 
@@ -102,6 +119,41 @@
 
 
 						<!-------------- 끝 ---------------->
+						<!-- 댓글 입력 폼 -->
+						<%-- <hr>
+							<h4 id="reply_h4">댓글</h4>
+							<div id="replybox"></div>
+						<!-- 댓글 폼 -->
+						<br>
+						<form name="reply" id="reply" method="POST">
+							작성자&nbsp;&nbsp;${sessionScope.id}<br>
+							<input type="hidden" name="boardnum" id="boardnum" value="${dto.boardnum}">
+							<input type="hidden" name="id" id="id" value="${sessionScope.id}">
+							<textarea rows="3" cols="" id="comment" name="comment" style="width: 100%"></textarea>
+							<br>
+							<input type="button" class="" value="댓글 등록" id="writecom">
+						<input type="reset" class="" value="다시 쓰기">
+						</form>
+						
+					
+						<hr> --%>
+						<!-- Ajax 댓글 폼 -->
+				<div class="container">
+        			<label for="content">comment</label>
+        			<form name="commentInsertForm">
+            			<div class="input-group">
+               				<input type="hidden" name="dindex" value="${donate.dindex}"/>
+               				<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+               				<span class="input-group-btn">
+                    			<button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+               				</span>
+              			</div>
+        			</form>
+    			</div>
+    
+    			<div class="container">
+        			<div class="commentList"></div>
+    			</div>
 
 
 					</div>
@@ -110,21 +162,15 @@
 
 		</div>
 		<!-- container end -->
+		<%@ include file="DonateComment.jsp" %>
+		
+
+
+
 	</div>
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
-<script type="text/javascript">
-//삭제 전 확인 창 띄우기
-$('#delete').click(function(){
-	let con = confirm("정말로 삭제하시겠습니까?");
-	if(con){
-		return location.href='delete.bit?dindex=${donate.dindex}';
-	}else{
-		return;
-	}
-});
-</script>
 </html>
 

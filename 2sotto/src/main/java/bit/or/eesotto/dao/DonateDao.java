@@ -50,6 +50,9 @@ public interface DonateDao {
 	
 	 //글목록 보기
     public List<Donate> main(int cpage, int pagesize);
+    
+    //글목록 보기 시간순(오래된 순)
+    public List<Donate> mainbydate(int cpage, int pagesize);
 	
 	//게시물 삭제
 	public int delete(Donate donate);

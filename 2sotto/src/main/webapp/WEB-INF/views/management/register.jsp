@@ -28,9 +28,9 @@
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	
-	 <div class="side_overlay">
 	<div class="container">
-	
+		<div class="side_overlay">
+		<div class="card card-body">
 		<h3>반려동물 등록하기</h3>
 		
 		<form action="register.bit" method="post" enctype="multipart/form-data">
@@ -66,17 +66,17 @@
 			<div class="form-group">
 				<label for="mcategory">종류</label>
 				<select class="custom-select" id="mcategory" name="mcategory"> <!-- ex) ?mcategory=dog -->
-					<option value="dog">dog</option>
-					<option value="cat">cat</option>
+					<option value="1">dog</option>
+					<option value="2">cat</option>
 				</select>
 			</div>
 			
 			<div class="form-group">
 				<label for="scategory">종 선택하기</label>
 				<select class="custom-select" id="scategory" name="scategory">
-					<option value="a">a</option>
-					<option value="b">b</option>
-					<option value="c">c</option>
+					<option value="1">a</option>
+					<option value="2">b</option>
+					<option value="3">c</option>
 				</select>
 			</div>
 			
@@ -197,15 +197,12 @@
             
             <br>
            <!-- <input type="file" id="petimg" name="petimg"> -->
-								 
-						
-					
-            
-			
+								 		
 			<button type="submit" class="btn btn-primary">등록</button>
 			<button type="reset" class="btn btn-primary">다시쓰기</button>
 			<button type="reset" class="btn btn-primary" onclick="location.href='#'">취소</button>
 		</form>
+	</div>
 	</div>
 	</div>
 	

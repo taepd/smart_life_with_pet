@@ -1,5 +1,6 @@
 package bit.or.eesotto.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -28,9 +29,10 @@ public class BlogController {
 
 	// 블로그 메인 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String main(String cp, String ps, HttpSession session, Model model) {
-		
-		String userid = (String) session.getAttribute("userid");
+	public String main(String cp, String ps, HttpSession session, Principal principal, Model model) {
+				
+//		String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
@@ -139,9 +141,9 @@ public class BlogController {
 
 	// 블로그 > 글쓰기 처리
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Blog blog, HttpSession session) {
-
-		String userid = (String) session.getAttribute("userid");
+	public String write(Blog blog, HttpSession session, Principal principal) {
+		String userid =  principal.getName();
+		//String userid = (String) session.getAttribute("userid");
 		logger.info("로그인 유저 아이디: " + userid);
 
 		// 나중에 파일 업로드 구현

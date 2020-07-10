@@ -32,8 +32,10 @@ public interface PetDao {
 		public Pet editPetInfo(@Param("petindex") int petindex);
 		
 		// 반려동물 정보 수정
-		@Update("update pet set blahblah")
-		public int updatePetInfo();
+		@Update("update pet set petname=#{petname}, mcategory=#{mcategory}, scategory=#{scategory}, sex=#{sex}, age=#{age}, "
+				+ "size=#{size}, weight=#{weight}, hlength=#{hlength}, nstate=#{nstate}, petimg=#{petimg}, memo=#{memo} "
+				+ "where petindex=#{petindex}")
+		public int updatePetInfo(Pet pet);
 		
 		// 반려동물 삭제
 		@Delete("delete from pet where petindex = #{petindex}")

@@ -36,29 +36,6 @@
 		
 		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'">반려동물 등록</button>
 		
-		<br>
-			
-			<%-- <div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
-						  <div class="card-body">
-							<h4>동물 이름</h4>
-						    <p class="card-text">
-						    	동물 프로필
-						    </p>
-						    <span class=""><i class="fas fa-times"></i></span>
-						  </div>
-			</div>
-			<div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
-						  <div class="card-body">
-							<h4>동물 이름</h4>
-						    <p class="card-text">
-						    	동물 프로필
-						    </p>
-						    <span class=""><i class="fas fa-times"></i></span>
-						  </div>
-			</div> --%>
-			
 		
 		<!-- 새로 시도하는 디자인 시작 -->
 		
@@ -190,6 +167,8 @@
 					</div>
                     
                     </div>
+                    
+                    
                     <div class="tab-pane" id="home">
                     	
                     	<!-- <div id="calendar"></div> -->
@@ -203,9 +182,9 @@
 								    	${petInfo.size} | ${petInfo.weight}kg | ${petInfo.memo}
 								    </p>
 								    <div>
-								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								    	<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
 								    	<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								    	<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
 								    	<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
 								    </div>

@@ -150,8 +150,32 @@ public class ManagementController {
 	
 	// 반려동물 정보 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
-	public String editOk() {
-		return null;
+	public String editOk(Pet pet, Model model) {
+		
+		String msg = null;
+		String url = null;
+			
+		int result = managementService.updatePetInfo(pet);
+	
+		if(result==1) {
+			
+			logger.info("반려동물 정보 수정 완료");
+			msg = "반려동물 정보 수정 완료";
+	        url = "main.bit";
+			
+		}else { 
+			
+			logger.info("반려동물 정보 수정 실패");
+			msg = "반려동물 정보 수정 실패";
+	        url = "javascript:history.back();";
+
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
 	}
 	
 	// 반려동물 정보 삭제

@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -71,6 +72,7 @@
 											<th>제목</th>
 											<th>작성자</th>
 											<th>등록시간</th>
+											<th>현재모금액</th>
 											<th>모금률</th>
 											
 
@@ -83,8 +85,16 @@
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
 															${donate.title}</a></td>
 												<td class="text-center">관리자</td>
-												<td class="text-center">${donate.rtime}</td> 	
-												<td class="text-center">${donate.ccoll/donate.gcoll*100}%</td> 											
+												
+												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+												<td class="text-center">${rtime}</td>
+												
+												<td class="text-center">${donate.ccoll}</td>
+												<td class="text-center">
+												<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###" />%
+												</td> 	
+																						
 											</tr>
 									
 										</tbody>

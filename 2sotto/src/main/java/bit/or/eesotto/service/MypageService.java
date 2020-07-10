@@ -1,5 +1,7 @@
 package bit.or.eesotto.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,15 +73,15 @@ public class MypageService {
 		}
 		return result;
 	}
-	//댕댕이 정보 가져오기
-	public Pet getPetInfo(String userid) {
-		petDao = sqlsession.getMapper(PetDao.class);
-		return petDao.getPetInfo(userid);
-	}
-	//댕댕이 정보 수정
-	public int editPet(Pet pet, String userid) {
-		petDao = sqlsession.getMapper(PetDao.class);
-			return petDao.editPet(pet, userid);
-	}
+//	//댕댕이 정보 가져오기
+//	public List<Pet> getPetInfo(String userid) {
+//		petDao = sqlsession.getMapper(PetDao.class);
+//		return petDao.getPetInfo(userid);
+//	}
+//	//댕댕이 정보 수정
+//	public int editPet(Pet pet, String userid) {
+//		petDao = sqlsession.getMapper(PetDao.class);
+//			return petDao.editPet(pet, userid);
+//	}
 
 }

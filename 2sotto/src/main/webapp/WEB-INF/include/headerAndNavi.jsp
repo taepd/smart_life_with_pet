@@ -51,7 +51,9 @@
 		<div class="user-pic-wrapper">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
 			<div class="nickname">
+        
 				${userid} <br> ${user.point}포인트 <br>
+
 				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
 			</div>
 			

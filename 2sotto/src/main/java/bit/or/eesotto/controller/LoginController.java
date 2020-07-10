@@ -24,11 +24,11 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@Autowired
-	BCryptPasswordEncoder pwEncoder;
+//	@Autowired
+//	BCryptPasswordEncoder pwEncoder;
 
-	@Autowired
-	LoginService ls;
+//	@Autowired
+//	LoginService ls;
 
 	// 로그인 view
 	@RequestMapping(value = "login.bit", method = RequestMethod.GET)

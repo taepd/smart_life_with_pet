@@ -20,7 +20,7 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-6 ml-auto mr-auto">
 					<div class="card card-login">
-						<form class="form" id="loginform" method="post" action="nomalLogin.bit">
+						<form class="form" id="loginform" method="post" action="${pageContext.request.contextPath}/login">
 							<div class="card-header card-header-primary text-center">
 								<h4 class="card-title">Login</h4>
 							</div>

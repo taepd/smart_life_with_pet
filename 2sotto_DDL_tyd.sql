@@ -609,13 +609,13 @@ BEGIN
     IF(NEW.userid = 'admin') THEN  
         insert into userrole 
         values
-        (NEW.userid ,'ROLE_ADMIN'),
-        (NEW.userid ,'ROLE_USER');
+        (NEW.userid ,'1'),
+        (NEW.userid ,'2');
 
     ELSE
         insert into userrole 
         values
-        (NEW.userid ,'ROLE_USER');
+        (NEW.userid ,'2');
     END IF;
 END $$
 
@@ -638,6 +638,7 @@ desc pet;
 desc maincategory;
 desc message;
 
+select * from roles;
 select * from userrole;
 select * from message;
 select * from user;
@@ -660,3 +661,10 @@ alter table post modify rtime timestamp;
 select count(*) from post where userid='a';
 
 
+select u.userid as username, r.rolename 
+										   from userrole u join roles r 
+										   on u.roleid = r.roleid 
+										   where u.userid='a';
+                                           
+insert into userrole  
+values ('a' ,'2');

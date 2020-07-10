@@ -47,24 +47,37 @@
 		<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
 		<div class="user-pic-wrapper">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
-			<div class="nickname">
-        
-				${userid} <br> ${user.point}포인트 <br>
-
-				<button class="btn btn-primary btn-sm" onclick="#">Logout</button>
-			</div>
-			
+        	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
+				<div class="nickname">
+					${userid} <br> ${user.point}포인트 <br>
+					<button class="btn btn-primary btn-sm" onclick="location.href='logout'">Logout</button>
+				</div>
+			</se:authorize>
+				
+        	<se:authorize access="!hasRole('ROLE_USER')">	
+				<div class="nickname">
+					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">시작하기</button>
+				</div>
+			</se:authorize>
 			<div class="menuList">
 				<ul class="navbar-nav ml-auto">
-					<a href="${pageContext.request.contextPath}/management/main.bit"><li>반려동물관리</li></a>
-					<a href="${pageContext.request.contextPath}/blog/main.bit"><li>블로그</li></a>
-					<a href="${pageContext.request.contextPath}/blog/favorite.bit"><li>즐겨찾기한 글</li></a>
-					<a href="${pageContext.request.contextPath}/mypage/main.bit"><li>마이페이지</li></a>
-					<a href="${pageContext.request.contextPath}/donation/main.bit"><li>후원게시판</li></a>
-					<a href="${pageContext.request.contextPath}/message/main.bit"><li>쪽지함</li></a>
-					<a href="${pageContext.request.contextPath}/qna/main.bit"><li>Q&A</li></a>
-					<a href="${pageContext.request.contextPath}/point/main.bit"><li>포인트관리</li></a>
-				<a href="${pageContext.request.contextPath}/admin/main.bit"><li>관리자 페이지</li></a>
+				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+					<li><a href="${pageContext.request.contextPath}/management/main.bit">반려동물관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/main.bit">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/favorite.bit">즐겨찾기한 글</a></li>
+					<li><a href="${pageContext.request.contextPath}/mypage/main.bit">마이페이지</a></li>
+				</se:authorize>	
+					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
+				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
+					<li><a href="${pageContext.request.contextPath}/message/main.bit">쪽지함</a></li>
+				</se:authorize>	
+					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
+				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
+					<li><a href="${pageContext.request.contextPath}/point/main.bit">포인트관리</a></li>
+				</se:authorize>	
+				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+					<li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li>
+				</se:authorize>	
 				</ul>
 			</div>
 		</div>

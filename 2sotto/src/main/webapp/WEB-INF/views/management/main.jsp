@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -14,6 +14,11 @@
     
     	.fc-toolbar-title {
     		color: black;
+    	}
+    	
+    	.icons {
+    		font-size: 15px;
+    		color: orange;
     	}
     
     </style>
@@ -30,9 +35,87 @@
 
 		
 		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'">반려동물 등록</button>
-
 		
-
+		<br>
+			
+			<%-- <div class="card col-4" style="width: 20rem;">
+						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+						  <div class="card-body">
+							<h4>동물 이름</h4>
+						    <p class="card-text">
+						    	동물 프로필
+						    </p>
+						    <span class=""><i class="fas fa-times"></i></span>
+						  </div>
+			</div>
+			<div class="card col-4" style="width: 20rem;">
+						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+						  <div class="card-body">
+							<h4>동물 이름</h4>
+						    <p class="card-text">
+						    	동물 프로필
+						    </p>
+						    <span class=""><i class="fas fa-times"></i></span>
+						  </div>
+			</div> --%>
+			
+		
+		<!-- 새로 시도하는 디자인 시작 -->
+		
+			<!-- <div class="row">
+              <ul class="nav nav-pills nav-pills-icons" role="tablist" style="margin: 0 auto;">
+                
+                                color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
+                           
+                
+                <li class="nav-item">
+                  <a class="nav-link active show" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="true">
+                    <i class="material-icons">schedule</i>
+                    	일정
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dashboard-1" role="tab" data-toggle="tab" aria-selected="false">
+                    <i class="material-icons">dashboard</i>
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="false">
+                    <i class="material-icons">list</i>
+                    Tasks
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="false">
+                    <i class="material-icons">list</i>
+                    반려동물 등록
+                  </a>
+                </li>
+                
+              </ul>
+              </div>
+              
+              
+              <div class="tab-content tab-space">
+                <div class="tab-pane" id="dashboard-1">
+                  Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                  <br><br>
+                  Dramatically visualize customer directed convergence without revolutionary ROI.
+                </div>
+                <div class="tab-pane active show" id="schedule-1">
+					<div id="calendar"></div>
+                </div>
+                <div class="tab-pane" id="tasks-1">
+                  Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                  <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+                </div>
+              </div>
+           
+          </div> -->
+		<!-- 새로 시도하는 디자인 끝 -->
+		
+			<div class="container">
 			<div class="card card-nav-tabs">
                 <div class="card-header card-header-primary">
                   <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -40,8 +123,10 @@
                     <div class="nav-tabs-wrapper">
                       <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
+                          <!-- <a class="nav-link active show" href="#schedule" data-toggle="tab"> -->
                           <a class="nav-link active show" href="#schedule" data-toggle="tab">
                             <!-- <i class="material-icons">face</i> -->
+                            
                             <i class="fas fa-home"></i>
                             	일정
                           <div class="ripple-container"></div></a>
@@ -103,55 +188,32 @@
 					        </div>
 					    </div>
 					</div>
-
-
-                    	<%-- <div class="row">
-                      <div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
-						  <div class="card-body">
-							<h4>동물 이름</h4>
-						    <p class="card-text">
-						    	동물 프로필
-						    </p>
-						    <span class=""><i class="fas fa-times"></i></span>
-						  </div>
-					</div>
-					
-					<div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_cat.jpg" rel="nofollow" alt="card image">
-						  <div class="card-body">
-							<h4>동물 이름</h4>
-						    <p class="card-text">
-						    	동물 프로필
-						    </p>
-						    <span class=""><i class="fas fa-times"></i></span>
-						  </div>
-					</div>
-					
-					<div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
-						  <div class="card-body">
-							<h4>동물 이름</h4>
-						    <p class="card-text">
-						    	동물 프로필
-						    </p>
-						    <span class=""><i class="fas fa-times"></i></span>
-						  </div>
-					</div>
-                    </div> --%>
-                    
                     
                     </div>
                     <div class="tab-pane" id="home">
                     	
                     	<!-- <div id="calendar"></div> -->
-                    
-                    
+                    	<c:forEach var="petInfo" items="${petInfoList}">
+							<div class="card col-4" style="width: 20rem;">
+								<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
+								  <div class="card-body">
+									<h4>${petInfo.petname}</h4>
+								    <p class="card-text">
+								    	${petInfo.age}개월 | ${petInfo.mcategory} | ${petInfo.sex} | ${petInfo.scategory} | 
+								    	${petInfo.size} | ${petInfo.weight}kg | ${petInfo.memo}
+								    </p>
+								    <div>
+								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								    	<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
+								    	<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+								    	<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
+								    	<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
+								    </div>
+								  </div>
+							</div>
+						</c:forEach> 
                     </div>
    
-        
-                     
-	                 
 	                 
 <!--------------------------------------------- 병원 기록 영역 ---------------------------------------------------- -->   
                     
@@ -198,6 +260,9 @@
                   </div>
                 </div>
               </div>
+              </div>
+              
+             
 		
 		</div> <!-- container end -->
 	</div> <!-- side_overlay end -->
@@ -220,8 +285,26 @@
 	<script src='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.js'></script>
 
 	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script> --%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	
+	/*
+	document.addEventListener('load', function() {
+
+		$('.icons').click(function() {
+
+			var asking = confirm('정말 삭제하시겠습니까?');
+
+			if(asking) {
+				 return location.href('delete.bit?petindex=${petInfo.petindex}');
+				} else {
+					return;
+				}
+			
+			});
+
+	});
+	*/
 
 	document.addEventListener('DOMContentLoaded', function() {
 
@@ -311,8 +394,14 @@
 	    	  console.log('clicked on ' + info.dateStr);
 	    });
 	    /*}		/.function calendar() */
-	    
+
 	 });
+
+
+		
+
+	
+
 	
 	</script>
 </html>

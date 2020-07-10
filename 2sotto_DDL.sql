@@ -711,10 +711,10 @@ commit;
 
 # admin계정 추가(비번 1004)
 INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
-VALUES ('admin', 'admin', '$2a$10$kqMUFtQ5XY/CQSM8SgIdVuah6sEDXF3Vvi4yXaspzVj5qKwShCSUa', '1', '1', '1',now());
+VALUES ('admin', 'admin', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now());
 # a 계정 추가(비번 1004)
 INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
-VALUES ('a', 'a', '$2a$10$kqMUFtQ5XY/CQSM8SgIdVuah6sEDXF3Vvi4yXaspzVj5qKwShCSUa', '1', '1', '1',now());
+VALUES ('a', 'a', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now());
 
 commit;
 
@@ -743,12 +743,12 @@ desc maincategory;
 desc message;
 desc user;
 
+select * from user;
+select * from pet;
 select * from roles;
 select * from userrole;
 select * from message;
-select * from user;
 select * from blog;
-select * from pet;
 select * from maincategory;
 select * from subcategory; 
 

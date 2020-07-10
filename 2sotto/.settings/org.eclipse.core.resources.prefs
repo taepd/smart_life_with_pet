@@ -1,7 +1,8 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=master
 eclipse.preferences.version=1
-<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/include/headerAndNavi.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/management/managementMain.jsp=UTF-8
-=======
 encoding//src/main/webapp/WEB-INF/include/import.jsp=UTF-8
->>>>>>> master
+encoding//src/main/webapp/WEB-INF/views/donation/DonateComment.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/management/managementMain.jsp=UTF-8

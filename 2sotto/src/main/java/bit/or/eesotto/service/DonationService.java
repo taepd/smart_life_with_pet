@@ -92,7 +92,7 @@ public class DonationService {
 	 * 
 	 * return list; }
 	 */
-
+	//글 목록
 	public HashMap<String, Object> main(String cp, String ps) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -174,6 +174,56 @@ public class DonationService {
 	 * donatedao.update(donate); return
 	 * "redirect:getDonationDetail.bit?dindex="+donate.getDindex(); }
 	 */
+	
+	//글 목록 시간순(최신)
+		public HashMap<String, Object> mainbydate(String cp, String ps) {
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			// List 페이지 처음 호출
+			if (ps == null || ps.trim().equals("")) {
+				// default 값 설정
+				ps = "5"; // 5개씩
+			}
+
+			if (cp == null || cp.trim().equals("")) {
+				// default 값 설정
+				cp = "1"; // 1번째 페이지 보겠다
+			}
+
+			int pageSize = Integer.parseInt(ps);
+			int cpage = Integer.parseInt(cp);
+			int pageCount = 0;
+
+			/*
+			 * logger.info("pagesize" + pagesize); logger.info("cpage" + cpage);
+			 */
+
+			// DAO 데이터 받아오기
+			List<Donate> donateList = null;
+
+			// mapper 를 통한 인터페이스 연결
+			DonateDao donateDao = sqlsession.getMapper(DonateDao.class);
+
+			int totaldonatecount = donateDao.getDonationCount();
+			//
+			donateList = donateDao.mainbydate(cpage, pageSize);
+
+			// 페이지 크기에 맞춰 페이지 수 구하기
+			if (totaldonatecount % pageSize == 0) {
+				pageCount = totaldonatecount / pageSize;
+			} else {
+				pageCount = (totaldonatecount / pageSize) + 1;
+			}
+
+			map.put("donateList", donateList);
+			map.put("cpage", cpage);
+			map.put("pageSize", pageSize);
+			map.put("pageCount", pageCount);
+			map.put("totaldonatecount", totaldonatecount);
+
+			return map;
+		}
 	
 	//글 수정	
 	 public int update(Donate donate) {

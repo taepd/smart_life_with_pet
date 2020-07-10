@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM MESSAGE P WHERE SUSERID2 = #{param3}) S WHERE ROWNUM 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM MESSAGE P WHERE SUSERID = #{param3}) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
 		
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 블로그 포스팅 수 조회 -->
 	<select id="getMessageCount" resultType="int">
-		select count(*) from message where SUSERID2 = #{param1}
+		select count(*) from message where SUSERID = #{param1}
 	</select>
 	
 	

@@ -62,7 +62,7 @@ public class MessageController {
 			logger.info("로그인 유저 아이디: " + userid);
 		
 			// 세션 userid post객체에 입력
-			message.setSuserid2(userid);
+			message.setSUSERID(userid);
 
 			// 임시 petindex 입력
 			//message.setMsindex(1);

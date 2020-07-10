@@ -27,10 +27,7 @@
 		                </a>
 					</li>
 		</se:authorize>	
-		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link"></a>${userid}님 반갑습니다 
-		            </li>
+		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
 					<li class="nav-item" id="item01">
 						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link">마이 페이지</a>
 		            </li>

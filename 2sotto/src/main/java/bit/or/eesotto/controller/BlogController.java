@@ -142,6 +142,7 @@ public class BlogController {
 	// 블로그 > 글쓰기 처리
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
 	public String write(Blog blog, HttpSession session, Principal principal) {
+		
 		String userid =  principal.getName();
 		//String userid = (String) session.getAttribute("userid");
 		logger.info("로그인 유저 아이디: " + userid);

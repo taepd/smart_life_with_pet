@@ -1,5 +1,7 @@
 package bit.or.eesotto.controller;
 
+import java.security.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -37,9 +39,10 @@ public class MypageController {
 
 	// 마이페이지 > 수정 view
 	@RequestMapping(value = "edit.bit", method = RequestMethod.GET)
-	public String editView(HttpSession session, Model model) {
+	public String editView(Principal principal, Model model) {
 		
-		String userid = (String)session.getAttribute("userid");
+		//String userid = (String)session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		
 		User user = ms.getUserInfo(userid);
@@ -60,9 +63,10 @@ public class MypageController {
 	
 	// 마이페이지 > 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
-	public String editUser(HttpSession session, String crntPwd, String pwd, Model model) {
+	public String editUser(Principal principal, String crntPwd, String pwd, Model model) {
 							
-		String userid = (String)session.getAttribute("userid");
+		//String userid = (String)session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		
 		User user = ms.getUserInfo(userid);
@@ -101,9 +105,10 @@ public class MypageController {
 	
 	// 마이페이지 > 비밀번호 변경 처리
 	@RequestMapping(value = "editPwd.bit", method = RequestMethod.POST)
-	public String editPwd(HttpSession session, String crntPwd, String pwd, Model model) {
+	public String editPwd(Principal principal, String crntPwd, String pwd, Model model) {
 							
-		String userid = (String)session.getAttribute("userid");
+		//String userid = (String)session.getAttribute("userid");
+		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		User user = ms.getUserInfo(userid);
 		
@@ -161,13 +166,14 @@ public class MypageController {
 	
 	// 마이페이지 > 회원 탈퇴 view
 	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.POST)
-	public String withdrawalOk(Model model, HttpSession session) {
-		
-		String userid = (String)session.getAttribute("userid");
+	public String withdrawalOk(Model model, Principal principal, HttpSession session) {
 		
 		
+		String userid =  principal.getName();
+		session.setAttribute("userid", userid);
 		logger.info("로그인 유저 아이디: "+userid);
 		
+				
 		int result = ms.deleteUser(userid);
 		
 		String msg = null;
@@ -175,7 +181,7 @@ public class MypageController {
 		
 		if(result==1) {
 			session.removeAttribute("userid");
-			session.invalidate();
+			session.invalidate();	
 			
 			logger.info("회원탈퇴 처리완료");
 			msg = "회원 탈퇴가 정상적으로 처리되었습니다.";

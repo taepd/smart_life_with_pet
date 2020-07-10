@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -40,17 +40,17 @@
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
 									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i>후원글 메인
+										<i class="material-icons">favorite</i>후원글 메인
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons"></i>최신순
+										<i class="material-icons">favorite</i>최신순
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i>글 작성
+										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
 							</ul>
@@ -83,8 +83,13 @@
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
 															${donate.title}</a></td>
 												<td class="text-center">관리자</td>
-												<td class="text-center">${donate.rtime}</td> 	
-												<td class="text-center">${donate.ccoll/donate.gcoll*100}%</td> 											
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+												<td class="text-center">${rtime}</td> 	
+												<td class="text-center">
+													<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###" />%
+												</td>									
 											</tr>
 									
 										</tbody>

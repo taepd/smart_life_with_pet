@@ -31,7 +31,7 @@ import bit.or.eesotto.service.DonationService;
 @RequestMapping("/donation/")
 public class DonationController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DonationController.class);
 	
 	@Autowired
 	DonationService ds;
@@ -147,153 +147,129 @@ public class DonationController {
 	 */
 	
 	// 후원글메인 view
-		@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-		public String main(String cp, String ps, HttpSession session, Model model) {
-			
-			
-			/* logger.info("로그인 유저 아이디: " + userid); */
-			
-			HashMap<String, Object> map = ds.main(cp, ps);
-					/* logger.info("내 블로그 글 조회 완료"); */
-			
-			// view까지 전달 (forward)
-			model.addAttribute("cpage", map.get("cpage"));
-			model.addAttribute("pageSize", map.get("pageSize"));
-			model.addAttribute("donateList", map.get("donateList")); 		
-			model.addAttribute("pageCount", map.get("pageCount"));
-			model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
-
-			return "donation/main";
-
-		}
+	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
+	public String main(String cp, String ps, Model model) {
+							
+		HashMap<String, Object> map = ds.main(cp, ps);
+		logger.info("후원글 조회 완료");
 		
-		// 후원글메인 view 최신순으로
-				@RequestMapping(value = "mainbydate.bit", method = RequestMethod.GET)
-				public String mainbydate(String cp, String ps, HttpSession session, Model model) {
-					
-					
-					/* logger.info("로그인 유저 아이디: " + userid); */
-					
-					HashMap<String, Object> map = ds.mainbydate(cp, ps);
-							/* logger.info("내 블로그 글 조회 완료"); */
-					
-					// view까지 전달 (forward)
-					model.addAttribute("cpage", map.get("cpage"));
-					model.addAttribute("pageSize", map.get("pageSize"));
-					model.addAttribute("donateList", map.get("donateList")); 		
-					model.addAttribute("pageCount", map.get("pageCount"));
-					model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("donateList", map.get("donateList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
 
-					return "donation/mainbydate";
+		return "donation/main";
 
-				}
+	}
+	
+	// 후원글메인 view 최신순으로  > Ajax 수정 필요
+	@RequestMapping(value = "mainbydate.bit", method = RequestMethod.GET)
+	public String mainbydate(String cp, String ps, HttpSession session, Model model) {
+				
+				
+		/* logger.info("로그인 유저 아이디: " + userid); */
+		
+		HashMap<String, Object> map = ds.mainbydate(cp, ps);
+				/* logger.info("내 블로그 글 조회 완료"); */
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("donateList", map.get("donateList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
+
+		return "donation/mainbydate";
+	}
 	
 	//글 상세보기
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
 	public String detail(String dindex , Model model) {
 			
-			Donate donate = ds.detail(dindex);//ds  
-			model.addAttribute("donate", donate);
-			
-			return "donation/detail"; //"noticeDetail.jsp";
+		Donate donate = ds.detail(dindex);//ds  
+		model.addAttribute("donate", donate);
+		
+		return "donation/detail"; //"noticeDetail.jsp";
 	}
 	
 	// 글 수정 view
-		@RequestMapping(value = "update.bit", method = RequestMethod.GET)
-		public String update(String dindex, Model model) {
-			
-			Donate donate = ds.detail(dindex);
-			logger.info("내 블로그 글 조회 완료");
-			model.addAttribute("donate", donate);
-			
-			return "donation/update";	
-		}
+	@RequestMapping(value = "update.bit", method = RequestMethod.GET)
+	public String update(String dindex, Model model) {
 		
-		/*
-		 * // 글 수정 처리
-		 * 
-		 * @RequestMapping(value = "updateDonation.bit", method = RequestMethod.POST)
-		 * public String update(int dindex, Model model) {
-		 * 
-		 * Donate donate = ds.getDonationDetail(dindex); logger.info("내 블로그 글 조회 완료");
-		 * model.addAttribute("donate", donate);
-		 * 
-		 * return "donation/update"; }
-		 */
+		Donate donate = ds.detail(dindex);
+		logger.info("내 블로그 글 조회 완료");
+		model.addAttribute("donate", donate);
 		
-		//글 수정 처리
-		@RequestMapping(value = "update.bit", method = RequestMethod.POST)
-		public String update(Donate donate , HttpServletRequest request, Model model) throws IOException, ClassNotFoundException, SQLException {
-			
-			
-			List<CommonsMultipartFile> files = donate.getFiles();
-			List<String> filenames = new ArrayList<String>(); //파일명관리
-			
-			if(files != null && files.size() > 0) { //최소 1개의 업로드가 있다면 
-				for(CommonsMultipartFile multifile : files) {
-					String filename = multifile.getOriginalFilename();
-					String path = request.getServletContext().getRealPath("/customer/upload");
-					
-					String fpath = path + "\\"+ filename; 
-					
-					if(!filename.equals("")) { //실 파일 업로드
-						FileOutputStream fs = new FileOutputStream(fpath);
-						fs.write(multifile.getBytes());
-						fs.close();
-					}
-					filenames.add(filename); //파일명을 별도 관리 (DB insert)
+		return "donation/update";	
+	}
+		
+		
+	//글 수정 처리
+	@RequestMapping(value = "update.bit", method = RequestMethod.POST)
+	public String update(Donate donate , HttpServletRequest request, Model model) throws IOException, ClassNotFoundException, SQLException {
+		
+		
+		List<CommonsMultipartFile> files = donate.getFiles();
+		List<String> filenames = new ArrayList<String>(); //파일명관리
+		
+		if(files != null && files.size() > 0) { //최소 1개의 업로드가 있다면 
+			for(CommonsMultipartFile multifile : files) {
+				String filename = multifile.getOriginalFilename();
+				String path = request.getServletContext().getRealPath("/customer/upload");
+				
+				String fpath = path + "\\"+ filename; 
+				
+				if(!filename.equals("")) { //실 파일 업로드
+					FileOutputStream fs = new FileOutputStream(fpath);
+					fs.write(multifile.getBytes());
+					fs.close();
 				}
-				
+				filenames.add(filename); //파일명을 별도 관리 (DB insert)
 			}
-				
-			//DB 파일명 저장
-			if( !filenames.isEmpty() ) {
-				donate.setDimg(filenames.get(0));
-
-				}
-			
-						
-			logger.info("파일 수정 완료 ");
-			//int result = ds.donationWrite(donate, request, principal);
-			
-			
-			
-			int result = ds.update(donate);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
-			if(result==1) {
-				
-				
-		        return "redirect:main.bit";
-				
-			}else { 
-				
-				
-		        return "javascript:history.back();";
-
-			}
-			
-				
 			
 		}
-		//글 삭제 처리
-		@RequestMapping(value="delete.bit", method={ RequestMethod.GET, RequestMethod.POST })
-		public String delete(Donate donate) throws ClassNotFoundException, SQLException {
 			
-				
-			int result = ds.delete(donate);
+		//DB 파일명 저장
+		if( !filenames.isEmpty() ) {
+			donate.setDimg(filenames.get(0));
+
+			}
 		
-			if(result==1) {
-				
-				
-		        return "redirect:main.bit";
-				
-			}else { 
-				
-				
-		        return  "javascript:history.back();";
-
-			}
+					
+		logger.info("파일 수정 완료 ");
+		//int result = ds.donationWrite(donate, request, principal);
+		
+		
+		
+		int result = ds.update(donate);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
+		if(result==1) {
 			
+			
+	        return "redirect:main.bit";
+			
+		}else { 
+			
+			
+	        return "javascript:history.back();";
+
 		}
-		 
+	}
+	//글 삭제 처리
+	@RequestMapping(value="delete.bit", method={ RequestMethod.GET, RequestMethod.POST })
+	public String delete(Donate donate) throws ClassNotFoundException, SQLException {
+			
+		int result = ds.delete(donate);
+	
+		if(result==1) {
+			
+	        return "redirect:main.bit";
+			
+		}else { 
+			
+	        return  "javascript:history.back();";
+		}
+	}
 
 }

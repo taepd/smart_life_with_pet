@@ -1,6 +1,7 @@
 package bit.or.eesotto.controller;
 
 import java.io.IOException;
+import java.security.*;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class JoinController {
 
 	// 회원가입 view
 	@RequestMapping(value = "joinForm.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public String joinForm(HttpSession session, Model model) throws IOException {
+	public String joinForm(Model model) throws IOException {
 		// 이메일 인증번호 확인을 위한 랜덤숫자 생성
 		// int ran = new Random().nextInt(900000) + 100000;
 		// model.addAttribute("random", ran);
@@ -59,7 +60,7 @@ public class JoinController {
 
 	// 일반 회원가입 처리
 	@RequestMapping(value = "normalJoin.bit", method = RequestMethod.POST)
-	public String normalJoin(User user, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes,
+	public String normalJoin(User user, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes,
 			Model model){
 		
 		
@@ -75,7 +76,9 @@ public class JoinController {
 		String url = null;
 		
 		if(result==1) {
-			session.setAttribute("userid", user.getUserid());
+			
+			//session.setAttribute("userid", user.getUserid());
+			String userid =  principal.getName();
 			logger.info("회원가입 처리 완료");
 			
 			msg = "회원가입 성공";

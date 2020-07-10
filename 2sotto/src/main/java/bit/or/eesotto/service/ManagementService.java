@@ -77,6 +77,22 @@ public class ManagementService {
 		return pet;
 	}
 	
+	//반려동물 정보 수정
+	public int updatePetInfo(Pet pet) {
+		
+		int result = 0;
+		
+		try {
+			petDao = sqlsession.getMapper(PetDao.class);
+			result = petDao.updatePetInfo(pet);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	//반려동물 정보 삭제
 	public int deletePet(int petindex) {
 		

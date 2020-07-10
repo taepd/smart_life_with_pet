@@ -31,6 +31,7 @@
 		<form action="edit.bit" method="post" enctype="multipart/form-data">
 			
 			<c:set value="${petInfo}" var="pet"/>
+			<input type="hidden" name="petindex" value="${pet.petindex}">
 				
 			<div class="form-group bmd-form-group">
                 <label for="petname" class="bmd-label-floating">이름</label>
@@ -61,8 +62,8 @@
 			<div class="form-group">
 				<label for="mcategory">종류</label>
 				<select class="custom-select" id="mcategory" name="mcategory"> <!-- ex) ?mcategory=dog -->
-						<option value="dog" selected>dog</option>
-						<option value="cat" selected>cat</option>
+					<option value="dog">dog</option>
+					<option value="cat">cat</option>
 				</select>
 			</div>
 			
@@ -206,4 +207,47 @@
 	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
+<script>
+
+	$(document).ready(function() {
+
+		$('#mcategory option').each(function() {
+			if( $(this).val() == "${pet.mcategory}" ) {
+					$(this).attr("selected", "selected");
+				}
+		});
+		
+		$('#scategory option').each(function() {
+			if( $(this).val() == "${pet.scategory}" ) {
+					$(this).attr("selected", "selected");
+				}
+		});
+
+		/* 나이도 추가하기 */
+		
+		if("${pet.hlength}" == 's') {
+				$('#hlength_short').attr("checked", "checked");
+			} else if ("${pet.hlength}" == 'm') {
+				$('#hlength_medium').attr("checked", "checked");
+			} else {
+				$('#hlength_long').attr("checked", "checked");
+				}
+
+		if("${pet.size}" == 's') {
+				$('#size_small').attr("checked", "checked");
+			} else if ("${pet.size}" == 'm') {
+				$('#size_medium').attr("checked", "checked");
+			} else {
+				$('#size_big').attr("checked", "checked");
+				}
+
+		if("${pet.nstate}" == 'y') {
+				$('#nstate_y').attr("checked", "checked");
+			} else {
+				$('#nstate_n').attr("checked", "checked");
+			}
+		
+	});
+		
+</script>
 </html>

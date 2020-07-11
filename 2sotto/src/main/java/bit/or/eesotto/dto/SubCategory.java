@@ -10,6 +10,7 @@ import lombok.ToString;
 public class SubCategory {
 	
 	private String scategory;
+	private String mcategory;
 	private String scaname;
 
 }

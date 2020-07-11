@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -177,9 +178,17 @@
 								<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
 								  <div class="card-body">
 									<h4>${petInfo.petname}</h4>
-								    <p class="card-text">
-								    	${petInfo.age}개월 | ${petInfo.mcategory} | ${petInfo.sex} | ${petInfo.scategory} | 
-								    	${petInfo.size} | ${petInfo.weight}kg | ${petInfo.memo}
+								    <p class="card-text" id="petInfo">
+								    	<fmt:parseNumber var="age" value="${petInfo.age/12}" integerOnly="true"/>
+								    	${petInfo.scaname} | 
+								    	${petInfo.size == 'small' ? '소형':petInfo.size == 'medium'? '중형':'대형'}${petInfo.mcategory == '1' ? '견':'묘'} | 
+								    	${petInfo.weight}kg | 
+								    	<br>
+								    	${age}년 ${petInfo.age%12}개월 | 
+								    	${petInfo.sex == 'female' ? '암컷':'수컷' } | 
+								    	${petInfo.nstate == 'n' ? '중성화X':'중성화O'} |
+								    	<br>
+								    	${petInfo.memo}
 								    </p>
 								    <div>
 								    	<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
@@ -209,7 +218,6 @@
 
                     </div>
                     
-                    
 					<h3>예방 접종 기록</h3>                    
                     <div class="table-responsive">
                     	<table class="table">
@@ -219,16 +227,6 @@
                     				</tr> <tr> <td> Minerva Hooper </td> <td> Curaçao </td> <td> Sinaai-Waas </td> <td class="text-right"> $23,789 </td> </tr>
                     	</table>
                     </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     </div>
                     
@@ -376,10 +374,6 @@
 
 	 });
 
-
-		
-
-	
 
 	
 	</script>

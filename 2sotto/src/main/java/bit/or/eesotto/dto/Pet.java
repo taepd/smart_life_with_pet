@@ -27,5 +27,10 @@ public class Pet {
 	private int age_year;
 	private int age_month;
 	
+	//대분류코드명, 소분류코드명 뽑기 용도
+	private String scaname;
+	private String mcaname;
+	
+	
 
 }

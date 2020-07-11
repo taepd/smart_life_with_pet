@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import bit.or.eesotto.dto.Message;
+import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.User;
 
 
@@ -22,6 +24,15 @@ public interface MessageDao {
 		
 		// 쪽지 > 쪽지 리스트 조회 추가
 		public List<Message> getMessageSendList(int cpage, int pagesize, String RUSERID);
+		
+		// 쪽지 > 쪽지 상세 조회
+		@Select("select * from message where msindex = #{msindex}")
+		public Message getMessage(@Param("msindex") String msindex);
+		
+		// 쪽지 > 쪽지 삭제
+		@Update("delete from message where msindex=#{msindex}")
+		public int deleteMessage(Message msindex);
+		
 		
 		// 쪽지 > 쪽지 개수 조회 //동적쿼리 적용할 것 
 		public int getMessageCount();

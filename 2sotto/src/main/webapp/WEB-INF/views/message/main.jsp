@@ -24,7 +24,7 @@
 
 			<button class="btn btn-primary btn-round"
 				onclick="location.href='main.bit'">쪽지</button>
-
+				
 
 			
 			<div class="card card-nav-tabs">
@@ -62,24 +62,31 @@
 								
 									<thead class=" text-primary">
 									<tr>
+											<th>쪽지번호</th>
 											<th>보낸사람</th>
 											<th>내용</th>
 											<th class="text-right">받은 날짜</th>
 										</tr>
 									</thead>
 									 <c:forEach var="message" items="${messageList}" >
-									<tbody>
+									<tbody id="message">
+									
 										<tr>
+											<td>${message.msindex}</td>
 											<td>${message.suserid}</td>
-											<td>${message.content}</td>
+											<!--  <td onclick="location.href='detail.bit?msindex=${message.msindex}'">${message.content}</td> -->
+											  <td  data-toggle="modal" data-target="#deleteModal" >${message.content}</td> 
+											<!-- <td data-toggle="modal" data-target="#deleteModal" onClick="$('#createFormId').modal('show')">${message.content}</td> --> 
 											<td class="text-right">${message.sendtime}</td>
 										</tr>
 									</tbody>
-								
-									
 									
 									</c:forEach> 
 								</table>
+								
+								
+								
+								
 								<!-- 페이징 -->
 			<div class="pagination justify-content-center">
 			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
@@ -135,12 +142,59 @@
 			</div>
 			
 			
-
+			
 		</div>
 		<!-- container end -->
 	</div>
+	
+	
+	<!-- Modal -->
+	
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <c:forEach var="message" items="${messageList}" >
+      <div class="modal-header"> 
+        <h5 class="modal-title" id="exampleModalLabel">보낸사람: ${message.suserid} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       내용: ${message.content}
+      </div>
+      <div class="modal-footer">
+  		<button onclick="Delete()" type="button" class="btn btn-primary">삭제하기</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+    	
+      </div>
+      </c:forEach> 
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+	
+
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
+
+<script>
+<!-- Modal에서 삭제 -->
+
+// 삭제 전 확인 창 띄우기
+function Delete() {
+  location.replace("delete.bit?msindex=${message.msindex}"); 
+  //location.replace("delete.bit"); 
+  }
+
+<!-- Modal에서 삭제 --> 
+
+
+
+
+</script>
 
 </body>
 </html>

@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
+import bit.or.eesotto.dao.BlogCommentDao;
 import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.User;
 
 @Service
@@ -33,6 +35,9 @@ public class BlogService {
 
 	@Autowired
 	BlogDao blogDao;
+	
+	@Autowired
+	BlogCommentDao blogCommentDao;
 
 	// 블로그 > 새 글 쓰기
 	public int writePost(Blog blog) {
@@ -125,5 +130,57 @@ public class BlogService {
 		
 		return blogDao.deletePost(post);
 	}
+	
+	//블로그 > 댓글 쓰기
+	public int writeCommnet(BlogComment blogComment) {
+		
+		int result = 0;
+
+		try {
+
+			blogCommentDao = sqlsession.getMapper(BlogCommentDao.class);
+			result = blogCommentDao.writeComment(blogComment);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
+	
+	//블로그 > 댓글 조회
+	public BlogComment getComment(int bcindex) {
+		
+		BlogComment comment = null;
+
+		try {
+
+			blogCommentDao = sqlsession.getMapper(BlogCommentDao.class);
+			comment = blogCommentDao.getComment(bcindex);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return comment;
+	}
+	
+	//블로그 > 댓글 리스트 조회
+	public List<BlogComment> getCommentList(String bindex) {
+		
+		List<BlogComment> commentList = null;
+
+		try {
+
+			blogCommentDao = sqlsession.getMapper(BlogCommentDao.class);
+			commentList = blogCommentDao.getCommentList(bindex);
+			System.out.println(commentList);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return commentList;
+	}
+	
 }
 

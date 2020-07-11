@@ -35,7 +35,7 @@
 								<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 									<i class="material-icons">email</i> 마이 페이지</a>
 								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='myPetPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+								<li class="nav-item"><a class="nav-link" onclick="location.href='../management/myPetPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 									<i class="material-icons">email</i> 내 반려동물 페이지</a>
 								</li>
 								<li class="nav-item"><a class="nav-link" onclick="location.href='edit.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->

@@ -106,15 +106,15 @@
 									<progress value="0" max="100" id="jb"></progress>
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
 								</div>				
-								
-								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea
-								
+									
+								 <textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
+									
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
 										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
 										<button type="button" id="delete" >삭제</button>
 
-								</div>
+								</div> 
 								
 								 
 								

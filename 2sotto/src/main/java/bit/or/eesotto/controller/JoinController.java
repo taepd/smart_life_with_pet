@@ -113,27 +113,27 @@ public class JoinController {
 	}
 	
 	// nick 중복체크 Ajax 호출
-		@ResponseBody
-		@RequestMapping(value = "nickCheck.bit", method = { RequestMethod.POST })
-		public List<String> nickCheck(HttpServletRequest request, Model model) throws IOException {
+	@ResponseBody
+	@RequestMapping(value = "nickCheck.bit", method = { RequestMethod.POST })
+	public List<String> nickCheck(HttpServletRequest request, Model model) throws IOException {
 
-			String id = request.getParameter("nick");
+		String id = request.getParameter("nick");
 
-			return joinService.nickCheck(id);
-		}
+		return joinService.nickCheck(id);
+	}
 		
-		/*
-		  // 휴대폰 중복체크 Ajax 호출
-		  
-		  @ResponseBody
-		  
-		  @RequestMapping(value = "join/cpnumberCheck.bit", method = {
-		  RequestMethod.POST }) public List<String> cpnumberCheck(HttpServletRequest
-		  request, Model model) throws IOException {
-		  
-		  String id = request.getParameter("cpnumber");
-		  
-		  return joinService.cpnumberCheck(id); }
-		 */
+	/*
+	  // 휴대폰 중복체크 Ajax 호출
+	  
+	  @ResponseBody
+	  
+	  @RequestMapping(value = "join/cpnumberCheck.bit", method = {
+	  RequestMethod.POST }) public List<String> cpnumberCheck(HttpServletRequest
+	  request, Model model) throws IOException {
+	  
+	  String id = request.getParameter("cpnumber");
+	  
+	  return joinService.cpnumberCheck(id); }
+	 */
 
 }

@@ -107,14 +107,23 @@
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
 								</div>				
 								
-								  <textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
+								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
+								
+								
+								<div>
+								<!-- 포인트 기부 영역 -->
+								<input type="text" name="dpoint" placeholder="기부하실 포인트를 직접 입력해 주세요">
+								<button type="submit" class="btn btn-primary">포인트 기부하기</button>
+								</form>
+								</div>
+								
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
 										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
 										<button type="button" id="delete" >삭제</button>
 
-								</div> 
+								</div>
 								
 								 
 								

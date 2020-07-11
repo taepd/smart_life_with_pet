@@ -140,7 +140,7 @@ $(function() {
 function getReplyList() {
 	
 	$.ajax({
-		url:"GetReplyList",
+		url:"reply.bit",
 		datatype: "json",
 		data: { boardnum:'${dto.boardnum}'},
 		success: function(data) {

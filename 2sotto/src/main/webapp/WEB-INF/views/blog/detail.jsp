@@ -96,10 +96,10 @@
 					<!-- 댓글 폼 -->
 					<br>
 					<form name="reply" id="reply" method="POST">
-						작성자&nbsp;&nbsp;${sessionScope.id}<br>
-						<input type="hidden" name="boardnum" id="boardnum" value="${dto.boardnum}">
-						<input type="hidden" name="id" id="id" value="${sessionScope.id}">
-						<textarea rows="3" cols="" id="comment" name="comment" style="width: 100%"></textarea>
+						작성자&nbsp;&nbsp;${sessionScope.user.userid}<br>
+						<%-- <input type="hidden" name="bindex" id="bindex" value="${post.bindex}"> --%>
+						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
+						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
 						<br>
 						<input type="button" class="" value="댓글 등록" id="writecom">
 						<input type="reset" class="" value="다시 쓰기">
@@ -130,42 +130,45 @@ $('#delete').click(function(){
 //모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
 $(function() {
 	
-	getReplyList();
-	insertReply();
+	getCommentList();
+	insertComment();
 	
 });
 
 
 //댓글 목록 가져오기
-function getReplyList() {
+function getCommentList() {
 	
 	$.ajax({
-		url:"reply.bit",
+    
+		url:"getCommentList.bit",
+
 		datatype: "json",
-		data: { boardnum:'${dto.boardnum}'},
+		data: { bindex:'${post.bindex}'},
 		success: function(data) {
 			
 			var html = "";
 			console.log("data: "+data);
 			
-			$.each(JSON.parse(data), function(index, element) {
+			$.each(data, function(index, element) {
 				
 				
 				html += "<form action='ReplyDelete' method='POST'>";
 				html += "<div id='reply_id'><b>";
-				html += element.id;
+				html += element.userid;
 				html += "</b></div>";
 				html += "<div id='reply_comment'>";
-				html += element.replycont;
+				html += element.content;
 				html += "</div>";
 				html += "<div id='reply_date'><h6>";
-				html += element.replydate;
+				html += element.rtime;
 				html += "</h6></div>";
 				html += "<input type='hidden' name='replynum' id='replynum' value='";
-				html += element.replynum;
-				html += "'> <input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
+				html += element.bclike;
+				html += "'> <input type='button' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
+				html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
 				html += "</form>";
-				
+				html += "<div id='"+element.bcindex+"'></div>"
 			});
 			
 			$('#replybox').append(html);
@@ -177,28 +180,28 @@ function getReplyList() {
 
 
 //댓글 쓰기
-function insertReply() {
+function insertComment() {
 	$('#writecom').click(function(){
 		
-		if(!reply.comment.value) {
+		if(!reply.content.value) {
 			swal('댓글 내용을 입력하세요!');
-			reply.comment.focus();
+			reply.content.focus();
 			return false;
 		}
 		
 		$.ajax ({
 			
-			url:"ReplyInsert",
+			url:"writeComment.bit",
+			type: "post",
 			datatype:"json",
-			data: { boardnum:'${dto.boardnum}',
-					id: '${dto.id}',
-					comment: $('#comment').val()
-				  },
+			data: { bindex:'${post.bindex}',
+					userid: '${sessionScope.user.userid}',
+					content: $('#content').val()
+				  },	
 			success: function(data) {
 					$('#replybox').empty();
-					getReplyList();
-					$('#comment').val("");
-					
+					$('#content').val("");
+					getCommentList();
 				}
 				
 		});
@@ -207,6 +210,23 @@ function insertReply() {
 		
 	});
 }
+
+//댓글 수정 창 열기 
+function editComment(bcindex) {
+					
+				let html = "";
+				
+				html += '<form method="POST">';
+				html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea><br>';
+				html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
+				html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+				
+				$('#'+bcindex+'').append(html);
+
+		return false;
+		
+};
+
 
 
 //댓글 삭제

@@ -19,7 +19,7 @@ public interface DonateDao {
 
 	//후원글 입력
 	
-	@Insert("insert into donate (title,dobject,content,rtime,gcoll,ccoll)" +
+	@Insert("insert into donation (title,dobject,content,rtime,gcoll,ccoll)" +
     "values(#{title},#{dobject},#{content},now(),#{gcoll},0)")
 	public int write(Donate donate);
 	
@@ -46,6 +46,7 @@ public interface DonateDao {
 	 * )
 	 */
 	
+	//검색시 카테고리 설정할때 쓸 dao
 	
 	
 	 //글목록 보기
@@ -68,4 +69,10 @@ public interface DonateDao {
 	 */
 	 ///<!-- #을 쓴 이유는 타입을 인정하기 위해서 / 파라미터 하나일 땐 파라미터 이름 그냥 쓰나봄...? -->
 	public Donate detail(String dindex) throws ClassNotFoundException, SQLException;
+	
+	//유저 포인트 차감
+	public int minusUserPoint(@Param("dpoint") int dpoint, @Param("dUserid") String dUserid);
+	
+	//현재 모금 포인트 증가
+	public int plusCcollPoint(int dindex, int dpoint);
 }

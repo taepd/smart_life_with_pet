@@ -16,12 +16,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import bit.or.eesotto.dao.DonateDao;
+import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.User;
 
 @Service
 public class DonationService {
@@ -35,6 +38,9 @@ public class DonationService {
 
 	@Autowired
 	DonateDao donatedao;
+	
+	@Autowired
+	UserDao userdao;
 
 	/*
 	 * private static final Logger logger =
@@ -258,6 +264,31 @@ public class DonationService {
 		 
 		 return result;
 		 
+	 }
+	 
+	 //포인트 기부
+	 @Transactional
+	 public int donatePoint(Donate donate, int dpoint, String dUserid) {
+		 
+		 
+		 int result = 0;
+		 
+		 
+		 try {
+			 DonateDao donatedao = sqlsession.getMapper(DonateDao.class);
+			 
+			 System.out.println("dpdpdp"+dpoint);
+			 
+				/* if(userdao.getUser(userid) < donatedao.) */
+			 int result1 = donatedao.minusUserPoint(dpoint, dUserid);
+			 int result2 = donatedao.plusCcollPoint(donate.getDindex(), dpoint); 
+			 result = result1 * result2;
+			 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		 
+		 return result;
 	 }
 	
 }

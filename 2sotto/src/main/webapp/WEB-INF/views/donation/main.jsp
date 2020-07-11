@@ -13,7 +13,8 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
-	
+
+
 	
 
 </head>
@@ -21,6 +22,11 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<!-- header -->
+
+
+
+
+
 
 
 
@@ -35,6 +41,9 @@
 			<!--  탭영역 음....기다린다 -->
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
+				
+				
+				
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">

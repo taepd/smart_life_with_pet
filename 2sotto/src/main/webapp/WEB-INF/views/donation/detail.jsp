@@ -75,10 +75,10 @@
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" >
 
-							
+							<form action="donatePoint.bit" method="POST">
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">글번호</label> 
-									<input type="text" class="form-control" value="${donate.dindex}" readonly> 
+									<input type="text" class="form-control" name="dindex" value="${donate.dindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">제목</label> 
@@ -107,7 +107,17 @@
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
 								</div>				
 								
-								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea
+								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
+								
+								
+								<div>
+								<!--  -->
+								
+								<input type="text" name="dpoint" placeholder="기부하실 포인트를 직접 입력해 주세요">
+								<button type="submit" class="btn btn-primary">포인트 기부하기</button>
+								</form>
+								</div>
+								
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
@@ -145,19 +155,7 @@
 						
 					
 						<hr> --%>
-						<!-- Ajax 댓글 폼 -->
-				<div class="container">
-        			<label for="content">comment</label>
-        			<form name="commentInsertForm">
-            			<div class="input-group">
-               				<input type="hidden" name="dindex" value="${donate.dindex}"/>
-               				<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-               				<span class="input-group-btn">
-                    			<button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
-               				</span>
-              			</div>
-        			</form>
-    			</div>
+				
     
     			<div class="container">
         			<div class="commentList"></div>
@@ -180,5 +178,16 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript">
+//삭제 전 확인 창 띄우기
+$('#delete').click(function(){
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='delete.bit?dindex=${donate.dindex}';
+	}else{
+		return;
+	}
+});
+</script>
 </html>
 

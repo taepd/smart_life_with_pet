@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dao.DonateDao;
 import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.DonationService;
 
 
@@ -247,7 +248,7 @@ public class DonationController {
 		if(result==1) {
 			
 			
-	        return "redirect:main.bit";
+	        return "detail.bit?dindex="+donate.getDindex();
 			
 		}else { 
 			
@@ -271,5 +272,51 @@ public class DonationController {
 	        return  "javascript:history.back();";
 		}
 	}
+	
+	//유저 포인트 차감 및 현재 모금 포인트 증가
+	@RequestMapping(value="donatePoint.bit", method=RequestMethod.POST)
+	public String donatePoint(Donate donate, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
+		
+		String dUserid =  principal.getName();
+		logger.info("기부 유저 아이디: " + dUserid);
+		
+		int dpoint = Integer.parseInt(request.getParameter("dpoint"));
+		logger.info("입력 기부 포인트: " + dpoint);
+		
+		String msg = null;
+		String url = null;
+		logger.info("dindex: " + donate.getDindex());
+		
+		int result = ds.donatePoint(donate, dpoint, dUserid);
+	
+		
+		if(result==1) {
+			//transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
+			User user = (User)session.getAttribute("user");
+			user.setPoint(user.getPoint()-dpoint);
+			session.setAttribute("user", user);
+			logger.info("포인트 기부 완료");
+			msg = "포인트 기부 완료";
+	        url = "detail.bit?dindex="+donate.getDindex();
+			
+		}else { 
+			
+			logger.info("포인트 기부 실패");
+			msg = "포인트 기부 실패";
+	        url = "javascript:history.back();";
+
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect";	
+		
+		
+		
+		
+	}
+	
+	
 
 }

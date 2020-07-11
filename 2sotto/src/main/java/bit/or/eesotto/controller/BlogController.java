@@ -1,8 +1,11 @@
 package bit.or.eesotto.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.BlogService;
+
 
 
 @Controller
@@ -196,12 +202,50 @@ public class BlogController {
 
 	}
 	
-	
-
 	// 블로그>즐겨찾기 페이지 view
 	@RequestMapping(value = "favorite.bit", method = RequestMethod.GET)
 	public String favorite() {
 		return "blog/favorite";
+	}
+	
+	// 블로그 댓글 입력 Ajax 처리  
+	@ResponseBody
+	@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
+	public int writeComment(BlogComment blogComment, HttpServletRequest request, Model model) throws IOException {
+		
+		//비밀글 체크 여부 
+		if(blogComment.getScstate() == null) {
+
+			blogComment.setScstate("N");
+		}
+		
+		int result = bs.writeCommnet(blogComment);
+		
+		if(result==1) {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 완료");
+		}else {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 실패");
+		}
+		
+		return result;
+	}
+	
+	// 블로그 댓글 조회 Ajax  
+	@ResponseBody
+	@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
+	public List<BlogComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
+		
+		String bindex = request.getParameter("bindex");
+		
+		List<BlogComment> commentList = bs.getCommentList(bindex);
+		
+		if(commentList!=null) {
+			logger.info("블로그 "+bindex+"번글 댓글내역 조회 완료");
+		}else {
+			logger.info("블로그 "+bindex+"번글 댓글입력 조회 실패");
+		}
+		
+		return commentList;
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import bit.or.eesotto.dto.Message;
+import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.service.MessageService;
 @Controller
 @RequestMapping("/message/")
@@ -106,6 +107,48 @@ public class MessageController {
 	
 			return "message/messagePage";
 		}
+		
+		// Message 상세 페이지 view
+		@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
+		public String detail(String msindex, Model model) {
+
+			Message message = ms.getMessage(msindex);
+			logger.info("내 Message  조회 완료");
+			model.addAttribute("message", message);
+			
+			return "message/detail";
+		}
+		
+		// message > 글 삭제 처리
+		@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
+		public String delete(Message msindex, Model model) {
+							
+			//String msg = null;
+			//String url = null;
+				
+			int result = ms.deleteMessage(msindex);
+			System.out.println("야너뭐야"+result);
+			if(result==1) {
+				
+				logger.info("message 글 삭제 완료");
+				//msg = "Qna 글 삭제 완료";
+		        //url = "main.bit";
+				return "redirect:/message/main.bit";
+			}else { 
+				
+				logger.info("message 글 삭제 실패");
+				//msg = "Qna 글 삭제 실패";
+		        //url = "javascript:history.back();";
+				return "javascript:history.back()";
+			}
+			
+			//model.addAttribute("msg", msg);
+			//model.addAttribute("url", url);
+			
+			//return "redirect";	
+			
+		}
+		
 
 
 }

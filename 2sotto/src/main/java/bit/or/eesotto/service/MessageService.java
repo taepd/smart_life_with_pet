@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
 import bit.or.eesotto.dao.MessageDao;
+import bit.or.eesotto.dao.QnaDao;
 import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Message;
+import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.User;
 
@@ -150,7 +152,27 @@ public HashMap<String, Object> messagePageView(String cp, String ps, String user
 		return map;
 	}
 	
-	
+		//글 상세보기 
+	public Message getMessage(String msindex) {
+				
+		Message message = null;
+
+		messageDao = sqlsession.getMapper(MessageDao.class);
+		message = messageDao.getMessage(msindex);
+							
+		return message;
+	}
+		
+		//Message 삭제
+	public int deleteMessage(Message msindex) {
+
+		messageDao = sqlsession.getMapper(MessageDao.class);
+		
+							
+		return messageDao.deleteMessage(msindex);
+	}
+
+
 
 }
 

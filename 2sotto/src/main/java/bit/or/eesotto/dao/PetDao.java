@@ -24,11 +24,20 @@ public interface PetDao {
 		public int newPet(Pet pet);
 
 		// 반려동물 정보 가져오기
-		@Select("select * from pet where userid = #{userid}")
+		//@Select("select * from pet where userid = #{userid}")
+		@Select("select p.*, s.SCANAME as scaname, m.MCANAME as mcaname " 
+				+ "from pet p "
+				+ "left outer join subcategory s on p.SCATEGORY = s.SCATEGORY "
+			    + "left outer join maincategory m on p.MCATEGORY = m.MCATEGORY "
+			    + "where userid = #{userid}")
 		public List<Pet> getPetInfo(@Param("userid") String userid);
 		
 		// 반려동물 수정할 정보 가져오기
-		@Select("select * from pet where petindex = #{petindex}")
+		@Select("select p.*, s.SCANAME as scaname, m.MCANAME as mcaname " 
+				+ "from pet p "
+				+ "left outer join subcategory s on p.SCATEGORY = s.SCATEGORY "
+			    + "left outer join maincategory m on p.MCATEGORY = m.MCATEGORY "
+			    + "where petindex = #{petindex}")
 		public Pet editPetInfo(@Param("petindex") int petindex);
 		
 		// 반려동물 정보 수정
@@ -40,7 +49,9 @@ public interface PetDao {
 		// 반려동물 삭제
 		@Delete("delete from pet where petindex = #{petindex}")
 		public int deletePet(@Param("petindex") int petindex);
-	
+
+		
+		
 
 
 	

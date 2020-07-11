@@ -25,7 +25,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">Q&A내용</button>
+				onclick="location.href='main.bit'">쪽지함</button>
 
 
 
@@ -33,46 +33,30 @@
 
 				<div class="card-body">
 					<div class="tab-content text-center">
-						<!---------- Q&A 내용  ------------------>
+						<!---------- Message 내용  ------------------>
 
 						<div class="table-responsive">
 						
 							<table class="table">
 						 
-								<thead class=" text">
+								<thead class=" text-left">
 									
 									<tr>
-										<th>작성자</th>
-										<td>${qna.userid}</td>
-										<th>작성일</th>
-										<td>${qna.qatime}</td>
+										<th colspan="5" valign=top>보낸사람</th>
 									</tr>
-									<tr>
-										<th>조회수</th>
-										<td>${qna.count}</td>
-										<th>첨부파일명</th>
-										<td>${qna.filename}</td>
-									</tr>
-									<tr>
-										<th>글번호</th>
-										<td>${qna.qaindex}</td>
-										<th>제목</th>
-										<td>${qna.title}</td>
-									</tr>
+									
 								</thead>
 								 	
 								<tbody>
+									<tr>
+										<td colspan="5" align="left" valign=top>${message.suserid}</td>
+									</tr>
+									<tr>
+										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
+											<div style="margin: 40px 40px 80px 40px;">${message.content}</div>
+										</td>
+									</tr>
 									
-									<tr>
-										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">${qna.content}</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">이부분은 관리자가 적어줄 부분입니다.</div>
-										</td>
-									</tr>
 
 
 									<tr align="center" valign="middle">
@@ -103,25 +87,7 @@
 				</div>
 
 			</div>
-				
-				
-			<button class="btn btn-primary btn-round">관리자 댓글</button>
-				
-				<div id="replybox"></div>
-					<!-- 댓글 폼 -->
-					<br>
-					<form name="reply" id="reply" method="POST">
-						${sessionScope.user.userid}님<br>
-						<input type="hidden" name="qaindex" id="qaindex" value="${qna.qaindex}">
-						<input type="hidden" name="id" id="id" value="${sessionScope.id}">
-						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
-						<br>
-						<input type="button" class="btn btn-rose btn-round" value="댓글 등록" id="writecom">
-						<input type="reset" class="btn btn btn-round" value="다시 쓰기">
-					</form>
-					<!-- 댓글 폼 끝 -->
-					
-					
+						
 		</div>
 
 	</div>

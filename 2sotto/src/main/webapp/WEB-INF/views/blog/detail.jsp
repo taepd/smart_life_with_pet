@@ -140,7 +140,9 @@ $(function() {
 function getCommentList() {
 	
 	$.ajax({
+    
 		url:"getCommentList.bit",
+
 		datatype: "json",
 		data: { bindex:'${post.bindex}'},
 		success: function(data) {

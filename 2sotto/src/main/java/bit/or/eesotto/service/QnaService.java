@@ -172,7 +172,7 @@ public class QnaService {
 			return qnaDao.editPost(post);
 		}
 		
-		//글 상세보기  서비스 다시
+		//글 삭제
 		public int deletePost(Qna post) {
 
 			qnaDao = sqlsession.getMapper(QnaDao.class);

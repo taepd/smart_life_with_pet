@@ -1,6 +1,7 @@
 package bit.or.eesotto.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,10 +9,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import bit.or.eesotto.dao.PetDao;
+import bit.or.eesotto.dao.ScheduleDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.Schedule;
 import bit.or.eesotto.dto.User;
 
 @Service
@@ -35,6 +39,9 @@ public class ManagementService {
 	
 	@Autowired
 	PetDao petDao;
+	
+	@Autowired
+	ScheduleDao scheduleDao;
 	
 	
 	//반려동물 등록하기
@@ -107,6 +114,20 @@ public class ManagementService {
 		
 		return result;
 
+	}
+	
+	public List<Schedule> getSchedule(String userid) {
+		
+		List schedule = null;
+		try {
+			scheduleDao = sqlsession.getMapper(ScheduleDao.class);
+			schedule = scheduleDao.getSchedule(userid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return schedule;
 	}
 	
 	

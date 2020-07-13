@@ -222,9 +222,31 @@ public class BlogController {
 		int result = bs.writeCommnet(blogComment);
 		
 		if(result==1) {
-			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 완료");
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 입력 처리 완료");
 		}else {
-			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 실패");
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 입력 처리 실패");
+		}
+		
+		return result;
+	}
+	
+	// 블로그 댓글 수정 Ajax 처리  
+	@ResponseBody
+	@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+	public int editComment(BlogComment blogComment, HttpServletRequest request, Model model) throws IOException {
+		
+		//비밀글 체크 여부 
+		if(blogComment.getScstate() == null) {
+
+			blogComment.setScstate("N");
+		}
+		
+		int result = bs.editComment(blogComment);
+		
+		if(result==1) {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 수정 처리 완료");
+		}else {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 수정 처리 실패");
 		}
 		
 		return result;

@@ -737,7 +737,7 @@ commit;
 -- 자동 증가(시퀀스) 초기화
 -- ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-desc post;
+desc blog;
 desc pet;
 desc maincategory;
 desc message;
@@ -751,6 +751,6 @@ select * from blog;
 select * from pet;
 select * from maincategory;
 select * from subcategory; 
-
+select * from BLOGCOMMENT;
 
 

@@ -92,10 +92,10 @@
 
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
-				<div id="replybox"></div>
+				<div id="commentBox"></div>
 					<!-- 댓글 폼 -->
 					<br>
-					<form name="reply" id="reply" method="POST">
+					<form name="comment" id="comment" method="POST">
 						작성자&nbsp;&nbsp;${sessionScope.user.userid}<br>
 						<%-- <input type="hidden" name="bindex" id="bindex" value="${post.bindex}"> --%>
 						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
@@ -152,26 +152,27 @@ function getCommentList() {
 			
 			$.each(data, function(index, element) {
 				
-				
-				html += "<form action='ReplyDelete' method='POST'>";
-				html += "<div id='reply_id'><b>";
+				html += "<form action='commentDelete.bit' method='POST'>";
+				html += "<div id='commentUserid'><b>";
 				html += element.userid;
 				html += "</b></div>";
-				html += "<div id='reply_comment'>";
+				html += "<div id='commentContent"+element.bcindex+"'>";
 				html += element.content;
 				html += "</div>";
-				html += "<div id='reply_date'><h6>";
+				html += "<div id='commentDate'><h6>";
 				html += element.rtime;
 				html += "</h6></div>";
-				html += "<input type='hidden' name='replynum' id='replynum' value='";
+				html += "<input type='hidden' name='commentNum' id='commentNum' value='";
 				html += element.bclike;
-				html += "'> <input type='button' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
+				html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
 				html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
 				html += "</form>";
-				html += "<div id='"+element.bcindex+"'></div>"
+				html += "<div id='editForm"+element.bcindex+"'></div>"
 			});
 			
-			$('#replybox').append(html);
+			$('#commentBox').append(html);
+			
+	
 			
 		}
 	});
@@ -183,9 +184,9 @@ function getCommentList() {
 function insertComment() {
 	$('#writecom').click(function(){
 		
-		if(!reply.content.value) {
+		if(!comment.content.value) {
 			swal('댓글 내용을 입력하세요!');
-			reply.content.focus();
+			comment.content.focus();
 			return false;
 		}
 		
@@ -199,7 +200,7 @@ function insertComment() {
 					content: $('#content').val()
 				  },	
 			success: function(data) {
-					$('#replybox').empty();
+					$('#commentBox').empty();
 					$('#content').val("");
 					getCommentList();
 				}
@@ -215,37 +216,84 @@ function insertComment() {
 function editComment(bcindex) {
 					
 				let html = "";
+				let content = $('#commentContent'+bcindex+'').text();
 				
-				html += '<form method="POST">';
-				html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea><br>';
+				html += '<form name="editCommentBox" id ="editCommentBox" method="POST">';
+				html +=	'<input type="hidden" id="bcindex" value="'+bcindex+'">';
+				html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%">'+content+'</textarea><br>';
 				html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
 				html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+
 				
-				$('#'+bcindex+'').append(html);
+				$('#editForm'+bcindex+'').append(html);
+				
+				//기본 댓글 입력창 비활성화
+				$('#comment').empty();
+				$('#comment').hide();
 
 		return false;
 		
 };
 
 
+//댓글 수정 처리
+//동적 생성 태그에는 on형식의 이벤트를 걸어야 작동한다
+$(document).on("click","#editcom",function(){
+		
+ 		if(!editCommentBox.content.value) {
+			swal('댓글 내용을 입력하세요!');
+			editCommentBox.content.focus();
+			return false;
+		}
+		
+ 		var bcindex = $('#bcindex').val();
+ 		var content = $('#content').val();
+ 		console.log(bcindex);
+ 		console.log(content);
+ 		
+ 		$.ajax ({
+			
+			url:"editComment.bit",
+			type: "post",
+			datatype:"json",
+			data: { bcindex: $('#bcindex').val(),
+					userid: '${sessionScope.user.userid}',
+					content: $('#content').val()
+				  },	
+			success: function(data) {
+					$('#editCommentBox').remove();
+					$('#commentContent'+bcindex+'').text(content);
+					$('#editCommentBtn'+bcindex+'').attr("onclick", "editComment("+bcindex+"); this.onclick=null;");
+					//기본 댓글 입력창 활성화
+					$('#comment').show();
+					
+			}
+		}); 
+		
+		return false;
+		
+});
+
+
+
 
 //댓글 삭제
 
-function deleteReply(form) {
+/* function deleteComment(form) {
 	$(form).on("submit", function() {
 		
 		var data = $(this).serialize();
 		
 		$.ajax({
-			url: "ReplyDelete",
+			url: "deleteComment.bit",
 			data: data,
 			success: function(data) {
-				$('#replybox').empty();
+				$('#commentBox').empty();
 				getReplyList();
 			}
 		});
 		return false;
 	});
-}
+} */
 </script>
 </html>

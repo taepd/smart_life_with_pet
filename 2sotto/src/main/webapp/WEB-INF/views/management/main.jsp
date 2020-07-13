@@ -146,6 +146,7 @@
 								</div>
 								<div class="modal-body">
 
+
 										<div class="form-check">
 											<label class="form-check-label">
 											  <input class="form-check-input" type="checkbox" value="" id="edit-allDay" >
@@ -158,17 +159,20 @@
 
 										<div class="form-group bmd-form-group">
 											<label class="bmd-label-static">일정명</label>
-											<input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required>
+											<input type="text" class="form-control" name="title" id="title" placeholder="" required>
+											<!-- <input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required> -->
 										</div>
 
 										<div class="form-group bmd-form-group">
 											<label class="bmd-label-static">시작</label>
-											<input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required>
+											<input type="text" class="form-control datetimepicker" name="begin_date" id="begin_date" placeholder="" required>
+											<!-- <input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required> -->
 										</div>
 
 										<div class="form-group bmd-form-group">
 											<label class="bmd-label-static">끝</label>
-											<input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required>
+											<input type="text" class="form-control datetimepicker" name="end_date" id="end_date" placeholder="" required>
+											<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
 										</div>
 
 										<div class="">
@@ -197,7 +201,7 @@
 										</div>
 										<div class="">
 											<label class="" for="edit-desc">설명</label>
-											<textarea rows="3" cols="50" class="" name="edit-desc" id="edit-desc"></textarea>
+											<textarea rows="3" cols="50" class="" name="desc" id="desc"></textarea>
 										</div>
 								</div>
 								<div class="modal-footer modalBtnContainer-addEvent">
@@ -311,7 +315,7 @@
 
 		$(function() {
 
-			// javascript for init
+			// datetimepicker 초기화 시 아이콘 로딩
 			$('.datetimepicker').datetimepicker({
 				icons: {
 					time: "fa fa-clock-o",
@@ -326,71 +330,23 @@
 				}
 			});
 
-
 			// console.log("DOMContentLoaded");
 		
 			var calendarEl = document.getElementById('calendar');
 
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-
-				theme: true,
+				
 				editable: true,
 				selectable: true,
 				locale: 'ko',
 				initialView: 'dayGridMonth',
-				initialDate: '2020-07-07',
 				headerToolbar: {
 					left: 'prev,next today',
 					center: 'title',
 					right: 'dayGridMonth,timeGridWeek,timeGridDay'
 				},
-				
-				events: [
-					{
-					title: 'All Day Event',
-					start: '2020-07-01'
-					},
-					{
-					title: 'Long Event',
-					start: '2020-07-07',
-					end: '2020-07-10'
-					},
-					{
-					groupId: '999',
-					title: 'Repeating Event',
-					start: '2020-07-09T16:00:00'
-					},
-					{
-					groupId: '999',
-					title: 'Repeating Event',
-					start: '2020-07-16T16:00:00'
-					},
-					{
-					title: 'Conference',
-					start: '2020-07-11',
-					end: '2020-07-13'
-					},
-					{
-					title: 'Meeting',
-					start: '2020-07-12T10:30:00',
-					end: '2020-07-12T12:30:00',
-					daysOfWeek: [ '4' ]
-					},
-					{
-					title: 'Lunch',
-					start: '2020-07-12T12:00:00'
-					},
-					{
-					title: 'Meeting',
-					start: '2020-07-12T14:30:00'
-					},
-					{
-					title: 'Birthday Party',
-					start: '2020-07-13T07:00:00'
-					},
 
-				],
-				
+				events: getSchedule(),
 				select: function(start, end, allDay) {
 
 					var addBtnContainer = $('.modalBtnContainer-addEvent');
@@ -401,47 +357,73 @@
 					modifyBtnContainer.hide();
 
 					//datetimepicker
-					$("#edit-start, #edit-end").datetimepicker({
-						format: 'YYYY-MM-DD HH:mm'
+					$("#begin_date, #end_date").datetimepicker({
+						format: 'YYYY-MM-DD HH:mm:ss'
 					});
 				}
+				
 			
 			});
 
 			calendar.render();
-			getSchedule();
-			//var arr = calendar.getEvents(); 캘린더의 모든 일정 가져오기
+	
 
-			
 			function getSchedule() {
-				var id = 'a';
-				
+
+				var schedule = [];
+
 				$.ajax({
-
 					url: "getSchedule.bit",
-					data: id,
-
-					success: function(data) {
-						console.log(data);
+					data: { userid : "a" },
+					dataType: "json",
+					async: false,
+					success: function(response) {
+						$.each(response.schedule, function(index, element) {
+							var viewData = {};
+							viewData["title"] = element.title;
+							viewData["start"] = element.begin_date;
+							viewData["end"] = moment(element.end_date).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
+							viewData["allDay"] = true;
+							schedule.push(viewData);
+						});
 					}
 				});
-			}
+
+				return schedule;
+			} // /.getSchedule()
 			
+			
+			console.log("새로고침확인66");
 
 			
 			$('#save-event').on('click', function () {
 
+				
+				
+				//이 데이터가 이 이벤트 바깥으로 나가면 저장이 안 되는 듯... 공백으로 나옴
 				var eventData = {
-					title: $('#edit-title').val(),
-					//begin_date: $('#edit-start').val(),
-					//end_date: $('#edit-end').val(),
-					content: $('#edit-desc').val()
+					//backgroundColor: color,
+					title: $('#title').val(),
+					begin_date: moment($('#begin_date').val()).format('YYYY-MM-DD HH:mm:ss'),
+					end_date: moment($('#end_date').val()).format('YYYY-MM-DD HH:mm:ss'),
+					content: $('#desc').val(),
+					allDay: true //이렇게 주면 네모칸으로 나옴(아니면 점으로 나오고)
 					// type: editType.val(),
 					// username: '사나',
 					// backgroundColor: editColor.val(),
 					// textColor: '#ffffff',
 					// allDay: false
 				};
+
+				if(eventData.title == "") {
+					swal('일정명을 입력하세요.');
+					return false;
+				}
+
+				if(eventData.begin_date > eventData.end_date) {
+					swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
+					return false;
+				}
 
 				$.ajax({
 					type: "get",
@@ -450,154 +432,26 @@
 					url: "insertSchedule.bit",
 					success: function(data) {
 						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
-						$('#createEventModal').modal('hide'); //일정 등록에 성공하면 모달창을 닫는다
+						$('#createEventModal').modal('hide'); //일정 등록에 성공하면 모달창을 닫는다 (하지만 지금은 성공/실패 여부에 관계 없이 닫힘)
+					},
+					error: function(e) {
+						console.log("insert에러: "+e);
 					}
 				});
 
-
+				calendar.addEvent(eventData);//이게 안 되는 게 비동기 순서 보장 안돼서일지도 모르겠다?
+				/* 원래는 버튼 눌렀을 때 이런 식으로 추가하는데.... 훔
+								calendar.addEvent({
+									title: '다이나믹 이벤트',
+									start: date,
+									allDay: true
+									});
+									*/
 				
-
-
-
-				// if (eventData.start > eventData.end) {
-				// 	alert('끝나는 날짜가 앞설 수 없습니다.');
-				// 	return false;
-				// }
-
-				// if (eventData.title === '') {
-				// 	alert('일정명은 필수입니다.');
-				// 	return false;
-				// }
-
-				// var realEndDay;
-
-				// if (editAllDay.is(':checked')) {
-				// 	eventData.start = moment(eventData.start).format('YYYY-MM-DD');
-				// 	//render시 날짜표기수정
-				// 	eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
-				// 	//DB에 넣을때(선택)
-				// 	realEndDay = moment(eventData.end).format('YYYY-MM-DD');
-
-				// 	eventData.allDay = true;
-				// }
-
-				// $("#calendar").fullCalendar('renderEvent', eventData, true);
-				// eventModal.find('input, textarea').val('');
-				// editAllDay.prop('checked', false);
-				// eventModal.modal('hide');
-
-				// //새로운 일정 저장
-				// $.ajax({
-				// 	type: "get",
-				// 	url: "",
-				// 	data: {
-				// 		//.....
-				// 	},
-				// 	success: function (response) {
-				// 		//DB연동시 중복이벤트 방지를 위한
-				// 		//$('#calendar').fullCalendar('removeEvents');
-				// 		//$('#calendar').fullCalendar('refetchEvents');
-				// 	}
-				// });
 			});
 			
 		
-		});
+		}); // /.$(function)
 
-
-		/*
-		var draggedEventIsAllDay;
-		var activeInactiveWeekends = true;
-
-		function getDisplayEventDate(event) {
-
-		var displayEventDate;
-
-		if (event.allDay == false) {
-			var startTimeEventInfo = moment(event.start).format('HH:mm');
-			console.log(startTimeEventInfo);
-			var endTimeEventInfo = moment(event.end).format('HH:mm');
-			displayEventDate = startTimeEventInfo + " - " + endTimeEventInfo;
-		} else {
-			displayEventDate = "하루종일";
-		}
-
-		return displayEventDate;
-		}
-
-		function filtering(event) {
-		var show_username = true;
-		var show_type = true;
-
-		var username = $('input:checkbox.filter:checked').map(function () { //input type이 checkbox인 것 중에 checked된 것
-			return $(this).val();
-		}).get();
-		var types = $('#type_filter').val();
-
-		show_username = username.indexOf(event.username) >= 0;
-
-		if (types && types.length > 0) {
-			if (types[0] == "all") {
-			show_type = true;
-			} else {
-			show_type = types.indexOf(event.type) >= 0;
-			}
-		}
-
-		return show_username && show_type;
-		}
-
-		function calDateWhenResize(event) {
-
-		var newDates = {
-			startDate: '',
-			endDate: ''
-		};
-
-		if (event.allDay) {
-			newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
-			newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
-		} else {
-			newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-			newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
-		}
-
-		return newDates;
-		}
-
-		function calDateWhenDragnDrop(event) {
-		// 드랍시 수정된 날짜반영
-		var newDates = {
-			startDate: '',
-			endDate: ''
-		}
-
-		// 날짜 & 시간이 모두 같은 경우
-		if(!event.end) {
-			event.end = event.start;
-		}
-
-		//하루짜리 all day
-		if (event.allDay && event.end === event.start) {
-			console.log('1111')
-			newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
-			newDates.endDate = newDates.startDate;
-		}
-
-		//2일이상 all day
-		else if (event.allDay && event.end !== null) {
-			newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
-			newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
-		}
-
-		//all day가 아님
-		else if (!event.allDay) {
-			newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
-			newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
-		}
-
-		return newDates;
-		}
-		*/
 	</script>
 </html>

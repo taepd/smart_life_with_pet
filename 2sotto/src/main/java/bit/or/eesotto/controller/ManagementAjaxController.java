@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import bit.or.eesotto.dao.MainCategoryDao;
@@ -93,17 +99,11 @@ public class ManagementAjaxController {
 		return list;
 	}
 	
+	// 일정 추가하기
 	@RequestMapping("insertSchedule.bit")
 	public int newSchedule(Schedule schedule) {
 		
 		int result = 0;
-		/*
-		String a = schedule.getBegin_date();
-		String b = schedule.getEnd_date();
-		Timestamp t1 = Timestamp.valueOf(a);
-		Timestamp t2 = Timestamp.valueOf(b);
-		schedule.setBegin_date(t1);
-		 */
 		
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
@@ -115,14 +115,12 @@ public class ManagementAjaxController {
 		return result;
 	}
 	
+	// 전체 일정 불러오기
 	@RequestMapping("getSchedule.bit")
-	public HashMap<String, Object> getSchedule(String userid) {
+	public Map<String, Object> getSchedule(String userid) {
 		
-		//서비스단에서 리스트로 만들고, 컨트롤러에서는 map으로 만들기?
-		
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<Schedule> schedule = null;
-		
-		HashMap<String, Object> map = null;
 		
 		try {
 			
@@ -135,5 +133,36 @@ public class ManagementAjaxController {
 		
 		return map;
 	}
+	
+	// 일정 업데이트
+	@RequestMapping("updateSchedule.bit")
+	public int updateSchedule(Schedule schedule) {
+		
+		int result = 0;
+		try {
+			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
+			result = dao.updateSchedule(schedule);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// 일정 삭제하기
+	@RequestMapping("deleteSchedule.bit")
+	public int deleteSchedule(String sindex) {
+		
+		int result = 0;
+		
+		try {
+			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
+			result = dao.deleteSchedule(sindex);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	
 }

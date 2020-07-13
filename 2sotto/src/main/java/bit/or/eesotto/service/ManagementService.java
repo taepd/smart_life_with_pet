@@ -116,18 +116,20 @@ public class ManagementService {
 
 	}
 	
+	// 일정 모두 불러오기
 	public List<Schedule> getSchedule(String userid) {
 		
-		List schedule = null;
+		List<Schedule> list = null;
+		
 		try {
 			scheduleDao = sqlsession.getMapper(ScheduleDao.class);
-			schedule = scheduleDao.getSchedule(userid);
+			list = scheduleDao.getSchedule(userid);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return schedule;
+		return list;
 	}
 	
 	

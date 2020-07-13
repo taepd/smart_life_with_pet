@@ -22,16 +22,11 @@
 				<input hidden name="qaindex" value="${qna.qaindex}"/>
 				<div class="form-group bmd-form-group">
 				  <label class="bmd-label-static">제목</label>
-				  <input type="text" name="title" value="${qna.title}" class="form-control" placeholder="">
+				  <input type="text" name="title" value="${qna.title}" class="form-control" placeholder="" readonly>
 				</div>
 				
-				<!-- <div id="summernote">
-					goodbye				
-				</div> -->
-				<!-- <textarea id="summernote" name="post_contents" cols="67" rows="20"></textarea> -->
-				
-				<!-- ckeditor 일단 cdn으로 걸었음 -->
-				<textarea name="content">${qna.content}</textarea>
+	
+				<textarea name="replyContent"> 해당글 내용입니다.${qna.content} </textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
 						<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
@@ -40,46 +35,7 @@
 				</div>
 			</form>									
 
-			<!-- <div class="card  card-nav-tabs ">
-	
-
-				colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger"
-	
-					<div class="tab-content text-center">
-
-						-------- 글쓰기  ----------------
-
-						<div class="table-responsive">
-							<table class="table">
-								<thead class=" text-primary">
-									<tr>
-										<td>
-											<div style="margin-bottom: 8px;">
-												
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-
-										<td></td>
-									</tr>
-									<tr>
-
-										<td><input name="file" type="file" /><br></td>
-									</tr>
-									<tr>
-										<td align="center">
-										</td>
-									</tr>
-							</table>
-
-						</div>
-
-					</div>
-
-			</div> -->
+			
 			
 			
 		</div>
@@ -97,15 +53,8 @@
 
 	$(function() {
 
-		CKEDITOR.replace( 'content' );
-		/* $('#summernote').summernote({
-			height : 500,
-			minHeight : null,
-			maxHeight : null,
-			focus : true
-		});
-
-		jQuery.noConflict(); */
+		CKEDITOR.replace( 'replyContent' );
+	
 	});
 </script>
 </html>

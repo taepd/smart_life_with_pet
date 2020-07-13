@@ -15,8 +15,8 @@ import bit.or.eesotto.dto.User;
 public interface QnaDao {
 	
 	// Qna > Qna보내기  
-			@Insert("insert into qna (userid, title, qatime, count, scstate, content, filename, awstate)"
-					+ " values ( #{userid}, #{title}, now(), 0, 0, #{content}, 0, 0)" )
+			@Insert("insert into qna (userid, title, qatime, count, scstate, content, replyContent, filename, awstate)"
+					+ " values ( #{userid}, #{title}, now(), 0, 0, #{content}, #{replyContent}, 0, 0)" )
 			public int writeQna(Qna qna);
 			
 			// Qna > Qna 리스트 조회  
@@ -38,6 +38,10 @@ public interface QnaDao {
 			// Qna > 글 수정 
 			@Update("update QNA set title=#{title}, content=#{content} where qaindex=#{qaindex}")
 			public int editPost(Qna post);
+			
+			// Qna > 글답글 수정 
+			@Update("update QNA set title=#{title}, replyContent=#{replyContent} where qaindex=#{qaindex}")
+			public int editReplyPost(Qna post);
 			
 			// Qna > 글 삭제
 			@Update("delete from QNA where qaindex=#{qaindex}")

@@ -25,15 +25,13 @@
 				  <input type="text" name="title" value="${qna.title}" class="form-control" placeholder="">
 				</div>
 				
-				<!-- <div id="summernote">
-					goodbye				
-				</div> -->
-				<!-- <textarea id="summernote" name="post_contents" cols="67" rows="20"></textarea> -->
+				
 				
 				<!-- ckeditor 일단 cdn으로 걸었음 -->
 				<textarea name="content">${qna.content}</textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
+					
 						<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
 						<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
 					</div>
@@ -82,8 +80,12 @@
 			</div> -->
 			
 			
+			
 		</div>
 	</div>
+	
+
+	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 	<!-- 글쓰기 등록 -->
@@ -98,14 +100,9 @@
 	$(function() {
 
 		CKEDITOR.replace( 'content' );
-		/* $('#summernote').summernote({
-			height : 500,
-			minHeight : null,
-			maxHeight : null,
-			focus : true
-		});
-
-		jQuery.noConflict(); */
+		
 	});
+
+
 </script>
 </html>

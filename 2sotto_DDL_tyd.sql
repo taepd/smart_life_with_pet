@@ -751,6 +751,28 @@ select * from blog;
 select * from pet;
 select * from maincategory;
 select * from subcategory; 
-select * from BLOGCOMMENT;
+select * from BLOGCOMMENT;	
+select * from donation;
 
+select ctime-rtime from donation where dindex=2;
 
+delimiter $$
+
+create trigger completeDonationByTime
+after insert on donation
+for each row
+BEGIN
+	
+   CREATE EVENT IF NOT EXISTS completeDonatoinByTime
+	ON SCHEDULE AT 
+		'select ctime from donation where dindex=2'
+    ON COMPLETION NOT PRESERVE
+    ENABLE
+    COMMENT '기부 종료'
+    DO 
+    update donation set dstate = 'N' where dindex =2;
+END $$
+
+delimiter ;
+
+select ctime from donation where dindex=2;

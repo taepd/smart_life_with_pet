@@ -38,6 +38,11 @@ public interface BlogCommentDao {
 	// 블로그 > 특정 댓글 조회  
 	@Select("select * from blogcomment where bcindex=#{bcindex}")
 	public BlogComment getComment(int bcindex); 
+	
+	// 블로그 > 댓글 삭제
+	@Update("delete from blogcomment where bcindex=#{bcindex}")
+	public int deleteComment(BlogComment comment);
+	
 //	
 //	// 블로그 > 포스팅 개수 조회 //동적쿼리 적용할 것 
 //	public int getPostCount();

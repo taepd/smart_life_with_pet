@@ -92,6 +92,7 @@
 
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
+				
 				<div id="commentBox"></div>
 					<!-- 댓글 폼 -->
 					<br>
@@ -117,7 +118,7 @@
 <script>
 
 
-// 삭제 전 확인 창 띄우기
+// 블로그 글 삭제 전 확인 창 띄우고 확인 시 삭제
 $('#delete').click(function(){
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
@@ -152,7 +153,7 @@ function getCommentList() {
 			
 			$.each(data, function(index, element) {
 				
-				html += "<form action='commentDelete.bit' method='POST'>";
+				//html += "<form action='commentDelete.bit' method='POST'>";
 				html += "<div id='commentUserid'><b>";
 				html += element.userid;
 				html += "</b></div>";
@@ -163,10 +164,11 @@ function getCommentList() {
 				html += element.rtime;
 				html += "</h6></div>";
 				html += "<input type='hidden' name='commentNum' id='commentNum' value='";
-				html += element.bclike;
+				html += element.bcindex;
 				html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
-				html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
-				html += "</form>";
+				//html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
+				html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+				//html += "</form>";
 				html += "<div id='editForm"+element.bcindex+"'></div>"
 			});
 			
@@ -223,12 +225,11 @@ function editComment(bcindex) {
 				html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%">'+content+'</textarea><br>';
 				html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
 				html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
-
 				
 				$('#editForm'+bcindex+'').append(html);
 				
 				//기본 댓글 입력창 비활성화
-				$('#comment').empty();
+				$('#comment.content.value').empty();
 				$('#comment').hide();
 
 		return false;
@@ -248,11 +249,8 @@ $(document).on("click","#editcom",function(){
 		
  		var bcindex = $('#bcindex').val();
  		var content = $('#content').val();
- 		console.log(bcindex);
- 		console.log(content);
- 		
- 		$.ajax ({
-			
+		
+ 		$.ajax ({		
 			url:"editComment.bit",
 			type: "post",
 			datatype:"json",
@@ -265,21 +263,43 @@ $(document).on("click","#editcom",function(){
 					$('#commentContent'+bcindex+'').text(content);
 					$('#editCommentBtn'+bcindex+'').attr("onclick", "editComment("+bcindex+"); this.onclick=null;");
 					//기본 댓글 입력창 활성화
-					$('#comment').show();
-					
+					$('#comment').show();					
 			}
 		}); 
-		
-		return false;
-		
+			
+		return false;		
 });
 
 
 
-
 //댓글 삭제
+// 블로그 댓글 삭제 전 확인 창 띄우고 확인 시 삭제
 
-/* function deleteComment(form) {
+function deleteComment(bcindex) {
+
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='deleteComment.bit?bcindex='+bcindex+'&bindex=${post.bindex}';
+	}else{
+		return;
+	}
+
+
+}
+
+/* $(document).on("click","#deleteCommentBtn",function(){
+	console.log($("#bcindex").val());
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='deleteComment.bit?bcindex='+$("#bcindex").val()+'';
+	}else{
+		return;
+	}
+}); */
+
+
+/*
+function deleteComment(form) {
 	$(form).on("submit", function() {
 		
 		var data = $(this).serialize();
@@ -294,6 +314,7 @@ $(document).on("click","#editcom",function(){
 		});
 		return false;
 	});
-} */
+}
+*/
 </script>
 </html>

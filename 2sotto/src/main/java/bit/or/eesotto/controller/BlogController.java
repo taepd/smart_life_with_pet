@@ -77,7 +77,7 @@ public class BlogController {
 		return "blog/edit";	
 	}
 	
-	// 마이페이지 > 글 수정 처리
+	// 블로그 > 글 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
 	public String update(Blog post, Model model) {
 											
@@ -269,5 +269,38 @@ public class BlogController {
 		
 		return commentList;
 	}
+	
+	// 블로그 > 댓글 삭제 처리
+	@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deleteComment(BlogComment comment, Model model) {
+											
+//		String msg = null;
+//		String url = null;
+			
+		int result = bs.deleteComment(comment);
+		int bindex = comment.getBindex();
+		if(result==1) {
+			
+			logger.info("블로그 글 삭제 완료");
+//			msg = "블로그 댓글 삭제 완료";
+//	        url = "main.bit";
+			return "redirect:/blog/detail.bit?bindex="+bindex+"";
+			
+		}else { 
+			
+			logger.info("블로그 글 삭제 실패");
+//			msg = "블로그 댓글 삭제 실패";
+//	        url = "javascript:history.back();";
+	        return "javascript:history.back()";
+		}
+		
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
+		
+		//return "redirect";	
+		
+	}
+	
+	
 
 }

@@ -199,5 +199,13 @@ public class BlogService {
 		return commentList;
 	}
 	
+	//블로그 > 글 삭제
+	public int deleteComment(BlogComment comment) {
+
+		blogCommentDao = sqlsession.getMapper(BlogCommentDao.class);
+		
+		return blogCommentDao.deleteComment(comment);
+	}
+	
 }
 

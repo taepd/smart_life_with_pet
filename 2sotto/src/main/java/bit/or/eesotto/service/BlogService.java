@@ -147,7 +147,24 @@ public class BlogService {
 
 		return result;
 	}
-	
+
+
+	//블로그 > 댓글 수정
+	public int editComment(BlogComment blogComment) {
+		
+		int result = 0;
+
+		try {
+
+			blogCommentDao = sqlsession.getMapper(BlogCommentDao.class);
+			result = blogCommentDao.editComment(blogComment);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}	
 	//블로그 > 댓글 조회
 	public BlogComment getComment(int bcindex) {
 		

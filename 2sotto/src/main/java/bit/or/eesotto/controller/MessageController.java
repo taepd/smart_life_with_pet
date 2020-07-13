@@ -127,7 +127,7 @@ public class MessageController {
 			//String url = null;
 				
 			int result = ms.deleteMessage(msindex);
-			System.out.println("야너뭐야"+result);
+			
 			if(result==1) {
 				
 				logger.info("message 글 삭제 완료");

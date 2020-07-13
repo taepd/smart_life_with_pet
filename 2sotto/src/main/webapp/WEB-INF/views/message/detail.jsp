@@ -138,7 +138,7 @@
 	<!-- Modal에서 삭제 -->
 	// 삭제 전 확인 창 띄우기
 	function Delete() {
-	    location.replace("delete.bit?qaindex=${qna.qaindex}"); 
+	    location.replace("delete.bit?msindex=${message.msindex}"); 
 	  }
 	<!-- Modal에서 삭제 --> 
 	
@@ -148,15 +148,17 @@
 
 	
 	//모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
+	/*
 	$(function() {
 		
 		getReplyList();
 		insertReply();
 		
 	});
-
+	*/
 
 	//댓글 목록 가져오기
+	/*
 	function getReplyList() {
 		
 		$.ajax({
@@ -194,9 +196,10 @@
 		});
 		
 	}
-
+	*/
 
 	//댓글 쓰기
+	/*
 	function insertReply() {
 		$('#writecom').click(function(){
 			
@@ -227,10 +230,11 @@
 			
 		});
 	}
-
+	*/
 
 	//댓글 삭제
-
+	
+	/*
 	function deleteReply(form) {
 		$(form).on("submit", function() {
 			
@@ -247,7 +251,7 @@
 			return false;
 		});
 	}
-	
+	*/
 </script>
 	
 		<%@ include file="/WEB-INF/include/footer.jsp"%>

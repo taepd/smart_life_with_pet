@@ -38,7 +38,7 @@
 		}
 		
 		#reply_h4 {
-			margin-left: 40px;
+
 		}
 		
 		#btns_wrapper {
@@ -108,6 +108,8 @@
 					<!-- 댓글 폼 끝 -->
 					
 					<hr>
+					
+					
 			
 		</div>
 	</div>
@@ -152,11 +154,22 @@ function getCommentList() {
 			console.log("data: "+data);
 			
 			$.each(data, function(index, element) {
-				
+
+				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
+				if(element.depth==1){
+					html += "<div style='background-color:gold'>";
+				}else{
+					html += "<div>";
+				};
 				//html += "<form action='commentDelete.bit' method='POST'>";
-				html += "<div id='commentUserid'><b>";
+				html += "<div class='d-flex justify-content-between'><div id='commentUserid'><b>";
 				html += element.userid;
-				html += "</b></div>";
+				//댓글인 경우
+				if(element.depth ==0){
+					html += "</b></div><div><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;'>대댓글</button></div></div>";
+				}else{
+					html += "</b></div></div>";
+				};
 				html += "<div id='commentContent"+element.bcindex+"'>";
 				html += element.content;
 				html += "</div>";
@@ -170,15 +183,13 @@ function getCommentList() {
 				html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
 				//html += "</form>";
 				html += "<div id='editForm"+element.bcindex+"'></div>"
+				html += "</div>";
 			});
 			
 			$('#commentBox').append(html);
-			
-	
-			
+					
 		}
 	});
-	
 }
 
 
@@ -281,40 +292,75 @@ function deleteComment(bcindex) {
 	if(con){
 		return location.href='deleteComment.bit?bcindex='+bcindex+'&bindex=${post.bindex}';
 	}else{
+
 		return;
 	}
-
-
 }
 
-/* $(document).on("click","#deleteCommentBtn",function(){
-	console.log($("#bcindex").val());
-	let con = confirm("정말로 삭제하시겠습니까?");
-	if(con){
-		return location.href='deleteComment.bit?bcindex='+$("#bcindex").val()+'';
-	}else{
-		return;
-	}
-}); */
-
-
-/*
-function deleteComment(form) {
-	$(form).on("submit", function() {
+//대댓글 창 열기 
+function openReComment(bcindex, userid, refer) {
+			
+		let html = "";
+		let content = "";
+		console.log("refer" + refer);
+		//로그인 유저 본인의 댓글이 아닐 때 해당 댓글쓴 아이디값을 '@아이디'형태로 인풋창에 불러옴
+		if(userid!='${sessionScope.user.userid}'){
+			content='@'+userid+' '; 
+			console.log('우와와');
+		} 
 		
-		var data = $(this).serialize();
+		html += '<form name="reCommentBox" id ="reCommentBox" method="POST">';
+		html +=	'<input type="hidden" id="refer" value="'+refer+'">';
+		html +=	'<input type="hidden" id="bcindex" value="'+bcindex+'">';
+		html +=	'<textarea rows="3" cols="" id="content" name="content" placeholder="대댓글을 입력해 주세요" style="width: 100%">'+content+'</textarea><br>';
+		html +=	'<input type="button" class="" value="대댓글 등록" id="writeRecom">';
+		html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
 		
-		$.ajax({
-			url: "deleteComment.bit",
-			data: data,
-			success: function(data) {
-				$('#commentBox').empty();
-				getReplyList();
-			}
-		});
+		$('#editForm'+bcindex+'').append(html);
+		
+		//기본 댓글 입력창 비활성화
+		$('#comment.content.value').empty();
+		$('#comment').hide();
+			
 		return false;
+		
+};
+
+//대댓글 쓰기
+$(document).on("click","#writeRecom",function(){
+		
+		if(!reCommentBox.content.value) {
+			swal('대댓글 내용을 입력하세요!');
+			comment.content.focus();
+			return false;
+		}
+		
+		$.ajax ({
+			
+			url:"writeRecomment.bit",
+			type: "post",
+			datatype:"json",
+			data: { bindex:'${post.bindex}',
+					bcindex: $('#bcindex').val(),
+					userid: '${sessionScope.user.userid}',
+					content: $('#content').val(),
+					refer: $('#refer').val()
+				  },	
+			success: function(data) {
+					$('#commentBox').empty();
+					//$('#reCommentBox').empty();
+					$('#content').val("");
+					getCommentList();
+
+					//기본 댓글 입력창 활성화
+					$('#comment').show();	
+				}
+				
+		});
+		
+		return false;
+		
 	});
-}
-*/
+
 </script>
 </html>

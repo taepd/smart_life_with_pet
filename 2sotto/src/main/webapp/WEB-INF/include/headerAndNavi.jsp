@@ -63,10 +63,11 @@
 				<ul class="navbar-nav ml-auto">
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/management/main.bit">반려동물관리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/main.bit">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/myMain.bit">내 블로그</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/favorite.bit">즐겨찾기한 글</a></li>
 					<li><a href="${pageContext.request.contextPath}/mypage/main.bit">마이페이지</a></li>
-				</se:authorize>	
+				</se:authorize>
+					<li><a href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a></li>	
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
 					<li><a href="${pageContext.request.contextPath}/message/main.bit">쪽지함</a></li>

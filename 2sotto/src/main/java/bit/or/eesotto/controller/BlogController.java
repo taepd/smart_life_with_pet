@@ -33,15 +33,15 @@ public class BlogController {
 	@Autowired
 	BlogService bs;
 
-	// 블로그 메인 view
-	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String main(String cp, String ps, Principal principal, Model model) {
+	// 내 블로그 메인 view
+	@RequestMapping(value = "myMain.bit", method = RequestMethod.GET)
+	public String myMain(String cp, String ps, Principal principal, Model model) {
 				
 //		String userid = (String) session.getAttribute("userid");
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: " + userid);
 		
-		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
+		HashMap<String, Object> map = bs.myMainView(cp, ps, userid);
 		logger.info("내 블로그 글 리스트 조회 완료");
 		
 		// view까지 전달 (forward)
@@ -51,7 +51,29 @@ public class BlogController {
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalPostCount", map.get("totalPostCount"));
 
-		return "blog/main";
+		return "blog/myMain";
+
+	}
+	
+	// 모두의 블로그 메인 view
+	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
+	public String main(String cp, String ps, Principal principal, Model model) {
+				
+//		String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = bs.mainView(cp, ps, null);
+		logger.info("내 블로그 글 리스트 조회 완료");
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("postList", map.get("postList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalPostCount", map.get("totalPostCount"));
+
+		return "blog/myMain";
 
 	}
 
@@ -197,7 +219,7 @@ public class BlogController {
 
 			logger.info("블로그 글 입력 실패");
 
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 		}
 
 	}
@@ -300,7 +322,28 @@ public class BlogController {
 		//return "redirect";	
 		
 	}
-	
-	
+
+// 블로그 대댓글 입력 Ajax 처리  
+	@ResponseBody
+	@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
+	public int writeRecomment(BlogComment blogComment, HttpServletRequest request, Model model) throws IOException {
+		
+		//비밀글 체크 여부 
+		if(blogComment.getScstate() == null) {
+
+			blogComment.setScstate("N");
+		}
+		
+		int result = bs.writeRecomment(blogComment);
+		
+		if(result==1) {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 대댓글 입력 처리 완료");
+		}else {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 대댓글 입력 처리 실패");
+		}
+		
+		return result;
+	}
+
 
 }

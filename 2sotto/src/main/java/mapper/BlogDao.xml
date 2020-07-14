@@ -21,8 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM BLOG P WHERE USERID = #{param3}) S WHERE ROWNUM 
-		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, B.* FROM BLOG B 
+		<where>
+			<if test="param3 != null">
+				userid = #{param3} 
+			</if>	
+		</where>
+		) S WHERE ROWNUM 
+		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 		
 		
 		<!-- SELECT * FROM ( SELECT ROWNUM NUM, E.* FROM EMP E ) WHERE NUM BETWEEN 
@@ -30,11 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 블로그 포스팅 수 조회 -->
-	<!-- 
+	
 	<select id="getPostCount" resultType="int">
-		select count(*) from post where userid=#{param1}
+		select count(*) from blog
+		<if test="#{userid} != null">
+			where userid = #{userid}
+		</if>
 	</select>
-	-->	
+
 	
 
 	<!-- 

@@ -1,38 +1,47 @@
 package bit.or.eesotto.controller;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.json.simple.*;
+import org.json.simple.parser.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.authority.*;
+import org.springframework.security.core.context.*;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.web.context.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.*;
+
+import bit.or.eesotto.dto.User;
+import bit.or.eesotto.service.*;
 
 
 
 
 @Controller
-@RequestMapping("/login/")
+@RequestMapping("/login/") 
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+	@Autowired
+	LoginService ls;
+	
 //	@Autowired
 //	BCryptPasswordEncoder pwEncoder;
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
+	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
@@ -62,12 +71,13 @@ public class LoginController {
 	}
 	
 	//네이버 로그인 성공시 callback호출 메소드
-		@RequestMapping(value = "callback.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-				throws IOException, ParseException {
-			logger.info("여기는 callback");
-			OAuth2AccessToken oauthToken;
-			oauthToken = naverLoginBO.getAccessToken(session, code, state);
+	@RequestMapping(value = "callback.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
+			HttpServletRequest request)
+			throws IOException, ParseException {
+		logger.info("여기는 callback");
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 	//1. 로그인 사용자 정보를 읽어온다.
 			apiResult = naverLoginBO.getUserProfile(oauthToken); // String형식의 json데이터
 			/**
@@ -93,19 +103,44 @@ public class LoginController {
 			logger.info(apiResult);
 			logger.info(email);
 			logger.info(name);
-			
-			return "login/naverSuccess";
-		}
+	
+	//스프링 시큐리티 수동 로그인을 위한 작업//
+		//로그인 세션에 들어갈 권한을 설정
+				List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+				list.add(new SimpleGrantedAuthority("ROLE_USER"));
+	
+				SecurityContext sc = SecurityContextHolder.getContext();
+		//아이디, 패스워드, 권한을 설정. 아이디는 Object단위로 넣어도 무방하며
+		//패스워드는 null로 하여도 값이 생성.
+				sc.setAuthentication(new UsernamePasswordAuthenticationToken(email, null, list));
+				session = request.getSession(true);
+	
+		//위에서 설정한 값을 Spring security에서 사용할 수 있도록 세션에 설정
+				session.setAttribute(HttpSessionSecurityContextRepository.
+		                       SPRING_SECURITY_CONTEXT_KEY, sc);
+	//스프링 시큐리티 수동 로그인을 위한 작업 끝//
+	
+	//로그인 유저 정보 가져와서 세션객체에 저장  
+	    User user = ls.normalLogin(email);
+	    logger.info("유저네임: "+user.getUserid());      	   
+	   
+	    session = request.getSession();
+	    session.setAttribute("user", user);
+    //로그인 유저 정보 가져와서 세션객체에 저장 끝//		
+		
+	return "login/naverSuccess";
+
+	}
+
 
 	//로그아웃
-		@RequestMapping(value = "logout.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public String logout(HttpSession session) throws IOException {
-			System.out.println("여기는 logout");
-			session.invalidate();
-			return "redirect:index.jsp";
-		}
+	@RequestMapping(value = "logout.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout(HttpSession session) throws IOException {
+		System.out.println("여기는 logout");
+		session.invalidate();
+		return "redirect:index.jsp";
+	}
 	
-		
 		
 	// 스프링 시큐리티 도입으로 사용안함
 	/*

@@ -20,8 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="commentWrite" parameterType="bit.or.eesotto.dao.DonateCommentDao">
         INSERT INTO
-        DONATECOMMENT (dcindex, dindex, userid, content, rtime)
-        VALUES(#{dcindex},#{dindex},#{userid},#{content},now()) 
+        DONATECOMMENT (dcindex, dindex, userid, dccontent, rtime)
+        VALUES(#{dcindex},#{dindex},#{userid},#{dccontent},now()) 
     </insert>
     
     <update id="commentUpdate" parameterType="bit.or.eesotto.dao.DonateCommentDao">

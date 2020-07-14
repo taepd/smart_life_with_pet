@@ -39,6 +39,9 @@
 
 			<button class="btn btn-primary btn-round"
 				onclick="location.href='main.bit'">후원글</button>
+			<form method="post" action="kakaoPay.bit">
+    		<button class="btn btn-primary btn-round" type="submit" id="kakaoPay">카카오페이로 결제하기</button>
+    		</form>
 
 
 			
@@ -207,8 +210,16 @@ $('#delete').click(function(){
 	}
 });
 
-//기부완료(by Coll)시 버튼 비활성화
-function() hideButton{
+//카카오 모달
+$('#kakaoPay').click(function(){
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='delete.bit?dindex=${donate.dindex}';
+	}else{
+		return;
+	}
+});
+
 	
 }
 </script>

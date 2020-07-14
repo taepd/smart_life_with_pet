@@ -13,7 +13,7 @@ public class DonateComment {
 	private int dindex;
 	private String userid;
 	private int rplike;
-	private String content;
+	private String dccontent;
 	private String scstate;
 	private String rtime;
 	

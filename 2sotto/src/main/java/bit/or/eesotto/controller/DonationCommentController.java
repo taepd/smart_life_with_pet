@@ -48,12 +48,12 @@ public class DonationCommentController {
     //댓글쓰기 처리
     @RequestMapping(value = "commentWrite.bit", method=RequestMethod.POST)  
     @ResponseBody
-    private int commentWrite(@RequestParam int dindex, @RequestParam String userid, @RequestParam String content, @RequestParam HttpSession session) throws Exception{
+    private int commentWrite(@RequestParam int dindex, @RequestParam String userid, @RequestParam String dccontent, @RequestParam HttpSession session) throws Exception{
         
     	DonateComment donateComment = new DonateComment();
     	
     	donateComment.setDindex(dindex);
-    	donateComment.setContent(content);
+    	donateComment.setDccontent(dccontent);
         //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 됩니다. 저는 따로 폼을 구현하지 않았기때문에 임시로 "test"라는 값을 입력해놨습니다.
     	
     	donateComment.setUserid(userid);  
@@ -64,16 +64,16 @@ public class DonationCommentController {
     //댓글 수정    
     @RequestMapping(value="commentUpdate.bit",method=RequestMethod.POST) 
     @ResponseBody
-    private int commentUpdate(@RequestParam int dindex, @RequestParam String content) throws Exception{
+    private int commentUpdate(@RequestParam int dindex, @RequestParam String dccontent) throws Exception{
         
     	DonateComment donateComment = new DonateComment();
     	donateComment.setDindex(dindex);
-    	donateComment.setContent(content);
+    	donateComment.setDccontent(dccontent);
         
         return donationCommentService.commentUpdate(donateComment);
     }
     
-    @RequestMapping("delete.bit") //댓글 삭제  
+    @RequestMapping("commentDelete.bit") //댓글 삭제  
     @ResponseBody
     private int commentDelete(@PathVariable int dcindex) throws Exception{
         

@@ -90,7 +90,7 @@
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" > 
 								</div>	
-								<textarea name="content" class="form-control"  rows="10" placeholder="여기에  내용을 입력합니다"></textarea>
+								<textarea name="content"></textarea>
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
@@ -120,5 +120,18 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+ 	 -->
+<script type="text/javascript">
+
+	$(function() {
+
+		CKEDITOR.replace( 'content' );
+
+		
+	});
+</script>
 </html>
 

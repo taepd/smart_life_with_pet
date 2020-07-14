@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>	
@@ -81,47 +85,22 @@
 								<thead class=" text">
 						<!---------- 이번주의 인기글 ------------------>
 								<tr>
-								<td colspan="3" style="text-align:left">
-									<h4>이번주의 인기글</h4>
+									<td colspan="3" style="text-align:left">
+										<h4>이번주의 인기글</h4>
 									</td>
 								</tr>
 								<tr>
+									<c:forEach var="post" items="${postList}">
 									<td>
 										<div class="card card-nav-tabs col-xs-4"
 											style="width: 10rem;">
 											<div class="card-body">
-												<h4 class="card-title">이번주 인기글1</h4>
-												<p class="card-text">배고프다.</p>
+												<h4 class="card-title">${post.title}</h4>
+												<p class="card-text">by ${post.nick}</p>
 											</div>
 										</div>
 									</td>
-									<td>
-										<div class="card card-nav-tabs col-xs-4"
-											style="width: 10rem;">
-											<div class="card-body">
-												<h4 class="card-title">이번주 인기글2</h4>
-												<p class="card-text">배고프다.</p>
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="card card-nav-tabs col-xs-4"
-											style="width: 10rem;">
-											<div class="card-body">
-												<h4 class="card-title">이번주 인기글3</h4>
-												<p class="card-text">배고프다.</p>
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="card card-nav-tabs col-xs-4"
-											style="width: 10rem;">
-											<div class="card-body">
-												<h4 class="card-title">이번주 인기글4</h4>
-												<p class="card-text">배고프다.</p>
-											</div>
-										</div>
-									</td>
+									</c:forEach>
 								</tr>
 							<!---------- 이번주의 인기글 끝 ------------------>	
 							<!---------- 후원게시판 시작  ------------------>		

@@ -748,10 +748,10 @@ select * from userrole;
 select * from message;
 select * from user;
 select * from blog;
+select * from BLOGCOMMENT;	
 select * from pet;
 select * from maincategory;
 select * from subcategory; 
-select * from BLOGCOMMENT;	
 select * from donation;
 
 select ctime-rtime from donation where dindex=2;
@@ -761,11 +761,10 @@ delimiter $$
 create trigger completeDonationByTime
 after insert on donation
 for each row
-BEGIN
-	
+BEGIN	
    CREATE EVENT IF NOT EXISTS completeDonatoinByTime
 	ON SCHEDULE AT 
-		'select ctime from donation where dindex=2'
+		'2020-07-13 20:00:00'
     ON COMPLETION NOT PRESERVE
     ENABLE
     COMMENT '기부 종료'

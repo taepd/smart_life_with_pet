@@ -64,7 +64,7 @@ public class BlogController {
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = bs.mainView(cp, ps, null);
-		logger.info("내 블로그 글 리스트 조회 완료");
+		logger.info("모두의 블로그 글 리스트 조회 완료");
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -73,7 +73,7 @@ public class BlogController {
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalPostCount", map.get("totalPostCount"));
 
-		return "blog/myMain";
+		return "blog/main";
 
 	}
 
@@ -143,7 +143,7 @@ public class BlogController {
 			logger.info("블로그 글 삭제 완료");
 //			msg = "블로그 글 삭제 완료";
 //	        url = "main.bit";
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 			
 		}else { 
 			
@@ -201,8 +201,11 @@ public class BlogController {
 //		logger.info("파일 업로드 완료 ");
 		// int result = donationservice.donationWrite(donate, request, principal);
 
-		// 세션 userid post객체에 입력
+		// 세션 userid, nick post객체에 입력
 		blog.setUserid(userid);
+		User user = (User)session.getAttribute("user");
+		blog.setNick(user.getNick());
+		
 
 		// 임시 petindex 입력
 		blog.setPetindex(1);
@@ -213,7 +216,7 @@ public class BlogController {
 
 			logger.info("블로그 글 입력 성공");
 
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 
 		} else { // 회원가입 실패시 어찌할지 로직구현해야 함
 

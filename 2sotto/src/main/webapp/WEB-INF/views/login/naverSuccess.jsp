@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-   pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
@@ -32,13 +31,13 @@ h3 {
 
 </head>
 <body>
-   <div
-      style="background-color: #15a181; width: 100%; height: 50px; text-align: center; color: white;">
-      <h3>Naver_Login Success</h3>
-   </div>
-   <br>
-   <h2 style="text-align: center" id="name"></h2>
-   <h4 style="text-align: center" id="email"></h4>
+	<div style="background-color: #15a181; width: 100%; height: 50px; text-align: center; color: white;">
+		<h3>Naver_Login Success</h3>
+	</div>
+	<br>
+	<h2 style="text-align: center" id="name"></h2>
+	<h4 style="text-align: center" id="email"></h4>
+
 <script>
     $(function () {
       $("body").hide();

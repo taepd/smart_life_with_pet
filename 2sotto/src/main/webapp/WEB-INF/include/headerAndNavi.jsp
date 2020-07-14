@@ -57,8 +57,10 @@
         	<se:authorize access="!hasRole('ROLE_USER')">	
 				<div class="nickname">
 					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">시작하기</button>
+					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest.bit'">테스트</button>
 				</div>
 			</se:authorize>
+			
 			<div class="menuList">
 				<ul class="navbar-nav ml-auto">
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">

@@ -132,6 +132,7 @@ public class LoginController {
 
 	}
 
+
 	//로그아웃
 	@RequestMapping(value = "logout.bit", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session) throws IOException {
@@ -187,4 +188,6 @@ public class LoginController {
 	 * 
 	 * return "redirect:/"; }
 	 */
+		
+		
 }

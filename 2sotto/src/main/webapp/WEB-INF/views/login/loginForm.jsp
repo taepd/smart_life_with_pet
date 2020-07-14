@@ -8,6 +8,11 @@
     <title>로그인</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
+     
+
+
+
+     
     
 </head>
 
@@ -15,6 +20,7 @@
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	
+
 	<div class="side_overlay">
 		<div class="container">
 			<div class="row">
@@ -52,7 +58,15 @@
 								</c:if>
 								<!-- 로그인 실패했을 때 뜨는 안내메시지 -->
 							</div>
+							<div>
+							<h4 class="card-title" style="text-align:center">SNS 회원가입</h4>
+							<br>
 							
+							<!-- 네이버 로그인 창으로 이동 -->
+							<div id="naver_id_login" style="text-align:center"><a href="${url}">
+							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+							<br>
+
 							<!-- 소셜로그인 아이콘인데 일단 둠 > 안쓰면 나중에 삭제
 							<div class="social-line">
 			                  <a href="#pablo" class="btn btn-just-icon btn-link">
@@ -71,12 +85,14 @@
 								 <a href="../index"><button type="submit" class="btn btn-primary">로그인</button></a>
 							</div>
 						</form>
+									
 					</div>
 				</div>
 			</div>
 		</div> <!-- container end -->
 	</div> <!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
-	
+
+
 </body>
 </html>

@@ -5,6 +5,15 @@
 
 <html>
 <head>
+<!-- 달력 쓰려고 가져온 jquery -->
+<!--jQuery UI CSS파일   -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<!-- 달력 쓰려고 가져온 jquery 끝 -->
+
+<!-- //script구문 내부에 해당 메소드를 입력합니다. -->
+
 
 <title>슬기로운 반려생활</title>
 
@@ -74,6 +83,10 @@
 									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 기한</label> 
+									<input type="text" class="form-control" name="ctime" id="Datepicker"> 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" > 
 								</div>	
@@ -103,6 +116,7 @@
 		<!-- container end -->
 	</div>
 	<!-- side_overlay end -->
+	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>

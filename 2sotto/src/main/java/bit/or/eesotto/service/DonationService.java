@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -290,5 +291,22 @@ public class DonationService {
 		 
 		 return result;
 	 }
+	 
+	 
+	 
+	//기부 완료(우선 ccoll = gcoll일 경우)		
+	public int completeDonationByColl(String dindex) { 
+		  
+	      int result = 0;
+	      	      
+		  try { 
+		  DonateDao donatedao = sqlsession.getMapper(DonateDao.class); 		  
+		  result = donatedao.completeDonationByColl(Integer.parseInt(dindex));
+		  	  
+		  } catch (Exception e) { System.out.println(e.getMessage()); }
+		  
+		  return result; 
+	}
+		 
 	
 }

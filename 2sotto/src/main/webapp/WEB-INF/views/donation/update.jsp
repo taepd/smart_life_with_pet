@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
@@ -76,6 +77,18 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원이 필요한 아이</label> 
 									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" > 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 등록 시간</label>
+									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 완료 시간</label> 
+									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 

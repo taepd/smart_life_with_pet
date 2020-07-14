@@ -81,8 +81,11 @@
 											<th>제목</th>
 											<th>작성자</th>
 											<th>등록시간</th>
+											<th>완료시간시간</th>
+											<th>목표모금액</th>
 											<th>현재모금액</th>
 											<th>모금률</th>
+											<th>모금중</th>
 											
 
 										</tr>
@@ -97,13 +100,18 @@
 
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 												<td class="text-center">${rtime}</td>
-												
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+												<td class="text-center">${ctime}</td>
+												<td class="text-center">${donate.gcoll}</td>
 												<td class="text-center">${donate.ccoll}</td>
 												<td class="text-center">
 												<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###" />%
-												</td> 																
+												</td> 
+												<td class="text-center">${donate.dstate}</td><!-- 모금완료 여부 표시 -->																
 											</tr>
 									
 										</tbody>

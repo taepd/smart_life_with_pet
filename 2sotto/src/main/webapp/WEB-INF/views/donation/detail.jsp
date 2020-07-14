@@ -93,11 +93,22 @@
 									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 등록 시간</label>
+									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 완료 시간</label> 
+									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
-
 									<label for="bmd-label-static">현재모금액</label> 
 									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
 								</div>
@@ -105,13 +116,17 @@
 									<label for="bmd-label-static">모금률</label>
 									<progress value="0" max="100" id="jb"></progress>
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">기부중</label> 
+									<input type="text" name="dstate" class="form-control" value="${donate.dstate}" readonly> 
 								</div>				
 								
 								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>
 								
 								
-								<div>
-								<!--  -->
+								<div id="donateColl">
+								
 								
 								<input type="text" name="dpoint" placeholder="기부하실 포인트를 직접 입력해 주세요">
 								<button type="submit" class="btn btn-primary">포인트 기부하기</button>
@@ -188,6 +203,11 @@ $('#delete').click(function(){
 		return;
 	}
 });
+
+//기부완료(by Coll)시 버튼 비활성화
+function() hideButton{
+	
+}
 </script>
 </html>
 

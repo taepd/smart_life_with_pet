@@ -128,6 +128,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="plusCcollPoint">
 		update donation set ccoll=ccoll+#{param2} where dindex=#{param1}
 	</update>
+	
+	
+	<!-- 기부 완료(ccoll = gcoll) -->
+	<!-- <select id="completeDonationByColl">
+		select ccoll, gcoll from donate where dindex=#{param1}
+	</select> -->
+	
+	<!-- ccoll = gcoll 일 경우 dstate를 N로 변환해 주는 쿼리 -->
+	<update id="completeDonationByColl">
+		update donation set dstate='N', ctime=now()  where dindex=#{param1}
+	</update>
+	
 
 	
 

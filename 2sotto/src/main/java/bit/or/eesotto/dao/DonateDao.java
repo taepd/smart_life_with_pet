@@ -19,8 +19,8 @@ public interface DonateDao {
 
 	//후원글 입력
 	
-	@Insert("insert into donation (title,dobject,content,rtime,gcoll,ccoll)" +
-    "values(#{title},#{dobject},#{content},now(),#{gcoll},0)")
+	@Insert("insert into donation (title,dobject,content,rtime,gcoll,ccoll,ctime, dstate)" +
+    "values(#{title},#{dobject},#{content},now(),#{gcoll},0,#{ctime},'Y')")
 	public int write(Donate donate);
 	
 	//게시물 개수
@@ -75,4 +75,7 @@ public interface DonateDao {
 	
 	//현재 모금 포인트 증가
 	public int plusCcollPoint(int dindex, int dpoint);
+	
+	//기부 완료
+	public int completeDonationByColl(int dindex);
 }

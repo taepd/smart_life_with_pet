@@ -101,8 +101,8 @@
 //ckeditor
 $(function(){
 	CKEDITOR.replace('content',{
-		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
-		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit', //파일업로드
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit' //드래그 앤 드롭
 	});
 });
 	

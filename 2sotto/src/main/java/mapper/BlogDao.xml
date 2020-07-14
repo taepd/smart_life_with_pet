@@ -22,9 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, B.* FROM BLOG B 
-		<if test="param3 != null">
-			WHERE userid = #{param3} 
-		</if>	
+		<where>
+			<if test="param3 != null">
+				userid = #{param3} 
+			</if>	
+		</where>
 		) S WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 		

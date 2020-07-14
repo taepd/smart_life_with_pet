@@ -262,7 +262,20 @@
     	<artifactId>xercesImpl</artifactId>
     	<version>2.9.1</version>
 		</dependency>
-
+		
+		<!-- ckeditor 파일업로드 위해 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<!--StringUtils사용 위해-->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		
 
 	</dependencies>
 	<build>

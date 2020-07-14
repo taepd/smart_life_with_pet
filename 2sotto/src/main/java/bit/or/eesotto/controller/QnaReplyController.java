@@ -23,10 +23,10 @@ import bit.or.eesotto.service.QnaService;
 
 
 @Controller
-@RequestMapping("/qna/")
-public class QnaController {
+@RequestMapping("/qnaRe/")
+public class QnaReplyController {
 
-	private static final Logger logger = LoggerFactory.getLogger(QnaController.class);
+	private static final Logger logger = LoggerFactory.getLogger(QnaReplyController.class);
 	
 	@Autowired
 	QnaService qnas;

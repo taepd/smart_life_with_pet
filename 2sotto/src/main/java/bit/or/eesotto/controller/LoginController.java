@@ -94,7 +94,7 @@ public class LoginController {
 			logger.info(email);
 			logger.info(name);
 			
-			return "redirect:/";
+			return "login/naverSuccess";
 		}
 
 	//로그아웃
@@ -153,4 +153,6 @@ public class LoginController {
 	 * 
 	 * return "redirect:/"; }
 	 */
+		
+		
 }

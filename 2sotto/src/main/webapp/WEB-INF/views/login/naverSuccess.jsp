@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
@@ -39,7 +38,17 @@ h3 {
 	<br>
 	<h2 style="text-align: center" id="name"></h2>
 	<h4 style="text-align: center" id="email"></h4>
-
+<script>
+    $(function () {
+      $("body").hide();
+      $("body").fadeIn(1000);  // 1초 뒤에 사라 지자 
+     
+      setTimeout(function(){$("body").fadeOut(1000);},1000);
+      setTimeout(function(){location.href= "${pageContext.request.contextPath}/"},2000);
+// 2초 뒤에 메인 화면 으로 가자  
+    
+    })
+  </script>
 </body>
 </html>
 

@@ -19,5 +19,6 @@ public class Blog {
 	private String delstate; //삭제유무
 	private int count; //조회수
 	private String pimg; //이미지
+	private String nick; //닉네임
 
 }

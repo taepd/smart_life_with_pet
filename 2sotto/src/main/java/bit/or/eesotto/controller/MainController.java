@@ -13,10 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import bit.or.eesotto.service.LoginService;
+import bit.or.eesotto.service.*;
 
 @Controller
 public class MainController {
+	
+	@Autowired
+	BlogService bs;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
@@ -38,6 +41,24 @@ public class MainController {
 		
 			logger.info("작업시작이다..." );
 			
+			String userid=null;
+			
+			//블로그 인기글 조회(현재는 그냥 전체글)
+			if(principal!=null) {
+				userid =  principal.getName();
+				logger.info("로그인 유저 아이디: " + userid);
+			}
+			
+			
+			HashMap<String, Object> map = bs.myMainView(cp, ps, userid);
+			logger.info("모두의 블로그 글 리스트 조회 완료");
+			
+			// view까지 전달 (forward)
+			model.addAttribute("cpage", map.get("cpage"));
+			model.addAttribute("pageSize", map.get("pageSize"));
+			model.addAttribute("postList", map.get("postList")); 		
+			model.addAttribute("pageCount", map.get("pageCount"));
+			model.addAttribute("totalPostCount", map.get("totalPostCount"));
 			
 			
 			return "main";

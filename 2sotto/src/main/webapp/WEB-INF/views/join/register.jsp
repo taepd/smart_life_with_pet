@@ -37,19 +37,20 @@
 						<a href="../login/login.bit" class="btn btn-primary">이미 계정이 있으신가요?</a>
 						<br>
 						<h4 class="card-title">SNS 회원가입</h4>
-						<button class="btn btn-success">
+						<button class="btn btn-success" type="button" onclick="location.href='${naver_url}'">
 							<i class="material-icons">favorite</i> 네이버
 						</button>
 						<br>
-						<button class="btn btn-default">
+						<button class="btn btn-default" type="button" onclick="location.href='${kakao_url}'">
 							<i class="material-icons">favorite</i> &nbsp;&nbsp;구 글&nbsp;
 						</button>
 						<br>
-						<button class="btn btn-warning">
+						<button class="btn btn-warning" type="button" onclick="location.href='${google_url}'">
 							<i class="material-icons">favorite</i> 카카오
 						</button>
-						
+	
 					</div>
+			
 				</div>
 			</div>
 		</div>

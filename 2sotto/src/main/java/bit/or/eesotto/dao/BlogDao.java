@@ -19,15 +19,18 @@ public interface BlogDao {
 			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, now(), 0, 0,  #{pimg})")
 	public int writePost(Blog blog);
 	
-	// 블로그 > 포스트 리스트 조회  
+	// 블로그 > 내 포스트 리스트 조회  
 	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
 	
-	// 블로그 > 포스팅 개수 조회 //동적쿼리 적용할 것 
+//	// 블로그 > 모두의 포스트 리스트 조회  //오버로딩 안되는듯...
+//	public List<Blog> getPostList(int cpage, int pagesize); 
+
+		
+	// 블로그 > 모두의 포스팅 개수 조회
 	public int getPostCount();
 	
 	// 블로그 > 내 포스팅 개수 조회
-	@Select("select count(*) from blog where userid=#{userid}")
-	public int getPostCount(String userid);
+	public int getPostCount(@Param("userid") String userid);
 	
 	public int getPostCount(String column, int search);
 	

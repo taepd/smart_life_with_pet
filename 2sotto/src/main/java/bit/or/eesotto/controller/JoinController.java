@@ -33,7 +33,7 @@ public class JoinController {
 	@Autowired
 	JoinService joinService;
 	
-
+	
 	// 회원가입 화면 보러가기
 	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
 	public String register(Model model) throws IOException {

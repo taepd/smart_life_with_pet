@@ -95,17 +95,27 @@
  	 -->
 <script type="text/javascript">
 
-	$(function() {
 
-		CKEDITOR.replace( 'content' );
-		/* $('#summernote').summernote({
+//ckeditor
+$(function(){
+	CKEDITOR.replace('content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit'
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
+	});
+});
+
+/*
+$(function() {
+
+		$('#summernote').summernote({
 			height : 500,
 			minHeight : null,
 			maxHeight : null,
 			focus : true
 		});
 
-		jQuery.noConflict(); */
+		jQuery.noConflict();
 	});
+*/
 </script>
 </html>

@@ -3,7 +3,9 @@ package bit.or.eesotto.controller;
 import java.io.IOException;
 import java.security.*;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Qna;
-
+import bit.or.eesotto.dto.QnaComment;
 import bit.or.eesotto.service.QnaService;
 
 
@@ -74,8 +78,19 @@ public class QnaController {
 			
 			return "qna/edit";	
 		}
+		// Qna > Qna글 답글작성 view
 	
-	
+		@RequestMapping(value = "reply.bit", method = RequestMethod.GET)
+		public String replyUpdate(String qaindex, Model model) {
+			
+			Qna qna = qnas.getPost(qaindex);
+			logger.info("답글 작성 뷰 완료");
+			model.addAttribute("qna", qna);
+			
+			return "qna/reply";	
+		}
+		
+		
 		// Qna > 글 수정 처리
 		@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
 		public String update(Qna qna, Model model) {
@@ -89,14 +104,12 @@ public class QnaController {
 				
 				logger.info("Qna 글 수정 완료");
 				msg = "Qna 글 수정 완료";
-		        url = "main.bit";
-				
+		        url = "main.bit";	
 			}else { 
 				
 				logger.info("Qna 글 수정 실패");
 				msg = "Qna 글 수정 실패";
 		        url = "javascript:history.back();";
-
 			}
 			
 			model.addAttribute("msg", msg);
@@ -106,19 +119,41 @@ public class QnaController {
 			
 		}
 		
-		// Qna > Qna글 답글 view
-		@RequestMapping(value = "reply.bit", method = RequestMethod.GET)
-		public String replyUpdate(String qaindex, Model model) {
-					
-			Qna qna = qnas.getPost(qaindex);
-			logger.info("내 QNA 글 조회 완료");
-			model.addAttribute("qna", qna);
-					
-			return "qna/reply";	
-		}
+
+		// Qna > 관리자 답글 처리
+		
+		@RequestMapping(value = "reply.bit", method = RequestMethod.POST)
+		public String replyUpdate(Qna qna, Model model) {
+												
+			String msg = null;
+			String url = null;
+				
+		int result = qnas.editReplyPost(qna);
+		
+			if(result==1) {
+				
+				logger.info("관리자 답글 작성 완료");
+				msg = "관리자 답글 작성 완료";
+		        url = "main.bit";
+				
+			}else { 
+				
+				logger.info("관리자 답글 작성 실패");
+				msg = "관리자 답글 작성 실패";
+		        url = "javascript:history.back();";
+
+			}
 			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "redirect";	
+			
+		}	
+		
 			
 		// Qna > 글 댓글 처리
+		/*
 		@RequestMapping(value = "reply.bit", method = RequestMethod.POST)
 		public String insertReply(Qna qna, Model model) {
 														
@@ -147,7 +182,7 @@ public class QnaController {
 		//	return "redirect";	
 					
 		}
-		
+		*/
 
 		// Qna > 글 삭제 처리
 		@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
@@ -217,4 +252,105 @@ public class QnaController {
 	
 
 			}
+			
+			
+		// Qna 댓글 입력 Ajax 처리  
+		@ResponseBody
+		@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
+		public int writeComment(QnaComment qnaComment, HttpServletRequest request, Model model) throws IOException {
+			
+			//비밀글 체크 여부 
+			if(qnaComment.getScstate() == null) {
+
+				qnaComment.setScstate("N");
+			}
+			
+			int result = qnas.writeCommnet(qnaComment);
+			
+			if(result==1) {
+				logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 입력 처리 완료");
+			}else {
+				logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 입력 처리 실패");
+			}
+			
+			return result;
+		}
+		
+		// Qna 댓글 수정 Ajax 처리  
+		@ResponseBody
+		@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+		public int editComment(QnaComment qnaComment, HttpServletRequest request, Model model) throws IOException {
+			
+			//비밀글 체크 여부 
+			if(qnaComment.getScstate() == null) {
+
+				qnaComment.setScstate("N");
+			}
+			
+			int result = qnas.editComment(qnaComment);
+			
+			if(result==1) {
+				logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 수정 처리 완료");
+			}else {
+				logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 수정 처리 실패");
+			}
+			
+			return result;
+		}
+		
+		// Qna 댓글 조회 Ajax  
+		@ResponseBody
+		@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
+		public List<QnaComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
+			
+			String qaindex = request.getParameter("qaindex");
+			
+			List<QnaComment> commentList = qnas.getCommentList(qaindex);
+			
+			if(commentList!=null) {
+				logger.info("Qna"+qaindex+"번글 댓글내역 조회 완료");
+			}else {
+				logger.info("Qna"+qaindex+"번글 댓글입력 조회 실패");
+			}
+			
+			return commentList;
+		}
+		
+			
+		// QNA > 댓글 삭제 처리
+		@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+		public String deleteComment(QnaComment comment, Model model) {
+
+//			String msg = null;
+//			String url = null;
+
+			int result = qnas.deleteComment(comment);
+			int qaindex = comment.getQaindex();
+			if(result==1) {
+
+				logger.info("QNA 댓글 삭제 완료");
+//				msg = "블로그 댓글 삭제 완료";
+//		        url = "main.bit";
+				return "redirect:/qna/detail.bit?qaindex="+qaindex+"";
+				
+			}else { 
+
+				logger.info("QNA 댓글 삭제 실패");
+//				msg = "블로그 댓글 삭제 실패";
+//		        url = "javascript:history.back();";
+		        return "javascript:history.back()";
+			}
+
+//			model.addAttribute("msg", msg);
+//			model.addAttribute("url", url);
+
+			//return "redirect";	
+
+		}	
+			
+			
+			
+			
+			
+			
 }

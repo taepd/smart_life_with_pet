@@ -11,6 +11,7 @@ import bit.or.eesotto.dto.User;
 
 public interface UserDao {
 
+	
 	// 일반 로그인
 	@Select("select * from user where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);

@@ -14,12 +14,16 @@ import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
 import bit.or.eesotto.dao.MessageDao;
+import bit.or.eesotto.dao.QnaCommentDao;
+import bit.or.eesotto.dao.BlogCommentDao;
 import bit.or.eesotto.dao.BlogDao;
 import bit.or.eesotto.dao.QnaDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Message;
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Qna;
+import bit.or.eesotto.dto.QnaComment;
 import bit.or.eesotto.dto.User;
 
 @Service
@@ -36,6 +40,9 @@ public class QnaService {
 
 	@Autowired
 	QnaDao qnaDao;
+
+	@Autowired
+	QnaCommentDao qnaCommentDao;
 
 	// 일반 회원가입
 	public int writeQna(Qna qna) {
@@ -172,6 +179,16 @@ public class QnaService {
 			return qnaDao.editPost(post);
 		}
 		
+		
+		//글 상세보기  서비스 다시
+		public int editReplyPost(Qna post) {
+
+			qnaDao = sqlsession.getMapper(QnaDao.class);
+			
+								
+			return qnaDao.editReplyPost(post);
+		}
+		
 		//글 삭제
 		public int deletePost(Qna post) {
 
@@ -179,6 +196,84 @@ public class QnaService {
 			
 								
 			return qnaDao.deletePost(post);
+		}
+		
+		
+		//QNA > 댓글 쓰기
+		public int writeCommnet(QnaComment qnaComment) {
+			
+			int result = 0;
+
+			try {
+
+				qnaCommentDao = sqlsession.getMapper(QnaCommentDao.class);
+				result = qnaCommentDao.writeComment(qnaComment);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}
+
+
+		//QNA > 댓글 수정
+		public int editComment(QnaComment qnaComment) {
+			
+			int result = 0;
+
+			try {
+
+				qnaCommentDao = sqlsession.getMapper(QnaCommentDao.class);
+				result = qnaCommentDao.editComment(qnaComment);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}	
+		//QNA > 댓글 조회
+		public QnaComment getComment(int qnaindex) {
+			
+			QnaComment comment = null;
+
+			try {
+
+				qnaCommentDao = sqlsession.getMapper(QnaCommentDao.class);
+				comment = qnaCommentDao.getComment(qnaindex);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return comment;
+		}
+		
+		//QNA > 댓글 리스트 조회
+		public List<QnaComment> getCommentList(String qaindex) {
+			
+			List<QnaComment> commentList = null;
+
+			try {
+
+				qnaCommentDao = sqlsession.getMapper(QnaCommentDao.class);
+				commentList = qnaCommentDao.getCommentList(qaindex);
+				System.out.println(commentList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return commentList;
+		}
+		
+		
+		//QNA > 댓글 삭제
+		public int deleteComment(QnaComment comment) {
+
+			qnaCommentDao = sqlsession.getMapper(QnaCommentDao.class);
+
+			return qnaCommentDao.deleteComment(comment);
 		}
 	
 	

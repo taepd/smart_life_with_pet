@@ -15,7 +15,7 @@ import bit.or.eesotto.dto.User;
 
 public interface BlogCommentDao {
 
-	// 블로그 > 댓글쓰기 
+	// 블로그 > 댓글 쓰기 
 	@Insert("insert into blogcomment (bindex, userid, bclike, content, scstate, rtime, refer, step, depth)"
 			+ " values (#{bindex}, #{userid}, 0, #{content}, #{scstate}, now(), "
 			+ "(select ifnull(max(refer)+1,0) from blogcomment b),"
@@ -23,15 +23,37 @@ public interface BlogCommentDao {
 //			+ "(select ifnull(max(step)+1,0)  from blogcomment b where refer=0),"
 //			+ "(select ifnull(((max(depth)+1)/(max(depth)+1)),0) from blogcomment b where refer=0))")
 	public int writeComment(BlogComment blogcomment);
+
+	// 블로그 > 댓글 수정
+	@Insert("update blogcomment set content=#{content} where bcindex=#{bcindex}")		
+//			+ "(select ifnull(max(step)+1,0)  from blogcomment b where refer=0),"
+//			+ "(select ifnull(((max(depth)+1)/(max(depth)+1)),0) from blogcomment b where refer=0))")
+	public int editComment(BlogComment blogcomment);	
 	
 	
 	// 블로그 > 댓글 리스트 조회  
-	@Select("select * from blogcomment where bindex=#{bindex}")
+	@Select("select * from blogcomment where bindex=#{bindex} ORDER BY REFER, STEP")
 	public List<BlogComment> getCommentList(String bindex); 
 	
-	// 블로그 > 특정 댓 조회  
+	// 블로그 > 특정 댓글 조회  
 	@Select("select * from blogcomment where bcindex=#{bcindex}")
 	public BlogComment getComment(int bcindex); 
+	
+	// 블로그 > 댓글 삭제
+	@Update("delete from blogcomment where bcindex=#{bcindex}")
+	public int deleteComment(BlogComment comment);
+	
+	// 블로그 > 대댓글 쓰기 
+	@Insert("insert into blogcomment (bindex, userid, bclike, content, scstate, rtime, refer, step, depth)"
+			+ " values (#{bindex}, #{userid}, 0, #{content}, #{scstate}, now(), "
+			+ "#{refer}, (select ifnull(max(step)+1,0)  from blogcomment b where refer=#{refer}), 1)")		
+//			+ "(select ifnull(((max(depth)+1)/(max(depth)+1)),0) from blogcomment b where refer=0))")
+	public int writeRecomment(BlogComment blogcomment);
+	
+	
+	
+	
+	
 //	
 //	// 블로그 > 포스팅 개수 조회 //동적쿼리 적용할 것 
 //	public int getPostCount();

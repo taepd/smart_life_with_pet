@@ -18,5 +18,6 @@ public class Qna {
 	private String content; //내용
 	private String filename; //첨부파일
 	private String awstate; //답변완료
+	private String replyContent; //답변내용
 
 }

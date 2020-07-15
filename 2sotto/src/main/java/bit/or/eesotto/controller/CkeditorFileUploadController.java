@@ -44,7 +44,7 @@ public class CkeditorFileUploadController {
 						if(!uploadFile.exists()){
 							uploadFile.mkdirs();
 						}
-						fileName = UUID.randomUUID().toString();
+						fileName = UUID.randomUUID().toString(); //파일명 난수화
 						uploadPath = uploadPath + "/" + fileName;
 						out = new FileOutputStream(new File(uploadPath));
                         out.write(bytes);

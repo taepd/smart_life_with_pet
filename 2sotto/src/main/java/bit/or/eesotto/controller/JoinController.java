@@ -1,25 +1,23 @@
 package bit.or.eesotto.controller;
 
-import java.io.IOException;
+import java.io.*;
 import java.security.*;
-import java.util.List;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.crypto.bcrypt.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
+import org.springframework.web.multipart.commons.*;
+import org.springframework.web.servlet.mvc.support.*;
 
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.JoinService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 @Controller
 @RequestMapping("/join/")
@@ -60,16 +58,41 @@ public class JoinController {
 
 	// 일반 회원가입 처리
 	@RequestMapping(value = "normalJoin.bit", method = RequestMethod.POST)
-	public String normalJoin(User user, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes,
-			Model model){
+	public String normalJoin(User user, HttpServletRequest request, MultipartHttpServletRequest multiFile,
+							 Principal principal, RedirectAttributes redirectAttributes,
+							 Model model) throws IOException{
 		
 		
 		//비밀번호 암호화 
 		String inputPwd = user.getPwd();
 		String encodingPW = pwEncoder.encode(inputPwd);
 		user.setPwd(encodingPW);		
-		logger.info("비밀번호 암호화 완료");		
+		logger.info("비밀번호 암호화 완료");	
 		
+		// 파일 업로드
+		MultipartFile file = multiFile.getFile("file");
+		if(file != null && file.getSize() > 0) { 
+			    //String filename = file.getOriginalFilename();
+			    String filename = UUID.randomUUID().toString();
+				String path = request.getServletContext().getRealPath("/images");
+				
+				String fpath = path + "\\"+ filename; 
+				
+				if(!filename.equals("")) { //실 파일 업로드
+					FileOutputStream fs;
+					
+					try {
+						fs = new FileOutputStream(fpath);
+						fs.write(file.getBytes());
+						fs.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			}
+				user.setUimg(filename); //파일명을 별도 관리 (DB insert)
+		}else { //프로필 사진 입력을 하지 않았을 경우
+			user.setUimg("profile.png");
+		}
 		int result = joinService.normalJoin(user);
 		
 		String msg = null;
@@ -77,9 +100,7 @@ public class JoinController {
 		
 		if(result==1) {
 			
-			//session.setAttribute("userid", user.getUserid());
-			String userid =  principal.getName();
-			logger.info("회원가입 처리 완료");
+			logger.info(user.getUserid()+"님 회원가입 처리 완료");
 			
 			msg = "회원가입 성공";
 	        url = "../index.jsp";

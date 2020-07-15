@@ -28,7 +28,7 @@ import bit.or.eesotto.service.BlogService;
 @RequestMapping("/blog/")
 public class BlogController {
 
-	private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogController.class); 
 
 	@Autowired
 	BlogService bs;
@@ -208,7 +208,7 @@ public class BlogController {
 		
 
 		// 임시 petindex 입력
-		blog.setPetindex(1);
+		blog.setPetindex(3);
 
 		int result = bs.writePost(blog);
 		

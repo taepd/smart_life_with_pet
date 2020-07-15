@@ -15,7 +15,7 @@ public class User {
 	private String loc;
 	private String cpnumber;
 	private String enabled;
-	private String profile;
+	private String uimg;
 	private String rtime;
 	private String lat;
 	private String lot;

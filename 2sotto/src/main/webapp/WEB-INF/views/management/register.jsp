@@ -166,6 +166,25 @@
 						<input type="text" class="form-control" id="memo" name="memo">
 						<span class="bmd-help">반려동물의 특이사항을 입력하세요</span>
 					</div>
+					<div class="form-group bmd-form-group">
+						<div class="input-group">
+							<label for="cono1" class="label" style="text-align: left">
+								반려동물 프로필 이미지 등록
+							</label>
+							<div style="float: left;">
+								<label class="btn btn-primary btn-default btn-file"
+									style="padding: 10px 20px; margin-right: 80px">
+									이미지 설정/변경 
+									<input class="input--style-4" type="file"
+									name="file" style="display: none;"
+									onchange="readURL(this);">
+								</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+									<img id="img" name="petimg" src="../images/pet_profile.jpg" alt="" width="150px"
+									height="150px" style="border-radius: 10px;" /> 
+									<span id="imgFileName">&nbsp;&nbsp;</span>
+							</div>	
+						</div>
+					</div>
 					
 					<br>
 				<!-- <input type="file" id="petimg" name="petimg"> -->
@@ -212,7 +231,6 @@
 				$('#mcategory').append(option);
 			}
 		});
-
 	}
 
 	function getSubCategory(element) {
@@ -249,6 +267,20 @@
 		}
 		$('#age_month').empty().append(month);
 	}
+
+	//***********************************//
+	// 이미지 파일 업로드시 이미지 미리보기
+	//***********************************//
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+		$('#imgFileName').html(input.files[0].name);
+	};
 
 </script>
 </html>

@@ -63,7 +63,7 @@
 			</c:forEach>
 
 			<div>
-			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}</h4>
+			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalpostcount: ${totalpostcount } </h4>
 			</div>
 
 			<!-- 페이징 -->

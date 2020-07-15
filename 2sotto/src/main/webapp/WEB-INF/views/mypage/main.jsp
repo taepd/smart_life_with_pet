@@ -64,28 +64,28 @@
 										<tr>
 											<th rowspan="5" style="text-align: center">
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/bo1.png" rel="nofollow" alt="card image">
-													<h4>보캐슬</h4>
+													<img class="card-img-top" src="${pageContext.request.contextPath}/images/${user.uimg}" rel="nofollow" alt="card image">
+													<h4>${user.nick}</h4>
 												</div>
 											</th>
 											<td>보유 포인트</td>
-											<td>500p</td>
+											<td>${user.point}포인트</td>
 										</tr>
 										<tr>
 											<td>이메일</td>
-											<td>kbs@mbc.sbs</td>
+											<td>${user.userid}</td>
 										</tr>
 										<tr>
-											<td>회원 지역</td>
-											<td>안드로메다</td>
+											<td>회원 위치</td>
+											<td>${user.loc}</td>
 										</tr>
 										<tr>
 											<td>가입일시</td>
-											<td>2020.7.1</td>
+											<td>${user.rtime}</td>
 										</tr>
 										<tr>
 											<td>등록 반려동물 수</td>
-											<td>1댕이 1냥이</td>
+											<td>구현해야 함</td>
 										</tr>
 									</thead>
 								</table>

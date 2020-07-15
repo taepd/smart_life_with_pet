@@ -17,8 +17,8 @@ public interface UserDao {
 	public User getUser(@Param("userid") String userid);
 
 	// 보통 회원가입
-	@Insert("insert into user (userid, pwd, nick, loc, cpnumber, enabled, rtime)"
-			+ " values (#{userid}, #{pwd}, #{nick}, #{loc}, #{cpnumber}, 1, now())")
+	@Insert("insert into user (userid, pwd, nick, loc, cpnumber, enabled, rtime, uimg)"
+			+ " values (#{userid}, #{pwd}, #{nick}, #{loc}, #{cpnumber}, 1, now(), #{uimg})")
 	public int normalJoin(User user);
 
 	// 회원가입 > 아이디 중복체크 ajax

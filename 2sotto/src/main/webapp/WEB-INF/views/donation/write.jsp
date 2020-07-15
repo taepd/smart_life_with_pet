@@ -126,12 +126,13 @@
  	 -->
 <script type="text/javascript">
 
-	$(function() {
-
-		CKEDITOR.replace( 'content' );
-
-		
+//ckeditor
+$(function(){
+	CKEDITOR.replace('content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
 	});
+});
 </script>
 </html>
 

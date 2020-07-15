@@ -28,7 +28,7 @@ public class KakaoPayController {
 	    @RequestMapping(value = "/donation/kakaoPay.bit", method=RequestMethod.POST)
 	    public String kakaoPay() {
 	        log.info("kakaoPay post............................................");
-	        
+	        log.info("kakaopay.kakaoPayReady()" + kakaopay.kakaoPayReady());
 	        return "redirect:" + kakaopay.kakaoPayReady();
 	 
 	    }

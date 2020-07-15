@@ -43,13 +43,13 @@ public class KakaoPay {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
+        params.add("item_name", "김건휘바보멍청이");
         params.add("quantity", "1");
         params.add("total_amount", "2100");
         params.add("tax_free_amount", "100");
-        params.add("approval_url", "http://localhost:8090/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8090/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8090/kakaoPaySuccessFail");
+        params.add("approval_url", "http://localhost:8090/bit/WEB-INF/views/donation/kakaoPaySuccess.jsp");//192.168.1.23/project1/CallPaymentKakaoPaySuccess.php
+        params.add("cancel_url", "http://localhost:8090/bit/WEB-INF/views/donation/kakaoPaySuccess.jsp");//"http://localhost:8090/bit/donation/kakaoPayCancel.jsp"
+        params.add("fail_url", "http://localhost:8090/bit/WEB-INF/views/donation/kakaoPaySuccess.jsp");//"http://localhost:8090/2sotto/webapp/kakaoPaySuccessFail.jsp"
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  

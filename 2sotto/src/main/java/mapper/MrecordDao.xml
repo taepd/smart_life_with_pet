@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.or.eesotto.dao.MrecordDao">
+
+
+	
+	<!-- 블로그 포스팅 수 조회 -->
+	
+	<select id="getMrecordCount" resultType="int">
+		select count(*) from mrecord
+		<if test="#{userid} != null">
+			where userid = #{userid}
+		</if>
+	</select>
+<!-- 블로그 리스트 조회 -->
+	<select id="getMrecordList" resultType="bit.or.eesotto.dto.mrecord">
+				
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.* FROM MRECORD M 
+		<where>
+			<if test="param3 != null">
+				userid = #{param3} 
+			</if>	
+		</where>
+		) S WHERE ROWNUM 
+		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
+	</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -91,11 +91,11 @@
 	
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 
-<<<<<<< HEAD
+
 <script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
-=======
+
 <!-- <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> -->
->>>>>>> 57978cffae659053b4d604a2795936839ded15b3
+
 <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
  	 -->

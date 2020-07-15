@@ -206,7 +206,8 @@
 <!--------------------------------------------- 병원 기록 영역 ---------------------------------------------------- -->   
                     
                     <div class="tab-pane" id="hospitalRecord">
-
+					<button class="btn btn-primary btn-round"
+					onclick="location.href='medicalMain.bit'">게시글</button>
 					<h3>병원 방문 기록</h3>                    
                     <div class="table-responsive">
                     	<table class="table">

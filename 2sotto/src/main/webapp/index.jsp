@@ -34,6 +34,7 @@
 	                            <i class="material-icons">location_on</i>
 	                            Yellowstone National Park, United States
 	                          </h4> -->
+	                          
 	                        </div>
 	                      </div>
 	                      <div class="carousel-item active">

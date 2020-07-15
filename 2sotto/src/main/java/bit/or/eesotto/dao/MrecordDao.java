@@ -31,10 +31,12 @@ public interface MrecordDao {
 			 * "BETWEEN ${param1}${param2}-(${param2}-1) AND ${param1}${param2}")//1*5-(5-1)
 			 * AND 1*5
 			 */	
+			
 			public List<Mrecord> getMrecordList(int cpage, int pageSize, String userid);
 			
 			//병원기록 수
-			public int getMrecordCount();//@Param("userid") String userid
+			
+			public int getMrecordCount(@Param("userid") String userid);//
 			
 			// 병원진료  상세 조회
 			@Select("select * from mrecord where mindex = #{mindex}")
@@ -45,7 +47,7 @@ public interface MrecordDao {
 			public int editMrecord(Mrecord mrecord);
 			
 			// 병원진료 글 삭제
-			@Update("delete from mrecord where mindex=#{mindex}")
+			@Delete("delete from mrecord where mindex=#{mindex}")
 			public int deleteMrecord(Mrecord mrecord);
 	
 }

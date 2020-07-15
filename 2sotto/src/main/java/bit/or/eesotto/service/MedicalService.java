@@ -87,7 +87,7 @@ public class MedicalService {
 		// mapper 를 통한 인터페이스 연결
 		MrecordDao mrecordDao = sqlsession.getMapper(MrecordDao.class);
 
-		int totalMrecordCount = mrecordDao.getMrecordCount();
+		int totalMrecordCount = mrecordDao.getMrecordCount(userid);
 		//
 		mrecordList = mrecordDao.getMrecordList(cpage, pageSize, userid);
 

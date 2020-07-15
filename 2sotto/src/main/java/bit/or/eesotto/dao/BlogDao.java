@@ -15,8 +15,8 @@ import bit.or.eesotto.dto.User;
 public interface BlogDao {
 
 	// 블로그 > 글쓰기   //date_format(now(),'%Y-%m-%d %H:%i')
-	@Insert("insert into blog (petindex, userid, blike, title, content, rtime, delstate, count, pimg)"
-			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, now(), 0, 0,  #{pimg})")
+	@Insert("insert into blog (petindex, userid, blike, title, content, rtime, delstate, count, pimg, nick)"
+			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, now(), 0, 0,  #{pimg}, #{nick})")
 	public int writePost(Blog blog);
 	
 	// 블로그 > 내 포스트 리스트 조회  
@@ -26,10 +26,10 @@ public interface BlogDao {
 //	public List<Blog> getPostList(int cpage, int pagesize); 
 
 		
-	// 블로그 > 모두의 포스팅 개수 조회
-	public int getPostCount();
+//	// 블로그 > 모두의 포스팅 개수 조회
+//	public int getPostCount();
 	
-	// 블로그 > 내 포스팅 개수 조회
+	// 블로그 > 포스팅 개수 조회
 	public int getPostCount(@Param("userid") String userid);
 	
 	public int getPostCount(String column, int search);

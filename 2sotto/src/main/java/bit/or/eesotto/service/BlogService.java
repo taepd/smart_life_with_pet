@@ -104,7 +104,7 @@ public class BlogService {
 		return map;
 	}
 	
-	// 블로그 > 내 포스팅 리스트 조회
+	// 블로그 > 모두의 포스팅 리스트 조회
 	public HashMap<String, Object> mainView(String cp, String ps, String userid) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -133,9 +133,9 @@ public class BlogService {
 		// mapper 를 통한 인터페이스 연결
 		BlogDao blogDao = sqlsession.getMapper(BlogDao.class);
 
-		int totalPostCount = blogDao.getPostCount();
+		int totalPostCount = blogDao.getPostCount(null);
 		//
-		postList = blogDao.getPostList(cpage, pageSize, userid);
+		postList = blogDao.getPostList(cpage, pageSize, null);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalPostCount % pageSize == 0) {

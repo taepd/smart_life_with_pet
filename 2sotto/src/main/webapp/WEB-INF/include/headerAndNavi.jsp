@@ -60,7 +60,8 @@
 					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest.bit'">테스트</button>
 				</div>
 			</se:authorize>
-			
+			<br>	
+			<br>	
 			<div class="menuList">
 				<ul class="navbar-nav ml-auto">
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
@@ -78,6 +79,9 @@
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
 					<li><a href="${pageContext.request.contextPath}/point/main.bit">포인트관리</a></li>
 				</se:authorize>	
+				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+					<li><a href="${pageContext.request.contextPath}/mainTest2.bit">로그인메인테스트</a></li>
+			</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li>
 				</se:authorize>	

@@ -34,7 +34,7 @@ public class MainController {
 
 			return "redirect:/";
 		}
-		
+		// 비로그인 메인 페이지 
 		@RequestMapping(value = "mainTest.bit", method = RequestMethod.GET)
 		public String mainView(String cp, String ps, Principal principal, Model model) {
 			
@@ -62,6 +62,18 @@ public class MainController {
 			
 			
 			return "main";
+		}
+		
+		// 로그인 메인 페이지 
+		@RequestMapping(value = "mainTest2.bit", method = RequestMethod.GET)
+		public String mainViewTest(String cp, String ps, Principal principal, Model model) {
+			
+		
+			logger.info("다시작업시작이다..." );
+			
+			
+			
+			return "mainTest";
 		}
 
 }

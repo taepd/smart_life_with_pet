@@ -523,23 +523,25 @@ input {
 												<div class="col-10">
 													<div class="input-group">
 
-														<label for="cono1" class="label" style="text-align: left">이미지
-															추가</label>
+														<label for="cono1" class="label" style="text-align: left">
+															이미지 추가
+														</label>
 
 														<div style="float: left;">
 															<label class="btn btn-primary btn-default btn-file"
 																style="padding: 10px 20px; margin-right: 80px">
-																이미지 설정/변경 <input class="input--style-4" type="file"
+																이미지 설정/변경 
+																<input class="input--style-4" type="file"
 																name="file" style="display: none;"
-																onchange="readURL(this);" multiple>
-															</label> &nbsp;&nbsp;&nbsp;&nbsp; <img id="uimg"
-																src="upload/${param.umig}" alt="" width="150px"
-																height="150px" style="border-radius: 10px;" /> <span
-																id="imgFileName">&nbsp;&nbsp;${param.uimg}</span>
-														</div>
-
-
+																onchange="readURL(this);">
+															</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+																<img id="img" src="../images/profile.png" alt="" width="150px"
+																height="150px" style="border-radius: 10px;" /> 
+																<span id="imgFileName">&nbsp;&nbsp;</span>
+														</div>	
+														
 													</div>
+													
 												</div>
 												<div class="col-2"></div>
 											</div>
@@ -906,10 +908,7 @@ input {
 						});  */
 
 		
-	</script>
 
-
-	<script>
 		/*colorpicker*/
 		$('.demo').each(function() {
 			//

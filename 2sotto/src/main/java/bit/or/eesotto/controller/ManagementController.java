@@ -1,25 +1,21 @@
 package bit.or.eesotto.controller;
 
+import java.io.*;
 import java.security.*;
-import java.util.List;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
+import org.springframework.web.servlet.mvc.support.*;
 
-import bit.or.eesotto.dto.Pet;
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.LoginService;
-import bit.or.eesotto.service.ManagementService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 @Controller
 @RequestMapping("/management/")
@@ -73,9 +69,9 @@ public class ManagementController {
 	
 	// 반려동물 등록 처리
 	@RequestMapping(value = "register.bit", method = RequestMethod.POST)
-	public String registerPets(Pet pet, Principal principal, RedirectAttributes redirectAttributes, Model model) {
-		
-		//////////////////////////파일 업로드 구현 빠진 상태////////////////////////////
+	public String registerPets(Pet pet, Principal principal, HttpServletRequest request, 
+							   MultipartHttpServletRequest multiFile, RedirectAttributes redirectAttributes, 
+							   Model model) {
 		
 		//String userid = (String)session.getAttribute("userid");
 		String userid =  principal.getName();
@@ -84,6 +80,31 @@ public class ManagementController {
 		// 반려동물 등록한 유저 아이디 저장
 		pet.setUserid(userid);
 		
+		// 파일 업로드
+		MultipartFile file = multiFile.getFile("file");
+		if(file != null && file.getSize() > 0) { 
+			    //String filename = file.getOriginalFilename();
+			    String filename = UUID.randomUUID().toString();
+				String path = request.getServletContext().getRealPath("/images");
+				
+				String fpath = path + "\\"+ filename; 
+				
+				if(!filename.equals("")) { //실 파일 업로드
+					FileOutputStream fs;
+					
+					try {
+						fs = new FileOutputStream(fpath);
+						fs.write(file.getBytes());
+						fs.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			}
+				pet.setPetimg(filename); //파일명을 별도 관리 (DB insert)
+		}else { //프로필 사진 입력을 하지 않았을 경우
+			 pet.setPetimg("pet_profile.png");
+		}
+				
 		//동물 나이 저장
 		pet.setAge( (pet.getAge_year()*12)+pet.getAge_month() );
 		
@@ -153,10 +174,37 @@ public class ManagementController {
 	
 	// 반려동물 정보 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
-	public String editOk(Pet pet, Model model) {
+	public String editOk(Pet pet, HttpServletRequest request, MultipartHttpServletRequest multiFile, Model model) {
 		
 		String msg = null;
 		String url = null;
+		
+		// 파일 업로드
+		MultipartFile file = multiFile.getFile("file");
+		if(file != null && file.getSize() > 0) { 
+			    //String filename = file.getOriginalFilename();
+			    String filename = UUID.randomUUID().toString();
+				String path = request.getServletContext().getRealPath("/images");
+				
+				String fpath = path + "\\"+ filename; 
+				
+				if(!filename.equals("")) { //실 파일 업로드
+					FileOutputStream fs;
+					
+					try {
+						fs = new FileOutputStream(fpath);
+						fs.write(file.getBytes());
+						fs.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			}
+				pet.setPetimg(filename); //파일명을 별도 관리 (DB insert)
+		}
+		logger.info("동물 사진"+pet.getPetimg());
+		
+		//동물 나이 저장
+		pet.setAge( (pet.getAge_year()*12)+pet.getAge_month() );
 			
 		int result = managementService.updatePetInfo(pet);
 	

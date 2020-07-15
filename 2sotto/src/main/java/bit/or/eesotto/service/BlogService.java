@@ -85,6 +85,7 @@ public class BlogService {
 		BlogDao blogDao = sqlsession.getMapper(BlogDao.class);
 
 		int totalPostCount = blogDao.getPostCount(userid);
+		
 		//
 		postList = blogDao.getPostList(cpage, pageSize, userid);
 

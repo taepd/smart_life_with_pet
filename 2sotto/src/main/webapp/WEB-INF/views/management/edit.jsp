@@ -161,6 +161,26 @@
 				<label for="memo" class="bmd-label-floating">특이사항</label>
 				<input type="text" class="form-control" id="memo" name="memo" value="${pet.memo}">
 			</div>
+			<div class="form-group bmd-form-group">
+						<div class="input-group">
+							<label for="cono1" class="label" style="text-align: left">
+								반려동물 프로필 이미지 수정
+							</label>
+							<div style="float: left;">
+								<label class="btn btn-primary btn-default btn-file"
+									style="padding: 10px 20px; margin-right: 80px">
+									이미지 설정/변경 
+									<input class="input--style-4" type="file"
+									name="file" style="display: none;"
+									onchange="readURL(this);">
+								</label> &nbsp;&nbsp;&nbsp;&nbsp; 
+									<img id="img" name="img"	src="${pageContext.request.contextPath}/images/${pet.petimg}" 
+									alt="" width="150px" height="150px" style="border-radius: 10px;" /> 
+									<input type="hidden" name="petimg" value="${pet.petimg}">
+									<span id="imgFileName">&nbsp;&nbsp;</span>
+							</div>	
+						</div>
+					</div>
 			
 			<br>
 		<!-- <input type="file" id="petimg" name="petimg"> -->
@@ -180,29 +200,54 @@
 		
 		makeAgeYear();
 		makeAgeMonth();
-		getMainCategory();
-		firstSelection();
+		basic();
+		//getMainCategory();
+		//firstSelection();
 		makeSubCategory();
 		radioCheck();
-
 	});
 
 	function firstSelection() {
-
+		
 		$('#mcategory option').each(function() {
 
 			console.log("this text: "+$(this).text());
-			if( $(this).text() == "${pet.mcaname}" ) {
-					$(this).attr("selected", "selected");
-				}
-			});
+			if( $(this).val() == ${pet.mcategory}) {
+				$(this).attr("selected", "selected");
+			}
+		});
 
-			$('#scategory option').each(function() {
-			if( $(this).val() == "${pet.scategory}" ) {
+		$('#scategory option').each(function() {
+			if( $(this).val() == ${pet.scategory} ) {
 					$(this).attr("selected", "selected");
-				}
+			}
 		});
 	}
+
+
+//////////////// 비동기 순서 지정 ajax async await활용
+	function category() { 
+		return new Promise(resolve => 
+			setTimeout(() => { 
+				getMainCategory(); //메인 카테고리 로딩
+				console.log("여긴 프로미스");
+				resolve();
+			}, 100) 
+		); 
+	}
+	
+	async function basic() {
+		 await category(); //이 비동기 함수의 실행완료를 기다림
+	
+		 if(${pet.mcategory} == '1') { // 1=개 //서브카테고리 로딩
+				getSubCategory('dog');
+			} else { // 2=고양이
+				getSubCategory('cat'); 
+			}
+		 return "basic"; 
+	}
+/////////////////
+
 
 	function getMainCategory() {
 
@@ -212,8 +257,8 @@
 			success: function(data) {
 				var option = "";
 				$.each(data, function(index, element) {
-					if( "${pet.mcaname}" == element.mcaname ) {
-						option += "<option value='" + "${pet.mcategory}" + "' selected>" + "${pet.mcaname}" + "</option>";
+					if( ${pet.mcategory} == element.mcategory ) {
+						option += "<option value='" + "${pet.mcategory}" + "' selected>" + element.mcaname + "</option>";
 					} else {
 						option += "<option value='" + element.mcategory + "'>" + element.mcaname + "</option>";
 					}
@@ -224,16 +269,16 @@
 
 	}
 
-	function getSubCategory(element) {
+	function getSubCategory(mcaname) {
 
 		$.ajax({
 			type: "get",
-			url: "getSubCategory_" + element + ".bit",
+			url: "getSubCategory_" + mcaname + ".bit",
 			success: function(data) {
 				var option = "";
 				$.each(data, function(index, element) {
-					if( "${pet.scaname}" == element.scaname ) {
-						option += "<option value='" + "${pet.scategory}" + "' selected>" + "${pet.scaname}" + "</option>";
+					if( ${pet.scategory} == element.scategory ) {
+						option += "<option value='" + "${pet.scategory}" + "' selected>" + element.scaname + "</option>";
 					} else {
 						option += "<option value='" + element.scategory + "'>" + element.scaname + "</option>";
 					}
@@ -244,12 +289,13 @@
 
 	}
 
-	function makeSubCategory() {
+  	function makeSubCategory() {
+	
 		$('#mcategory').change(function() {
 			if($('#mcategory').val() == '1') { // 1=개
 				getSubCategory('dog');
 			} else { // 2=고양이
-				getSubCategory('cat');
+				getSubCategory('cat'); 
 			}
 		});
 	}
@@ -258,7 +304,7 @@
 	
 	function makeAgeYear() {
 
-		var petYear = petAge/12;
+		var petYear = Math.floor(${pet.age}/12);
 		var year = "";
 
 		for(var i=0; i<=30; i++) {
@@ -274,7 +320,7 @@
 
 	function makeAgeMonth() {
 
-		var petMonth = petAge%12;
+		var petMonth = ${pet.age}%12;
 		var month = "";
 		for(var i=0; i<12; i++) {
 			if(petMonth == i) {
@@ -321,6 +367,20 @@
 		}
 
 	}
+
+	//***********************************//
+	// 이미지 파일 업로드시 이미지 미리보기
+	//***********************************//
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+		$('#imgFileName').html(input.files[0].name);
+	};
 		
 </script>
 </html>

@@ -50,8 +50,9 @@ public interface PetDao {
 		@Delete("delete from pet where petindex = #{petindex}")
 		public int deletePet(@Param("petindex") int petindex);
 
-		
-		
+		// 메인에 뿌릴 이름 정보만 가져오기
+		@Select("select petname from pet where userid = #{userid}")
+		public List<String> getSimplePetInfo(@Param("userid") String userid);
 
 
 	

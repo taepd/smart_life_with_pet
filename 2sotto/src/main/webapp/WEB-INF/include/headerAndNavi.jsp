@@ -4,9 +4,12 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 <style>
+
+/*
 .fixed-top {
 	position: relative;
 }
+  */
 </style>
 		<!-- pageContext.request.userPrincipal.name -->
 		<se:authentication property="name" var="userid" />
@@ -44,7 +47,7 @@
 <!-- navi -->
 <div id="wrapSideMenu" class="sidenav">
 	<div id="sideMenu">
-		<span class="sideMenu-close-icon"><i class="fas fa-umbrella"></i></span>
+		<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
 		<div class="user-pic-wrapper">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
         	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	

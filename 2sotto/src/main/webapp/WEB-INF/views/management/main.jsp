@@ -9,11 +9,13 @@
 
 	<title>동물관리 홈</title>
 	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<%@ include file="/WEB-INF/include/import.jsp"%>
   	
     <style>
     
-    	.fc-toolbar-title {
+    	.fc-toolbar-title, a.fc-col-header-cell-cushion, th {
     		color: black;
     	}
     	
@@ -21,7 +23,7 @@
     		font-size: 15px;
     		color: orange;
     	}
-    
+
     </style>
     
     
@@ -131,44 +133,97 @@
                 <div class="card-body">
                   <div class="tab-content text-center">
                     <div class="tab-pane active show" id="schedule">
-                    <div id="calendar"></div>
-                    
-                    <!--Add event modal-->
-					<div id="createEventModal" class="modal fade">
-					    <div class="modal-dialog">
-					        <div class="modal-content">
-					            <div class="modal-header">
-					                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
-					                <h4>Add an Event</h4>
-					            </div>
-					            <div id="modalBody" class="modal-body">
-					               <div class="form-group">
-					                    <input class="form-control" type="text" placeholder="Event Name">
-					                </div>
 					
-					                <div class="form-group form-inline">
-					                    <div class="input-group date" data-provide="datepicker">
-					                        <input type="text" class="form-control" placeholder="Due Date mm/dd/yyyy">
-					                        <div class="input-group-addon">
-					                            <span class="glyphicon glyphicon-calendar"></span>
-					                        </div>
-					                    </div>
-					                </div>
+						<div id="calendar"></div>
 					
-					                <div class="form-group">
-					                    <textarea class="form-control" type="text" rows="4" placeholder="Event Description"></textarea>
-					                </div>
-					            </div>
-					            <div class="modal-footer">
-					                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					                <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-					            </div>
-					        </div>
-					    </div>
-					</div>
-                    
+					<!-- 일정 추가 MODAL -->
+					<div class="modal fade" tabindex="-1" role="dialog" id="createEventModal">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="modal-title-for-add">일정 추가하기</h4>
+									<h4 class="modal-title" id="modal-title-for-edit">일정 수정하기</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+
+
+										<div class="form-check">
+											<label class="form-check-label">
+											  <input class="form-check-input" type="checkbox" value="1" id="allday" name="allday">
+											  하루종일
+											  <span class="form-check-sign">
+												<span class="check"></span>
+											  </span>
+											</label>
+										</div>
+
+										<div class="form-group bmd-form-group">
+											<label class="bmd-label-static">일정명</label>
+											<input type="text" class="form-control" name="title" id="title" placeholder="" required>
+											<!-- <input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required> -->
+										</div>
+
+										<div class="form-group bmd-form-group">
+											<label class="bmd-label-static">시작</label>
+											<input type="text" class="form-control" name="start" id="start" placeholder="" required>
+											<!-- <input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required> -->
+										</div>
+
+										<div class="form-group bmd-form-group">
+											<label class="bmd-label-static">끝</label>
+											<input type="text" class="form-control datetimepicker" name="end" id="end" placeholder="" required>
+											<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
+										</div>
+
+										<div class="">
+											<label class="" for="edit-type">구분</label>
+											<select class="custom-select" type="text" name="edit-type" id="edit-type">
+												<!-- 카테고리: 병원, 접종, 일반, 어쩌구, 뭐 이런 식으로....? -->
+												<option value="카테고리1">카테고리1</option>
+												<option value="카테고리2">카테고리2</option>
+												<option value="카테고리3">카테고리3</option>
+												<option value="카테고리4">카테고리4</option>
+											</select>
+										</div>
+										<div class="">
+											<label class="" for="edit-color">색상</label>
+											<select class="custom-select" name="color" id="edit-color">
+												<option value="#D25565" style="color:#D25565;">빨간색</option>
+												<option value="#9775fa" style="color:#9775fa;">보라색</option>
+												<option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+												<option value="#74c0fc" style="color:#74c0fc;">파란색</option>
+												<option value="#f06595" style="color:#f06595;">핑크색</option>
+												<option value="#63e6be" style="color:#63e6be;">연두색</option>
+												<option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+												<option value="#4d638c" style="color:#4d638c;">남색</option>
+												<option value="#495057" style="color:#495057;">검정색</option>
+											</select>
+										</div>
+										<div class="">
+											<label class="" for="edit-desc">설명</label>
+											<textarea rows="3" cols="50" class="" name="content" id="content"></textarea>
+										</div>
+								</div>
+								<div class="modal-footer modalBtnContainer-addEvent">
+									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary" id="save-event">저장</button>
+								</div>
+								<!-- 기존 일정을 누르면 나오는 버튼 -->
+								<div class="modal-footer modalBtnContainer-modifyEvent">
+									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+									<button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+					
                     </div>
-                    
+					
+<!-------------------------------------------------------------------------------------------------------------- -->
                     
                     <div class="tab-pane" id="home">
                     	
@@ -191,7 +246,10 @@
 								    	${petInfo.memo}
 								    </p>
 								    <div>
-								    	<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
+
+										<!-- 나중에 아이콘으로 바꾸기~~~ -->
+										
+										<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
 								    	<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
 								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								    	<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
@@ -245,136 +303,247 @@
 	</div> <!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
-
-
     
     <!-- fullcalendar -->
     <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
   	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
-    
-    <%-- <link href='${pageContext.request.contextPath}/fullcalendar/packages/core/main.css' rel='stylesheet' />
-	<link href='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
-	<link href='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.css' rel='stylesheet' />
 	
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/core/main.js'></script>
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/daygrid/main.js'></script>
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/bootstrap/main.js'></script>
+	<!-- moment.js > 시간 관련 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+	
 
-	<script src='${pageContext.request.contextPath}/fullcalendar/packages/interaction/main.js'></script> --%>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- SweetAlert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+$(function() {
 	
-	/*
-	document.addEventListener('load', function() {
+	console.log('로그인한 유저 아이디: ${sessionScope.user.userid}');
+	
+	//datetimepicker
+	$("#start, #end").bootstrapMaterialDatePicker({
+		format: 'YYYY-MM-DD HH:mm',
+		lang: 'ko',
+		okText: '확인',
+		cancelText: '취소'
+	});
 
-		$('.icons').click(function() {
+	var calendarEl = document.getElementById('calendar');
+	var addBtnContainer = $('.modalBtnContainer-addEvent');
+	var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
-			var asking = confirm('정말 삭제하시겠습니까?');
+	// 풀캘린더 그리기
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		
+		editable: true,
+		selectable: true,
+		locale: 'ko',
+		initialView: 'dayGridMonth',
+		contentHeight: 1000,
+		headerToolbar: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'dayGridMonth,timeGridWeek,timeGridDay'
+		},
+		eventColor: '#E6CDED', //default 컬러 설정
+		events: getSchedule(),
+		select: function(start, end, allDay) {
 
-			if(asking) {
-				 return location.href('delete.bit?petindex=${petInfo.petindex}');
-				} else {
-					return;
-				}
+			// 빈 칸으로 초기화
+			$('#allday').prop("checked", false);
+			$('#title').val('');
+			$('#start').val('');
+			$('#end').val('');
+			$('#content').val('');
+
+			// 모달 타이틀 바꾸기
+			$('#modal-title-for-edit').hide();
+			$('#modal-title-for-add').show();
+
+			// 모달 버튼 바꾸기
+			modifyBtnContainer.hide();
+			addBtnContainer.show();
+
+			// 모달 열기
+			$('#createEventModal').modal('show');
 			
+			$('#save-event').on('click', function() {
+
+				var start = $('#start').val();
+				var end = $('#end').val();
+				var titleVal = $('#title').val();
+				var contentVal = $('#content').val();
+				
+				// #allday 체크 여부에 따라 값 부여하기 
+				var allday = $('#allday');
+				var isallDay = "";
+				
+				if(allday.is(':checked')) { isallDay = allday.val(); }
+				else { isallDay = 0; }
+				
+				var eventData = {
+					userid: '${sessionScope.user.userid}',
+					title: titleVal,
+					start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
+					end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
+					content: contentVal,
+					allday: isallDay //(allday=true면 네모칸으로 나오고 false면 점으로 나옴)
+					// type: editType.val(),
+					// username: '사나',
+					// backgroundColor: editColor.val(),
+					// textColor: '#ffffff',
+				};
+
+				if(eventData.title == "") {
+					swal('일정명을 입력하세요.');
+					return false;
+				}
+
+				if(eventData.start > eventData.end) {
+					swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
+					return false;
+				}
+
+				calendar.addEvent(eventData);
+				//calendar.render();
+				$('#createEventModal').modal('hide');
+
+				$.ajax({
+					type: "get",
+					data: eventData,
+					dataType: "JSON",
+					url: "insertSchedule.bit",
+					success: function(data) {
+						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
+					},
+					error: function(e) {
+						console.log("insert에러: "+e);
+					}
+				});
+				
+			}); // /.저장하기
+			
+			
+		},
+		eventClick: function(info) {
+
+			var schedule = getSchedule();
+			console.log("dfdf: "+schedule);
+			$.each(schedule, function(index, ele) {
+					$.each(ele, function(a, b) {
+						console.log("a: "+a);
+						console.log("b: "+b);
+						});
+				});
+
+			// 모달 타이틀 바꾸기
+			$('#modal-title-for-add').hide();
+			$('#modal-title-for-edit').show();
+
+			// 모달 버튼 바꾸기
+			addBtnContainer.hide();
+			modifyBtnContainer.show();
+
+			// 모달 열기
+			$('#createEventModal').modal('show');
+
+			var title = info.event.title;
+			var start = info.event.start;
+			var end = info.event.end;
+			var allday = info.event.allDay;
+
+			if(end === null) { //null인 경우가 없긴 한데... 사용자 생각하면...-ㅂ-
+				end = start;
+			}
+
+			console.log(start+"/"+end);
+			
+			if(allday === true) {
+				$('#allday').prop("checked", true);
+			} else {
+				$('#allday').prop("checked", false);
+			}
+
+			$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
+			
+			if(allday === true && end !== start) {
+				$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
+			} else {
+				$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+			}
+			
+
+			$('#title').val(title);
+			$('#content').val(info.event.content); //이건 안 됨;
+			//$('#start').val(info.event.start);
+			//$('#end').val(info.event.end);
+
+			$('#updateEvent').on('click', function() {
+				/*
+				$('#title').val('');
+				$('#content').val('');
+				$('#start').val('');
+				$('#end').val('');
+				$('#allday').prop("checked", false);
+				$('#modal-title-for-add').show();
+*/
+				$('#createEventModal').modal('hide');
 			});
 
+			var event = info.event;
+			
+			$('#deleteEvent').on('click', function(event) {
+				event.remove();
+			});
+				
+		}
+		
 	});
-	*/
-
-	document.addEventListener('DOMContentLoaded', function() {
-
-
-	/* $('#draw-calendar').click(function() {
-		console.log("달력 그리기~~");
-		calendar();
-	}); */
-	//안된다.... 환장할 노릇
-
-
-	/* function calendar() { */
-		
-		console.log("DOMContentLoaded");
-		
-		var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	      theme: true,
-		  editable: true,
-		  selectable: true,
-	      initialView: 'dayGridMonth',
-	      initialDate: '2020-07-07',
-	      headerToolbar: {
-	        left: 'prev,next today',
-	        center: 'title',
-	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-	      },
-	      
-	      events: [
-	        {
-	          title: 'All Day Event',
-	          start: '2020-07-01'
-	        },
-	        {
-	          title: 'Long Event',
-	          start: '2020-07-07',
-	          end: '2020-07-10'
-	        },
-	        {
-	          groupId: '999',
-	          title: 'Repeating Event',
-	          start: '2020-07-09T16:00:00'
-	        },
-	        {
-	          groupId: '999',
-	          title: 'Repeating Event',
-	          start: '2020-07-16T16:00:00'
-	        },
-	        {
-	          title: 'Conference',
-	          start: '2020-07-11',
-	          end: '2020-07-13'
-	        },
-	        {
-	          title: 'Meeting',
-	          start: '2020-07-12T10:30:00',
-	          end: '2020-07-12T12:30:00'
-	        },
-	        {
-	          title: 'Lunch',
-	          start: '2020-07-12T12:00:00'
-	        },
-	        {
-	          title: 'Meeting',
-	          start: '2020-07-12T14:30:00'
-	        },
-	        {
-	          title: 'Birthday Party',
-	          start: '2020-07-13T07:00:00'
-	        },
-	        {
-	          title: 'Click for Google',
-	          url: 'http://google.com/',
-	          start: '2020-07-28'
-	        }
-	      ],
-	      select: function(start, end, allDay) {
-		      $('#createEventModal').modal('show');
-		  }
-	     
-	    });
-
-	    calendar.render();
-
-
-	    calendar.on('dateClick', function(info) {
-	    	  console.log('clicked on ' + info.dateStr);
-	    });
-	    /*}		/.function calendar() */
-
-	 });
-
+	
+	calendar.render();
+	console.log("목요일4444");
+	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
 
 	
-	</script>
+	// 일정 불러오기
+	function getSchedule() {
+
+		var schedule = [];
+
+		$.ajax({
+			url: "getSchedule.bit",
+			data: { userid : '${sessionScope.user.userid}' },
+			dataType: "json",
+			async: false,
+			success: function(response) {
+				$.each(response.schedule, function(index, element) {
+					var viewData = {};
+					viewData["title"] = element.title;
+					viewData["start"] = element.start;
+
+					if(element.allday == '1') {
+						viewData["allDay"] = true;
+					} else {
+						viewData["allDay"] = false;
+					}
+					
+					if(element.allday == '1' && element.start !== element.end) {
+ 						viewData["end"] = moment(element.end).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
+					}
+					//viewData["end"] = moment(element.end).format('YYYY-MM-DD HH:mm:ss');
+
+					viewData["color"] = '#E6CDED'; //컬럼에 컬러값이 있어야 색깔별로 출력할 수 있을 듯... 어쨌든 여기에 적용하면 적용됨
+					console.log("콘텐츠: "+element.content);
+					schedule.push(viewData);
+				});
+			}
+		});
+
+		return schedule;
+	} // /.getSchedule()
+	
+	
+
+}); // /.$(function)
+</script>
 </html>

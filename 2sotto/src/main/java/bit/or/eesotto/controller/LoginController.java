@@ -34,7 +34,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	LoginService ls;
+	private LoginService ls;
 	
 //	@Autowired
 //	BCryptPasswordEncoder pwEncoder;
@@ -103,6 +103,16 @@ public class LoginController {
 			logger.info(apiResult);
 			logger.info(email);
 			logger.info(name);
+			
+	//5.회원가입한 아이디 여부 판단하여 회원가입으로 보낼지 로그인 시킬지 결정
+			if(ls.normalLogin(email)==null) {
+				logger.info("가입안한 아이디면 여기로");
+				
+				model.addAttribute("sns_id", email);  //회원가입 시 id로 활용
+				model.addAttribute("snstype", "naver"); //snstype 파악을 위해
+				return "join/SNSJoinForm";  //나중에 redirect화 하자
+			}
+			
 	
 	//스프링 시큐리티 수동 로그인을 위한 작업//
 		//로그인 세션에 들어갈 권한을 설정

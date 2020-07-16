@@ -6,300 +6,89 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-  
-
+	<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <style type="text/css">
+    	.follow-img {
+    		height: 100%;
+    		width: 100%;
+    	}
+    	
+    	.follow-img-wrapper {
+    		 width: 100px;
+    		 height: 100px;
+    		 float: left;
+    		 margin: 10px;
+    	}
+    	
+    	/* h3 {
+    		margin-bottom: 0;
+    		margin-left: 10px;
+    	} */
+    	
+		.h3-korean {
+			font-family: 'Sunflower', sans-serif;
+			margin-left: 0;
+		}
+    	
+    	
+    </style>
 </head>
 
 <body>
 
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
      
-      <div class="section section-basic">
-       	<div class="main main-raised">
-       	 	<div class="profile-content">
-    			<div class="container">
-    	 	<div class="side_overlay"> 
-    	 		
-    	 		
-	     	   <div class="section" id="carousel">
-	            <div class="row" >
-	              <div class="col-md-16 mr-auto ml-auto" >
-	                <!-- Carousel Card -->
-	                <div class="card card-raised card-carousel">
-	                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-	                    <ol class="carousel-indicators">
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
-	                    </ol>
-	                    <div class="carousel-inner">
-	                      <div class="carousel-item active">
-	                       
-	                        <div class="container-fluid" alt="First slide" >  <!-- 시작 -->
-								
-								
-								<div class="row" > 
-
-								<h4 align="left">이번주의 인기글</h4>
-								<div class="row" align="center"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>
-
-								<div class="row" align="center"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>  
-							
-							
-						</div>	<!-- 끝 -->
-					</div>
-                  </div>
-	                      
-	                      <div class="carousel-item">
-	                       
-	                        <div class="container-fluid" alt="Second slide" >  <!-- 시작 -->
-								
-								
-								<div class="row" align="center"> 
-
-								<h4 align="left">도움이 필요해요</h4>
-								<div class="row"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>
-							
-								<div class="row" align="center"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>  
-							
-							
-						</div>	<!-- 끝 -->
-					</div>
-                  </div>
-                  
-                  
-	                    <div class="carousel-item">
-	                       
-	                        <div class="container-fluid" alt="Third slide" >  <!-- 시작 -->
-								
-								
-								<div class="row" align="center"> 
-
-								<h4 align="left">뭐보여줄까요?</h4>
-								<div class="row"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>
-							
-						
-								<div class="row" align="center"> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-									<div class="col-lg-3">
-										<div class="card" style="width: 15rem; height: 14.4rem;">
-												<h4>글제목</h4>
-												<img class="card-img-top"
-													src="${pageContext.request.contextPath}/images/sample_dog.jpg"
-													rel="nofollow" alt="card image">
-										</div>
-									</div> 
-							</div>  
-							
-							
-						</div>	<!-- 끝 -->
-					</div>
-                  </div>
-	                    </div>
-	                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	                      <i class="material-icons">keyboard_arrow_left</i>
-	                      <span class="sr-only">Previous</span>
-	                    </a>
-	                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	                      <i class="material-icons">keyboard_arrow_right</i>
-	                      <span class="sr-only">Next</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <!-- End Carousel Card -->
-	              </div>
-	            </div>
-	          </div> <!-- section end  --> 
+    <div class="side_overlay"> 
+    	<div class="container">
+    		<div class="row">
+				<div class="col-3" style="background-color: #91C6F5;">
+					<h3 class="h3-korean">나의 반려동물</h3>
+					사진 영역
+					<div id="myPetImage"></div>
+				</div>
+				<!-- <div style="background-color: #CDDEED" class="col-3">  -->
+				<div class="col-3"> 
+					<h3 class="h3-korean" style="color: #FFFFFF">나의 반려동물</h3>
+					<select class="custom-select" id="myPetInfo"></select>					
+					<div id="myPetSchedule"></div>
+				</div>
+	        	<div style="background-color: #91C6F5" class="col-6">
+	        		산책지수 영역
+	        	</div>
+	        </div>
+	        <div class="row">
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">팔로우하는 동물</h3>
+	        		<div>  <!--  style="display: inline-block;" -->
+	        			<c:set value="${petLikeList}" var="likeList"/>
+						<c:choose>
+							<c:when test="${likeList == null}"> <!-- when 안 나오네? 훔... -->
+								팔로우하는 동물이 없어요.							
+							</c:when>
+							<c:otherwise>
+				        		<c:forEach items="${likeList}" var="like">
+				        			<div class="follow-img-wrapper">
+					        			<a href="#">
+					        				<img class="rounded-circle img-fluid follow-img" src="${pageContext.request.contextPath}/images/${like.petimg}" 
+			 		        					rel="nofollow" alt="${like.petname}">
+			 		        			</a>
+				        			</div>
+				        		</c:forEach>
+							</c:otherwise>
+						</c:choose>	        			
+	        		</div>
+	        	</div>
+	        </div>
+	        <div class="row"> <!--  style="clear: both;" -->
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">이번주의 인기글 영역</h3>
+	        	</div>
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">도움이 필요해요 영역</h3>
+	        	</div>
+	        </div>	
+	        	  <%-- <!-- section 시작  --> 
 	        
-	        	  <!-- section 시작  --> 
 	         <div class="section" id="card">
 	          <div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
@@ -692,13 +481,18 @@
  </div>  <!-- side_overlay -->
 	
 </div> <!-- container -->
-
+ --%>
   
-</div>
-
-</div>
-
+		
+	</div>
 </div>	            
+     
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
+
+</body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
 
 
 <script type="text/javascript">
@@ -772,17 +566,73 @@ $.ajax({
 });
 */
 	
-    
 
  //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
 // 날씨 API 끝
 </script>	  
 	
-	  
-     
-	<%@ include file="/WEB-INF/include/footer.jsp"%>
+	$(function() {
 
-</body>
+		moment.locale('ko');
+		getMyPetName();
+		
+		$('#myPetInfo').change(function() {
+			var whichOne = $('#myPetInfo').val();
+			getMyPetSchedule(whichOne);
+		});
 
+	});
+
+	// 나의 반려동물 이름 가져오기
+	function getMyPetName() {
+		$.ajax({
+			type: "get",
+			url: "getSimplePetInfo.bit",
+			data: { userid: '${sessionScope.user.userid}' },
+			success: function(response) {
+				var option = "<option disabled selected>=====선택=====</option>";
+				$.each(response, function(index, element) {
+					option += "<option>" + element + "</option>";
+				});
+				$('#myPetInfo').append(option);
+			}
+		});
+	}
+
+	// 이름에 따른 반려동물 일정 가져오기
+	function getMyPetSchedule(whichOne) {
+		$.ajax({
+			type: "get",
+			url: "getMyPetSchedule.bit",
+			data: {
+				userid: '${sessionScope.user.userid}',
+				petname: whichOne
+			},
+			success: function(response) {
+				
+				var info = "";
+				var image = "";
+				var now = moment().format("YYYY-MM-DD HH:mm:ss");
+				var time;
+
+				//참고: https://stackoverrun.com/ko/q/9770534
+
+				$.each(response, function(index, element) {
+					info += "<p>" + element.title + " (";
+						time = moment(moment(element.start)).from(now);
+					info += time + ")</p>";
+					image += "<img class='rounded img-fluid' src='${pageContext.request.contextPath}/images/${" + element.petimg + "}'>";
+
+				});
+				$('#myPetSchedule').empty();
+				$('#myPetSchedule').append(info);
+				$('#myPetImage').empty();
+				$('#myPetImage').append(image);
+
+			}
+		});
+	}
+		
+</script>
 
 </html>

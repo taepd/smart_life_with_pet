@@ -31,18 +31,17 @@ public class ManagementService {
 	@Autowired
 	UserDao UserDao;
 
-	public User normalLogin(String userid) {
-		UserDao = sqlsession.getMapper(UserDao.class);
-		return UserDao.getUser(userid);
-	}
-	
-	
 	@Autowired
 	PetDao petDao;
 	
 	@Autowired
 	ScheduleDao scheduleDao;
 	
+	
+	public User normalLogin(String userid) {
+		UserDao = sqlsession.getMapper(UserDao.class);
+		return UserDao.getUser(userid);
+	}
 	
 	//반려동물 등록하기
 	public int newPet(Pet pet) {

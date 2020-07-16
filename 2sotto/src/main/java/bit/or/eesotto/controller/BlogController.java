@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import bit.or.eesotto.dto.Blog;
-import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.BlogService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 
 
@@ -32,6 +30,9 @@ public class BlogController {
 
 	@Autowired
 	BlogService bs;
+	
+	@Autowired
+	ManagementService ms;
 
 	// 내 블로그 메인 view
 	@RequestMapping(value = "myMain.bit", method = RequestMethod.GET)
@@ -163,7 +164,15 @@ public class BlogController {
 
 	// 블로그 > 글쓰기 페이지 view
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
-	public String write() {
+	public String write(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		List<Pet> myPetList = ms.getPetInfo(userid);
+		logger.info("내 반려동물 리스트: "+myPetList);
+		model.addAttribute("myPetList", myPetList);
+		
 		return "blog/write";
 	}
 

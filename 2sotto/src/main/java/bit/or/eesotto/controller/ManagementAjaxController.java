@@ -1,6 +1,7 @@
 package bit.or.eesotto.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import bit.or.eesotto.dao.MainCategoryDao;
+import bit.or.eesotto.dao.PetDao;
 import bit.or.eesotto.dao.ScheduleDao;
 import bit.or.eesotto.dao.SubCategoryDao;
 import bit.or.eesotto.dto.MainCategory;
+import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Schedule;
 import bit.or.eesotto.dto.SubCategory;
 import bit.or.eesotto.service.ManagementService;

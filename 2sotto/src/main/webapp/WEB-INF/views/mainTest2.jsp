@@ -6,7 +6,7 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-    
+	<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
     <style type="text/css">
     	.follow-img {
     		height: 100%;
@@ -20,11 +20,15 @@
     		 margin: 10px;
     	}
     	
-    	h3 {
+    	/* h3 {
     		margin-bottom: 0;
     		margin-left: 10px;
-    	}
+    	} */
     	
+		.h3-korean {
+			font-family: 'Sunflower', sans-serif;
+			margin-left: 0;
+		}
     	
     	
     </style>
@@ -37,18 +41,24 @@
     <div class="side_overlay"> 
     	<div class="container">
     		<div class="row">
-	        	<div style="background-color: #CDDEED" class="col-6">
-					나의 반려동물
+				<div class="col-3" style="background-color: #91C6F5;">
+					<h3 class="h3-korean">나의 반려동물</h3>
+					사진 영역
+					<div id="myPetImage"></div>
+				</div>
+				<!-- <div style="background-color: #CDDEED" class="col-3">  -->
+				<div class="col-3"> 
+					<h3 class="h3-korean" style="color: #FFFFFF">나의 반려동물</h3>
 					<select class="custom-select" id="myPetInfo"></select>					
-	        		<div id="myPetSchedule"></div>
-	        	</div>
+					<div id="myPetSchedule"></div>
+				</div>
 	        	<div style="background-color: #91C6F5" class="col-6">
 	        		산책지수 영역
 	        	</div>
 	        </div>
-	        <div class="row" style="background-color: #CDEBED"> <!-- 임시 백그라운드 -->
-	        	<div>
-	        		<h3>following</h3>
+	        <div class="row">
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">팔로우하는 동물</h3>
 	        		<div>  <!--  style="display: inline-block;" -->
 	        			<c:set value="${petLikeList}" var="likeList"/>
 						<c:choose>
@@ -70,11 +80,11 @@
 	        	</div>
 	        </div>
 	        <div class="row"> <!--  style="clear: both;" -->
-	        	<div>
-	        		이번주의 인기글 영역
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">이번주의 인기글 영역</h3>
 	        	</div>
-	        	<div>
-	        		도움이 필요해요 영역
+	        	<div class="col-12">
+	        		<h3 class="h3-korean">도움이 필요해요 영역</h3>
 	        	</div>
 	        </div>	
 	        	  <%-- <!-- section 시작  --> 
@@ -482,16 +492,15 @@
 
 </body>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
 
 <script>
 
 	
 	$(function() {
 
-		console.log("새로고침 확인4444");
-		console.log('${sessionScope.user.userid}');
+		moment.locale('ko');
 		getMyPetName();
 		
 		$('#myPetInfo').change(function() {
@@ -508,13 +517,12 @@
 			url: "getSimplePetInfo.bit",
 			data: { userid: '${sessionScope.user.userid}' },
 			success: function(response) {
-				var option = "";
+				var option = "<option disabled selected>=====선택=====</option>";
 				$.each(response, function(index, element) {
 					option += "<option>" + element + "</option>";
 				});
 				$('#myPetInfo').append(option);
 			}
-
 		});
 	}
 
@@ -528,16 +536,26 @@
 				petname: whichOne
 			},
 			success: function(response) {
-				var info = "";
-				var now = moment().format();
-				$.each(response, function(index, element) {
-					info += "<p>" + element.title + " || ";
-					if(element.start < now)
-						moment(element.start, "YYYYMMDD").fromNow();
-				});
 				
+				var info = "";
+				var image = "";
+				var now = moment().format("YYYY-MM-DD HH:mm:ss");
+				var time;
+
+				//참고: https://stackoverrun.com/ko/q/9770534
+
+				$.each(response, function(index, element) {
+					info += "<p>" + element.title + " (";
+						time = moment(moment(element.start)).from(now);
+					info += time + ")</p>";
+					image += "<img class='rounded img-fluid' src='${pageContext.request.contextPath}/images/${" + element.petimg + "}'>";
+
+				});
 				$('#myPetSchedule').empty();
 				$('#myPetSchedule').append(info);
+				$('#myPetImage').empty();
+				$('#myPetImage').append(image);
+
 			}
 		});
 	}

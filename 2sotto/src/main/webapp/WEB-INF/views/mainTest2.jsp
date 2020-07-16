@@ -6,7 +6,8 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-    
+  
+
 </head>
 
 <body>
@@ -360,16 +361,15 @@
 												<span>접종(15일전)</span>
 										</div>
 									</div> 
+									
 									<div class="col-sm-6">
 										<div class="card" style="width: 30rem; height: 14.4rem;" >
-												<h4>오늘의 산책 지수</h4>
-													<span>데이터를 </span>
-													<br>
-													<span>받아서</span>
-													<br>
-													<span>넣어주자</span>
-													<br>
-													<span>부탁해요 뜨쉬~~</span>
+												<h4 class="text-center">오늘의 산책 지수</h4>
+												  <div id="result"></div>	
+												  
+												  <input type="text" class="form-control col-sm-6 " id="myInput" placeholder="seoul" value="${user.userid}">
+     											  <input type="button" value="검색"  id="btn"  >
+     											
 										</div>
 									
 									</div> 
@@ -701,7 +701,82 @@
 </div>	            
 
 
+<script type="text/javascript">
 
+
+// 날씨 API 시작
+        $(function () {
+            $('#btn').click(function () {
+                let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
+                //let data = { q: $('#myInput').val(), units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
+                let data = { q: ${user.userid}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
+                $.getJSON(publicAPI, data, function (data, textStatus, xhr) {
+                    $('#result').empty();
+                    // console.log(data.weather);
+                    // console.log(data.weather[0].description);
+                    // console.log(data.weather[0]);
+ 
+                    var table = "<table>";
+                    table += "<tr><td>지역</td><td>날씨</td><td>상세</td><td>바람</td><td>구름</td><td>온도</td></tr>";
+ 
+                    // console.log("data.weather[0].des==="+data.weather[0].description);//o
+                    // console.log("data.wind.speed==="+data.wind.speed);//0
+                    // console.log("data.weather[0].main==="+data.weather[0].main);//o
+                    // console.log("data[clouds].all==="+data["clouds"].all); //o
+                    console.log(data.weather[0].icon);
+                    table += "<tr>";
+                    table += "<td>" + data.name + "</td>";
+                    table += "<td>" + data.weather[0].main + "</td>";
+                    table += "<td>" + data.weather[0].description + "</td>";
+                    table += "<td>" + data.wind.speed + "</td>";
+                    table += "<td>" + data["clouds"].all + "</td>";
+                    table += "<td>" + data.main.temp+ "℃" + "</td>";
+                    table += "</tr>";
+                    table += "</table>";
+                   	// $('#result').append(table);
+                    var imgURL = "http://api.openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+                    $('.imo').attr("src", imgURL);
+                    $('#result').empty();
+                    $('#result').append(table);
+                    //$('#result').prepend(table);
+                    $('table').addClass('table');
+ 
+                });
+            });
+        });
+
+        
+     // 날씨 API  끝    
+		
+/*
+var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=" + "korea" + "&appid=" + "d2f22ea4bf87f5e2f1c91e3d19c58d8a";
+$.ajax({
+    url: apiURI,
+    dataType: "json",
+    type: "GET",
+    async: "false",
+    success: function(resp) {
+        console.log(resp);
+        console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+        console.log("현재습도 : "+ resp.main.humidity);
+        console.log("날씨 : "+ resp.weather[0].main );
+        console.log("상세날씨설명 : "+ resp.weather[0].description );
+        console.log("날씨 이미지 : "+ resp.weather[0].icon );
+        console.log("바람   : "+ resp.wind.speed );
+        console.log("나라   : "+ resp.sys.country );
+        console.log("도시이름  : "+ resp.name );
+        console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+   	 	}
+	
+	});
+});
+*/
+	
+    
+
+ //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
+// 날씨 API 끝
+</script>	  
 	
 	  
      

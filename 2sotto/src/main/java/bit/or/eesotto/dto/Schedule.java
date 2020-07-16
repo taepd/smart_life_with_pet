@@ -15,9 +15,10 @@ public class Schedule {
 	private String title;
 	private String content;
 	private String is_complete;
-	private String begin_date;
-	private String end_date;
-	private String cycle;
+	private String start;
+	private String end;
+	private String allday;
+	private String daysofweek;
 	private String adncdnoti;
 
 }

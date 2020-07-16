@@ -17236,7 +17236,7 @@ footer .pull-center {
 
 .card [class*="header-"],
 .card[class*="bg-"] {
-  color: #ffffff;
+  color: #000000; /* 원래 ffffff 였음 */
 }
 
 .card [class*="header-"] .card-title a,

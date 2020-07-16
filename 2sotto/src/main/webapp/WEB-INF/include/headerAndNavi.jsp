@@ -4,9 +4,12 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 <style>
+
+/*
 .fixed-top {
 	position: relative;
 }
+  */
 </style>
 		<!-- pageContext.request.userPrincipal.name -->
 		<se:authentication property="name" var="userid" />
@@ -49,7 +52,7 @@
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
         	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
 				<div class="nickname">
-					${userid} <br> ${user.point}포인트 <br>
+					${user.nick}<br>(${userid }) <br> ${user.point}포인트 <br>
 					<button class="btn btn-primary btn-sm" onclick="location.href='logout'">Logout</button>
 				</div>
 			</se:authorize>
@@ -57,7 +60,7 @@
         	<se:authorize access="!hasRole('ROLE_USER')">	
 				<div class="nickname">
 					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">시작하기</button>
-					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest.bit'">테스트</button>
+					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest2.bit'">테스트</button>
 				</div>
 			</se:authorize>
 			<br>	

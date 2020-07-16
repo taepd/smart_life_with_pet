@@ -18,7 +18,8 @@ public class User {
 	private String uimg;
 	private String rtime;
 	private String lat;
-	private String lot;
+	private String lon;
+	private String snstype;
 	private int point;
 	
 }

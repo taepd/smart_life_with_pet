@@ -2,6 +2,7 @@ package bit.or.eesotto.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import bit.or.eesotto.dao.PetDao;
+import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.PetLike;
 import bit.or.eesotto.service.*;
 
 @Controller
@@ -20,6 +24,9 @@ public class MainController {
 	
 	@Autowired
 	BlogService bs;
+	
+	@Autowired
+	MainService ms;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
@@ -68,12 +75,27 @@ public class MainController {
 		@RequestMapping(value = "mainTest2.bit", method = RequestMethod.GET)
 		public String mainViewTest(String cp, String ps, Principal principal, Model model) {
 			
+			String userid = principal.getName();
+			List<PetLike> list = ms.getPetLike(userid);
+		
+			logger.info("mainTest2로 petLike보내기");
+			model.addAttribute("petLikeList", list);
+			
+			
+			return "mainTest2";
+		}
+		
+		// 로그인 메인 페이지 
+		@RequestMapping(value = "weather/main.bit", method = RequestMethod.GET)
+		public String weatherViewTest(String cp, String ps, Principal principal, Model model) {
+			
 		
 			logger.info("다시작업시작이다..." );
 			
 			
 			
-			return "mainTest";
+			return "weather/main";
 		}
+		
 
 }

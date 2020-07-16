@@ -7,70 +7,78 @@
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
     
+    <style type="text/css">
+    	.follow-img {
+    		height: 100%;
+    		width: 100%;
+    	}
+    	
+    	.follow-img-wrapper {
+    		 width: 100px;
+    		 height: 100px;
+    		 float: left;
+    		 margin: 10px;
+    	}
+    	
+    	h3 {
+    		margin-bottom: 0;
+    		margin-left: 10px;
+    	}
+    	
+    	
+    	
+    </style>
 </head>
 
 <body>
 
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-       
+     
+    <div class="side_overlay"> 
     	<div class="container">
-    	 <div class="side_overlay">
-	       <div class="section" id="carousel">
-	            <div class="row">
-	              <div class="col-md-10 mr-auto ml-auto">
-	                <!-- Carousel Card -->
-	                <div class="card card-raised card-carousel">
-	                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-	                    <ol class="carousel-indicators">
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
-	                    </ol>
-	                    <div class="carousel-inner">
-	                      <div class="carousel-item">
-	                        <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                          <!-- <h4>
-	                            <i class="material-icons">location_on</i>
-	                            Yellowstone National Park, United States
-	                          </h4> -->
-	                        </div>
-	                      </div>
-	                      <div class="carousel-item active">
-	                        <img class="d-block w-100" src="./assets/img/bg3.jpg" alt="Second slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                          <!-- <h4>
-	                            <i class="material-icons">location_on</i>
-	                            Somewhere Beyond, United States
-	                          </h4> -->
-	                        </div>
-	                      </div>
-	                      <div class="carousel-item">
-	                        <img class="d-block w-100" src="./assets/img/bg.jpg" alt="Third slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                         <!--  <h4>
-	                            <i class="material-icons">location_on</i>
-	                            Yellowstone National Park, United States
-	                          </h4> -->
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	                      <i class="material-icons">keyboard_arrow_left</i>
-	                      <span class="sr-only">Previous</span>
-	                    </a>
-	                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	                      <i class="material-icons">keyboard_arrow_right</i>
-	                      <span class="sr-only">Next</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <!-- End Carousel Card -->
-	              </div>
-	            </div>
-	          </div> <!-- section end  --> 
+    		<div class="row">
+	        	<div style="background-color: #CDDEED" class="col-6">
+					나의 반려동물
+					<select class="custom-select" id="myPetInfo"></select>					
+	        		<div id="myPetSchedule"></div>
+	        	</div>
+	        	<div style="background-color: #91C6F5" class="col-6">
+	        		산책지수 영역
+	        	</div>
+	        </div>
+	        <div class="row" style="background-color: #CDEBED"> <!-- 임시 백그라운드 -->
+	        	<div>
+	        		<h3>following</h3>
+	        		<div>  <!--  style="display: inline-block;" -->
+	        			<c:set value="${petLikeList}" var="likeList"/>
+						<c:choose>
+							<c:when test="${likeList == null}"> <!-- when 안 나오네? 훔... -->
+								팔로우하는 동물이 없어요.							
+							</c:when>
+							<c:otherwise>
+				        		<c:forEach items="${likeList}" var="like">
+				        			<div class="follow-img-wrapper">
+					        			<a href="#">
+					        				<img class="rounded-circle img-fluid follow-img" src="${pageContext.request.contextPath}/images/${like.petimg}" 
+			 		        					rel="nofollow" alt="${like.petname}">
+			 		        			</a>
+				        			</div>
+				        		</c:forEach>
+							</c:otherwise>
+						</c:choose>	        			
+	        		</div>
+	        	</div>
+	        </div>
+	        <div class="row"> <!--  style="clear: both;" -->
+	        	<div>
+	        		이번주의 인기글 영역
+	        	</div>
+	        	<div>
+	        		도움이 필요해요 영역
+	        	</div>
+	        </div>	
+	        	  <%-- <!-- section 시작  --> 
 	        
-	        	  <!-- section 시작  --> 
 	         <div class="section" id="card">
 	          <div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
@@ -132,16 +140,15 @@
 												<span>접종(15일전)</span>
 										</div>
 									</div> 
+									
 									<div class="col-sm-6">
 										<div class="card" style="width: 30rem; height: 14.4rem;" >
-												<h4>오늘의 산책 지수</h4>
-													<span>데이터를 </span>
-													<br>
-													<span>받아서</span>
-													<br>
-													<span>넣어주자</span>
-													<br>
-													<span>부탁해요 뜨쉬~~</span>
+												<h4 class="text-center">오늘의 산책 지수</h4>
+												  <div id="result"></div>	
+												  
+												  <input type="text" class="form-control col-sm-6 " id="myInput" placeholder="seoul" value="${user.userid}">
+     											  <input type="button" value="검색"  id="btn"  >
+     											
 										</div>
 									
 									</div> 
@@ -452,25 +459,162 @@
 					</div>
 
 
-
+  
 				</div>
 
 			</div>
 			
 	    </div> <!-- section 끝 -->    
 	    
-	</div> <!-- side_overlay -->
+	
+	    
+ </div>  <!-- side_overlay -->
 	
 </div> <!-- container -->
-	
-	
-
-          
-	           
+ --%>
+  
+		
+	</div>
+</div>	            
      
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+
+
+<script type="text/javascript">
+
+
+// 날씨 API 시작
+        $(function () {
+            $('#btn').click(function () {
+                let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
+                //let data = { q: $('#myInput').val(), units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
+                let data = { q: ${user.userid}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
+                $.getJSON(publicAPI, data, function (data, textStatus, xhr) {
+                    $('#result').empty();
+                    // console.log(data.weather);
+                    // console.log(data.weather[0].description);
+                    // console.log(data.weather[0]);
+ 
+                    var table = "<table>";
+                    table += "<tr><td>지역</td><td>날씨</td><td>상세</td><td>바람</td><td>구름</td><td>온도</td></tr>";
+ 
+                    // console.log("data.weather[0].des==="+data.weather[0].description);//o
+                    // console.log("data.wind.speed==="+data.wind.speed);//0
+                    // console.log("data.weather[0].main==="+data.weather[0].main);//o
+                    // console.log("data[clouds].all==="+data["clouds"].all); //o
+                    console.log(data.weather[0].icon);
+                    table += "<tr>";
+                    table += "<td>" + data.name + "</td>";
+                    table += "<td>" + data.weather[0].main + "</td>";
+                    table += "<td>" + data.weather[0].description + "</td>";
+                    table += "<td>" + data.wind.speed + "</td>";
+                    table += "<td>" + data["clouds"].all + "</td>";
+                    table += "<td>" + data.main.temp+ "℃" + "</td>";
+                    table += "</tr>";
+                    table += "</table>";
+                   	// $('#result').append(table);
+                    var imgURL = "http://api.openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+                    $('.imo').attr("src", imgURL);
+                    $('#result').empty();
+                    $('#result').append(table);
+                    //$('#result').prepend(table);
+                    $('table').addClass('table');
+ 
+                });
+            });
+        });
+
+        
+     // 날씨 API  끝    
+		
+/*
+var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=" + "korea" + "&appid=" + "d2f22ea4bf87f5e2f1c91e3d19c58d8a";
+$.ajax({
+    url: apiURI,
+    dataType: "json",
+    type: "GET",
+    async: "false",
+    success: function(resp) {
+        console.log(resp);
+        console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+        console.log("현재습도 : "+ resp.main.humidity);
+        console.log("날씨 : "+ resp.weather[0].main );
+        console.log("상세날씨설명 : "+ resp.weather[0].description );
+        console.log("날씨 이미지 : "+ resp.weather[0].icon );
+        console.log("바람   : "+ resp.wind.speed );
+        console.log("나라   : "+ resp.sys.country );
+        console.log("도시이름  : "+ resp.name );
+        console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+   	 	}
+	
+	});
+});
+*/
+	
+
+ //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
+// 날씨 API 끝
+</script>	  
+	
+	$(function() {
+
+		console.log("새로고침 확인4444");
+		console.log('${sessionScope.user.userid}');
+		getMyPetName();
+		
+		$('#myPetInfo').change(function() {
+			var whichOne = $('#myPetInfo').val();
+			getMyPetSchedule(whichOne);
+		});
+
+	});
+
+	// 나의 반려동물 이름 가져오기
+	function getMyPetName() {
+		$.ajax({
+			type: "get",
+			url: "getSimplePetInfo.bit",
+			data: { userid: '${sessionScope.user.userid}' },
+			success: function(response) {
+				var option = "";
+				$.each(response, function(index, element) {
+					option += "<option>" + element + "</option>";
+				});
+				$('#myPetInfo').append(option);
+			}
+
+		});
+	}
+
+	// 이름에 따른 반려동물 일정 가져오기
+	function getMyPetSchedule(whichOne) {
+		$.ajax({
+			type: "get",
+			url: "getMyPetSchedule.bit",
+			data: {
+				userid: '${sessionScope.user.userid}',
+				petname: whichOne
+			},
+			success: function(response) {
+				var info = "";
+				var now = moment().format();
+				$.each(response, function(index, element) {
+					info += "<p>" + element.title + " || ";
+					if(element.start < now)
+						moment(element.start, "YYYYMMDD").fromNow();
+				});
+				
+				$('#myPetSchedule').empty();
+				$('#myPetSchedule').append(info);
+			}
+		});
+	}
+		
+</script>
 
 </html>

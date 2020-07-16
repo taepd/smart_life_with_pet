@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.mvc.support.*;
 
-import bit.or.eesotto.dto.*;
-import bit.or.eesotto.service.*;
+
+import bit.or.eesotto.dao.ScheduleDao;
+import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.Schedule;
+import bit.or.eesotto.dto.User;
+import bit.or.eesotto.service.LoginService;
+import bit.or.eesotto.service.ManagementService;
 
 @Controller
 @RequestMapping("/management/")
@@ -26,6 +31,7 @@ public class ManagementController {
 	@Autowired
 	private ManagementService managementService;
 
+	
 	// 반려동물 관리 홈 보여주기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String mainView(Principal principal, Model model) {

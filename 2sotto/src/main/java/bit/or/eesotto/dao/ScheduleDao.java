@@ -37,5 +37,12 @@ public interface ScheduleDao {
 	@Delete("delete from schedule where sindex=#{sindex}")
 	public int deleteSchedule(@Param("sindex") String sindex);
 	
+	//특정 유저의 특정 동물 스케쥴 가져오기
+	@Select("select p.petindex, p.userid, p.petname, p.petimg, s.sindex, s.title, s.start " + 
+			"from pet p join schedule s " + 
+			"on p.USERID = s.USERID and p.PETINDEX = s.PETINDEX " + 
+			"where p.userid = #{userid} and p.petname = #{petname} " + 
+			"order by start")
+	public List<Schedule> getMyPetSchedule(@Param("userid") String userid, @Param("petname") String petname);
 	
 }

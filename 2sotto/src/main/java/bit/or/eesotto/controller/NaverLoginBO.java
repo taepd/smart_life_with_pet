@@ -28,7 +28,7 @@ public class NaverLoginBO {
 	*/
 	private final static String CLIENT_ID = "FX_wJBRTS0RVPO35B1T3";
 	private final static String CLIENT_SECRET = "BQTChwOZM8";
-	private final static String REDIRECT_URI = "http://localhost:8090/bit/login/callback.bit";
+	private final static String REDIRECT_URI = "http://localhost:8080/bit/login/callback.bit";
 	private final static String SESSION_STATE = "oauth_state";
 	
 	/* 프로필 조회 API URL */

@@ -222,7 +222,7 @@ public class BlogController {
 
 			logger.info("블로그 글 입력 실패");
 
-			return "redirect:/blog/myMain.bit";
+			return "javascript:history.back();";
 		}
 
 	}

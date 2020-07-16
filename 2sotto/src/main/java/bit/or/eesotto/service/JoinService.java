@@ -24,6 +24,13 @@ public class JoinService {
 
 	@Autowired
 	UserDao userDao;
+	
+	// SNS회원가입
+	/*
+	public void JoinWithSNS(UserVO userVO){
+		userDao.JoinWithSNS(userVO);
+	}
+	*/
 
 	// 아이디 중복체크
 	public List<String> idCheck(String userid) {
@@ -89,5 +96,10 @@ public class JoinService {
 
 		return result;
 	}
+	
+	// 이메일 중복확인
+	//public int checkDuplicate(String uEmail) {
+	//	return userDao.checkDuplicate(uEmail);
+	//	}
 
 }

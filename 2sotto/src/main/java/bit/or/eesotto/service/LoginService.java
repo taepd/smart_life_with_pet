@@ -22,7 +22,14 @@ public class LoginService {
 
 	@Autowired
 	UserDao userDao;
-
+	
+	// SNS로그인 = SNS로그인
+	
+//	public User snsLogin(String uEmail) {
+//		return userDao.normalLogin(uEmail);
+//	}
+	
+	
 	public User normalLogin(String userid) {
 
 		userDao = sqlsession.getMapper(UserDao.class);

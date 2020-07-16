@@ -35,12 +35,6 @@
 						<div class="contents">
 							<h3><a href="detail.bit?bindex=${post.bindex}">${post.title}</a></h3>
 							${post.content}
-
-							<!-- timestamp 날짜시간 표시 포맷 변환 -->
-							<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-							<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
-							<h3>${rtime}</h3>
-
 						</div>
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
@@ -69,7 +63,7 @@
 			</c:forEach>
 
 			<div>
-			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}</h4>
+			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalpostcount: ${totalpostcount } </h4>
 			</div>
 
 			<!-- 페이징 -->

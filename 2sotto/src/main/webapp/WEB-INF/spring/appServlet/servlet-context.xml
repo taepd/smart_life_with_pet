@@ -27,6 +27,10 @@
 	<context:component-scan base-package="bit.or.eesotto" />
 	
 	<!-- <beans:bean name="jsonview" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />-->
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="bit.or.eesotto.controller.NaverLoginBO" />
 	
 	
+
+	     
 </beans:beans>

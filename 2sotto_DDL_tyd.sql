@@ -737,7 +737,7 @@ commit;
 -- 자동 증가(시퀀스) 초기화
 -- ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-desc post;
+desc blog;
 desc pet;
 desc maincategory;
 desc message;
@@ -748,9 +748,30 @@ select * from userrole;
 select * from message;
 select * from user;
 select * from blog;
+select * from BLOGCOMMENT;	
 select * from pet;
 select * from maincategory;
 select * from subcategory; 
+select * from donation;
 
+select ctime-rtime from donation where dindex=2;
 
+delimiter $$
 
+create trigger completeDonationByTime
+after insert on donation
+for each row
+BEGIN	
+   CREATE EVENT IF NOT EXISTS completeDonatoinByTime
+	ON SCHEDULE AT 
+		'2020-07-13 20:00:00'
+    ON COMPLETION NOT PRESERVE
+    ENABLE
+    COMMENT '기부 종료'
+    DO 
+    update donation set dstate = 'N' where dindex =2;
+END $$
+
+delimiter ;
+
+select ctime from donation where dindex=2;

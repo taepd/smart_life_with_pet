@@ -28,12 +28,34 @@ import bit.or.eesotto.service.BlogService;
 @RequestMapping("/blog/")
 public class BlogController {
 
-	private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogController.class); 
 
 	@Autowired
 	BlogService bs;
 
-	// 블로그 메인 view
+	// 내 블로그 메인 view
+	@RequestMapping(value = "myMain.bit", method = RequestMethod.GET)
+	public String myMain(String cp, String ps, Principal principal, Model model) {
+				
+//		String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = bs.myMainView(cp, ps, userid);
+		logger.info("내 블로그 글 리스트 조회 완료");
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("postList", map.get("postList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalPostCount", map.get("totalPostCount"));
+
+		return "blog/myMain";
+
+	}
+	
+	// 모두의 블로그 메인 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String main(String cp, String ps, Principal principal, Model model) {
 				
@@ -41,8 +63,8 @@ public class BlogController {
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: " + userid);
 		
-		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
-		logger.info("내 블로그 글 리스트 조회 완료");
+		HashMap<String, Object> map = bs.mainView(cp, ps, null);
+		logger.info("모두의 블로그 글 리스트 조회 완료");
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -77,7 +99,7 @@ public class BlogController {
 		return "blog/edit";	
 	}
 	
-	// 마이페이지 > 글 수정 처리
+	// 블로그 > 글 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
 	public String update(Blog post, Model model) {
 											
@@ -121,7 +143,7 @@ public class BlogController {
 			logger.info("블로그 글 삭제 완료");
 //			msg = "블로그 글 삭제 완료";
 //	        url = "main.bit";
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 			
 		}else { 
 			
@@ -179,11 +201,14 @@ public class BlogController {
 //		logger.info("파일 업로드 완료 ");
 		// int result = donationservice.donationWrite(donate, request, principal);
 
-		// 세션 userid post객체에 입력
+		// 세션 userid, nick post객체에 입력
 		blog.setUserid(userid);
+		User user = (User)session.getAttribute("user");
+		blog.setNick(user.getNick());
+		
 
 		// 임시 petindex 입력
-		blog.setPetindex(1);
+		blog.setPetindex(3);
 
 		int result = bs.writePost(blog);
 		
@@ -191,13 +216,13 @@ public class BlogController {
 
 			logger.info("블로그 글 입력 성공");
 
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 
 		} else { // 회원가입 실패시 어찌할지 로직구현해야 함
 
 			logger.info("블로그 글 입력 실패");
 
-			return "redirect:/blog/main.bit";
+			return "redirect:/blog/myMain.bit";
 		}
 
 	}
@@ -222,9 +247,31 @@ public class BlogController {
 		int result = bs.writeCommnet(blogComment);
 		
 		if(result==1) {
-			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 완료");
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 입력 처리 완료");
 		}else {
-			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글입력 처리 실패");
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 입력 처리 실패");
+		}
+		
+		return result;
+	}
+	
+	// 블로그 댓글 수정 Ajax 처리  
+	@ResponseBody
+	@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+	public int editComment(BlogComment blogComment, HttpServletRequest request, Model model) throws IOException {
+		
+		//비밀글 체크 여부 
+		if(blogComment.getScstate() == null) {
+
+			blogComment.setScstate("N");
+		}
+		
+		int result = bs.editComment(blogComment);
+		
+		if(result==1) {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 수정 처리 완료");
+		}else {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 댓글 수정 처리 실패");
 		}
 		
 		return result;
@@ -247,5 +294,59 @@ public class BlogController {
 		
 		return commentList;
 	}
+	
+	// 블로그 > 댓글 삭제 처리
+	@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deleteComment(BlogComment comment, Model model) {
+											
+//		String msg = null;
+//		String url = null;
+			
+		int result = bs.deleteComment(comment);
+		int bindex = comment.getBindex();
+		if(result==1) {
+			
+			logger.info("블로그 글 삭제 완료");
+//			msg = "블로그 댓글 삭제 완료";
+//	        url = "main.bit";
+			return "redirect:/blog/detail.bit?bindex="+bindex+"";
+			
+		}else { 
+			
+			logger.info("블로그 글 삭제 실패");
+//			msg = "블로그 댓글 삭제 실패";
+//	        url = "javascript:history.back();";
+	        return "javascript:history.back()";
+		}
+		
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
+		
+		//return "redirect";	
+		
+	}
+
+// 블로그 대댓글 입력 Ajax 처리  
+	@ResponseBody
+	@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
+	public int writeRecomment(BlogComment blogComment, HttpServletRequest request, Model model) throws IOException {
+		
+		//비밀글 체크 여부 
+		if(blogComment.getScstate() == null) {
+
+			blogComment.setScstate("N");
+		}
+		
+		int result = bs.writeRecomment(blogComment);
+		
+		if(result==1) {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 대댓글 입력 처리 완료");
+		}else {
+			logger.info("블로그 "+blogComment.getBindex()+"번글 대댓글 입력 처리 실패");
+		}
+		
+		return result;
+	}
+
 
 }

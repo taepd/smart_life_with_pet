@@ -751,6 +751,7 @@ select * from message;
 select * from blog;
 select * from maincategory;
 select * from subcategory; 
+select * from blogcomment;
 
 
 

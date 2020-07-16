@@ -65,12 +65,15 @@
 									
 									<tr>
 										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
+											<h4>내용</h4>
 											<div style="margin: 40px 40px 80px 40px;">${qna.content}</div>
 										</td>
 									</tr>
 									<tr>
+										
 										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
-											<div style="margin: 40px 40px 80px 40px;">이부분은 관리자가 적어줄 부분입니다.</div>
+											<h4>관리자 답글</h4>
+											<div style="margin: 40px 40px 80px 40px;">${qna.replyContent}</div>
 										</td>
 									</tr>
 
@@ -81,6 +84,8 @@
 												<a class="btn btn btn-round" href="javascript:history.back();"> 이전 </a>
 												<a class="btn btn-rose btn-round" href="edit.bit?qaindex=${qna.qaindex}">
 													수정 </a>
+												<a class="btn btn-rose btn-round" href="reply.bit?qaindex=${qna.qaindex}">
+													관리자 답글 </a>
 											<!-- <a class="btn btn-rose btn-round" href="reply.bit?qaindex=${qna.qaindex}">답글 </a> -->
 											<!-- <a id="delete" class="btn btn-white btn-round" href="delete.bit?qaindex=${qna.qaindex}"> 삭제 </a> --> 	
 											 <!-- Modal로 보내기 -->
@@ -107,17 +112,18 @@
 				
 			<button class="btn btn-primary btn-round">관리자 댓글</button>
 				
-				<div id="replybox"></div>
-					<!-- 댓글 폼 -->
+				<div id="replybox">댓글</div>
+				<div id="commentBox"></div>
+						<!-- 댓글 폼 -->
 					<br>
-					<form name="reply" id="reply" method="POST">
-						${sessionScope.user.userid}님<br>
-						<input type="hidden" name="qaindex" id="qaindex" value="${qna.qaindex}">
-						<input type="hidden" name="id" id="id" value="${sessionScope.id}">
+					<form name="comment" id="comment" method="POST">
+						작성자&nbsp;&nbsp;${sessionScope.user.userid}<br>
+						<%-- <input type="hidden" name="qaindex" id="qaindex" value="${qna.qaindex}"> --%>
+						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
 						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
 						<br>
-						<input type="button" class="btn btn-rose btn-round" value="댓글 등록" id="writecom">
-						<input type="reset" class="btn btn btn-round" value="다시 쓰기">
+						<input type="button" class="" value="댓글 등록" id="writecom">
+						<input type="reset" class="" value="다시 쓰기">
 					</form>
 					<!-- 댓글 폼 끝 -->
 					
@@ -184,17 +190,19 @@
 	//모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
 	$(function() {
 		
-		getReplyList();
-		insertReply();
+		getCommentList();
+		insertComment();
 		
 	});
 
 
 	//댓글 목록 가져오기
-	function getReplyList() {
+	function getCommentList() {
 		
 		$.ajax({
-			url:"reply.bit",
+	    
+			url:"getCommentList.bit",
+
 			datatype: "json",
 			data: { qaindex:'${qna.qaindex}'},
 			success: function(data) {
@@ -202,27 +210,29 @@
 				var html = "";
 				console.log("data: "+data);
 				
-				$.each(JSON.parse(data), function(index, element) {
+				$.each(data, function(index, element) {
 					
-					
-					html += "<form action='ReplyDelete' method='POST'>";
-					html += "<div id='reply_id'><b>";
-					html += element.id;
+					//html += "<form action='commentDelete.bit' method='POST'>";
+					html += "<div id='commentUserid'><b>";
+					html += element.userid;
 					html += "</b></div>";
-					html += "<div id='reply_content'>";
-					html += element.replycont;
+					html += "<div id='commentContent"+element.qnaindex+"'>";
+					html += element.content;
 					html += "</div>";
-					html += "<div id='reply_date'><h6>";
-					html += element.replydate;
+					html += "<div id='commentDate'><h6>";
+					html += element.rtime;
 					html += "</h6></div>";
-					html += "<input type='hidden' name='replynum' id='replynum' value='";
-					html += element.replynum;
-					html += "'> <input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
-					html += "</form>";
-					
+					html += "<input type='hidden' name='commentNum' id='commentNum' value='";
+					html += element.qnalike;
+					html += "'> <input type='button' id='editCommentBtn"+element.qnaindex+"' value='수정' class='button small' onclick='editComment("+element.qnaindex+"); this.onclick=null;'>";
+					html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.qnaindex+"); this.onclick=null;'>";
+					//html += "</form>";
+					html += "<div id='editForm"+element.qnaindex+"'></div>"
 				});
 				
-				$('#replybox').append(html);
+				$('#commentBox').append(html);
+				
+		
 				
 			}
 		});
@@ -231,28 +241,28 @@
 
 
 	//댓글 쓰기
-	function insertReply() {
+	function insertComment() {
 		$('#writecom').click(function(){
 			
-			if(!reply.content.value) {
+			if(!comment.content.value) {
 				swal('댓글 내용을 입력하세요!');
-				reply.content.focus();
+				comment.content.focus();
 				return false;
 			}
 			
 			$.ajax ({
 				
-				url:"ReplyInsert",
+				url:"writeComment.bit",
+				type: "post",
 				datatype:"json",
 				data: { qaindex:'${qna.qaindex}',
-						id: '${qna.userid}',
+						userid: '${sessionScope.user.userid}',
 						content: $('#content').val()
-					  },
+					  },	
 				success: function(data) {
-						$('#replybox').empty();
-						getReplyList();
+						$('#commentBox').empty();
 						$('#content').val("");
-						
+						getCommentList();
 					}
 					
 			});
@@ -262,24 +272,77 @@
 		});
 	}
 
+	//댓글 수정 창 열기 
+	function editComment(qnaindex) {
+						
+					let html = "";
+					let content = $('#commentContent'+qnaindex+'').text();
+					
+					html += '<form name="editCommentBox" id ="editCommentBox" method="POST">';
+					html +=	'<input type="hidden" id="qnaindex" value="'+qnaindex+'">';
+					html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%">'+content+'</textarea><br>';
+					html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
+					html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+
+					
+					$('#editForm'+qnaindex+'').append(html);
+					
+					//기본 댓글 입력창 비활성화
+					$('#comment').empty();
+					$('#comment').hide();
+
+			return false;
+			
+	};
+
+
+	//댓글 수정 처리
+	//동적 생성 태그에는 on형식의 이벤트를 걸어야 작동한다
+	$(document).on("click","#editcom",function(){
+			
+	 		if(!editCommentBox.content.value) {
+				swal('댓글 내용을 입력하세요!');
+				editCommentBox.content.focus();
+				return false;
+			}
+			
+	 		var qnaindex = $('#qnaindex').val();
+	 		var content = $('#content').val();
+	 		console.log(qnaindex);
+	 		console.log(content);
+	 		
+	 		$.ajax ({
+				
+				url:"editComment.bit",
+				type: "post",
+				datatype:"json",
+				data: { qnaindex: $('#qnaindex').val(),
+						userid: '${sessionScope.user.userid}',
+						content: $('#content').val()
+					  },	
+				success: function(data) {
+						$('#editCommentBox').remove();
+						$('#commentContent'+qnaindex+'').text(content);
+						$('#editCommentBtn'+qnaindex+'').attr("onclick", "editComment("+qnaindex+"); this.onclick=null;");
+						//기본 댓글 입력창 활성화
+						$('#comment').show();
+						
+				}
+			}); 
+			
+			return false;
+			
+	});
 
 	//댓글 삭제
-
-	function deleteReply(form) {
-		$(form).on("submit", function() {
-			
-			var data = $(this).serialize();
-			
-			$.ajax({
-				url: "ReplyDelete",
-				data: data,
-				success: function(data) {
-					$('#replybox').empty();
-					getReplyList();
-				}
-			});
-			return false;
-		});
+	// 블로그 댓글 삭제 전 확인 창 띄우고 확인 시 삭제
+	function deleteComment(qnaindex) {
+		let con = confirm("정말로 삭제하시겠습니까?");
+		if(con){
+			return location.href='deleteComment.bit?qnaindex='+qnaindex+'&qaindex=${qna.qaindex}';
+		}else{
+			return;
+		}
 	}
 	
 </script>

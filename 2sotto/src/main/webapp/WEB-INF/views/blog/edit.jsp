@@ -8,7 +8,6 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     
 </head>
 <body>
@@ -30,7 +29,7 @@
 				</div> -->
 				<!-- <textarea id="summernote" name="post_contents" cols="67" rows="20"></textarea> -->
 				
-				<!-- ckeditor 일단 cdn으로 걸었음 -->
+
 				<textarea name="content">${post.content}</textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
@@ -87,25 +86,23 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 	<!-- 글쓰기 등록 -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>	
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 
-<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
  	 -->
 <script type="text/javascript">
 
-	$(function() {
 
-		CKEDITOR.replace( 'content' );
-		/* $('#summernote').summernote({
-			height : 500,
-			minHeight : null,
-			maxHeight : null,
-			focus : true
-		});
-
-		jQuery.noConflict(); */
+//ckeditor
+$(function(){
+	CKEDITOR.replace('content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit', //파일업로드
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit' //드래그 앤 드롭
 	});
+});
+
 </script>
 </html>

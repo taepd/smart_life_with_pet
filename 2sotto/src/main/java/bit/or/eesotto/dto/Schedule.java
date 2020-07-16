@@ -20,5 +20,11 @@ public class Schedule {
 	private String allday;
 	private String daysofweek;
 	private String adncdnoti;
+	
+	
+	//임시
+	private String petname;
+	private String petimg;
+	
 
 }

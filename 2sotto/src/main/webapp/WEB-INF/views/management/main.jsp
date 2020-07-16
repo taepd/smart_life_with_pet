@@ -318,29 +318,15 @@
 <script>
 $(function() {
 	
-	console.log('${sessionScope.user.userid}');
+	console.log('로그인한 유저 아이디: ${sessionScope.user.userid}');
 	
-	// datetimepicker 초기화 시 아이콘 로딩
-	/*
-	$('.datetimepicker').bootstrapMaterialDatePicker({
-
-		format: 'YYYY-MM-DD HH:mm',	
+	//datetimepicker
+	$("#start, #end").bootstrapMaterialDatePicker({
+		format: 'YYYY-MM-DD HH:mm',
 		lang: 'ko',
-		cancelText: '취소',
-		okText: '확인'
-		/*icons: {
-			time: "fa fa-clock-o",
-			date: "fa fa-calendar",
-			up: "fa fa-chevron-up",
-			down: "fa fa-chevron-down",
-			previous: 'fa fa-chevron-left',
-			next: 'fa fa-chevron-right',
-			today: 'fa fa-screenshot',
-			clear: 'fa fa-trash',
-			close: 'fa fa-remove'
-		}*/
-	/*});*/
-	
+		okText: '확인',
+		cancelText: '취소'
+	});
 
 	var calendarEl = document.getElementById('calendar');
 	var addBtnContainer = $('.modalBtnContainer-addEvent');
@@ -353,6 +339,7 @@ $(function() {
 		selectable: true,
 		locale: 'ko',
 		initialView: 'dayGridMonth',
+		contentHeight: 1000,
 		headerToolbar: {
 			left: 'prev,next today',
 			center: 'title',
@@ -362,19 +349,24 @@ $(function() {
 		events: getSchedule(),
 		select: function(start, end, allDay) {
 
-			$('#createEventModal').modal('show');
+			// 빈 칸으로 초기화
+			$('#allday').prop("checked", false);
+			$('#title').val('');
+			$('#start').val('');
+			$('#end').val('');
+			$('#content').val('');
+
+			// 모달 타이틀 바꾸기
 			$('#modal-title-for-edit').hide();
-			addBtnContainer.show();
+			$('#modal-title-for-add').show();
+
+			// 모달 버튼 바꾸기
 			modifyBtnContainer.hide();
+			addBtnContainer.show();
 
-			//datetimepicker
-			$("#start, #end").bootstrapMaterialDatePicker({
-				format: 'YYYY-MM-DD HH:mm',
-				lang: 'ko',
-				okText: '확인',
-				cancelText: '취소'
-			});
-
+			// 모달 열기
+			$('#createEventModal').modal('show');
+			
 			$('#save-event').on('click', function() {
 
 				var start = $('#start').val();
@@ -414,14 +406,7 @@ $(function() {
 
 				calendar.addEvent(eventData);
 				//calendar.render();
-				
-				$('#createEventModal').modal('hide'); //일정 등록에 성공하면 모달창을 닫는다 (하지만 지금은 성공/실패 여부에 관계 없이 닫힘)
-				// 기존 내용 지우고 빈 모달로 초기화
-				$('#title').val('');
-				$('#content').val('');
-				$('#start').val('');
-				$('#end').val('');
-				$('#allday').prop("checked", false);
+				$('#createEventModal').modal('hide');
 
 				$.ajax({
 					type: "get",
@@ -441,52 +426,84 @@ $(function() {
 			
 		},
 		eventClick: function(info) {
-			//console.log("infoEventTitle>>"+info.event.title);
-			//console.log("infoEventallDay>>"+info.event.allDay); //allDay로 표기해야 제대로 나오고, true/false 리턴
 
-			$('#createEventModal').modal('show');
+			var schedule = getSchedule();
+			console.log("dfdf: "+schedule);
+			$.each(schedule, function(index, ele) {
+					$.each(ele, function(a, b) {
+						console.log("a: "+a);
+						console.log("b: "+b);
+						});
+				});
+
+			// 모달 타이틀 바꾸기
 			$('#modal-title-for-add').hide();
+			$('#modal-title-for-edit').show();
+
+			// 모달 버튼 바꾸기
 			addBtnContainer.hide();
 			modifyBtnContainer.show();
 
-			//datetimepicker
-			$("#start, #end").bootstrapMaterialDatePicker({
-				format: 'YYYY-MM-DD HH:mm:ss'
-			});
+			// 모달 열기
+			$('#createEventModal').modal('show');
 
-			if(info.event.allDay == true) {
+			var title = info.event.title;
+			var start = info.event.start;
+			var end = info.event.end;
+			var allday = info.event.allDay;
+
+			if(end === null) { //null인 경우가 없긴 한데... 사용자 생각하면...-ㅂ-
+				end = start;
+			}
+
+			console.log(start+"/"+end);
+			
+			if(allday === true) {
 				$('#allday').prop("checked", true);
 			} else {
 				$('#allday').prop("checked", false);
 			}
 
-			if(info.event.end === null) {
-				info.event.end = info.event.start; //동작하지 않는 듯....나중에 고치고
-			}
-
-			if(info.event.allDay === true && info.event.end !== info.event.start) {
-				$('#end').val(moment(info.event.end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
+			$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
+			
+			if(allday === true && end !== start) {
+				$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
 			} else {
-				$('#end').val(info.event.end.format('YYYY-MM-DD HH:mm'));
+				$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
 			}
+			
 
-			$('#title').val(info.event.title);
+			$('#title').val(title);
 			$('#content').val(info.event.content); //이건 안 됨;
 			//$('#start').val(info.event.start);
 			//$('#end').val(info.event.end);
+
+			$('#updateEvent').on('click', function() {
+				/*
+				$('#title').val('');
+				$('#content').val('');
+				$('#start').val('');
+				$('#end').val('');
+				$('#allday').prop("checked", false);
+				$('#modal-title-for-add').show();
+*/
+				$('#createEventModal').modal('hide');
+			});
+
+			var event = info.event;
+			
+			$('#deleteEvent').on('click', function(event) {
+				event.remove();
+			});
 				
 		}
 		
 	});
 	
 	calendar.render();
-	console.log("아니....ㅡㅡ");
-
+	console.log("목요일4444");
 	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
 
-	
-	
-	
 	
 	// 일정 불러오기
 	function getSchedule() {
@@ -516,6 +533,7 @@ $(function() {
 					//viewData["end"] = moment(element.end).format('YYYY-MM-DD HH:mm:ss');
 
 					viewData["color"] = '#E6CDED'; //컬럼에 컬러값이 있어야 색깔별로 출력할 수 있을 듯... 어쨌든 여기에 적용하면 적용됨
+					console.log("콘텐츠: "+element.content);
 					schedule.push(viewData);
 				});
 			}

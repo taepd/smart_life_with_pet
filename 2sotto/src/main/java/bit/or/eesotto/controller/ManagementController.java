@@ -108,7 +108,7 @@ public class ManagementController {
 			}
 				pet.setPetimg(filename); //파일명을 별도 관리 (DB insert)
 		}else { //프로필 사진 입력을 하지 않았을 경우
-			 pet.setPetimg("pet_profile.png");
+			 pet.setPetimg("pet_profile.jpg");
 		}
 				
 		//동물 나이 저장
@@ -124,7 +124,7 @@ public class ManagementController {
 			logger.info("반려동물 등록 성공");
 			
 			msg = "반려동물이 등록되었습니다.";
-	        url = "../index.jsp";
+	        return "redirect:/management/main.bit";
 	        
 		} else { 
 			
@@ -132,14 +132,14 @@ public class ManagementController {
 			logger.info("반려동물 등록 실패");
 			
 			msg = "등록 실패";
-			url = "javascript:history.back();";
+			return  "javascript:history.back();";
 
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
 		
-		return "redirect";
+//		return "redirect";
 	}
 	
 	

@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -36,16 +39,21 @@
 				<form action="medicalRegister.bit" method="post" enctype="multipart/form-data">
 				
 					<div class="form-group bmd-form-group">
-						<label for="petname" class="bmd-label-floating">이름</label>
-						<input type="text" class="form-control" id="petname" name="petname" value="">
-						<span class="bmd-help">반려동물의 이름을 입력하세요</span>
+						
+						<label for="userid" class="bmd-label-floating">보호자</label>
+						<input type="text" class="form-control" id="userid"  name="userid" value="${sessionScope.user.userid}" readonly>
+						
 					</div>
 					
 					<div class="form-group">
-						<label for="mcategory">나의 반려동물</label>
-						<select class="custom-select" id="petindex" name="petindex"> <!-- ex) ?mcategory=dog -->
-						</select>
+						<label for="petname">나의 반려동물</label>	
+						<select class="custom-select" name="petindex"> <!-- ex) ?mcategory=dog -->
+							<c:forEach var="petName" items="${petNameList}">
+							<option value="${petName.petindex}">${petName.petname}</option>							
+							</c:forEach>
+						</select>		
 					</div>
+					
 					
 					<!-- <div class="form-group">
 						<label for="scategory">종 선택하기</label>
@@ -74,11 +82,15 @@
 					
 					 <div class="form-group bmd-form-group">
 						<label for="hname" class="bmd-label-floating">방문한 병원 이름</label>
-						<input type="text" class="form-control" id="hname" name="hname">
+						<input type="text" class="form-control" id="hname" name="hname" value="">
 						<span class="bmd-help">방문 병원 명</span>
 					</div>
+					 <div class="form-group bmd-form-group">
+						<label for="vdate" class="bmd-label-floating">병원 방문 일시</label>
+						<input type="text" class="form-control" id="vdate" name="vdate" value="">
+						<span class="bmd-help"></span>
+					</div>
 					
-					<br>
 					<!--
 					<div class="form-group">
 						<label for="age">나이</label>
@@ -164,7 +176,7 @@
 					<div class="form-group bmd-form-group">
 						<label for="vreason" class="bmd-label-floating">병원 이용 사유</label>
 						<input type="text" class="form-control" id="vreason" name="vreason">
-						<span class="bmd-help">반려동물의 특이사항을 입력하세요</span>
+						<span class="bmd-help"></span>
 					</div>
 					
 					<br>

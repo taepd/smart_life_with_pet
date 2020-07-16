@@ -44,13 +44,13 @@ public class MedicalService {
 	
 	
 	//병원이용 기록 등록하기
-	public int writeMedical(Mrecord mrecord) {
+	public int medicalRegister(Mrecord mrecord) {
 		
 		int result = 0;
 		
 		try {
 			mrecordDao = sqlsession.getMapper(MrecordDao.class);
-			result = mrecordDao.writeMedical(mrecord);
+			result = mrecordDao.medicalRegister(mrecord);
 		} catch (Exception e) {
 			System.out.println("MedicalService write() 문제 발생" + e.getMessage());
 		}
@@ -59,7 +59,7 @@ public class MedicalService {
 	}
 	
 	//병원이용기록 리스트 가져오기
-	public HashMap<String, Object> mrecordMainView(String cp, String ps, String userid) {
+	public HashMap<String, Object> getMrecordList(String cp, String ps, String userid) {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -107,7 +107,24 @@ public class MedicalService {
 		return map;
 		
 	}
-	
+	//PETNAME가져오기
+	public HashMap<String, Object> getPetname(String userid) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		List<Mrecord> petNameList = null;
+		
+		int totalMrecordCount = mrecordDao.getMrecordCount(userid);
+		petNameList = mrecordDao.getPetname(userid);
+		
+		System.out.println("totalMrecordCount:" + totalMrecordCount );
+		System.out.println("petNameList:" + petNameList);
+		map.put("petNameList", petNameList);
+		map.put("totalMrecordCount", totalMrecordCount);
+		
+		return map;
+		
+	}
 	//병원 이용기록 상세보기 
 		public Mrecord getMrecordDetail(String mindex) {
 					
@@ -132,6 +149,14 @@ public class MedicalService {
 			mrecordDao = sqlsession.getMapper(MrecordDao.class);
 			
 			return mrecordDao.deleteMrecord(mrecord);
+		}
+		
+		//반려동물 petname 가져오기
+		public List<Pet> getPetInfo(String userid) {
+
+			petDao = sqlsession.getMapper(PetDao.class);
+			return petDao.getPetInfo(userid);
+			
 		}
 	
 	//반려동물 수정할 정보 가져오기

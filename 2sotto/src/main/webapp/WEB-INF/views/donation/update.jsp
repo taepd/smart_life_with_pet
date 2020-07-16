@@ -88,7 +88,7 @@
 									<label for="bmd-label-static">후원 완료 시간</label> 
 									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" readonly> 
+									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" > 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
@@ -104,7 +104,7 @@
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
 										<button type="submit" class="btn btn-primary"><b>글 수정 완료</b></button>
-										<button type="reset" class="btn btn-primary">글 수정 취소</button>
+										<button type="button" class="btn btn-primary" id="cancle" onclick="location.href='detail.bit?dindex=${donate.dindex}'">수정 취소</button>									
 								</div>
 							</div>
 						</form>

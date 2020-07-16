@@ -14,21 +14,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where userid = #{userid}
 		</if>
 	</select>
-<!-- 블로그 리스트 조회 -->
+	
+	<!-- 병원기록 리스트 조회 -->
 	<select id="getMrecordList" resultType="bit.or.eesotto.dto.Mrecord">
 				
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.* FROM MRECORD M 
-		<where>
-			<if test="param3 != null">
-				userid = #{param3} 
-			</if>	
-		</where>
-		) S WHERE ROWNUM 
-		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.*, p.petname FROM MRECORD M 
+		JOIN PET P ON M.PETINDEX = P.PETINDEX, (SELECT @ROWNUM:=0) r where m.userid=#{param3}) 
+		S WHERE ROWNUM BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 	</select>
-
-
+	
+	
+	<!-- PETNAME만 가져오기... -->
+	<!-- <select id="getPetname" resultType="bit.or.eesotto.dto.Mrecord">
+				
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT M.*, p.petname FROM MRECORD M 
+		JOIN PET P ON M.USERID = P.USERID, s where p.userid=#{userid}) 
+		S WHERE 
+	</select> -->
+	
+	<!-- PETNAME만 가져오기... -->
+	<select id="getPetname" resultType="bit.or.eesotto.dto.Mrecord">
+		select petname, petindex from pet where userid = #{userid}
+	</select> 
 
 </mapper>
 

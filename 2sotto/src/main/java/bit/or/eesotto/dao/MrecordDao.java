@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.MainCategory;
 import bit.or.eesotto.dto.Mrecord;
 
 import bit.or.eesotto.dto.Pet;
@@ -17,10 +18,9 @@ import bit.or.eesotto.dto.User;
 
 public interface MrecordDao {
 			// 병원이용기록 등록
-			@Insert("insert into mrecord"
-					+ "(mindex, petindex, userid, vdate, vreason, hname)"
-					+ " values( #{mindex}, #{petindex}, #{userid}, #{vdate}, #{vreason}, #{hname}")
-			public int writeMedical(Mrecord mrecord);
+			@Insert("insert into mrecord(userid, petindex, hname, vdate, vreason)"
+					+ "values (#{userid}, #{petindex}, #{hname}, #{vdate}, #{vreason})")
+			public int medicalRegister(Mrecord mrecord);
 
 			// 병원이용기록 리스트로  가져오기
 			/*
@@ -32,10 +32,18 @@ public interface MrecordDao {
 			 * AND 1*5
 			 */	
 			
+			//전체 병원기록 리스트 가져오기
 			public List<Mrecord> getMrecordList(int cpage, int pageSize, String userid);
 			
-			//병원기록 수
+			//PETNAME만 가져오기
+			/*
+			 * @Select("select m.*, p.PETNAME as petname" + "from mrecord m " +
+			 * "left outer join pet p on m.PETNAME = P.PETNAME " +
+			 * "where userid = #{userid}")
+			 */
+			public List<Mrecord> getPetname(@Param("userid") String userid);
 			
+			//병원기록 수			
 			public int getMrecordCount(@Param("userid") String userid);//
 			
 			// 병원진료  상세 조회
@@ -49,5 +57,13 @@ public interface MrecordDao {
 			// 병원진료 글 삭제
 			@Delete("delete from mrecord where mindex=#{mindex}")
 			public int deleteMrecord(Mrecord mrecord);
+			
+			/*
+			 * //반려동물테이블에서 petname, petindex,
+			 * 
+			 * @Select("select m.*, p.PETNAME as petname" + "from mrecord m" +
+			 * "left outer join pet s on m.petname = p.petname " +
+			 * "where userid = #{userid}") public List<Mrecord> getPetName();
+			 */
 	
 }

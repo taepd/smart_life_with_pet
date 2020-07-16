@@ -42,37 +42,56 @@ public class MedicalController {
 	
 
 	// 병원이용 홈 보여주기
-	@RequestMapping(value = "medicalMain.bit", method = RequestMethod.GET)
-	public String medicalMainView(String cp, String ps, Principal principal, Model model) {
+	@RequestMapping(value = "getMrecordList.bit", method = RequestMethod.GET)
+	public String getMrecordList(String cp, String ps, Principal principal, Model model) {
 		
 		//String userid = (String)session.getAttribute("userid");
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		
 		
-		HashMap<String, Object> map = medicalService.mrecordMainView(cp, ps, userid);		
+		HashMap<String, Object> map = medicalService.getMrecordList(cp, ps, userid);		
 		logger.info("병원이용 리스트 조회 완료");
 		
 		// view까지 전달 (forward)
-		map.put("mrecordList", map.get("mrecordList"));
-		map.put("cpage", map.get("cpage"));
-		map.put("pageSize", map.get("pageSize"));
-		map.put("pageCount", map.get("pageCount"));
-		map.put("totalMrecordCount", map.get("totalMrecordCount"));
+		/*
+		 * map.put("mrecordList", map.get("mrecordList")); 
+		 * map.put("cpage", map.get("cpage")); 
+		 * map.put("pageSize", map.get("pageSize"));
+		 * map.put("pageCount", map.get("pageCount")); 
+		 * map.put("totalMrecordCount",map.get("totalMrecordCount"));
+		 */
+		
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("mrecordList", map.get("mrecordList"));
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalMrecordCount", map.get("totalMrecordCount"));
+		logger.info("병원이용 정보 뷰로 쐈당");
 
 		return "management/medicalMain";
 		
 		
 	}
 
-	// 병원이용기록 등록 페이지 보여주기
-	@RequestMapping(value = "writeMedical.bit", method = RequestMethod.GET)
-	public String writeMedical() {
+	// 병원이용기록 등록 페이지 보여주기/petname 가져오기
+	@RequestMapping(value = "medicalRegister.bit", method = RequestMethod.GET)
+	public String writeMedical(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		HashMap<String, Object> map = medicalService.getPetname(userid);		
+		logger.info("petname 가져오기 완료");	
+		
+		model.addAttribute("petNameList", map.get("petNameList"));
+		model.addAttribute("totalMrecordCount", map.get("totalMrecordCount"));
+		logger.info("petname이랑 userid 뷰로 쐈당");
 		return "management/medicalRegister";
 	}
 	
 	// 병원이용기록 등록 처리
-	@RequestMapping(value = "writeMedical.bit", method = RequestMethod.POST)
+	@RequestMapping(value = "medicalRegister.bit", method = RequestMethod.POST)
 	public String writeMedical(Mrecord mrecord, HttpSession session, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		
 		//////////////////////////파일 업로드 구현 빠진 상태////////////////////////////
@@ -83,8 +102,9 @@ public class MedicalController {
 		
 		// 반려동물 등록한 유저 아이디 저장
 		mrecord.setUserid(userid);
-			
-		int result = medicalService.writeMedical(mrecord);
+		User user = (User)session.getAttribute("user");	
+		int result = medicalService.medicalRegister(mrecord);
+		logger.info("프론트에서 값 받아오기 성공");
 		
 		String msg = null;
 		String url = null;
@@ -94,7 +114,7 @@ public class MedicalController {
 			logger.info("병원 기록 등록 성공");
 			
 			msg = "병원 기록이 등록되었습니다.";
-	        url = "redirect:medicalMain.bit";
+	        url = "getMrecordList.bit";
 	        
 		} else { 
 			
@@ -120,11 +140,11 @@ public class MedicalController {
 			logger.info("내 블로그 글 조회 완료");
 			model.addAttribute("mrecord", mrecord);
 			
-			return "management/mrecordDetail";	
+			return "management/medicalDetail";	
 		}
 		
 		
-		// 블로그 > 글 수정 view
+		//  병원 이용 기록 수정 view
 		@RequestMapping(value = "editMrecord.bit", method = RequestMethod.GET)
 		public String editMrecord(String mindex, Model model) {
 			
@@ -132,7 +152,7 @@ public class MedicalController {
 			logger.info("병원이용기륵 조회 완료");
 			model.addAttribute("mrecord", mrecord);
 			
-			return "management/editMrecord";	
+			return "management/medicalUpdate";	
 		}
 		
 		// 블로그 > 글 수정 처리
@@ -148,7 +168,7 @@ public class MedicalController {
 				
 				logger.info("병원이용기륵 수정 완료");
 				msg = "병원이용기륵 수정 완료";
-		        url = "mrecordDetail.bit?mindex="+mrecord.getMindex();
+		        url = "getMrecordDetail.bit?mindex="+mrecord.getMindex();
 				
 			}else { 
 				
@@ -179,7 +199,7 @@ public class MedicalController {
 				logger.info("블로그 글 삭제 완료");
 //				msg = "블로그 글 삭제 완료";
 //		        url = "main.bit";
-				return "redirect:/management/medicalMain.bit";
+				return "redirect:/management/getMrecordList.bit";
 				
 			}else { 
 				

@@ -13,17 +13,6 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
-	<style>
-		#jb {
-			width: 100%;
-			height: 50px;
-		}
-	</style>
-	<script>
-	window.onload = function() {
-		document.getElementById( 'jb' ).value = '${donate.ccoll/donate.gcoll*100}';
-	}
-	</script>
 	
 
 </head>
@@ -52,18 +41,14 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i>후원글 메인
+									<a class="nav-link active show" onclick="location.href='getMrecordList.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons"></i>메인
 									</a>
 								</li>
+								
 								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons"></i>최신순
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i>글 작성
+									<a class="nav-link" onclick="location.href='writeMedical.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+										<i class="material-icons"></i>병원기록 등록하기
 									</a>
 								</li>
 							</ul>
@@ -78,63 +63,37 @@
 						<!---------- 디테일------------------>
 						<div class="tab-pane active show" >
 
-							<form action="donatePoint.bit" method="POST">
+							
 								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">글번호</label> 
-									<input type="text" class="form-control" name="dindex" value="${donate.dindex}" readonly> 
+									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
+									<input type="text" class="form-control" name="mindex" value="${mrecord.mindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">제목</label> 
-									<input type="text" name="title" class="form-control" value="${donate.title}" readonly> 
+									<label for="bmd-label-static">반려동물식별번호</label> 
+									<input type="text" name="petindex" class="form-control" value="${mrecord.petindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">작성자</label> 
-									<input type="text"  class="form-control" placeholder="관리자" readonly> 
-								</div>
+									<label for="bmd-label-static">보호자</label> 
+									<input type="text" name="userid" class="form-control" value="${mrecord.userid}" readonly> 
+								</div>								
 								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원이 필요한 아이</label> 
-									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원 등록 시간</label>
-									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
-									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원 완료 시간</label> 
-									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">목표모금액</label> 
-									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">현재모금액</label> 
-									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">모금률</label>
-									<progress value="0" max="100" id="jb"></progress>
-									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">기부중</label> 
-									<input type="text" name="dstate" class="form-control" value="${donate.dstate}" readonly> 
-								</div>				
-								<textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>																
+									<label for="bmd-label-static">병원 방문 시간</label>
+									<fmt:parseDate var="parseTime" value="${mrecord.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<input type="text" name="vdate" class="form-control" value="${vdate}" readonly> 
+								</div>								
+								
+								<label for="bmd-label-static">병원 방문 목적</label> 											
+								<textarea name="vreason" class="form-control"  rows="10" readonly>${mrecord.vreason}</textarea>																
 								<!-- <div id="donateColl"> -->															
-								<input type="text" name="dpoint" placeholder="기부하실 포인트를 직접 입력해 주세요">
-								<button type="submit" class="btn btn-primary">포인트 기부하기</button>
-								</form>
-								</div>							
-								  <textarea name="content" class="form-control"  rows="10" readonly>${donate.content}</textarea>								
+								<div class="form-group bmd-form-group">
+								<label for="bmd-label-static">방문명원명</label> 
+								<input type="text" name="hname" class="form-control" value="${mrecord.hname}" readonly> 
+								</div>								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
-										<button type="button" id="delete" onclick="location.href='delete.bit?dindex=${donate.dindex}'" >삭제</button>
+										<button type="button" onclick="location.href='editMrecord.bit?mindex=${mrecord.mindex}'">수정</button>
+										<button type="button" id="delete" onclick="location.href='deleteMrecord.bit?mindex=${mrecord.mindex}'">삭제</button>
 								</div> 
 								
 								
@@ -179,10 +138,10 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
+	</div>
 		<!-- container end -->
-		<%@ include file="DonateComment.jsp" %>
+		
 		
 
 
@@ -197,7 +156,7 @@
 $('#delete').click(function(){
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
-		return location.href='delete.bit?dindex=${donate.dindex}';
+		return location.href='deleteMrecord.bit?mindex=${mrecord.mindex}';
 	}else{
 		return;
 	}

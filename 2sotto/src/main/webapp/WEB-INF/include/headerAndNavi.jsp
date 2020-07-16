@@ -4,9 +4,12 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 <style>
+
+/*
 .fixed-top {
 	position: relative;
 }
+  */
 </style>
 		<!-- pageContext.request.userPrincipal.name -->
 		<se:authentication property="name" var="userid" />

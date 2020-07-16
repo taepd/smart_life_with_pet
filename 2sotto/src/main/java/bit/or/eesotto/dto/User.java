@@ -19,6 +19,7 @@ public class User {
 	private String rtime;
 	private String lat;
 	private String lon;
+	private String snstype;
 	private int point;
 	
 }

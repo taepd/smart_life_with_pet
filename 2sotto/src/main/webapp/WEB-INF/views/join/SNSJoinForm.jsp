@@ -201,7 +201,7 @@ input {
 	var validate = new Array;
 	$(function() {
 		//id검증(이메일 형식)
-		$('#userid')
+/* 		$('#userid')
 				.keyup(
 						function() {
 							let email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -215,7 +215,7 @@ input {
 								validate[0] = true;
 							}
 							console.log(validate[0]);
-						});
+						}); */
 
 		//nick검증(nick 형식) 필요할것같아서 미리 만들었습니다.
 		/*
@@ -245,23 +245,23 @@ input {
 								$('.tdpw')
 										.html(
 												'<b style="color:red">8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
-								validate[1] = false;
+								validate[0] = false;
 							} else {
 								$('.tdpw').html('<b>적합한 패스워드입니다.</b>');
-								validate[1] = true;
+								validate[0] = true;
 							}
-							console.log(validate[1]);
+							console.log(validate[0]);
 						});
 		//password check
 		$('#pwdCheck, #pwd').keyup(function() {
 			if ($('#pwd').val() != $('#pwdCheck').val()) {
 				$('.tdpwch').html('<b style="color:red">비밀번호가 다릅니다.</b>');
-				validate[2] = false;
+				validate[1] = false;
 			} else {
 				$('.tdpwch').html('<b>비밀번호가 일치합니다.</b>');
-				validate[2] = true;
+				validate[1] = true;
 			}
-			console.log(validate[2]);
+			console.log(validate[1]);
 		});
 
 		$('input').focus(function() {
@@ -282,9 +282,6 @@ input {
 					console.log(i);
 					switch (i) {
 					case 0:
-						$('#userid').focus();
-						return false;
-					case 1:
 						$('#pwd').focus();
 						return false;
 					case 2:
@@ -296,11 +293,7 @@ input {
 					}
 				}
 			}
-			if ($('#userid').attr("check_result") == "fail") {
-				alert("아이디 중복확인을 해주시기 바랍니다.");
-				$('#userid').focus();
-				return false;
-			}
+
 			if ($('#nick').attr("check_result") == "fail") {
 				alert("닉네임 중복확인을 해주시기 바랍니다.");
 				$('#nick').focus();
@@ -346,8 +339,11 @@ input {
 				
 
 				<div class="table-responsive">
-						<form class="form-horizontal" action="normalJoin.bit"
+						<form class="form-horizontal" action="../join/normalJoin.bit"
 							enctype="multipart/form-data" method="post">
+							<!-- 어떤 소셜 타입인지 받는 값  -->
+							<input type="hidden" name="snstype" value="${snstype}"> 
+							<!-- 어떤 소셜 타입인지 받는 값  -->
 							<div class="card-body">
 
 								<div class="wrap-input100">
@@ -360,15 +356,9 @@ input {
 													<div class="input-group">
 														<label for="fname" class="label" style="text-align: left">아이디</label>
 														<input class="input--style-4" type="text" maxlength="20"
-															id="userid" name="userid"
-															title="5~16자리의 영문+숫자 조합으로 입력해주세요"
-															placeholder="이메일 형식으로 입력해 주세요" check_result="fail">
+															id="userid" name="userid" value="${sns_id}"
+															readonly>
 													</div>
-												</div>
-
-												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary"
-														id="btn-idchk" style="padding: 10px 20px">중복확인</button>
 												</div>
 											</div>
 										</div>
@@ -376,54 +366,6 @@ input {
 										<div class="col-sm-9 tdemail" align="left"></div>
 										<!-- 적합하지 않은 이메일 형식입니다. -->
 									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="lname" class="label" style="text-align: left">비밀번호</label>
-														<input class="input--style-4" type="password"
-															maxlength="20" id="pwd" name="pwd"
-															title="8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다."
-															placeholder="비밀번호를 입력해주세요">
-													</div>
-												</div>
-												<!-- 중복확인 아래 부분 -->
-												<div class="col-2"></div>
-												<!-- 중복확인 아래 부분 -->
-											</div>
-										</div>
-										<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
-										<div class="col-sm-12 tdpw" align="left"></div>
-										<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="email1" class="label" style="text-align: left">비밀번호
-															확인</label> <input class="input--style-4" type="password"
-															maxlength="20" id="pwdCheck" name="pwdCheck"
-															title="패스워드 확인" placeholder="비밀번호를 입력해주세요">
-													</div>
-												</div>
-												<!-- 중복확인 아래 부분 -->
-												<div class="col-2"></div>
-												<!-- 중복확인 아래 부분 -->
-											</div>
-										</div>
-										<!-- 비밀번호가 다릅니다. -->
-										<div class="col-sm-12 tdpwch" align="left"></div>
-										<!-- 비밀번호가 다릅니다. -->
-									</div>
-
-
-
-
-
 
 									<div class="form-group row">
 										<div class="col-sm-12">
@@ -829,7 +771,7 @@ input {
 
 							$.ajax({
 								type : "POST",
-								url : 'nickCheck.bit', 
+								url : '../join/nickCheck.bit', 
 								data : {
 									nick : $('#nick').val()
 								},

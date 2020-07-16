@@ -8,7 +8,12 @@ import javax.servlet.http.*;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.authority.*;
+import org.springframework.security.core.context.*;
 import org.springframework.security.crypto.bcrypt.*;
+import org.springframework.security.web.context.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +36,24 @@ public class JoinController {
 	@Autowired
 	JoinService joinService;
 	
+	@Autowired
+	private LoginService ls;
+	
+//	@Autowired
+//	BCryptPasswordEncoder pwEncoder;
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	
 	
 	// 회원가입 화면 보러가기
 	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
-	public String register(Model model) throws IOException {
+	public String register(Model model, HttpSession session) throws IOException {
 
 		/* 구글code 발행 */
 		// OAuth2Operations oauthOperations =
@@ -42,6 +61,16 @@ public class JoinController {
 		/* SNS 로그인 인증을 위한 url 생성 */
 
 		/* 생성한 url 전달 */
+		
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+		logger.info("네이버:" + naverAuthUrl);	
+		//네이버
+		
+		model.addAttribute("naver_url", naverAuthUrl);
+		logger.info("naver_url:" + naverAuthUrl);
 		
 		return "join/register";
 	}
@@ -59,16 +88,17 @@ public class JoinController {
 	// 일반 회원가입 처리
 	@RequestMapping(value = "normalJoin.bit", method = RequestMethod.POST)
 	public String normalJoin(User user, HttpServletRequest request, MultipartHttpServletRequest multiFile,
-							 Principal principal, RedirectAttributes redirectAttributes,
+							 Principal principal, HttpSession session, RedirectAttributes redirectAttributes,
 							 Model model) throws IOException{
 		
 		
+		if(user.getSnstype()==null) { //소셜 가입은 암호가 없으므로
 		//비밀번호 암호화 
 		String inputPwd = user.getPwd();
 		String encodingPW = pwEncoder.encode(inputPwd);
 		user.setPwd(encodingPW);		
 		logger.info("비밀번호 암호화 완료");	
-		
+		}
 		// 파일 업로드
 		MultipartFile file = multiFile.getFile("file");
 		if(file != null && file.getSize() > 0) { 
@@ -93,6 +123,7 @@ public class JoinController {
 		}else { //프로필 사진 입력을 하지 않았을 경우
 			user.setUimg("profile.png");
 		}
+		
 		int result = joinService.normalJoin(user);
 		
 		String msg = null;
@@ -104,6 +135,29 @@ public class JoinController {
 			
 			msg = "회원가입 성공";
 	        url = "../index.jsp";
+	        
+	      //스프링 시큐리티 수동 로그인을 위한 작업//
+			//로그인 세션에 들어갈 권한을 설정
+					List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+					list.add(new SimpleGrantedAuthority("ROLE_USER"));
+		
+					SecurityContext sc = SecurityContextHolder.getContext();
+			//아이디, 패스워드, 권한을 설정. 아이디는 Object단위로 넣어도 무방하며
+			//패스워드는 null로 하여도 값이 생성.
+					sc.setAuthentication(new UsernamePasswordAuthenticationToken(user.getUserid(), null, list));
+					session = request.getSession(true);
+		
+			//위에서 설정한 값을 Spring security에서 사용할 수 있도록 세션에 설정
+					session.setAttribute(HttpSessionSecurityContextRepository.
+			                       SPRING_SECURITY_CONTEXT_KEY, sc);
+		//스프링 시큐리티 수동 로그인을 위한 작업 끝//
+		
+		//로그인 유저 정보 가져와서 세션객체에 저장  
+		    logger.info("유저네임: "+user.getUserid());      	   
+		   
+		    session = request.getSession();
+		    session.setAttribute("user", user);
+	    //로그인 유저 정보 가져와서 세션객체에 저장 끝//		
 			
 		}else { 
 			

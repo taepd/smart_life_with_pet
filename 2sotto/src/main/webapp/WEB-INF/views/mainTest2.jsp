@@ -6,9 +6,10 @@
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-	<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet"> -->
+	<link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Sunflower:wght@300&display=swap" rel="stylesheet">
     <style type="text/css">
-    	.follow-img {
+    	.img {
     		height: 100%;
     		width: 100%;
     	}
@@ -20,16 +21,21 @@
     		 margin: 10px;
     	}
     	
+    	#myPetImage {
+    		width: 200px;
+    		height: 200px;
+    	}
+    	
     	/* h3 {
     		margin-bottom: 0;
     		margin-left: 10px;
     	} */
     	
 		.h3-korean {
-			font-family: 'Sunflower', sans-serif;
+			/* font-family: 'Sunflower', sans-serif; */
+			font-family: 'Poor Story', cursive;
 			margin-left: 0;
 		}
-    	
     	
     </style>
 </head>
@@ -38,12 +44,11 @@
 
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
      
-    <div class="side_overlay"> 
-    	<div class="container">
+    <div class="container">
+    	<div class="side_overlay"> 
     		<div class="row">
-				<div class="col-3" style="background-color: #91C6F5;">
+				<div class="col-3">
 					<h3 class="h3-korean">나의 반려동물</h3>
-					사진 영역
 					<div id="myPetImage"></div>
 				</div>
 				<!-- <div style="background-color: #CDDEED" class="col-3">  -->
@@ -54,7 +59,9 @@
 				</div>
 				<!-- 산책API 시작 -->
 	        	<div style="background-color: #91C6F5" class="col-6">
-	        		<div id="result"></div>
+	        		
+              <div id="result"></div>
+
 	        	</div>
 	        	<!-- 산책API 끝 -->
 	        </div>
@@ -71,7 +78,7 @@
 				        		<c:forEach items="${likeList}" var="like">
 				        			<div class="follow-img-wrapper">
 					        			<a href="#">
-					        				<img class="rounded-circle img-fluid follow-img" src="${pageContext.request.contextPath}/images/${like.petimg}" 
+					        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/images/${like.petimg}" 
 			 		        					rel="nofollow" alt="${like.petname}">
 			 		        			</a>
 				        			</div>
@@ -643,14 +650,13 @@
           case "50n" :
         	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-fog.svg' );
               break;
- 
+          
           default :
             document.write ("잘못된 값입니다.");
         };
 
         var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다. 산책 이미지 표시
-        console.log(iconcode);
-        
+        console.log(iconcode);  
         switch (iconcode)
         {
           case "01d" :
@@ -668,8 +674,7 @@
           case "04d" :
         	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
               break;
-    
-
+ 
           case "01n" :
         	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
               break;
@@ -701,52 +706,23 @@
         
     });
 
-        moment.locale('ko');
-		getMyPetName();
-		
-		$('#myPetInfo').change(function() {
-			var whichOne = $('#myPetInfo').val();
-			getMyPetSchedule(whichOne);
-		});
-        
-});
+ });
+ });
 
 
-     // 이름에 따른 반려동물 일정 가져오기
-    	function getMyPetSchedule(whichOne) {
-    		$.ajax({
-    			type: "get",
-    			url: "getMyPetSchedule.bit",
-    			data: {
-    				userid: '${sessionScope.user.userid}',
-    				petname: whichOne
-    			},
-    			success: function(response) {
-    				
-    				var info = "";
-    				var image = "";
-    				var now = moment().format("YYYY-MM-DD HH:mm:ss");
-    				var time;
-
-    				//참고: https://stackoverrun.com/ko/q/9770534
-
-    				$.each(response, function(index, element) {
-    					info += "<p>" + element.title + " (";
-    						time = moment(moment(element.start)).from(now);
-    					info += time + ")</p>";
-    					image += "<img class='rounded img-fluid' src='${pageContext.request.contextPath}/images/${" + element.petimg + "}'>";
-
-    				});
-    				$('#myPetSchedule').empty();
-    				$('#myPetSchedule').append(info);
-    				$('#myPetImage').empty();
-    				$('#myPetImage').append(image);
-
-    			}
+            // 반려동물 정보 영역
+            moment.locale('ko');
+    		getMyPetName();
+    		
+    		$('#myPetInfo').change(function() {
+    			var whichOne = $('#myPetInfo').val();
+    			getMyPetSchedule(whichOne);
     		});
-    	}	
+            
+        });
 
-    	// 나의 반려동물 이름 가져오기
+
+     // 나의 반려동물 이름 가져오기
     	function getMyPetName() {
     		$.ajax({
     			type: "get",
@@ -762,10 +738,53 @@
     		});
     	}
 
+    	// 이름에 따른 반려동물 일정 가져오기
+    	function getMyPetSchedule(whichOne) {
+    		$.ajax({
+    			type: "get",
+    			url: "getMyPetSchedule.bit",
+    			data: {
+    				userid: '${sessionScope.user.userid}',
+    				petname: whichOne
+    			},
+    			success: function(response) {
+    				
+    				var info = "";
+    				var image = "";
+    				var now = moment().format("YYYY-MM-DD HH:mm:ss");
+
+    				//참고: https://stackoverrun.com/ko/q/9770534
+
+    				var image;
+    				
+    				$.each(response, function(index, element) {
+        				
+    					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
+
+    					image = element.petimg;
+    					//<img src="${pageContext.request.contextPath}/images/${pic.petimg}" class="rounded img-fluid" width="150px" height="150px">
+    					/*
+    					image += "<img src='${pageContext.request.contextPath}/images/${";
+    					image += element.petimg;
+    					image += "}' class='rounded img-fluid' width='150px' height='150px'>";
+*/
+        				});
+
+    				var imageSrc = "<img src='${pageContext.request.contextPath}/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
+    				//console.log("var 확인"+image);
+
+    				//$('#img').text(image);
+    				//console.log("image>"+image);
+    				$('#myPetSchedule').empty().append(info);
+    				$('#myPetImage').empty().append(imageSrc);
+    				console.log("SRC: "+imageSrc);
+    				console.log("dejavuuuuu");
+
+    			}
+    		});
+    	}
+
  //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
 // 날씨 API 끝
 </script>	  
-
-
-
 </html>

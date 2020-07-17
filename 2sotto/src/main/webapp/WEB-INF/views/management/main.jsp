@@ -23,6 +23,9 @@
     		font-size: 15px;
     		color: orange;
     	}
+    	
+    	#wrapper {
+    	}
 
     </style>
     
@@ -37,106 +40,40 @@
 		<div class="container">
 
 		
-		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'">반려동물 등록</button>
-		
-		
-		<!-- 새로 시도하는 디자인 시작 -->
-		
-			<!-- <div class="row">
-              <ul class="nav nav-pills nav-pills-icons" role="tablist" style="margin: 0 auto;">
-                
+		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'" style="margin-bottom: 100px;">반려동물 등록</button>
+		<br>
+		<div class="col-12">
+			<div id="wrapper">
+              <ul class="nav nav-pills nav-pills-icons" role="tablist" style="margin-bottom: 100px;">
+                <!--
                                 color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
-                           
-                
+                            -->
                 <li class="nav-item">
-                  <a class="nav-link active show" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="true">
-                    <i class="material-icons">schedule</i>
-                    	일정
+                  <a class="nav-link active show" href="#dashboard-1" role="tab" data-toggle="tab" aria-selected="false">
+					<i class="material-icons">schedule</i>
+                    Schedule
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#dashboard-1" role="tab" data-toggle="tab" aria-selected="false">
+                  <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="false">
                     <i class="material-icons">dashboard</i>
-                    Dashboard
+                    Home
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="false">
+                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="true">
                     <i class="material-icons">list</i>
-                    Tasks
+                    Medical Records
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="false">
-                    <i class="material-icons">list</i>
-                    반려동물 등록
-                  </a>
-                </li>
-                
               </ul>
-              </div>
               
+              </div>
               
               <div class="tab-content tab-space">
-                <div class="tab-pane" id="dashboard-1">
-                  Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-                  <br><br>
-                  Dramatically visualize customer directed convergence without revolutionary ROI.
-                </div>
-                <div class="tab-pane active show" id="schedule-1">
-					<div id="calendar"></div>
-                </div>
-                <div class="tab-pane" id="tasks-1">
-                  Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                  <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
-                </div>
-              </div>
-           
-          </div> -->
-		<!-- 새로 시도하는 디자인 끝 -->
-		
-			<div class="container">
-			<div class="card card-nav-tabs">
-                <div class="card-header card-header-primary">
-                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-                  <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                      <ul class="nav nav-tabs" data-tabs="tabs">
-                        <li class="nav-item">
-                          <!-- <a class="nav-link active show" href="#schedule" data-toggle="tab"> -->
-                          <a class="nav-link active show" href="#schedule" data-toggle="tab">
-                            <!-- <i class="material-icons">face</i> -->
-                            
-                            <i class="fas fa-home"></i>
-                            	일정
-                          <div class="ripple-container"></div></a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#home" data-toggle="tab" id="draw-calendar">
-                            <!-- <i class="material-icons">chat</i> -->
-                            <i class="far fa-calendar-alt"></i>
-								홈
-	                          <div class="ripple-container"></div></a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#hospitalRecord" data-toggle="tab">
-                            <!-- <i class="material-icons">build</i> -->
-							<i class="fas fa-stethoscope"></i>
-                            Hospital Record
-                          <div class="ripple-container"></div></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="card-body">
-                  <div class="tab-content text-center">
-                    <div class="tab-pane active show" id="schedule">
-					
-						<div id="calendar"></div>
-					
-					<!-- 일정 추가 MODAL -->
+                <div class="tab-pane active show" id="dashboard-1">
+                  		<div id="calendar"></div>
+                  <!-- 일정 추가 MODAL -->
 					<div class="modal fade" tabindex="-1" role="dialog" id="createEventModal">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -220,14 +157,10 @@
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-					
-                    </div>
-					
-<!-------------------------------------------------------------------------------------------------------------- -->
-                    
-                    <div class="tab-pane" id="home">
-                    	
-                    	<!-- <div id="calendar"></div> -->
+                </div>
+                
+                <div class="tab-pane" id="schedule-1">
+                	<div class="row">
                     	<c:forEach var="petInfo" items="${petInfoList}">
 							<div class="card col-4" style="width: 20rem;">
 								<img class="card-img-top" src="${pageContext.request.contextPath}/images/${petInfo.petimg}" rel="nofollow" alt="card image">
@@ -258,14 +191,11 @@
 								  </div>
 							</div>
 						</c:forEach> 
-                    </div>
-   
-	                 
-<!--------------------------------------------- 병원 기록 영역 ---------------------------------------------------- -->   
-                    
-                    <div class="tab-pane" id="hospitalRecord">
-
-					<h3>병원 방문 기록</h3>                    
+                </div>
+                </div>
+                <div class="tab-pane" id="tasks-1">
+                
+                <h3>병원 방문 기록</h3>                    
                     <div class="table-responsive">
                     	<table class="table">
                     		<thead class=" text-primary">
@@ -286,18 +216,9 @@
                     	</table>
                     </div>
                     
-                    </div>
-                    
-
-<!------------------------------------------ 끝 --------------------------------------------------------------- -->
-                    
-                    
-                  </div>
                 </div>
               </div>
-              </div>
-              
-             
+            </div>
 		
 		</div> <!-- container end -->
 	</div> <!-- side_overlay end -->

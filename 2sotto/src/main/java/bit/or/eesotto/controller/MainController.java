@@ -76,11 +76,15 @@ public class MainController {
 		public String mainViewTest(String cp, String ps, Principal principal, Model model) {
 			
 			String userid = principal.getName();
+
 			List<PetLike> list = ms.getPetLike(userid);
-		
-			logger.info("mainTest2로 petLike보내기");
 			model.addAttribute("petLikeList", list);
 			
+			List<Pet> list2 = ms.getPetPicture(userid);
+			model.addAttribute("petPictureList", list2);
+		
+			
+			logger.info("mainTest2로 petLike보내기");
 			
 			return "mainTest2";
 		}
@@ -96,6 +100,6 @@ public class MainController {
 			
 			return "weather/main";
 		}
-		
+			
 
 }

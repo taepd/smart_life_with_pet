@@ -11,7 +11,7 @@
 
 <body>
 
-    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
        
     	<div class="container">
     	 <div class="side_overlay">

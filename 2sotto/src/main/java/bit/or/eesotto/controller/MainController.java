@@ -33,6 +33,13 @@ public class MainController {
 //		@Autowired
 //		LoginService ls;
 		
+		//index페이지
+		// 메인 페이지 
+		@RequestMapping("/")
+		public String index() {
+			
+			return "index";
+		}
 	
 	    // 메인 페이지 
 		@RequestMapping("main.bit")

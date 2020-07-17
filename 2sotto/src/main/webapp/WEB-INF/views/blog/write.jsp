@@ -130,13 +130,21 @@ $(function(){
 		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit', //파일업로드
 		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit' //드래그 앤 드롭
 	});
-
 });
 
 
+/**
+* @함수명 : petSelect(div)
+* @작성일 : 2020. 7. 16.
+* @작성자 : 태영돈
+* @설명 : 반려동물 이미지 클릭 이벤트를 위한 함수
+* 		자신의 반려동물 리스트가 뱃지 형태로 출력되고 클릭을 통해 해당 글이 어떤 
+* 		반려동물과 관련있는지 선택할 수 있다
+* @param div: 클릭이벤트가 걸려있는 div 자신을 선택하는 this 매개변수
+**/
+
 var petArr=[]; // form에 담아 전달할 petindex 배열
 
-//반려동물 이미지 클릭 이벤트
 function petSelect(div){
 	if($(div).attr('flag')==0){ //반려동물 클릭해 선택한 경우
 		$(div).css("border", "solid"); // 선택시 활성화 되었다는 효과

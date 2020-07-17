@@ -24,7 +24,7 @@
 			<input type="hidden" name="petArr" id="petArr">
 			<div class="row" style="background-color: #CDEBED"> <!-- 임시 백그라운드 -->
 	        	<div>
-	        		<h3>내 반려동물들</h3>
+	        		<h3>포스팅과 관련있는 나의 반려동물을 선택해 주세요^-^</h3>
 	        		<div class="d-flex">  <!--  style="display: inline-block;" -->
 	        			<c:forEach var="myPet" items="${myPetList}">
 				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">

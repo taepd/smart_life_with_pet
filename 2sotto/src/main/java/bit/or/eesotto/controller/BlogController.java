@@ -178,7 +178,7 @@ public class BlogController {
 
 	// 블로그 > 글쓰기 처리
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Blog blog, HttpSession session, Principal principal) {
+	public String write(Blog blog, HttpSession session, Principal principal, HttpServletRequest request) {
 		
 		String userid =  principal.getName();
 		//String userid = (String) session.getAttribute("userid");
@@ -215,13 +215,23 @@ public class BlogController {
 		User user = (User)session.getAttribute("user");
 		blog.setNick(user.getNick());
 		
-
-		// 임시 petindex 입력
-		blog.setPetindex(3);
-
-		int result = bs.writePost(blog);
+		//petindex 배열
+		//앞단 작성방식(인풋창 하나 유지)때문에 배열이 아닌 스트링형태로 넘어옴 ex("1,2")
+		String pArr = request.getParameter("petArr"); 
+		blog.setPetindex(pArr);
+//		String[] petIndexArr = pArr.split(","); 
+//		System.out.println("반려동물인덱스배열: "+petIndexArr[0]);
+//		
+//		//petindex 갯수만큼 디비에 인서트
+//		int result = 0;
+//		for(String i : petIndexArr) {
+//			int petIndex = Integer.parseInt(i);
+//			blog.setPetindex(petIndex);
+//			result += bs.writePost(blog); // 배열 갯수만큼 인서트 성공했는지 판단
+//		}
 		
-		if (result == 1) {
+		int result = bs.writePost(blog);
+		if (result >= 1) {
 
 			logger.info("블로그 글 입력 성공");
 

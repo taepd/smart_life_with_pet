@@ -174,7 +174,7 @@
 									name="file" style="display: none;"
 									onchange="readURL(this);">
 								</label> &nbsp;&nbsp;&nbsp;&nbsp; 
-									<img id="img" name="img"	src="${pageContext.request.contextPath}/images/${pet.petimg}" 
+									<img id="img" name="img"	src="${pageContext.request.contextPath}/assets/images/${pet.petimg}" 
 									alt="" width="150px" height="150px" style="border-radius: 10px;" /> 
 									<input type="hidden" name="petimg" value="${pet.petimg}">
 									<span id="imgFileName">&nbsp;&nbsp;</span>

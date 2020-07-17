@@ -86,7 +86,7 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 	<!-- 글쓰기 등록 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>	
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ckeditor/ckeditor.js"></script>	
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 
 <!-- <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> -->

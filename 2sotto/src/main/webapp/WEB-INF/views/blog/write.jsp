@@ -113,7 +113,7 @@
 </body>
 	<!-- 글쓰기 등록 -->
 	
-<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>	
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ckeditor/ckeditor.js"></script>	
 	
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 

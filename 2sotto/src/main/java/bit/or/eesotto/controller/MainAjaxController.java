@@ -30,10 +30,7 @@ public class MainAjaxController {
 		
 		try {
 			PetDao petdao = sqlsession.getMapper(PetDao.class);
-			
 			list = petdao.getSimplePetInfo(userid);
-			
-			System.out.println("리스트: "+list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import bit.or.eesotto.dto.Blog;
-import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.BlogService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 
 
@@ -32,6 +30,9 @@ public class BlogController {
 
 	@Autowired
 	BlogService bs;
+	
+	@Autowired
+	ManagementService ms;
 
 	// 내 블로그 메인 view
 	@RequestMapping(value = "myMain.bit", method = RequestMethod.GET)
@@ -163,13 +164,21 @@ public class BlogController {
 
 	// 블로그 > 글쓰기 페이지 view
 	@RequestMapping(value = "write.bit", method = RequestMethod.GET)
-	public String write() {
+	public String write(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		List<Pet> myPetList = ms.getPetInfo(userid);
+		logger.info("내 반려동물 리스트: "+myPetList);
+		model.addAttribute("myPetList", myPetList);
+		
 		return "blog/write";
 	}
 
 	// 블로그 > 글쓰기 처리
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Blog blog, HttpSession session, Principal principal) {
+	public String write(Blog blog, HttpSession session, Principal principal, HttpServletRequest request) {
 		
 		String userid =  principal.getName();
 		//String userid = (String) session.getAttribute("userid");
@@ -206,13 +215,23 @@ public class BlogController {
 		User user = (User)session.getAttribute("user");
 		blog.setNick(user.getNick());
 		
-
-		// 임시 petindex 입력
-		blog.setPetindex(3);
-
-		int result = bs.writePost(blog);
+		//petindex 배열
+		//앞단 작성방식(인풋창 하나 유지)때문에 배열이 아닌 스트링형태로 넘어옴 ex("1,2")
+		String pArr = request.getParameter("petArr"); 
+		blog.setPetindex(pArr);
+//		String[] petIndexArr = pArr.split(","); 
+//		System.out.println("반려동물인덱스배열: "+petIndexArr[0]);
+//		
+//		//petindex 갯수만큼 디비에 인서트
+//		int result = 0;
+//		for(String i : petIndexArr) {
+//			int petIndex = Integer.parseInt(i);
+//			blog.setPetindex(petIndex);
+//			result += bs.writePost(blog); // 배열 갯수만큼 인서트 성공했는지 판단
+//		}
 		
-		if (result == 1) {
+		int result = bs.writePost(blog);
+		if (result >= 1) {
 
 			logger.info("블로그 글 입력 성공");
 
@@ -222,7 +241,7 @@ public class BlogController {
 
 			logger.info("블로그 글 입력 실패");
 
-			return "redirect:/blog/myMain.bit";
+			return "javascript:history.back();";
 		}
 
 	}

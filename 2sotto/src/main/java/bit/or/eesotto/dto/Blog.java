@@ -10,7 +10,7 @@ import lombok.ToString;
 public class Blog {
 	
 	private int bindex; //글번호
-	private int petindex; //동물식별번호
+	private String petindex; //동물식별번호
 	private String userid; //Userid
 	private int blike; //추천수
 	private String title; //제목

@@ -7,13 +7,15 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+
+
  <style type="text/css">
      
 .table {
     
     font-weight: bold;
     vertical-align: top;
-    border-bottom: 3px solid blue;
+   
     
             
             
@@ -36,12 +38,12 @@
 			<!--  	${user.lat}
 					${user.lon} -->
 				<div class="col-sm-6">
-					<div class="card" style="width: 30rem; height: 14.4rem;">
+					<div class="card" style="width: 30rem; height: 16rem;"> <!-- height:14.4 수정했습니다 -->
 						<h4 class="text-center">오늘의 산책 지수</h4>
 					
 								<!-- <div id="icon"><img id="wicon" src="" alt="Weather icon"></div> -->
 								<div id="result"></div>
-
+								
 					</div>
 				</div>
 			</div>
@@ -61,52 +63,15 @@
 $(function () {
    
         let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
-        //let data = { q: $('#myInput').val(), units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
         let data = { lat: ${user.lat}, lon: ${user.lon}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
         $.getJSON(publicAPI, data, function (resp, textStatus, xhr) {
             
         $('#result').empty();
-        // console.log(data.weather);
-        // console.log(data.weather[0].description);
-        // console.log(data.weather[0]);
-
+ 		/* 날씨API 
         var table = "<table>";
-        //table += "<tr><td>지역명</td><td>날씨</td><td>상세보기</td><td>바람</td><td>구름</td><td>온도</td></tr>";
-        //table += "<tr><td>그림</td><td>지역명</td><td>날씨</td><td>온도</td><td>습도</td><td>구름</td></tr>";
-		//table += "<tr><td rowspan='3' colspan='2'>이미지</td><td>온도</td></tr><tr><td>날씨</td></tr><tr><td>지역명</td></tr><tr><td>풍속</td><td>습도</td><td>구름</td></tr>";
-        //table += "<tr><td rowspan='3' colspan='2'>이미지</td><td>온도</td></tr><tr><td>날씨</td></tr><tr><td>지역명</td></tr><tr><td>풍속</td><td>습도</td><td>구름</td></tr>";
-        ///console.log("data.weather[0].des==="+data.weather[0].description);//o
-        // console.log("data.wind.speed==="+data.wind.speed);//0
-        ///console.log("data.weather[0].main==="+data.weather[0].main);//o
-        // console.log("data[clouds].all==="+data["clouds"].all); //o
-        /*
-        console.log(data.weather[0].icon);
-        table += "<tr>";
-        table += "<td>" + data.name + "</td>";
-        table += "<td>" + data.weather[0].main + "</td>";
-        table += "<td>" + data.weather[0].description + "</td>";
-        table += "<td>" + data.wind.speed + "</td>";
-        table += "<td>" + data["clouds"].all + "</td>";
-        table += "<td>" + data.main.temp+ "℃" + "</td>";
-        table += "</tr>";
-        table += "</table>";
-        */
-        /*
-        console.log(resp.weather[0].icon);
-        table += "<tr>"; 
-        table += "<td>" + resp.name + "</td>"; //지역명
-        table += "<td>" + resp.weather[0].main + "</td>"; //날씨
-        table += "<td>" + resp.weather[0].description + "</td>"; //상세보기
-        table += "<td>" + resp.wind.speed + "</td>"; //바람
-        table += "<td>" + resp["clouds"].all + "</td>"; //구름
-        table += "<td>" + resp.main.temp+ "℃" + "</td>"; //온도
-        table += "<td>" + resp.weather[0].icon + "</td>"; //이미지
-        table += "</tr>";
-        table += "</table>";
-        */
         console.log(resp.weather[0].icon);
         table += "<tr align='center'>";
-       	table += "<td rowspan='3' colspan='2' style='background-color:#81DAF5'><div id='icon'><img id='wicon' src='' alt='Weather icon' width='100'></div></td>";
+       	table += "<td rowspan='3' colspan='2' style='background-color:#81DAF5'><div id='icon'><img id='wicon' src='' alt='Weather icon' width='150'></div></td>";
        	table += "<td style='background-color:#81DAF5'>"+ "온도:  " + resp.main.temp + "℃" +"</td>";
        	table += "</tr>";
        	table += "<tr align='center'>";
@@ -121,15 +86,162 @@ $(function () {
        	table += "<td style='background-color:#FAFAFA'>"+ "구름:  " +resp["clouds"].all +"%" + "</td>";
        	table += "</tr>";
         table += "</table>";
-
+		*/
+		console.log(resp.weather[0].icon); 
+		var table = "<table>";
+		table += "<tr align='center'>";
+		table += "<td colspan='2'>" + resp.name + "</td>";
+		table += "<td>산책지수</td>";
+		table += "<td>7월17일</td>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td colspan='2' rowspan='3'><img id='walk' src='' alt='Weather icon' width='110'></td>";
+		table += "<td colspan='2' rowspan='3'><p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p></td>";
+		table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
+		table += "</tr>";
+		table += "</table>";
         $('#result').empty();
         $('#result').append(table);
-        //$('#result').prepend(table);
         $('table').addClass('table');
         var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다.
+        console.log(iconcode);
+        
+        switch (iconcode)
+        {
+          case "01d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/day-sunny.svg' );
+            break;
+
+          case "02d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/day-cloudy.svg' );
+            break;
+
+          case "03d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloud.svg' );
+            break;
+
+          case "04d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloudy.svg' );
+              break;
+              
+          case "09d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-showers.svg' );
+              break;
+
+          case "10d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-day-rain.svg' );
+              break;
+
+          case "11d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-day-thunderstorm.svg' );
+              break; 
+              
+          case "13d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-snow.svg' );
+              break;   
+                
+          case "50d" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-fog.svg' );
+              break;        
+
+          case "01n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-clear.svg' );
+              break;
+
+          case "02n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-cloudy.svg' );
+              break;
+              
+          case "03n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloud.svg' );
+              break;
+              
+          case "04n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-cloudy.svg' );
+              break;
+              
+          case "09n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-showers.svg' );
+              break;
+              
+          case "10n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-rain.svg' );
+              break;
+              
+          case "11n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-thunderstorm.svg' );
+              break;
+              
+          case "13n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-showers.svg' );
+              break;
+              
+          case "50n" :
+        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-fog.svg' );
+              break;
+ 
+          default :
+            document.write ("잘못된 값입니다.");
+        };
+
+        var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다. 산책 이미지 표시
+        console.log(iconcode);
+        
+        switch (iconcode)
+        {
+          case "01d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "02d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "03d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "04d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+    
+
+          case "01n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+
+          case "02n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+              
+          case "03n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+              
+          case "04n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+
+          default :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-tears-regular.svg' );
+        };
+		
+    
+       
+        
+		/* 이미지 올려주는 코드
         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png"; 
         $('#wicon').attr('src', iconurl);  //테이블 만들고서 이미지를 넣어야한다.
-     
+    	이미지 올려주는 코드	*/
+       
+        
     });
 
         

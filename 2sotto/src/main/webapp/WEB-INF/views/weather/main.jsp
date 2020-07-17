@@ -7,13 +7,15 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
+
+
  <style type="text/css">
      
 .table {
     
     font-weight: bold;
     vertical-align: top;
-    border-bottom: 3px solid blue;
+   
     
             
             
@@ -36,12 +38,12 @@
 			<!--  	${user.lat}
 					${user.lon} -->
 				<div class="col-sm-6">
-					<div class="card" style="width: 30rem; height: 14.4rem;">
+					<div class="card" style="width: 30rem; height: 16rem;"> <!-- height:14.4 수정했습니다 -->
 						<h4 class="text-center">오늘의 산책 지수</h4>
 					
 								<!-- <div id="icon"><img id="wicon" src="" alt="Weather icon"></div> -->
 								<div id="result"></div>
-
+								
 					</div>
 				</div>
 			</div>
@@ -65,7 +67,7 @@ $(function () {
         $.getJSON(publicAPI, data, function (resp, textStatus, xhr) {
             
         $('#result').empty();
- 
+ 		/* 날씨API 
         var table = "<table>";
         console.log(resp.weather[0].icon);
         table += "<tr align='center'>";
@@ -84,7 +86,27 @@ $(function () {
        	table += "<td style='background-color:#FAFAFA'>"+ "구름:  " +resp["clouds"].all +"%" + "</td>";
        	table += "</tr>";
         table += "</table>";
-
+		*/
+		console.log(resp.weather[0].icon); 
+		var table = "<table>";
+		table += "<tr align='center'>";
+		table += "<td colspan='2'>" + resp.name + "</td>";
+		table += "<td>산책지수</td>";
+		table += "<td>7월17일</td>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td colspan='2' rowspan='3'><img id='walk' src='' alt='Weather icon' width='110'></td>";
+		table += "<td colspan='2' rowspan='3'><p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p></td>";
+		table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
+		table += "</tr>";
+		table += "<tr align='center'>";
+		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
+		table += "</tr>";
+		table += "</table>";
         $('#result').empty();
         $('#result').append(table);
         $('table').addClass('table');
@@ -168,13 +190,57 @@ $(function () {
           default :
             document.write ("잘못된 값입니다.");
         };
-		
 
+        var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다. 산책 이미지 표시
+        console.log(iconcode);
+        
+        switch (iconcode)
+        {
+          case "01d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "02d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "03d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+            break;
+
+          case "04d" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+    
+
+          case "01n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+
+          case "02n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+              
+          case "03n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+              
+          case "04n" :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+              break;
+
+          default :
+        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-tears-regular.svg' );
+        };
+		
+    
+       
+        
 		/* 이미지 올려주는 코드
         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png"; 
         $('#wicon').attr('src', iconurl);  //테이블 만들고서 이미지를 넣어야한다.
     	이미지 올려주는 코드	*/
-
+       
         
     });
 

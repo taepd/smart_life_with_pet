@@ -26,6 +26,15 @@
     	
     	#wrapper {
     	}
+    	
+    	.card-img-top {
+    		margin-top: 16px;
+    	}
+    	
+    	.card {
+    		margin-left: 10px;
+    		margin-right: 10px;
+    	}
 
     </style>
     
@@ -50,20 +59,21 @@
                             -->
                 <li class="nav-item">
                   <a class="nav-link active show" href="#dashboard-1" role="tab" data-toggle="tab" aria-selected="false">
-					<i class="material-icons">schedule</i>
-                    Schedule
+					<i class="material-icons">calendar_today</i>
+                    	일정
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="false">
-                    <i class="material-icons">dashboard</i>
+                    <i class="material-icons">home</i>
+                    <!-- <span class="material-icons">home</span>  -->
                     Home
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="true">
-                    <i class="material-icons">list</i>
-                    Medical Records
+                    <i class="material-icons">local_hospital</i>
+                    	병원/접종기록
                   </a>
                 </li>
               </ul>

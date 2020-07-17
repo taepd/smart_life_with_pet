@@ -32,15 +32,17 @@ public class MainController {
 	
 //		@Autowired
 //		LoginService ls;
-		
 	
 	    // 메인 페이지 
 		@RequestMapping("main.bit")
+		/*
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
-
-
 			return "redirect:/";
-		}
+		}*/
+		 public String main() {		 
+			 return "main";
+		 }
+		
 		// 비로그인 메인 페이지 
 		@RequestMapping(value = "mainTest.bit", method = RequestMethod.GET)
 		public String mainView(String cp, String ps, Principal principal, Model model) {

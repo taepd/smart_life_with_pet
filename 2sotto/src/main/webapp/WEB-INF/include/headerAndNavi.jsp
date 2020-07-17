@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="se"
-	uri="http://www.springframework.org/security/tags"%>
-<style>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
-/*
-.fixed-top {
-	position: relative;
-}
-  */
-</style>
 		<!-- pageContext.request.userPrincipal.name -->
 		<se:authentication property="name" var="userid" />
 		<c:set var="user" value="${sessionScope.user}" />
 	<!-- header -->
-	<nav class="navbar navbar-default fixed-top" role="navigation-demo">
+	<!-- <nav class="navbar navbar-default fixed-top" role="navigation-demo"> -->
+	<nav class="navbar navbar-transparent fixed-top" role="navigation-demo" style="color: #000000;">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
 		<span id="header-title"><a href="${pageContext.request.contextPath}/index.jsp">슬기로운 반려생활</a></span>
 		<ul class="navbar-nav ml-auto">
@@ -49,18 +42,28 @@
 	<div id="sideMenu">
 		<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
 		<div class="user-pic-wrapper">
+		
+        	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 			<span class="user-pic"><i class="far fa-user-circle"></i></span>
-        	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">	
 				<div class="nickname">
-					${user.nick}<br>(${userid }) <br> ${user.point}포인트 <br>
+					${user.nick}<br>(${userid }) <br> ${user.point}포인트 <br> ${user.uimg}
 					<button class="btn btn-primary btn-sm" onclick="location.href='logout'">Logout</button>
 				</div>
 			</se:authorize>
 				
         	<se:authorize access="!hasRole('ROLE_USER')">	
+        		<!-- 뭔가 멘트가 구린데... 생각나는 게 없넴 -->
+					내 반려동물을
+					<br>
+					더 사랑하는 방법,
+					<br>
+					ㅡ
+					<br>
+					슬기로운 반려생활
+					<br>
 				<div class="nickname">
 					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">시작하기</button>
-					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest2.bit'">테스트</button>
+					<!-- <button class="btn btn-primary btn-sm" onclick="location.href='mainTest2.bit'">테스트</button> -->
 				</div>
 			</se:authorize>
 			<br>	

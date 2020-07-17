@@ -14902,7 +14902,7 @@ textarea {
 }
 
 .navbar.navbar-transparent {
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   box-shadow: none;
   padding-top: 25px;
   color: #ffffff;

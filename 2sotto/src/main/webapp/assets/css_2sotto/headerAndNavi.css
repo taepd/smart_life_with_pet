@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+
+a:visited, a:link {
+	color: #000000;
+}
+
+.fixed-top {
+	/* position: relative; */
+	position: fixed;
+}
+
 .sidenav {
 	position: fixed;
 	width: 260px;
@@ -52,7 +62,7 @@
 #item01 {
 	position: absolute;
 	right: 150px;
-	top: 8.9px;
+	top: 19.9px; /* 불투명이면 8.9, 투명이면 19.9 */
 }
 
 #item02 {

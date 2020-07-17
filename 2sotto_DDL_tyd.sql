@@ -777,10 +777,10 @@ commit;
 
 # admin계정 추가(비번 1004)
 INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime, lat, lon) 
-VALUES ('admin', 'admin', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now(),'37.5030569', '127.02464699999999');
+VALUES ('admin', 'admin', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '서울 서초구 서초동 1337-17', '1', '1',now(),'37.5030569', '127.02464699999999');
 # a 계정 추가(비번 1004)
 INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime, lat, lon) 
-VALUES ('a', 'a', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now(), '37.5030569','127.02464699999999');
+VALUES ('a', 'a', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '서울 서초구 서초동 1337-17', '1', '1',now(), '37.5030569','127.02464699999999');
 
 commit;
 
@@ -818,6 +818,7 @@ select * from pet;
 select * from maincategory;
 select * from subcategory; 
 select * from donation;
+select * from qna;
 
 select ctime-rtime from donation where dindex=2;
 

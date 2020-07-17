@@ -32,6 +32,14 @@ public class MainController {
 	
 //		@Autowired
 //		LoginService ls;
+		
+		//index페이지
+		// 메인 페이지 
+		@RequestMapping("/")
+		public String index() {
+			
+			return "index";
+		}
 	
 	    // 메인 페이지 
 		@RequestMapping("main.bit")
@@ -91,16 +99,17 @@ public class MainController {
 			return "mainTest2";
 		}
 		
-		// 로그인 메인 페이지 
-		@RequestMapping(value = "weather/main.bit", method = RequestMethod.GET)
-		public String weatherViewTest(String cp, String ps, Principal principal, Model model) {
+		
+		// 페이결제 메인 페이지 
+		@RequestMapping(value = "payTest.bit", method = RequestMethod.GET)
+		public String payViewTest(String cp, String ps, Principal principal, Model model) {
 			
 		
 			logger.info("다시작업시작이다..." );
 			
 			
 			
-			return "weather/main";
+			return "/payTest";
 		}
 			
 

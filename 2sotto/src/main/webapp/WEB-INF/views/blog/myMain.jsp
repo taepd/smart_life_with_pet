@@ -29,12 +29,12 @@
 			<hr>
 			
 			
-			<c:forEach var="post" items="${postList}">
+			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
 					<div class="col-9">
 						<div class="contents">
 							<h3><a href="detail.bit?bindex=${post.bindex}">${post.title}</a></h3>
-							${post.content}
+							<div id="content${status.index}">${post.content}</div>
 						</div>
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
@@ -56,7 +56,7 @@
 					<!-- 게시글 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
-							<img src="${pageContext.request.contextPath}/images/sample_boon.jpg" alt="게시물 이미지">
+							<img id="${status.index}" src="${pageContext.request.contextPath}/images/pet_profile.jpg" alt="게시물 이미지">
 						</div>
 					</div>
 				</div>
@@ -119,6 +119,23 @@
 
 <script>
 
+// 이미지 위치 디자인을 위한 함수
+$(function(){
+
+	for(var i =0; i<${fn:length(postList)}; i++){
+	    var imgs = $('#content'+i+' img');
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) {
+	        imgSrcs.push(imgs[j].src);
+			console.log(imgs[j]);
+			imgs[j].removeAttribute('src');		        
+	        //imgs.remove(imgs[j].src);
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+
+});
 
 </script>
 </html>

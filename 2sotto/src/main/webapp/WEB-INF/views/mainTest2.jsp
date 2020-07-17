@@ -508,7 +508,7 @@
 
 
 // 날씨 API 시작
-        $(function () {
+$(function () {
    
         let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
         let data = { lat: ${user.lat}, lon: ${user.lon}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
@@ -702,24 +702,48 @@
         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png"; 
         $('#wicon').attr('src', iconurl);  //테이블 만들고서 이미지를 넣어야한다.
     	이미지 올려주는 코드	*/
-       
+
+        /*
+        var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="+"37.5030852"+"&lon="+"127.024766"+ "&appid=" + "d2f22ea4bf87f5e2f1c91e3d19c58d8a";
+        $.ajax({
+            url: apiURI,
+            dataType: "json",
+            type: "GET",
+            async: "false",
+            success: function(resp) {
+                console.log(resp);
+                console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+                console.log("현재습도 : "+ resp.main.humidity);
+                console.log("날씨 : "+ resp.weather[0].main );
+                console.log("상세날씨설명 : "+ resp.weather[0].description );
+                console.log("날씨 이미지 : "+ resp.weather[0].icon );
+                console.log("바람   : "+ resp.wind.speed );
+                console.log("나라   : "+ resp.sys.country );
+                console.log("도시이름  : "+ resp.name );
+                console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+                  }
+           });
+            
+        */
+        //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
+     // 날씨 API 끝     
         
     });
 
- });
- });
 
 
-            // 반려동물 정보 영역
-            moment.locale('ko');
-    		getMyPetName();
-    		
-    		$('#myPetInfo').change(function() {
-    			var whichOne = $('#myPetInfo').val();
-    			getMyPetSchedule(whichOne);
-    		});
+
+        // 반려동물 정보 영역
+        moment.locale('ko');
+		getMyPetName();
+		
+		$('#myPetInfo').change(function() {
+			var whichOne = $('#myPetInfo').val();
+			getMyPetSchedule(whichOne);
+		});
             
-        });
+});
+//onload 함수 끝
 
 
      // 나의 반려동물 이름 가져오기
@@ -769,7 +793,7 @@
     					image += "}' class='rounded img-fluid' width='150px' height='150px'>";
 */
         				});
-
+						console.log("이미지"+ image);
     				var imageSrc = "<img src='${pageContext.request.contextPath}/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
     				//console.log("var 확인"+image);
 
@@ -784,7 +808,6 @@
     		});
     	}
 
- //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
-// 날씨 API 끝
+
 </script>	  
 </html>

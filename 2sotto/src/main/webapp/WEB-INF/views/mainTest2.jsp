@@ -529,11 +529,27 @@
         table += "</table>";
 		*/
 		console.log(resp.weather[0].icon); 
+		//사용자 주소 위치(동) 불러오기
+		var loc = '${user.loc}'; //사용자 주소 받기
+		var arr = loc.split(" ");// 주소를 공백으로 잘라서 배열에 저장
+		console.log(arr[2]);
+	
+		//현재 날짜 불러오기
+		let today = new Date();   
+
+		let year = today.getFullYear(); // 년도
+		let month = today.getMonth() + 1;  // 월
+		let date = today.getDate();  // 날짜
+		let day = today.getDay();  // 요일
+		
+		let Cday = year + '년 ' + month + '월 ' + date + '일'
+
+		
 		var table = "<table>";
 		table += "<tr align='center'>";
-		table += "<td colspan='2'>" + resp.name + "</td>";
+		table += "<td colspan='2'>" + arr[0]+" "+arr[1]+" "+arr[2] + "</td>";
 		table += "<td>산책지수</td>";
-		table += "<td>7월17일</td>";
+		table += "<td>"+Cday+"</td>";
 		table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
 		table += "</tr>";
 		table += "<tr align='center'>";

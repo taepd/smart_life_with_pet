@@ -27,7 +27,7 @@
 	        		<h3>내 반려동물들</h3>
 	        		<div class="d-flex">  <!--  style="display: inline-block;" -->
 	        			<c:forEach var="myPet" items="${myPetList}">
-				        	<div class="follow-img-wrapper" onclick='petSelect(this)' flag="0" value="${myPet.petindex}">
+				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
 			        			<div  class="rounded-circle card-modal-profile"
                                     style="float : left; background-color: white; overflow: hidden; height:100px; width:100px;">
@@ -36,7 +36,9 @@
                                             style="width :auto; height: 130px; transform: translate(-50%, -50%); ">
                                     </div>
                              	</div>
+                             	<div class="text-center"> ${myPet.petname} </div>
 		        			</div>
+		        			
 				        </c:forEach>   			
 	        		</div>
 	        	</div>

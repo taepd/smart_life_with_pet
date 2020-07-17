@@ -35,6 +35,14 @@ public class MainService {
 		return list;
 	}
 	
+	// 반려동물 이름, 사진 가져가기(메인용)
+	public List<Pet> getPetPicture(String userid) {
+		List<Pet> list = null;
+		list = petDao.getPetPicture(userid);
+		return list;
+	}
+	
+	
 	// 메인에 뿌릴 내 동물 이름
 	/*
 	public List<String> getSimplePetInfo(String userid) {

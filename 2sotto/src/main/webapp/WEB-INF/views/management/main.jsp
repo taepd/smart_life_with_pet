@@ -173,7 +173,7 @@
                 	<div class="row">
                     	<c:forEach var="petInfo" items="${petInfoList}">
 							<div class="card col-4" style="width: 20rem;">
-								<img class="card-img-top" src="${pageContext.request.contextPath}/images/${petInfo.petimg}" rel="nofollow" alt="card image">
+								<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}" rel="nofollow" alt="card image">
 								  <div class="card-body">
 									<h4>${petInfo.petname}</h4>
 								    <p class="card-text" id="petInfo">

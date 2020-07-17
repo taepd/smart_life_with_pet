@@ -83,7 +83,7 @@
 				        		<c:forEach items="${likeList}" var="like">
 				        			<div class="follow-img-wrapper">
 					        			<a href="#">
-					        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/images/${like.petimg}" 
+					        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
 			 		        					rel="nofollow" alt="${like.petname}">
 			 		        			</a>
 				        			</div>
@@ -144,7 +144,7 @@
 					table += "<td colspan='2'>" + arr[0]+" "+arr[1]+" "+arr[2] + "</td>";
 					table += "<td>"+Cday+"</td>";
 					table += "<td>산책지수</td>";
-					table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
+					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
 					table += "<td colspan='2' rowspan='3'><img id='walk' src='' alt='Weather icon' width='110'></td>";
@@ -152,10 +152,10 @@
 					table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
-					table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
+					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
-					table += "<td> <img src='${pageContext.request.contextPath}/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
+					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
 				table += "</tr>";
 			table += "</table>";
 	        $('#result').empty();
@@ -167,75 +167,75 @@
 	        switch (iconcode)
 	        {
 	          case "01d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/day-sunny.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/day-sunny.svg' );
 	            break;
 	
 	          case "02d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/day-cloudy.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/day-cloudy.svg' );
 	            break;
 	
 	          case "03d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloud.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-cloud.svg' );
 	            break;
 	
 	          case "04d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloudy.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-cloudy.svg' );
 	              break;
 	              
 	          case "09d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-showers.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-showers.svg' );
 	              break;
 	
 	          case "10d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-day-rain.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-day-rain.svg' );
 	              break;
 	
 	          case "11d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-day-thunderstorm.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-day-thunderstorm.svg' );
 	              break; 
 	              
 	          case "13d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-snow.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-snow.svg' );
 	              break;   
 	                
 	          case "50d" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-fog.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-fog.svg' );
 	              break;        
 	
 	          case "01n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-clear.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-clear.svg' );
 	              break;
 	
 	          case "02n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-cloudy.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-alt-cloudy.svg' );
 	              break;
 	              
 	          case "03n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-cloud.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-cloud.svg' );
 	              break;
 	              
 	          case "04n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-cloudy.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-cloudy.svg' );
 	              break;
 	              
 	          case "09n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-showers.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-alt-showers.svg' );
 	              break;
 	              
 	          case "10n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-alt-rain.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-alt-rain.svg' );
 	              break;
 	              
 	          case "11n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-thunderstorm.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-thunderstorm.svg' );
 	              break;
 	              
 	          case "13n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-showers.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-showers.svg' );
 	              break;
 	              
 	          case "50n" :
-	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/images/weather/wi-night-fog.svg' );
+	        	  $('#wicon').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/wi-night-fog.svg' );
 	              break;
 	          
 	          default :
@@ -247,39 +247,39 @@
 	        switch (iconcode)
 	        {
 	          case "01d" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	            break;
 	
 	          case "02d" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	            break;
 	
 	          case "03d" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	            break;
 	
 	          case "04d" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	              break;
 	 
 	          case "01n" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	              break;
 	
 	          case "02n" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	              break;
 	              
 	          case "03n" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	              break;
 	              
 	          case "04n" :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-beam-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-beam-regular.svg' );
 	              break;
 	
 	          default :
-	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/images/weather/grin-tears-regular.svg' );
+	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-tears-regular.svg' );
 	        };
 			
 	    
@@ -350,7 +350,7 @@
     					image = element.petimg;
         			});
 
-    				var imageSrc = "<img src='${pageContext.request.contextPath}/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
+    				var imageSrc = "<img src='${pageContext.request.contextPath}/assets/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
     				//console.log("var 확인"+image);
 
     				//$('#img').text(image);

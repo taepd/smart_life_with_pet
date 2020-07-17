@@ -11,7 +11,7 @@ CREATE TABLE USER (
 	LAT      VARCHAR(40)  NULL,     -- 위도
 	LON      VARCHAR(40)  NULL,     -- 경도
 	POINT    INT          NULL ,     -- 포인트
-	SNSSTYPE VARCHAR(20)     
+	SNSTYPE VARCHAR(20)     
 );
 
 -- 회원
@@ -819,6 +819,7 @@ select * from maincategory;
 select * from subcategory; 
 select * from donation;
 select * from qna;
+select * from schedule;
 
 select ctime-rtime from donation where dindex=2;
 
@@ -864,3 +865,5 @@ where petindex = 6;
 
 -- 반려동물 petindex 키워드 검색 쿼리
 select * from blog where concat(',',petindex,',') like '%,1,%';
+
+alter table user change snsstype SNSTYPE varchar(20);

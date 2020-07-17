@@ -96,7 +96,7 @@
                     	<!-- <div id="calendar"></div> -->
                     	<c:forEach var="petInfo" items="${petInfoList}">
 							<div class="card col-4" style="width: 20rem;">
-								<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
+								<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
 								  <div class="card-body">
 									<h4>${petInfo.petname}</h4>
 								    <p class="card-text">

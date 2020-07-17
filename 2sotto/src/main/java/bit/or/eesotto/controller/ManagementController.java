@@ -91,7 +91,7 @@ public class ManagementController {
 		if(file != null && file.getSize() > 0) { 
 			    //String filename = file.getOriginalFilename();
 			    String filename = UUID.randomUUID().toString();
-				String path = request.getServletContext().getRealPath("/images");
+				String path = request.getServletContext().getRealPath("/assets/images");
 				
 				String fpath = path + "\\"+ filename; 
 				
@@ -190,7 +190,7 @@ public class ManagementController {
 		if(file != null && file.getSize() > 0) { 
 			    //String filename = file.getOriginalFilename();
 			    String filename = UUID.randomUUID().toString();
-				String path = request.getServletContext().getRealPath("/images");
+				String path = request.getServletContext().getRealPath("/assets/images");
 				
 				String fpath = path + "\\"+ filename; 
 				

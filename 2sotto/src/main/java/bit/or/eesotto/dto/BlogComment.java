@@ -12,6 +12,7 @@ public class BlogComment {
 	private int bcindex;
 	private int bindex;  //블로그 인덱스(FK)
 	private String userid;
+	private String nick;
 	private int bclike;
 	private String content;
 	private String scstate;

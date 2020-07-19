@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -57,11 +56,11 @@
 							<!---------- 받은쪽지함 ------------------>
 
 							<div class="table-responsive">
-								
+								 <form action="delete.bit" method="get">
 								<table class="table">
 								    <thead class=" text-primary">
 								   	 	<tr>
-								            <th class="checkbox"><input type="checkbox" id="ck_all"/>전체선택</th>
+								             <th class="checkbox"><input type="checkbox" id="ck_all">전체선택</th>
 								        </tr>
 								        <tr>
 								   	 		<th>체크박스</th>
@@ -76,7 +75,7 @@
 								    <tbody id="message">
 								        
 								       <tr data-tr_value="${message.msindex}"> 
-								            <td><input type="checkbox" name="checkRow" value="${message.msindex}"></td>
+								            <td><input type="checkbox" name="msindexes" value="${message.msindex}"></td>
 								            <td>${message.msindex}</td>
 											<td>${message.suserid}</td>
 											  <td onclick="location.href='detail.bit?msindex=${message.msindex}'">${message.content}</td> 
@@ -89,11 +88,11 @@
 								    </tbody>
 								    </c:forEach> 
 								</table>
-							
- 								<label for="bmd-label-static">삭제</label> 
-								
-								<input type="button" id="delete"  onclick="Delete()" placeholder="삭제">
-								
+								<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>삭제</b></button>
+ 								<!--  
+ 								<label for="bmd-label-static">삭제</label> 			
+								<input type="button" id="delete" placeholder="삭제">-->
+								</form>
 								
 								
 								<!-- 페이징 -->
@@ -193,10 +192,10 @@
 <!-- Modal에서 삭제 -->
 
 // 삭제 전 확인 창 띄우기
-function Delete() {
-  location.replace("delete.bit?msindex=${message.msindex}"); 
+//function Delete() {
+//  location.replace("delete.bit?msindex=${message.msindex}");
   //location.replace("delete.bit"); 
-  }
+//  }
 
 <!-- Modal에서 삭제 --> 
 
@@ -209,60 +208,81 @@ $(document).ready(function(){
             $("input[type=checkbox]").prop("checked",false); 
         }
     });
- 	
+});	
+	
+	// 상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
+	/*
+	$("#selectBtn").click(function(){ 
+		
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=user_CheckBox]:checked");
+		
+		// 체크된 체크박스 값을 가져온다
+		checkbox.each(function(i) {
+
+			// checkbox.parent() : checkbox의 부모는 <td>이다.
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			
+			// 체크된 row의 모든 값을 배열에 담는다.
+			rowData.push(tr.text());
+			
+			// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+			var no = td.eq(1).text()+", "
+			//var userid = td.eq(2).text()+", ";
+			//var name = td.eq(3).text()+", ";
+			//var email = td.eq(4).text()+", ";
+			//var email1 = td.eq(5).text()+", ";
+			// 가져온 값을 배열에 담는다.
+			tdArr.push(no);
+			//tdArr.push(userid);
+			//tdArr.push(name);
+			//tdArr.push(email);
+			//tdArr.push(email1);
+			console.log("msindex : " + no);
+			//console.log("userid : " + userid);
+			//console.log("name : " + name);
+			//console.log("email : " + email);
+		});
+		
+		$("#ex3_Result1").html(" * 체크된 Row의 모든 데이터 = "+rowData);	
+		$("#ex3_Result2").html(tdArr);	
+	
+	});
+
+	*/
+  
+
+
+    
+	/*
     $('#delete').click(function(){
         if(confirm("삭제하시겠습니까?")){
             $("input[name=checkRow]:checked").each(function(){
                 var tr_value =$(this).val();
                 var tr=$("tr[data-tr_value='"+tr_value+"']");
-                tr.remove("checkRow");
+                tr.remove();
+           		
             });
         }else{
             return false;
         }
     });
- 
+ 	
 });
+*/
 
-//상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
-$("#selectBtn").click(function(){ 
+$('#delete').click(function(){
 	
-	var rowData = new Array();
-	var tdArr = new Array();
-	var checkbox = $("input[name=user_CheckBox]:checked");
-	
-	// 체크된 체크박스 값을 가져온다
-	checkbox.each(function(i) {
-
-		// checkbox.parent() : checkbox의 부모는 <td>이다.
-		// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-		var tr = checkbox.parent().parent().eq(i);
-		var td = tr.children();
-		
-		// 체크된 row의 모든 값을 배열에 담는다.
-		rowData.push(tr.text());
-		
-		// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-		var no = td.eq(1).text()+", "
-		var userid = td.eq(2).text()+", ";
-		var name = td.eq(3).text()+", ";
-		var email = td.eq(4).text()+", ";
-		
-		// 가져온 값을 배열에 담는다.
-		tdArr.push(no);
-		tdArr.push(userid);
-		tdArr.push(name);
-		tdArr.push(email);
-		
-		console.log("no : " + no);
-		//console.log("userid : " + userid);
-		//console.log("name : " + name);
-		//console.log("email : " + email);
-	});
-
-
-	
-
+	let con = confirm("정말로 삭제하시겠습니까?");
+	if(con){
+		return location.href='delete.bit?msindex=${message.msindex}';
+	}else{
+		return;
+	}
+});
 
 
 </script>

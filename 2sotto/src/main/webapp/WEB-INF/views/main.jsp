@@ -144,7 +144,7 @@
 				table += "</tr>";
 				table += "<tr align='center'>";
 					table += "<td colspan='2' rowspan='3'><img id='walk' src='' alt='Weather icon' width='110'></td>";
-					table += "<td colspan='2' rowspan='3'><p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p></td>";
+					table += "<td colspan='2' rowspan='3'><span id='talk'></span></td>";
 					table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
@@ -277,10 +277,49 @@
 	          default :
 	        	  $('#walk').attr ('src' ,'${pageContext.request.contextPath}/assets/images/weather/grin-tears-regular.svg' );
 	        };
-			
-	    
-	       
-	        
+
+	        //산책지수 문구.
+	        var iconcode = resp.weather[0].icon;
+	        console.log(iconcode);  
+	        switch (iconcode)
+	        {
+
+	        	case "01d" :
+	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	            break;
+	
+	          	case "02d" :
+	          	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	  		 	    break;
+	
+	          	case "03d" :
+	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	 	            break;
+	
+	         	case "04d" :
+	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	            break;
+	 
+	            case "01n" :
+	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	break;
+	
+	          	case "02n" :
+	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	break;
+	              
+	          	case "03n" :
+	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	break;
+	              
+	          	case "04n" :
+	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	             break;
+	
+	          	default :
+	        	  $('#talk').html("<p>오늘은 반려동물과 </p><p>실내에서 좋은 시간 보내세요!</p>");
+	        };
+  
 			/* 이미지 올려주는 코드
 	        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png"; 
 	        $('#wicon').attr('src', iconurl);  //테이블 만들고서 이미지를 넣어야한다.

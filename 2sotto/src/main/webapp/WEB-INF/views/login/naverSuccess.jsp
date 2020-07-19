@@ -26,7 +26,7 @@ h3 {
       var email = ${result}.response.email;
       $("#name").html("환영합니다. "+name+"님");
       $("#email").html(email);
-     });
+     });  
 </script>
 
 </head>
@@ -44,7 +44,7 @@ h3 {
       $("body").fadeIn(1000);  // 1초 뒤에 사라 지자 
      
       setTimeout(function(){$("body").fadeOut(1000);},1000);
-      setTimeout(function(){location.href= "${pageContext.request.contextPath}/"},2000);
+      setTimeout(function(){location.href= "${pageContext.request.contextPath}/main.bit"},2000);
 // 2초 뒤에 메인 화면 으로 가자  
     
     })

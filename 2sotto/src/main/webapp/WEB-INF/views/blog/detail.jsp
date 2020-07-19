@@ -97,7 +97,7 @@
 					<!-- 댓글 폼 -->
 					<br>
 					<form name="comment" id="comment" method="POST">
-						작성자&nbsp;&nbsp;${sessionScope.user.userid}<br>
+						작성자&nbsp;&nbsp;${sessionScope.user.nick}<br>
 						<%-- <input type="hidden" name="bindex" id="bindex" value="${post.bindex}"> --%>
 						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
 						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
@@ -163,7 +163,7 @@ function getCommentList() {
 				};
 				//html += "<form action='commentDelete.bit' method='POST'>";
 				html += "<div class='d-flex justify-content-between'><div id='commentUserid'><b>";
-				html += element.userid;
+				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
 					html += "</b></div><div><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;'>대댓글</button></div></div>";
@@ -210,6 +210,7 @@ function insertComment() {
 			datatype:"json",
 			data: { bindex:'${post.bindex}',
 					userid: '${sessionScope.user.userid}',
+					nick: '${sessionScope.user.nick}',
 					content: $('#content').val()
 				  },	
 			success: function(data) {
@@ -343,6 +344,7 @@ $(document).on("click","#writeRecom",function(){
 			data: { bindex:'${post.bindex}',
 					bcindex: $('#bcindex').val(),
 					userid: '${sessionScope.user.userid}',
+					nick: '${sessionScope.user.nick}',
 					content: $('#content').val(),
 					refer: $('#refer').val()
 				  },	

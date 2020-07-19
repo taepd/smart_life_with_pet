@@ -2,7 +2,9 @@ package bit.or.eesotto.controller;
 
 import java.security.*;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -121,14 +123,22 @@ public class MessageController {
 		
 		// message > 글 삭제 처리
 		@RequestMapping(value = "delete.bit", method = {RequestMethod.GET, RequestMethod.POST})
-		public String delete(Message msindex, Model model) {
-							
+		public String delete(Message message, HttpServletRequest request, Model model) {
+			logger.info("여기까지 들어오는건가??");				
 			//String msg = null;
 			//String url = null;
-				
-			int result = ms.deleteMessage(msindex);
+			String[] msindexArr =request.getParameterValues("msindexes");	
+			System.out.println("arr"+ msindexArr.toString());
 			
-			if(result==1) {
+			int result =1;
+			
+			for(String msindex: msindexArr) {
+				message.setMsindex(Integer.parseInt(msindex));
+				result *= ms.deleteMessage(message);
+			}
+			
+			
+			if(result != 0) { // 만일 result중 하나라도 실패가 있으면 0이 됨
 				
 				logger.info("message 글 삭제 완료");
 				//msg = "Qna 글 삭제 완료";

@@ -89,7 +89,8 @@
 					<li><a href="${pageContext.request.contextPath}/mainTest2.bit">로그인메인테스트</a></li>
 				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-					<li><a href="${pageContext.request.contextPath}/payTest.bit">pay테스트</a></li>
+					<li><a href="${pageContext.request.contextPath}/mapTest.bit">map테스트</a></li>
+					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
 				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li>

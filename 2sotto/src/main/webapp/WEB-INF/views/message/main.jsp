@@ -57,17 +57,13 @@
 							<!---------- 받은쪽지함 ------------------>
 
 							<div class="table-responsive">
-							
+								
 								<table class="table">
 								    <thead class=" text-primary">
 								   	 	<tr>
-								            <th class="checkbox">
-								                <input type="checkbox" id="ck_all">전체
-								                
-								            </th>
+								            <th class="checkbox"><input type="checkbox" id="ck_all"/>전체선택</th>
 								        </tr>
-								   	 
-								   	 	<tr>
+								        <tr>
 								   	 		<th>체크박스</th>
 											<th>쪽지번호</th>
 											<th>보낸사람</th>
@@ -78,7 +74,8 @@
 								    </thead>
 								     <c:forEach var="message" items="${messageList}" >
 								    <tbody id="message">
-								        <tr data-tr_value="${message.msindex}">
+								        
+								       <tr data-tr_value="${message.msindex}"> 
 								            <td><input type="checkbox" name="checkRow" value="${message.msindex}"></td>
 								            <td>${message.msindex}</td>
 											<td>${message.suserid}</td>
@@ -92,9 +89,10 @@
 								    </tbody>
 								    </c:forEach> 
 								</table>
+							
  								<label for="bmd-label-static">삭제</label> 
-								<input type="button" id="delete"  onclick="Delete()" placeholder="삭제">
 								
+								<input type="button" id="delete"  onclick="Delete()" placeholder="삭제">
 								
 								
 								
@@ -211,13 +209,13 @@ $(document).ready(function(){
             $("input[type=checkbox]").prop("checked",false); 
         }
     });
- 
+ 	
     $('#delete').click(function(){
         if(confirm("삭제하시겠습니까?")){
             $("input[name=checkRow]:checked").each(function(){
                 var tr_value =$(this).val();
                 var tr=$("tr[data-tr_value='"+tr_value+"']");
-                tr.remove();
+                tr.remove("checkRow");
             });
         }else{
             return false;
@@ -261,6 +259,7 @@ $("#selectBtn").click(function(){
 		//console.log("name : " + name);
 		//console.log("email : " + email);
 	});
+
 
 	
 

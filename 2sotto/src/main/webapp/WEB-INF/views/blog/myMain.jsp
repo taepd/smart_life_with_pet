@@ -74,7 +74,7 @@
 							<div class="heart-comment-time-area">
 								<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 								<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
-								<span>${rtime}</span>
+								<span id="rtime${status.index}">${rtime}</span>
 							</div>
 						</div>
 					</div>	
@@ -147,6 +147,11 @@
 //onload 함수
 $(function(){
 	replaceImg();
+	for(var i =0; i<${fn:length(postList)}; i++){
+		$('#rtime'+i+'').each(function(){
+			$(this).text(prettyDate($(this).text()));
+		});
+	};
 });
 
 /**
@@ -171,6 +176,55 @@ function replaceImg(){
 		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
 } 
+function prettyDate(time){
+
+	  var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ").split(".")[0]),
+	 
+
+	  diff = (((new Date()).getTime() - date.getTime()) / 1000);
+
+	  console.log(date);
+
+	  diff = diff - 33000 - 10227;//수식이 정확히 적용되지 않아서 보정한 값
+	  
+	  console.log(diff);
+
+	  if(diff < 0) diff = 0;
+
+	  day_diff = Math.floor(diff / 86400);
+
+	  
+
+	  if ( isNaN(day_diff) || day_diff < 0 )
+
+	   return;
+
+	    
+
+	  return day_diff == 0 && (
+
+	    diff < 60 && "방금전" ||
+
+	    diff < 120 && "1분전" ||
+
+	    diff < 3600 && Math.floor( diff / 60 ) + " 분전" ||
+
+	    diff < 7200 && "1 시간전" ||
+
+	    diff < 86400 && Math.floor( diff / 3600 ) + " 시간전") ||
+
+	   day_diff == 1 && "어제" ||
+
+	   day_diff < 7 && day_diff + " 일전" ||
+
+	   day_diff < 31 && Math.floor( day_diff / 7 ) + " 주전" ||
+
+	   day_diff < 360 && Math.floor( day_diff / 30 ) + " 개월 전" ||
+
+	   day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
+
+	 }
+
 
 
 </script>

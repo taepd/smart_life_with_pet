@@ -2,6 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <html>
 <head>
@@ -38,11 +40,11 @@
 										<i class="material-icons"></i>후원글 메인
 									</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+								<!-- <li class="nav-item">
+									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <i class="material-icons">chat</i>
 										<i class="material-icons"></i>최신순
 									</a>
-								</li>
+								</li> -->
 								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons"></i>글 작성
@@ -78,6 +80,18 @@
 									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" > 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 등록 시간</label>
+									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 완료 시간</label> 
+									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" > 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" > 
 								</div>
@@ -86,12 +100,12 @@
 									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
 								</div>
 								
-									   <textarea name="content" class="form-control"  rows="10" >${donate.content}</textarea>
-								
+									   <textarea name="content" class="form-control"  rows="10" > ${donate.content}</textarea>
+									  
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
 										<button type="submit" class="btn btn-primary"><b>글 수정 완료</b></button>
-										<button type="reset" class="btn btn-primary">글 수정 취소</button>
+										<button type="button" class="btn btn-primary" id="cancle" onclick="location.href='detail.bit?dindex=${donate.dindex}'">수정 취소</button>									
 								</div>
 							</div>
 						</form>
@@ -115,5 +129,16 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+
+//ckeditor
+$(function(){
+	CKEDITOR.replace('content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
+	});
+});
+</script>
 </html>
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.or.eesotto.dao.MrecordDao">
+
+
+	
+	<!-- 블로그 포스팅 수 조회 -->
+	
+	<select id="getMrecordCount" resultType="int">
+		select count(*) from mrecord
+		<if test="#{userid} != null">
+			where userid = #{userid}
+		</if>
+	</select>
+	
+	<!-- 병원기록 리스트 조회 -->
+	<select id="getMrecordList" resultType="bit.or.eesotto.dto.Mrecord">
+				
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.*, p.petname FROM MRECORD M 
+		JOIN PET P ON M.PETINDEX = P.PETINDEX, (SELECT @ROWNUM:=0) r where m.userid=#{param3}) 
+		S WHERE ROWNUM BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
+	</select>
+	
+	
+	<!-- PETNAME만 가져오기... -->
+	<!-- <select id="getPetname" resultType="bit.or.eesotto.dto.Mrecord">
+				
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT M.*, p.petname FROM MRECORD M 
+		JOIN PET P ON M.USERID = P.USERID, s where p.userid=#{userid}) 
+		S WHERE 
+	</select> -->
+	
+	<!-- PETNAME만 가져오기... -->
+	<select id="getPetname" resultType="bit.or.eesotto.dto.Mrecord">
+		select petname, petindex from pet where userid = #{userid}
+	</select> 
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

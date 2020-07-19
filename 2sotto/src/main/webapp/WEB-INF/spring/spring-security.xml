@@ -94,7 +94,7 @@ error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실
 		<security:logout  logout-success-url="/"
 						  invalidate-session="true" />
 	  
-		<security:intercept-url pattern="/blog/**" access="hasRole('ROLE_USER')" />
+		<!--  <security:intercept-url pattern="/blog/**" access="hasRole('ROLE_USER')" /> -->
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll"/>
 		<!-- 세션 관련 설정 -->

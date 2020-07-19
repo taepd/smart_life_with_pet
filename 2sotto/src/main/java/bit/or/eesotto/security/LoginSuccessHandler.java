@@ -87,14 +87,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         
-        //저장된 리퀘스트 경로가 있는 경우 그 쪽으로 이동, 없으면 디폴트 페이지로 이동
+        //저장된 리퀘스트 경로가 있는 경우 그쪽으로 이동, 없으면 디폴트 페이지로 이동
         if(savedRequest!=null) {
             String targetUrl = savedRequest.getRedirectUrl();
             redirectStratgy.sendRedirect(request, response, targetUrl);
             logger.info("이전 경로로 이동");
         } else {
             redirectStratgy.sendRedirect(request, response, defaultUrl);
-            logger.info("기본 경로로 이동");
+            logger.info(defaultUrl+": 기본 경로로 이동");
         }
         
     }

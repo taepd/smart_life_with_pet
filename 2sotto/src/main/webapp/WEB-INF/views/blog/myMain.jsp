@@ -72,9 +72,9 @@
 								<span>${post.bcCount}</span>
 							</div>
 							<div class="heart-comment-time-area">
-								<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-								<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
-								<span id="rtime${status.index}">${rtime}</span>
+							<%-- 	<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/> --%>
+								<span id="rtime${status.index}">${post.rtime}</span>
 							</div>
 						</div>
 					</div>	
@@ -97,7 +97,7 @@
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
 							<li class="page-item">
-								<a class="page-link" href="main.bit?cp=${cpage-1}&ps=${pageSize}" cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
+								<a class="page-link" href="myMain.bit?cp=${cpage-1}&ps=${pageSize}" cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 									<span class="sr-only">Previous</span>
 								</a>
@@ -108,12 +108,12 @@
 							<c:choose>
 								<c:when test="${cpage==i }">
 									<li class="page-item active"><a class="page-link"
-										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="myMain.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link"
-										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="myMain.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -122,7 +122,7 @@
 						<c:if test="${cpage < pageCount}">
 
 							<li class="page-item">
-								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+								<a class="page-link" href="myMain.bit?cp=${cpage+1}&ps=${pageSize}"
 									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
 									<span aria-hidden="true">&raquo;</span>
 									<span class="sr-only">Next</span>
@@ -185,7 +185,7 @@ function prettyDate(time){
 
 	  console.log(date);
 
-	  diff = diff - 33000 - 10227;//수식이 정확히 적용되지 않아서 보정한 값
+	  //diff = diff - 33000 //- 10227;//수식이 정확히 적용되지 않아서 보정한 값
 	  
 	  console.log(diff);
 

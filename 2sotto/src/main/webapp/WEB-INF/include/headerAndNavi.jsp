@@ -10,30 +10,33 @@
 	<!-- <nav class="navbar navbar-default fixed-top" role="navigation-demo"> -->
 	<nav class="navbar navbar-transparent fixed-top" role="navigation-demo" style="color: #000000;">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
-		<span id="header-title"><a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a></span>
-		<ul class="navbar-nav ml-auto">
-			<se:authorize access="!hasRole('ROLE_USER')">
-					<li class="nav-item" id="item01">
-						<a href="${pageContext.request.contextPath}/login/login.bit" class="nav-link">로그인</a>
-		            </li>
-				            
-		            <li class="nav-item" id="item02">
-		                <a href="${pageContext.request.contextPath}/join/register.bit" class="btn btn-rose btn-raised btn-round">
-		                	시작하기
-		                </a>
-					</li>
+		<se:authorize access="!hasRole('ROLE_USER')">
+			<span id="header-title"><a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a></span>
+			<ul class="navbar-nav ml-auto">
+						<li class="nav-item" id="item01">
+							<a href="${pageContext.request.contextPath}/login/login.bit" class="nav-link">로그인</a>
+			            </li>
+					            
+			            <li class="nav-item" id="item02">
+			                <a href="${pageContext.request.contextPath}/join/register.bit" class="btn btn-rose btn-raised btn-round">
+			                	시작하기
+			                </a>
+						</li>
+			</ul>
 		</se:authorize>	
-		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
-					<li class="nav-item" id="item01">
-						<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link">마이 페이지</a>
-		            </li>
-		            <li class="nav-item" id="item02">
-		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
-		                	로그아웃
-		                </a>
-					</li>
+		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+			<span id="header-title"><a href="${pageContext.request.contextPath}/main.bit">슬기로운 반려생활</a></span>
+			<ul class="navbar-nav ml-auto">			
+						<li class="nav-item" id="item01">
+							<a href="${pageContext.request.contextPath}/mypage/main.bit" class="nav-link">마이 페이지</a>
+			            </li>
+			            <li class="nav-item" id="item02">
+			                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
+			                	로그아웃
+			                </a>
+						</li>
+			</ul>
 		</se:authorize>
-		</ul>
 	</nav>
 	
 

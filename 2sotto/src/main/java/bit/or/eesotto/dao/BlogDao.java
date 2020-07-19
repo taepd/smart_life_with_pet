@@ -25,9 +25,6 @@ public interface BlogDao {
 	// 블로그 > 모두의 포스트 리스트 조회
 	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
 
-		
-//	// 블로그 > 모두의 포스팅 개수 조회
-//	public int getPostCount();
 	
 	// 블로그 > 포스팅 개수 조회
 	public int getPostCount(@Param("userid") String userid);
@@ -43,7 +40,7 @@ public interface BlogDao {
 	public int updateCount(@Param("bindex") String bindex);
 	
 	// 블로그 > 글 수정 
-	@Update("update blog set title=#{title}, content=#{content} where bindex=#{bindex}")
+	@Update("update blog set petindex=#{petindex}, title=#{title}, content=#{content} where bindex=#{bindex}")
 	public int editPost(Blog post);
 	
 	// 블로그 > 글 삭제

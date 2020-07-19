@@ -2,8 +2,11 @@ package bit.or.eesotto.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,13 +49,21 @@ public class BlogController {
 		HashMap<String, Object> map = bs.myMainView(cp, ps, userid);
 		logger.info("내 블로그 글 리스트 조회 완료");
 		
+		List<Pet> myPetList = ms.getPetInfo(userid);
+		logger.info("내 반려동물 리스트: "+myPetList);
+		
+		//테스트
+		List<Blog> postList = (List)map.get("postList");
+		System.out.println(postList);
+		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
 		model.addAttribute("postList", map.get("postList")); 		
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalPostCount", map.get("totalPostCount"));
-
+		model.addAttribute("myPetList", myPetList);
+		
 		return "blog/myMain";
 
 	}
@@ -62,11 +73,35 @@ public class BlogController {
 	public String main(String cp, String ps, Principal principal, Model model) {
 				
 //		String userid = (String) session.getAttribute("userid");
-		String userid =  principal.getName();
+		
+		String userid =  null;
+		
+			try {
+				if(principal.getName()!= null) {
+					userid = principal.getName();
+				}
+			} catch (Exception e) {
+		}
+		
 		logger.info("로그인 유저 아이디: " + userid);
 		
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
 		logger.info("모두의 블로그 글 리스트 조회 완료");
+		
+		Set<Pet> pArr = new HashSet();
+		
+		List<Blog> postList = (List)map.get("postList");
+		for(Blog post: postList) {
+			String pIndexes = post.getPetindex();
+			String[] arr = pIndexes.split(",");
+			for(String petindex: arr) {
+				
+				pArr.add(ms.editPetInfo(Integer.parseInt(petindex)));
+			}
+		}
+		
+		System.out.println("pindex배열: "+pArr);
+		
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
@@ -74,7 +109,7 @@ public class BlogController {
 		model.addAttribute("postList", map.get("postList")); 		
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalPostCount", map.get("totalPostCount"));
-
+		model.addAttribute("pArr", pArr);
 		return "blog/main";
 
 	}
@@ -197,6 +232,8 @@ public class BlogController {
 		Blog post = bs.getPost(bindex);
 		logger.info("내 블로그 글 조회 완료");
 		
+	
+		
 		List<Pet> myPetList = ms.getPetInfo(post.getUserid());
 		logger.info("내 반려동물 리스트: "+myPetList);
 		
@@ -207,10 +244,15 @@ public class BlogController {
 	
 	// 블로그 > 글 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
-	public String update(Blog post, Model model) {
+	public String update(Blog post, HttpServletRequest request, Model model) {
 											
 		String msg = null;
 		String url = null;
+		
+		//petindex 배열
+		//앞단 작성방식(인풋창 하나 유지)때문에 배열이 아닌 스트링형태로 넘어옴 ex("1,2")
+		String pArr = request.getParameter("petArr"); 
+		post.setPetindex(pArr);
 			
 		int result = bs.editPost(post);
 	

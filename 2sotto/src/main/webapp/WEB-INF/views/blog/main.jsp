@@ -32,6 +32,29 @@
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
 					<div class="col-9">
+					<!-- 글쓴이 및 관련 반려동물 영역 -->
+					<div class="d-flex">  <!--  style="display: inline-block;" -->
+						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
+						<c:forEach var="myPet" items="${pArr}">
+	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+	        				<c:if test="${petindex eq myPet.petindex}">
+				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
+				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+			        			<div  class="rounded-circle card-modal-profile"
+                                    style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
+                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+                                            style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
+                                    </div>
+                             	</div>
+                             	<div class="text-center"> ${myPet.petname} </div>
+		        			</div>
+		        			</c:if>
+				        </c:forTokens>
+				        </c:forEach>
+				        <span class="align-self-center">의 이야기</span>   			
+	        		</div>
+					<!-- 제목 및 내용 영역 -->
 						<div class="contents">
 							<a href="detail.bit?bindex=${post.bindex}">
 								<strong>${post.title}</strong>
@@ -46,7 +69,7 @@
 							</div>
 							<div class="heart-comment-time-area">
 								<span class="icon"><i class="far fa-comment"></i></span>
-								<span>20</span>
+								<span>${post.bcCount}</span>
 							</div>
 							<div class="heart-comment-time-area">
 								<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -147,7 +170,7 @@ function replaceImg(){
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
-}
+} 
 
 
 </script>

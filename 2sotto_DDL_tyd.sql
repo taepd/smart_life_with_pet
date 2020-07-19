@@ -182,7 +182,7 @@ CREATE TABLE QNA (
    CONTENT  VARCHAR(500) NOT NULL, -- 내용
    FILENAME VARCHAR(100) NULL,     -- 첨부파일
    AWSTATE  VARCHAR(4)   NOT NULL,  -- 답변완료여부
-    REPLYCONTEN VARCHAR(500) NOT NULL -- 관리자 답글내용
+   REPLYCONTENT VARCHAR(500) NOT NULL -- 관리자 답글내용
     
 );
 
@@ -803,7 +803,7 @@ commit;
 -- 자동 증가(시퀀스) 초기화
 -- ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-desc post;
+desc blog;
 desc pet;
 desc maincategory;
 desc message;
@@ -853,7 +853,23 @@ BETWEEN 1 AND 5;
 select M.*, p.petname FROM
 MRECORD M join PET P ON M.USERID = P.USERID where m.userid='a';
 
-select * from mrecord;
+-- 포스트와 그 포스트의 코멘트 갯수 조인 select
+SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
+			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
+		FROM blog b 
+		WHERE USERID='a'		
+		) S WHERE ROWNUM 
+		BETWEEN 1 AND 5;
+
+	
+
+
+
+select * from blogcomment;
+
+select * from blog;
+select * from blogcomment;
 select * from pet;
 select * from user;
 
@@ -866,4 +882,3 @@ where petindex = 6;
 -- 반려동물 petindex 키워드 검색 쿼리
 select * from blog where concat(',',petindex,',') like '%,1,%';
 
-alter table user change snsstype SNSTYPE varchar(20);

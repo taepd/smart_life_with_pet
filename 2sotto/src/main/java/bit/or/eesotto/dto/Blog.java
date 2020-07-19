@@ -20,5 +20,7 @@ public class Blog {
 	private int count; //조회수
 	private String pimg; //이미지
 	private String nick; //닉네임
+	
+	private int bcCount; //댓글 개수 표시를 위한 blogComment와 join시 추가 컬럼
 
 }

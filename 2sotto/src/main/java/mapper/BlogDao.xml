@@ -37,10 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
 			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
-		FROM blog b 
-		WHERE USERID=#{param3}		
+		FROM blog b, (SELECT @ROWNUM := 0) TMP
+		WHERE USERID=#{param3}	order by b.bindex desc	
 		) S WHERE ROWNUM 
-		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
+		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2} 
+		order by s.rownum
 		
 	</select>	
 	

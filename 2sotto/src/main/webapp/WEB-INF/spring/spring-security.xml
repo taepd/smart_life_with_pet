@@ -84,7 +84,7 @@ error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실
 -->	
 	<security:http>
 		<security:csrf disabled="true" />
-		<security:form-login default-target-url="/index.jsp"
+		<security:form-login default-target-url="/"
 							 username-parameter="userid"
 							 password-parameter="pwd"
 		                     login-page="/login/login.bit"

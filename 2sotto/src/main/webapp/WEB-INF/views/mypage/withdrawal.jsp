@@ -110,10 +110,13 @@
 		</div>
 		<!-- container end -->
 	</div>
+	
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
+	
+</body>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		var validate = new Array;
 		$(function() {
 
@@ -185,10 +188,6 @@
 			
 			
 		});
-		
-		
-	</script>
-
-
-</body>
+			
+</script>
 </html>

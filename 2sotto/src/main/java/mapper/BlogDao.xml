@@ -5,34 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="bit.or.eesotto.dao.BlogDao">
 
 
-
-	<!-- public Admin getAdmin(String id); -->
-<!-- 	<select id="getAdmin" resultType="dto.Admin">
-		SELECT USERID, PWD FROM ADMINLIST WHERE USERID=#{userid}
-	</select> -->
-
-	<!-- 블로그 리스트 조회 -->
+	<!-- 모두의 블로그 리스트 조회 -->
 	<select id="getPostList" resultType="bit.or.eesotto.dto.Blog">
-		<!-- SET @ROWNUM:= 0;
-		SELECT E.*
-		FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, E.* FROM EMP E WHERE
-		(@ROWNUM:=0)=0) E
-		WHERE ROWNUM BETWEEN ${param1}${param2}-(${param2}-1) AND
-		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, B.* FROM BLOG B 
 		<where>
-			<if test="param3 != null">
-				userid = #{param3} 
-			</if>
+				<if test="param3 != null">
+					userid not in (#{param3}) 
+				</if>
 		</where>		
 		) S WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 		
-		
-		<!-- SELECT * FROM ( SELECT ROWNUM NUM, E.* FROM EMP E ) WHERE NUM BETWEEN 
-			${param1}*${param2}-(${param2}-1) AND ${param1}*${param2} -->
 	</select>
 	
 	<!-- 블로그 포스팅 수 조회 -->
@@ -43,6 +28,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where userid = #{userid}
 		</if>
 	</select>
+	
+	<!--  내 블로그 리스트 조회 -->
+	<select id="getMyPostList" resultType="bit.or.eesotto.dto.Blog">
+		
+		SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, B.* FROM BLOG B 
+						WHERE USERID=#{param3}		
+		) S WHERE ROWNUM 
+		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
+		
+	</select>	
+	
+	
+	
 
 	
 

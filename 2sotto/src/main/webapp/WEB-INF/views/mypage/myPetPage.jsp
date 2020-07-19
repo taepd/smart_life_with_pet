@@ -94,7 +94,7 @@
 										<tr>
 											<th rowspan="5" style="text-align: center">
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
 													<h4>인절미</h4>
 												</div>
 											</th>
@@ -147,7 +147,7 @@
 	
 							<div class="row">
                       <div class="card col-4" style="width: 20rem;">
-						  <a href="editPet.bit"><img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image"></a>
+						  <a href="editPet.bit"><img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image"></a>
 						  <div class="card-body">
 							<h4>동물 이름</h4>
 						    <p class="card-text">
@@ -158,7 +158,7 @@
 					</div>
 					
 					<div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_cat.jpg" rel="nofollow" alt="card image">
+						  <img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_cat.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
 							<h4>동물 이름</h4>
 						    <p class="card-text">
@@ -169,7 +169,7 @@
 					</div>
 					
 					<div class="card col-4" style="width: 20rem;">
-						  <img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_boon.jpg" rel="nofollow" alt="card image">
+						  <img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
 						  <div class="card-body">
 							<h4>동물 이름</h4>
 						    <p class="card-text">

@@ -33,8 +33,10 @@
 				<div class="row">
 					<div class="col-9">
 						<div class="contents">
-							<h3><a href="detail.bit?bindex=${post.bindex}">${post.title}</a></h3>
-							<div id="content${status.index}">${post.content}</div>
+							<a href="detail.bit?bindex=${post.bindex}">
+								<strong>${post.title}</strong>
+								<span id="content${status.index}">${post.content}</span>
+							</a>
 						</div>
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
@@ -56,7 +58,7 @@
 					<!-- 게시글 오른쪽 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
-							<img id="${status.index}" src="${pageContext.request.contextPath}/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
 						</div>
 					</div>
 				</div>
@@ -132,7 +134,7 @@ $(function(){
 * @param void
 **/
 
-function replaceImg(){
+function replaceImg(){ 
 	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
 	    var imgs = $('#content'+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
 	    var imgSrcs = [];

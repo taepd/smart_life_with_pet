@@ -64,7 +64,7 @@
 										<tr>
 											<th rowspan="5" style="text-align: center">
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/${user.uimg}" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${user.uimg}" rel="nofollow" alt="card image">
 													<h4>${user.nick}</h4>
 												</div>
 											</th>

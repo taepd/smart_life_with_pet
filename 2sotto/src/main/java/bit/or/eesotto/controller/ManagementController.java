@@ -92,8 +92,10 @@ public class ManagementController {
 			    //String filename = file.getOriginalFilename();
 			    String filename = UUID.randomUUID().toString();
 				String path = request.getServletContext().getRealPath("/assets/images");
+				System.out.println("path: "+path);
 				
-				String fpath = path + "\\"+ filename; 
+				//String fpath = path + "\\"+ filename; //윈도우  
+				String fpath = path + "/"+ filename; //맥이랑 윈도우 다른거??
 				
 				if(!filename.equals("")) { //실 파일 업로드
 					FileOutputStream fs;
@@ -192,7 +194,8 @@ public class ManagementController {
 			    String filename = UUID.randomUUID().toString();
 				String path = request.getServletContext().getRealPath("/assets/images");
 				
-				String fpath = path + "\\"+ filename; 
+				//String fpath = path + "\\"+ filename; //윈도우  
+				String fpath = path + "/"+ filename; //맥  
 				
 				if(!filename.equals("")) { //실 파일 업로드
 					FileOutputStream fs;

@@ -20,10 +20,10 @@ public interface BlogDao {
 	public int writePost(Blog blog);
 	
 	// 블로그 > 내 포스트 리스트 조회  
-	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
+	public List<Blog> getMyPostList(int cpage, int pagesize, String userid); 
 	
-//	// 블로그 > 모두의 포스트 리스트 조회  //오버로딩 안되는듯...
-//	public List<Blog> getPostList(int cpage, int pagesize); 
+	// 블로그 > 모두의 포스트 리스트 조회
+	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
 
 		
 //	// 블로그 > 모두의 포스팅 개수 조회
@@ -34,9 +34,13 @@ public interface BlogDao {
 	
 	public int getPostCount(String column, int search);
 	
-	// 블로그 > 내 글 상세 조회
+	// 블로그 > 글 상세 조회
 	@Select("select * from blog where bindex = #{bindex}")
 	public Blog getPost(@Param("bindex") String bindex);
+	
+	// 블로그> 글 조회수 증가 
+	@Update("update blog set count= count+1 where bindex=${bindex}")
+	public int updateCount(@Param("bindex") String bindex);
 	
 	// 블로그 > 글 수정 
 	@Update("update blog set title=#{title}, content=#{content} where bindex=#{bindex}")

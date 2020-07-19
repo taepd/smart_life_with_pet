@@ -10,7 +10,7 @@
 	<!-- <nav class="navbar navbar-default fixed-top" role="navigation-demo"> -->
 	<nav class="navbar navbar-transparent fixed-top" role="navigation-demo" style="color: #000000;">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
-		<span id="header-title"><a href="${pageContext.request.contextPath}/index.jsp">슬기로운 반려생활</a></span>
+		<span id="header-title"><a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a></span>
 		<ul class="navbar-nav ml-auto">
 			<se:authorize access="!hasRole('ROLE_USER')">
 					<li class="nav-item" id="item01">

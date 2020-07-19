@@ -67,7 +67,7 @@
 										<tr>
 											<th rowspan="5" style="text-align: center">
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
 													<h4>인절미</h4>
 												</div>
 											</th>

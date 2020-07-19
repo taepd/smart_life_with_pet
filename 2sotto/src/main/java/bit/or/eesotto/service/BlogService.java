@@ -87,7 +87,7 @@ public class BlogService {
 		int totalPostCount = blogDao.getPostCount(userid);
 		
 		//
-		postList = blogDao.getPostList(cpage, pageSize, userid);
+		postList = blogDao.getMyPostList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalPostCount % pageSize == 0) {
@@ -136,7 +136,7 @@ public class BlogService {
 
 		int totalPostCount = blogDao.getPostCount(null);
 		//
-		postList = blogDao.getPostList(cpage, pageSize, null);
+		postList = blogDao.getPostList(cpage, pageSize, userid);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalPostCount % pageSize == 0) {
@@ -163,6 +163,17 @@ public class BlogService {
 		blog = blogDao.getPost(bindex);
 							
 		return blog;
+	}
+	
+	//글 조회수 증가
+	public int updateCount(String bindex) {
+		
+		int result = 0;
+		
+		blogDao = sqlsession.getMapper(BlogDao.class);
+		result = blogDao.updateCount(bindex);
+		
+		return result;
 	}
 	
 	//블로그 > 글 수정

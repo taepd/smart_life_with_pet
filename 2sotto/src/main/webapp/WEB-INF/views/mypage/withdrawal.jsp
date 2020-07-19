@@ -64,17 +64,17 @@
 										<tr>
 											<td rowspan="5" style="text-align: center">
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
 												</div>
 											</td>
 											<td>	
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
 												</div>
 											</td>
 											<td>	
 												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/images/sample_dog.jpg" rel="nofollow" alt="card image">
+													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
 												</div>
 											</td>
 											

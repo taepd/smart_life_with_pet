@@ -46,6 +46,11 @@
     		margin-bottom: 100px;
     		margin-top: 73px;
     	}
+    	
+    	.form-check {
+    		margin-left: 5px;
+    		margin-top: 8px;
+    	}
 
     </style>
     
@@ -54,7 +59,7 @@
 <body>
 	 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	 
+	<c:set value="${petInfoList}" var="petInfo"/>
 	 
 	<div class="container">
 		<div class="side_overlay">
@@ -120,35 +125,33 @@
 											</label>
 										</div>
 
-										<div class="form-group bmd-form-group">
-											<label class="bmd-label-static">일정명</label>
-											<input type="text" class="form-control" name="title" id="title" placeholder="" required>
+										<div class="form-group bmd-form-group mb-0">
+											<!-- <label class="bmd-label-static">일정명</label> -->
+											<input type="text" class="form-control" name="title" id="title" placeholder="일정명" required>
 											<!-- <input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required> -->
 										</div>
 
-										<div class="form-group bmd-form-group">
-											<label class="bmd-label-static">시작</label>
-											<input type="text" class="form-control" name="start" id="start" placeholder="" required>
+										<div class="form-group bmd-form-group mb-0">
+											<!-- <label class="bmd-label-static">시작</label> -->
+											<input type="text" class="form-control" name="start" id="start" placeholder="시작" required>
 											<!-- <input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required> -->
 										</div>
 
-										<div class="form-group bmd-form-group">
-											<label class="bmd-label-static">끝</label>
-											<input type="text" class="form-control datetimepicker" name="end" id="end" placeholder="" required>
+										<div class="form-group bmd-form-group mb-0">
+											<!-- <label class="bmd-label-static">끝</label> -->
+											<input type="text" class="form-control datetimepicker" name="end" id="end" placeholder="끝" required>
 											<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
 										</div>
 
-										<div class="">
-											<label class="" for="edit-type">구분</label>
-											<select class="custom-select" type="text" name="edit-type" id="edit-type">
-												<!-- 카테고리: 병원, 접종, 일반, 어쩌구, 뭐 이런 식으로....? -->
-												<option value="카테고리1">카테고리1</option>
-												<option value="카테고리2">카테고리2</option>
-												<option value="카테고리3">카테고리3</option>
-												<option value="카테고리4">카테고리4</option>
+										<div class="form-group bmd-form-group mb-0">
+											<label class="" for="petindex">누구의 일정인가요?</label>
+											<select class="custom-select" type="text" name="petindex" id="petindex">
+												<c:forEach items="${petInfo}" var="info">
+													<option value="${info.petindex}">${info.petname}</option>
+												</c:forEach>
 											</select>
 										</div>
-										<div class="">
+										<!-- <div class="">
 											<label class="" for="edit-color">색상</label>
 											<select class="custom-select" name="color" id="edit-color">
 												<option value="#D25565" style="color:#D25565;">빨간색</option>
@@ -161,21 +164,21 @@
 												<option value="#4d638c" style="color:#4d638c;">남색</option>
 												<option value="#495057" style="color:#495057;">검정색</option>
 											</select>
-										</div>
-										<div class="">
-											<label class="" for="edit-desc">설명</label>
-											<textarea rows="3" cols="50" class="" name="content" id="content"></textarea>
+										</div> -->
+										<div class="form-group bmd-form-group">
+											<!-- <label class="" for="edit-desc">설명</label> -->
+											<textarea rows="2" cols="50" class="form-control" name="content" id="content" placeholder="필요하다면 일정에 관해 메모하세요."></textarea>
 										</div>
 								</div>
 								<div class="modal-footer modalBtnContainer-addEvent">
-									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary" id="save-event">저장</button>
+									<button type="button" class="btn btn-sm" data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary btn-sm" id="save-event">저장</button>
 								</div>
 								<!-- 기존 일정을 누르면 나오는 버튼 -->
 								<div class="modal-footer modalBtnContainer-modifyEvent">
-									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-									<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-									<button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+									<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-danger btn-sm" id="deleteEvent">삭제</button>
+									<button type="button" class="btn btn-primary btn-sm" id="updateEvent">저장</button>
 								</div>
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
@@ -184,7 +187,7 @@
                 
                 <div class="tab-pane" id="schedule-1">
                 	<div class="row">
-                    	<c:forEach var="petInfo" items="${petInfoList}">
+                    	<c:forEach var="petInfo" items="${petInfo}">
 							<div class="card col-4" style="width: 20rem;">
 								<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}" rel="nofollow" alt="card image">
 								  <div class="card-body">
@@ -248,17 +251,17 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
     
-    <!-- fullcalendar -->
-    <link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
-  	<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
-	
-	<!-- moment.js > 시간 관련 -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
-	
+<!-- fullcalendar -->
+<link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
+<script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
 
-	<!-- SweetAlert -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- moment.js > 시간 관련 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+
+<!-- SweetAlert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
 $(function() {
 	
@@ -310,13 +313,14 @@ $(function() {
 
 			// 모달 열기
 			$('#createEventModal').modal('show');
-			
+
 			$('#save-event').on('click', function() {
 
 				var start = $('#start').val();
 				var end = $('#end').val();
 				var titleVal = $('#title').val();
 				var contentVal = $('#content').val();
+				var petindexVal = $('#petindex').val();
 				
 				// #allday 체크 여부에 따라 값 부여하기 
 				var allday = $('#allday');
@@ -327,6 +331,7 @@ $(function() {
 				
 				var eventData = {
 					userid: '${sessionScope.user.userid}',
+					petindex: petindexVal,
 					title: titleVal,
 					start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
 					end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
@@ -445,7 +450,7 @@ $(function() {
 	});
 	
 	calendar.render();
-	console.log("목요일4444");
+
 	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
 
 	

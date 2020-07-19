@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -28,7 +29,8 @@ import bit.or.eesotto.dto.User;
 
 @Service
 public class DonationService {
-
+	
+	
 	private SqlSession sqlsession;
 
 	@Autowired
@@ -233,7 +235,7 @@ public class DonationService {
 	
 	//글 수정	
 	 public int update(Donate donate) {
-		 
+		 System.out.println("글 수정 여기까지는 온다...");
 		 int result = 0;
 		 try 
 		 { 
@@ -244,7 +246,7 @@ public class DonationService {
 		 { 
 			 System.out.println(e.getMessage()); 
 		 }
-		 
+		 System.out.println("글 수정 매핑 된다.");
 		 return result;
 	 
 	 }
@@ -290,5 +292,22 @@ public class DonationService {
 		 
 		 return result;
 	 }
+	 
+	 
+	 
+	//기부 완료(우선 ccoll = gcoll일 경우)		
+	public int completeDonationByColl(String dindex) { 
+		  
+	      int result = 0;
+	      	      
+		  try { 
+		  DonateDao donatedao = sqlsession.getMapper(DonateDao.class); 		  
+		  result = donatedao.completeDonationByColl(Integer.parseInt(dindex));
+		  	  
+		  } catch (Exception e) { System.out.println(e.getMessage()); }
+		  
+		  return result; 
+	}
+		 
 	
 }

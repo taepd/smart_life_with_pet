@@ -15,5 +15,8 @@ public class Mrecord {
 	private String vdate;
 	private String vreason;
 	private String hname;
+	
+	//반려동물 이름 받아오는 용도
+	private String petname;
 
 }

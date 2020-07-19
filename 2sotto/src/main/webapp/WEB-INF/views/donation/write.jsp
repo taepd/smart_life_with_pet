@@ -5,6 +5,15 @@
 
 <html>
 <head>
+<!-- 달력 쓰려고 가져온 jquery -->
+<!--jQuery UI CSS파일   -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<!-- 달력 쓰려고 가져온 jquery 끝 -->
+
+<!-- //script구문 내부에 해당 메소드를 입력합니다. -->
+
 
 <title>슬기로운 반려생활</title>
 
@@ -38,11 +47,11 @@
 										<i class="material-icons">favorite</i>후원글 메인
 									</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+								<!-- <li class="nav-item">
+									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <i class="material-icons">chat</i>
 										<i class="material-icons">favorite</i>최신순
 									</a>
-								</li>
+								</li> -->
 								<li class="nav-item">
 									<a class="nav-link active show" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons">camera</i>글 작성
@@ -74,10 +83,14 @@
 									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원 기한</label> 
+									<input type="text" class="form-control" name="ctime" id="Datepicker"> 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" > 
 								</div>	
-								<textarea name="content" class="form-control"  rows="10" placeholder="여기에  내용을 입력합니다"></textarea>
+								<textarea name="content"></textarea>
 								
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
@@ -103,8 +116,23 @@
 		<!-- container end -->
 	</div>
 	<!-- side_overlay end -->
+	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+ 	 -->
+<script type="text/javascript">
+
+//ckeditor
+$(function(){
+	CKEDITOR.replace('content',{
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
+		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
+	});
+});
+</script>
 </html>
 

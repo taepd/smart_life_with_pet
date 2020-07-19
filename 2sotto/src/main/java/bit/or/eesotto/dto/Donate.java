@@ -22,6 +22,7 @@ public class Donate {
 	private String ctime;
 	private int gcoll; //목표 모금액 > goal + collection
 	private int ccoll; //현재 모금액 > current + collection
+	private String dstate;
 	private String dimg;
 	
 	private List<CommonsMultipartFile> files;

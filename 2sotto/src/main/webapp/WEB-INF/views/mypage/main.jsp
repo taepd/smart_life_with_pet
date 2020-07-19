@@ -106,6 +106,5 @@
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
-
 </body>
 </html>

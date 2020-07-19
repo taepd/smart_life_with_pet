@@ -25,6 +25,8 @@
     	}
     	
     	#wrapper {
+    		display: inline-block;
+    		/* margin: 0 auto; */
     	}
     	
     	.card-img-top {
@@ -34,6 +36,15 @@
     	.card {
     		margin-left: 10px;
     		margin-right: 10px;
+    	}
+    	
+    	#tab-list {
+    		margin: 0 auto;
+    	}
+    	
+    	#tab-row {
+    		margin-bottom: 100px;
+    		margin-top: 73px;
     	}
 
     </style>
@@ -45,15 +56,16 @@
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	 
 	 
-	<div class="side_overlay">
-		<div class="container">
-
-		
-		<button class="btn btn-primary btn-round" onclick="location.href='register.bit'" style="margin-bottom: 100px;">반려동물 등록</button>
-		<br>
-		<div class="col-12">
-			<div id="wrapper">
-              <ul class="nav nav-pills nav-pills-icons" role="tablist" style="margin-bottom: 100px;">
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col-10"></div>
+				<div class="col-2" style="margin: 0 auto;">
+					<button class="btn btn-sm" onclick="location.href='register.bit'" style="display: inline-block;">반려동물 등록</button>
+				</div>
+			</div>
+			<div class="row" id="tab-row">
+				<ul class="nav nav-pills nav-pills-icons" id="tab-list" role="tablist">
                 <!--
                                 color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
                             -->
@@ -65,9 +77,9 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="false">
-                    <i class="material-icons">home</i>
+                    <i class="material-icons">pets</i>
                     <!-- <span class="material-icons">home</span>  -->
-                    Home
+                    	내 반려동물
                   </a>
                 </li>
                 <li class="nav-item">
@@ -77,9 +89,10 @@
                   </a>
                 </li>
               </ul>
-              
-              </div>
-              
+			</div> <!-- /.row -->
+            
+            <div class="row">
+            	<div class="col-12">
               <div class="tab-content tab-space">
                 <div class="tab-pane active show" id="dashboard-1">
                   		<div id="calendar"></div>
@@ -228,10 +241,10 @@
                     
                 </div>
               </div>
+              </div>
             </div>
-		
-		</div> <!-- container end -->
-	</div> <!-- side_overlay end -->
+		</div> <!-- side_overlay end -->
+	</div> <!-- container end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
     

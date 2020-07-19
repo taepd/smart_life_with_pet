@@ -104,9 +104,12 @@ public class JoinController {
 		if(file != null && file.getSize() > 0) { 
 			    //String filename = file.getOriginalFilename();
 			    String filename = UUID.randomUUID().toString();
-				String path = request.getServletContext().getRealPath("/images");
+				//String path = request.getServletContext().getRealPath("/images");
+				String path = request.getServletContext().getRealPath("/assets/images");
+				//System.out.println("checkPath: "+checkPath);
 				
 				String fpath = path + "\\"+ filename; 
+				System.out.println("fpath: "+fpath);
 				
 				if(!filename.equals("")) { //실 파일 업로드
 					FileOutputStream fs;
@@ -134,7 +137,7 @@ public class JoinController {
 			logger.info(user.getUserid()+"님 회원가입 처리 완료");
 			
 			msg = "회원가입 성공";
-	        url = "../index.jsp";
+	        url = "../index.jsp"; 
 	        
 	      //스프링 시큐리티 수동 로그인을 위한 작업//
 			//로그인 세션에 들어갈 권한을 설정

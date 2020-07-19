@@ -3,64 +3,98 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-
 <html>
 
 <head>
 
-<title>홈_슬기로운 반려생활</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
+	<title>홈_슬기로운 반려생활</title>
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+	<style type="text/css">
+		
+		
+		#area {
+			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding-top: 50px;
+			padding-bottom: 40px;
+			text-align: center;
+			background-color: #fafafa;
+		}
+		 
+		#title-area {
+			text-align: center;
+			margin-bottom: 80px;
+		}
+		
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+		
+		#signUpList li {
+			width: 300px;
+			height: 50px;
+			margin-bottom: 6px;
+			border: 1px solid #e0e0e0;
+			border-radius: 3px;
+			font-size: 14px;
+		}
+		
+		.span {
+			box-sizing: border-box;
+			width: 200px;
+			height: 40px;
+			padding-top: 3px;
+			display: inline-block;
+			padding-top: 13px;
+		}
+		
+		#signUpList-wrapper {
+			/* margin: 0 auto; */
+			display: inline-block;
+		}
+		
+		.h3-korean {
+			font-family: 'Poor Story', cursive;
+			/* font-family: 'Nanum Myeongjo', serif; */
+		}
+		
+	</style>
 
 </head>
 
 <body>
+	
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<!-- header -->
-	<div class="side_overlay">
-		<div class="container">
-
-			<div class="col-md-6-center">
-				<div class="card card-nav-tabs text-center">
-					<div class="card-header card-header-text card-header-primary">
-						<div class="card-text">
-							<h4 class="card-title">슬기로운 반려생활 시작하기</h4>
-						</div>
-					</div>
-					<div class="card-body">
-						<p>슬기로운 반려생활을 위한 커뮤니티입니다.</p>
-						<p>계정 생성 후 모든 기능을 이용하실 수 있습니다.</p>
-						<a href="joinForm.bit" class="btn btn-primary">일반회원가입</a> 
-						<!--  <a href="joinForm.bit" class="btn btn-lg btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일반회원가입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>-->
-						<br>
-						<a href="../login/login.bit" class="btn btn-primary">이미 계정이 있으신가요?</a>
-						<br>
-						<h4 class="card-title">SNS 회원가입</h4>
-						<button class="btn btn-success" type="button" onclick="location.href='${naver_url}'">
-							<i class="material-icons">favorite</i> 네이버
-						</button>
-						<br>
-						<button class="btn btn-default" type="button" onclick="location.href='${kakao_url}'">
-							<i class="material-icons">favorite</i> &nbsp;&nbsp;구 글&nbsp;
-						</button>
-						<br>
-						<button class="btn btn-warning" type="button" onclick="location.href='${google_url}'">
-							<i class="material-icons">favorite</i> 카카오
-						</button>
 	
-					</div>
-			
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col-12" id="title-area">
+					<h1 class="title">Love your pet more</h1>
+					<h3 class="h3-korean">슬기로운 반려생활 시작하기</h3>
 				</div>
-			</div>
-		</div>
-	</div>
+				<div class="col-2"></div>
+				<div id="area" class="col-8">
+					<div id="signUpList-wrapper">
+						<ul id="signUpList">
+							<a href="joinForm.bit"><li><span class="span">일반 회원가입하기</span></li></a>
+							<a href="${naver_url}"><li style="border: 1px solid #19ce60"><span class="span">네이버로 가입하기</span></li></a>
+							<a href="${kakao_url}"><li style="border: 1px solid #ffe500"><span class="span">카카오로 가입하기</span></li></a>
+							<a href="${google_url}"><li style="border: 1px solid #2962ff"><span class="span">구글로 가입하기</span></li></a>
+						</ul>
+						<br>
+						<a href="../login/login.bit" style="font-size: 13px;">이미 계정이 있으신가요?</a>
+					</div>
+				</div>
+				<div class="col-2"></div>
+				<br><br><br><br><br><br><br>
+			</div> <!-- /.row -->
+		</div> <!-- /.side_overlay -->
+	</div> <!-- /.container  -->
 
-<%@ include file="/WEB-INF/include/footer.jsp"%>
-
-
-		
-
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
 

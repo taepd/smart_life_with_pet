@@ -1004,6 +1004,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 100px; /* added by CH */
 }
 
 @media (min-width: 576px) {
@@ -14656,7 +14657,7 @@ textarea {
   border: 0;
   border-radius: 3px;
   padding: 0.85rem 0;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
   color: #555;
   background-color: #ffffff !important;
   box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);

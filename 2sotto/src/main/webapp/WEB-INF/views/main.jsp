@@ -6,10 +6,6 @@
     <title>홈_슬기로운 반려생활</title>
     
     <%@ include file="/WEB-INF/include/import.jsp"%>
-	
-	<!-- 구글 웹폰트 : 어떤 거 적용할까 고민중 -->
-	<!-- <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet"> -->
-	<link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Sunflower:wght@300&display=swap" rel="stylesheet">
     
     <style type="text/css">
     	.img {
@@ -390,14 +386,10 @@
         			});
 
     				var imageSrc = "<img src='${pageContext.request.contextPath}/assets/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
-    				//console.log("var 확인"+image);
 
-    				//$('#img').text(image);
-    				//console.log("image>"+image);
     				$('#myPetSchedule').empty().append(info);
     				$('#myPetImage').empty().append(imageSrc);
     				console.log("SRC: "+imageSrc);
-    				console.log("dejavuuuuu");
 
     			}
     		});

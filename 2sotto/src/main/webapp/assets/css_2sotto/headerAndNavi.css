@@ -45,24 +45,45 @@ a:visited, a:link {
 	font-size: 100px;
 }
 		
-.user-pic-wrapper {
+.sideMenu-wrapper {
 	text-align: center;
 	position: relative;
-	top: 100px;
+	top: 77px;
+}
+
+.profile-img-box {
+	width: 140px;
+	height: 140px;
+	position: absolute;
+	transform: translate(-50%, 0);
+	left: 50%;
 }
 		
 .nickname {
-	/* text-align: center; */
+	text-align: center;
 	position: absolute;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, 96%);
 	margin-top: 50px;
+	font-size: 14px;
 }
 
 #item01 {
 	position: absolute;
 	right: 150px;
-	top: 19.9px; /* 불투명이면 8.9, 투명이면 19.9 */
+	top: 19.9px;
+}
+
+#item03 {
+	position: absolute;
+	right: 168px;
+	top: 31.9px;
+}
+
+#message {
+	color: #e92165;
+	font-size: 25px;	
+	position: relative;
 }
 
 #item02 {
@@ -70,11 +91,18 @@ a:visited, a:link {
 	right: 25px;
 }
 
+#message-alarm {
+	position: absolute;
+	bottom: 16px;
+	left: 26px;
+	padding: 5px 7px; /* .badge에 적용돼야 할 부분 */
+	
+}
+
 .menuList {
 	position: absolute;	
 	left: 50%;
-	transform: translate(-50%, -50%);
-	margin-top: 200px;
+	transform: translate(-50%, 141%);
 }
 
 .sideMenu-close-icon {

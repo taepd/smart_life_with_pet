@@ -6,23 +6,16 @@
 <head>	
 
     <title>로그인</title>
-    
-     <%@ include file="/WEB-INF/include/import.jsp"%>
+    <%@ include file="/WEB-INF/include/import.jsp"%>
      
-
-
-
-     
-    
 </head>
 
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	
 
-	<div class="side_overlay">
-		<div class="container">
+	<div class="container">
+		<div class="side_overlay">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 ml-auto mr-auto">
 					<div class="card card-login">
@@ -59,7 +52,7 @@
 								<!-- 로그인 실패했을 때 뜨는 안내메시지 -->
 							</div>
 							<div>
-							<h4 class="card-title" style="text-align:center">SNS 회원가입</h4>
+							<h4 style="text-align:center">SNS 회원가입</h4>
 							<br>
 							
 							<!-- 네이버 로그인 창으로 이동 -->
@@ -81,18 +74,18 @@
 			                </div>
 							 -->
 							
-							<div class="footer text-center">
+							<div class="text-center">
 								 <a href="../index"><button type="submit" class="btn btn-primary">로그인</button></a>
 							</div>
 						</form>
 									
 					</div>
 				</div>
-			</div>
-		</div> <!-- container end -->
-	</div> <!-- side_overlay end -->
+			</div> <!-- /.row -->
+		</div> <!-- /.side_overlay -->
+	</div> <!-- /.container -->
+
+
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
-
-
 </body>
 </html>

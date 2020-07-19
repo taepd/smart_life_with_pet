@@ -26,7 +26,7 @@ import bit.or.eesotto.service.ManagementService;
 @RequestMapping("/management/")
 public class ManagementController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
 	
 	@Autowired
 	private ManagementService managementService;
@@ -36,30 +36,14 @@ public class ManagementController {
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String mainView(Principal principal, Model model) {
 		
-		//String userid = (String)session.getAttribute("userid");
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
-		
 		List<Pet> pet = managementService.getPetInfo(userid);
-		
-		/*
-		for(Pet p : pet) {
-			
-			int age_year = p.getAge() / 12;
-			int age_month = p.getAge() % 12;
-			
-			model.addAttribute("age_year", age_year);
-			model.addAttribute("age_month", age_month);
-		}
-		*/
 
 		if(pet != null) {
-
 			logger.info("반려동물 정보 가져오기 성공");
 			model.addAttribute("petInfoList", pet);
-		
 		} else {
-			
 			logger.info("반려동물 정보 가져오기 실패");
 			return "redirect:/main.bit";
 		}

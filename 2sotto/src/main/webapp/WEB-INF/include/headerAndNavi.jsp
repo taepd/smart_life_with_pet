@@ -1,17 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
-		<!-- pageContext.request.userPrincipal.name -->
-		<se:authentication property="name" var="userid" />
-		<c:set var="user" value="${sessionScope.user}" />
+	<!-- pageContext.request.userPrincipal.name -->
+	<se:authentication property="name" var="userid" />
+	<c:set var="user" value="${sessionScope.user}" />
+	
 	<!-- header -->
 	<!-- <nav class="navbar navbar-default fixed-top" role="navigation-demo"> -->
 	<nav class="navbar navbar-transparent fixed-top" role="navigation-demo" style="color: #000000;">
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
+		
+		<span id="header-title">
+			<se:authorize access="!hasAnyRole('ROLE_USER')">
+				<a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a>
+			</se:authorize>
+			<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+				<a href="${pageContext.request.contextPath}/main.bit">슬기로운 반려생활</a>
+			</se:authorize>
+		</span>
+		
+		
 		<se:authorize access="!hasRole('ROLE_USER')">
-			<span id="header-title"><a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a></span>
 			<ul class="navbar-nav ml-auto">
 						<li class="nav-item" id="item01">
 							<a href="${pageContext.request.contextPath}/login/login.bit" class="nav-link">로그인</a>
@@ -26,7 +36,8 @@
 		</se:authorize>	
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
 					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span>
+						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-bell"></i></span>
+						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
 							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
 						</a>
 		            </li>
@@ -96,7 +107,3 @@
 		</div>
 	</div>
 </div>
-
-
-
-

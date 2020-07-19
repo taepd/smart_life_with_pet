@@ -15827,9 +15827,13 @@ h2.title {
 }
 
 .modal-dialog .modal-footer button {
+  /*
   margin: 0;
   padding-left: 16px;
   padding-right: 16px;
+  padding-right: 0;
+  -- modified by CH
+  */
   width: auto;
 }
 

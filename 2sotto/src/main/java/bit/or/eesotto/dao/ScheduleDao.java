@@ -15,10 +15,10 @@ import bit.or.eesotto.dto.User;
 
 public interface ScheduleDao {
 
-	//일정 등록 (지금은 임의값 부여)
+	//일정 등록
 	@Insert("insert into schedule"
 			+ "(sindex, petindex, userid, title, content, is_complete, start, end, allday, daysofweek, adncdnoti) "
-			+ "values( #{sindex}, 4, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, "
+			+ "values( #{sindex}, #{petindex}, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, "
 			+ "#{allday}, #{daysofweek}, #{adncdnoti} )")
 	public int newSchedule(Schedule schedule);
 	

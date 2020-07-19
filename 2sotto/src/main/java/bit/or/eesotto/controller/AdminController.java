@@ -30,8 +30,20 @@ public class AdminController {
 		return "admin/detail";
 	}
 
-	
+	// 대시보드 보러가기
+	@RequestMapping(value = "adminMain.bit", method = RequestMethod.GET)
+	public String adminViewMain() {
 
+		return "admin/adminMain";
+	}
+	
+	
+	// UserTable 보러가기
+	@RequestMapping(value = "userTable.bit", method = RequestMethod.GET)
+	public String userTable() {
+
+		return "admin/adminUserTable";
+	}
 	
 
 }

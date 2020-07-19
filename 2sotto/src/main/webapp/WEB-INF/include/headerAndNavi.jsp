@@ -98,9 +98,11 @@
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/mapTest.bit">map테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
+					</a></li>
 				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/adminMain.bit">admin테스트</a></li>
 				</se:authorize>	
 				</ul>
 			</div>

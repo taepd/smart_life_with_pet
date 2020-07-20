@@ -99,19 +99,7 @@ public class MainController {
 			return "mainTest2";
 		}
 		
-		
-		// 지도 메인 페이지 
-		@RequestMapping(value = "mapTest.bit", method = RequestMethod.GET)
-		public String payViewTest(String cp, String ps, Principal principal, Model model) {
-			
-		
-			logger.info("다시작업시작이다..." );
-			
-			
-			
-			return "/mapTest";
-		}
-		
+
 		// 알림테스트 메인 페이지 
 		@RequestMapping(value = "alarmTest.bit", method = RequestMethod.GET)
 		public String alarmViewTest(String cp, String ps, Principal principal, Model model) {
@@ -123,6 +111,7 @@ public class MainController {
 			
 			return "/alarmTest";
 		}
-			
+		
+		
 
 }

@@ -60,7 +60,7 @@ public class ManagementController {
 
 	// 반려동물 등록 페이지 보여주기
 	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
-	public String registerPets() {
+	public String registerPets() { 
 		return "management/register";
 	}
 	
@@ -260,6 +260,5 @@ public class ManagementController {
 		
 		return "redirect";
 	}
-	
 
 }

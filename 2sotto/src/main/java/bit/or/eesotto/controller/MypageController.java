@@ -1,6 +1,7 @@
 package bit.or.eesotto.controller;
 
 import java.security.*;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -170,7 +171,6 @@ public class MypageController {
 		
 		
 		String userid =  principal.getName();
-		session.setAttribute("userid", userid);
 		logger.info("로그인 유저 아이디: "+userid);
 		
 				
@@ -202,28 +202,28 @@ public class MypageController {
 		
 	}
 
-//	// 마이페이지 > 반려동물 상세페이지 view
-//		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
-//		public String myPetPage(HttpSession session, Model model) {
-//			String userid = (String)session.getAttribute("userid");
-//			
-//			logger.info("로그인 유저 아이디: "+userid);
-//			
-//			Pet pet = ms.getPetInfo(userid);
-//			
-//			if(pet!=null) {
-//				
-//				logger.info("반려동물 정보 가져오기 성공");
-//				model.addAttribute(pet);
-//			}else {
-//				
-//				logger.info("반려동물 정보 가져오기 실패");
-//				
-//				return "redirect:/newPet.bit";
-//			}
-//			
-//			return "mypage/myPetPage";
-//		}
+	// 마이페이지 > 내 반려동물 정보(반려동물 관리의 내 반려동물 정보와 동일한 내용의 페이지)
+	@RequestMapping(value = "myPetsInfo.bit", method = RequestMethod.GET)
+	public String myPetPage(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		List<Pet> petList = ms.getPetInfo(userid);
+		
+		if(petList!=null) {
+			
+			logger.info("반려동물 정보 가져오기 성공");
+			model.addAttribute(petList);
+		}else {
+			
+			logger.info("반려동물 정보 가져오기 실패");
+			
+			return "redirect:/newPet.bit";
+		}
+		
+		return "mypage/myPetsInfo";
+	}
 
 
 //		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view

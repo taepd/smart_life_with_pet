@@ -35,8 +35,6 @@
 	<div class="side_overlay">
 		<div class="container">
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">게시글</button>
 			<!-- 탭 아이콘 영역 -->
 			<!--  탭영역 음....기다린다 -->
 			<div class="card card-nav-tabs">

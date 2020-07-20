@@ -136,7 +136,7 @@ public class BlogService {
 
 		int totalPostCount = blogDao.getPostCount(null);
 		//
-		postList = blogDao.getPostList(cpage, pageSize, userid);
+		postList = blogDao.getPostList(cpage, pageSize, userid); 
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalPostCount % pageSize == 0) {

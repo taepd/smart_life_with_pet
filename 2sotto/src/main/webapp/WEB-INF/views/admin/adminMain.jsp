@@ -42,7 +42,7 @@
       <div class="logo">
         <a href="/" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="${pageContext.request.contextPath}/admin_assets/img/logo-small.png">
+            <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
           </div>
         </a>
         <a href="/" class="simple-text logo-normal">
@@ -89,7 +89,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">동물 DB</p>
-                      <p class="card-title"><a href="SaveDataToDB.book"> 동물 DB 저장하기</a><p>
+                      <p class="card-title"><a href="SaveDataToDB.book">동물 DB 저장</a><p>
                     </div>
                   </div>
                 </div>

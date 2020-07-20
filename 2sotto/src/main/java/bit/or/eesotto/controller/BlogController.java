@@ -92,15 +92,16 @@ public class BlogController {
 		
 		List<Blog> postList = (List)map.get("postList");
 		for(Blog post: postList) {
+			System.out.println("포스트: "+post);
 			String pIndexes = post.getPetindex();
 			String[] arr = pIndexes.split(",");
 			for(String petindex: arr) {
 				
-				pArr.add(ms.editPetInfo(Integer.parseInt(petindex)));
+				pArr.add(ms.editPetInfo(Integer.parseInt(petindex))); 
 			}
 		}
 		
-		System.out.println("pindex배열: "+pArr);
+		System.out.println("pindex통한 pet객체 배열: "+pArr);
 		
 		
 		// view까지 전달 (forward)

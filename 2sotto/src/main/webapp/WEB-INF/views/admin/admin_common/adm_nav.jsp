@@ -35,7 +35,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="Logout.user">로그아웃</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                 </div>
               </li>
             </ul>

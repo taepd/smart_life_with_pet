@@ -73,11 +73,12 @@ public class MypageService {
 		}
 		return result;
 	}
-//	//댕댕이 정보 가져오기
-//	public List<Pet> getPetInfo(String userid) {
-//		petDao = sqlsession.getMapper(PetDao.class);
-//		return petDao.getPetInfo(userid);
-//	}
+	//댕댕이 정보 가져오기
+	public List<Pet> getPetInfo(String userid) {
+		petDao = sqlsession.getMapper(PetDao.class);
+		return petDao.getPetInfo(userid);
+	}
+	
 //	//댕댕이 정보 수정
 //	public int editPet(Pet pet, String userid) {
 //		petDao = sqlsession.getMapper(PetDao.class);

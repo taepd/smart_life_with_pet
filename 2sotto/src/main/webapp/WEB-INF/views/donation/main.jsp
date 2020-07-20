@@ -89,7 +89,7 @@
 										</tr>
 									</thead>
 									<c:forEach var="donate" items="${donateList}">
-										<tbody>
+										<tbody id="donationtable">
 											<tr>
 												<td>${donate.dindex}</td>
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
@@ -117,7 +117,8 @@
 									</c:forEach>
 										
 								</table>
-								 <!-- 페이징  -->
+								<!--  donate main ajax body-->
+ 								<!-- 페이징  -->
 								<div class="pagination justify-content-center">
 									<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
 									<ul class="pagination" id="pagingview">
@@ -154,11 +155,8 @@
 											</a></li>
 										</c:if>
 									</ul>
-									<!-- </nav> -->
+									
 								</div>
-							</div>
-	
-						</div>
 
 						
 
@@ -278,4 +276,207 @@
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
+
+<!-- donation main.jsp body 및 ajax script-->
+<script type="text/javascript">
+
+
+/* $(function(){
+	
+	//페이지 링크 비동기
+	$(document).on('click', '.page-item a', function(e){
+		e.preventDefault();
+		let data = {ps : $(this).attr('ps'),
+			        cp : $(this).attr('cp')
+	           };		
+		$.ajax({
+			url:"donationListAjax.bit",
+			data: data,
+			type:"POST",		
+			//dataType: "json",
+			success:function(responsedata){ 
+				 console.log(responsedata);
+				$('#donationtable').empty();
+				$.each(responsedata.donationList,function(index,obj){	
+					var rtime = obj.rtime.substring(0,10);
+					var ctime = obj.ctime.substring(0,10);
+					console.log(rtime);
+					console.log('타입: ' + typeof obj.rtime);
+					console.log('오브즈: '+obj.rtime);
+					$('#donationtable').append(	
+							"<tr><td>"+obj.dindex+"</td>" +
+							"<td><a href='detail.bit?dindex='"+obj.dindex+"'&cp=${cpage}&ps=${pageSize}>" +
+								obj.title +"</a></td>" +
+							"<td class='text-center'>관리자</td>" +		
+							"<td class='text-center'>"+rtime+"</td>"+
+							"<td class='text-center'>"+ctime+"</td>"+
+							"<td class='text-center'>"+obj.gcoll+"</td>" +
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							"<td class='text-center'>"+
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							"<td> "+(obj.ccoll/obj.gcoll*100).toLocaleString() + 
+							"</td>"% +
+							"<td class='text-center'>" + obj.dstate + "</td>"
+						   
+						);
+					});
+					$('#zero_config_info').empty();
+					$('#zero_config_info').append("총 기부글 " + responsedata.totaldonatecount);
+					console.log("현재 페이지" + responsedata.cpage);
+				
+				//페이지 번호 처리
+				page(responsedata.cpage);
+		   }
+			
+		
+		}); 
+		
+	});
+ */
+	
+
+/* 	$('#paging').change(function(){
+		let data = {ps : $('#paging option:selected').val(),
+				    cp : $('#cp').val() 
+		           };		
+		$.ajax({
+			url:"donationListAjax.bit",
+			data: data,
+			type:"POST",		
+			dataType: "json",
+			success:function(responsedata){ 
+				 console.log(responsedata);
+				$('#donationtable').empty();
+				$.each(responsedata.donationList,function(index,obj){	
+					$('#donationtable').append(	
+							"<tr><td>"+obj.dindex+"</td>" +
+							"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
+								obj.title+"</a></td>" +
+							"<td class='text-center'>관리자</td>" +						
+
+							"<td class='text-center'>"+obj.ctime+"</td>"+
+							"<td class='text-center'>"+obj.gcoll+"</td>" +
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							"<td class='text-center'>"+
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							
+							"</td>" + 
+							"<td class='text-center'>" + obj.dstate + "</td>"
+							
+					);
+					console.log('오브즈'+obj.dstate);
+				});
+				$('#zero_config_info').empty();
+				$('#zero_config_info').append("총 기부글 " + responsedata.totaldonatecount);
+				console.log("현재 페이지" + responsedata.cpage);
+				//페이지 번호 처리
+				console.log("타입"+ (typeof responsedata.cpage));
+				page(responsedata.cpage);
+		   }
+			
+		
+		}); 
+	}); */
+
+	//page()
+	function page(cp){
+		console.log('cp='+cp);
+		$('#zero_config_paginate').empty();
+		var pageSize = $('#paging option:selected').val();
+		var totaldonatecount = $('#totaldonatecount').val();
+
+		var pageCount;
+		console.log('pageSize= '+pageSize);
+		console.log('totaldonatecount= '+ totaldonatecount);
+		if((totaldonatecount % pageSize) == 0){
+			pageCount = totaldonatecount/pageSize;
+		}else if(totaldonatecount/pageSize<1){
+			pageCount=1;
+		}else{
+		
+			pageCount = Math.floor(totaldonatecount/pageSize + 1); 
+		}
+		
+		console.log('pageCount = '+pageCount);
+		let tmp="";
+		console.log('시피 = '+cp);
+		if(cp>1){
+			tmp +='<a href="main.bit?cp=${cpage-1}&ps='+pageSize+'" cp="'+(cp-1)+'" ps="'+pageSize+'">이전</a>';
+		}
+		//page 목록 나열하기
+		for(var i=1;i<=pageCount; i++){
+			if(cp==i){
+				tmp +=('<font color="red">['+i+']</font>');
+			}else{
+				tmp +=('<a href="main.bit?cp='+i+'&ps='+pageSize+'" cp="'+i+'" ps="'+pageSize+'" >['+i+']</a>');
+			}
+		}
+		//다음 링크
+		if(cp<pageCount){
+			tmp += '<a href="main.bit?cp=${cpage+1}&ps='+pageSize+'" cp="'+(cp+1)+'" ps="'+pageSize+'">다음</a>';
+		};
+		$('#zero_config_paginate').append(tmp);
+	};
+
+});
+
+// js 포맷팅용 커스텀 함수. 혹시 몰라 남겨둠
+/* Date.prototype.format = function (f) {
+
+    if (!this.valueOf()) return " ";
+
+
+
+    var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+    var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+
+    var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    var d = this;
+
+
+
+    return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+
+        switch ($1) {
+
+            case "yyyy": return d.getFullYear(); // 년 (4자리)
+
+            case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+
+            case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+
+            case "dd": return d.getDate().zf(2); // 일 (2자리)
+
+            case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
+
+            case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
+
+            case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
+
+            case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
+
+            case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
+
+            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
+
+            case "mm": return d.getMinutes().zf(2); // 분 (2자리)
+
+            case "ss": return d.getSeconds().zf(2); // 초 (2자리)
+
+            case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
+
+            default: return $1;
+
+        }
+
+    });
+
+}; */
+
+</script>
+
 </html>

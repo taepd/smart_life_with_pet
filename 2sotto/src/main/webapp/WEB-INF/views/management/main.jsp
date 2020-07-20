@@ -256,6 +256,48 @@
 								<button class="btn btn-primary btn-round" type="button" onclick="location.href='medicalRegister.bit'">글 쓰기</button>
 										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->										
 						</div> 
+						 <!-- 페이징  -->
+								<div class="pagination justify-content-center">
+									<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+									<ul class="pagination" id="pagingview">
+										<c:if test="${cpage > 1}">
+											<li class="page-item"><a class="page-link"
+												href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}" 
+												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> 
+												<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+										</c:if>
+
+										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+											<c:choose>
+												<c:when test="${cpage==i }">
+													<li class="page-item active"><a class="page-link"
+														href="getMrecordList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item"><a class="page-link"
+														href="getMrecordList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+
+										<c:if test="${cpage < pageCount}">
+
+											<li class="page-item">
+											<a class="page-link" href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}" 
+												cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+												<span aria-hidden="true">&raquo;</span> 
+												<span class="sr-only">Next</span>
+											</a></li>
+										</c:if>
+									</ul>
+									<!-- </nav> -->
+								</div>
+                    </div>
+                  </div>
+               
                   </div>  
 					<h3>예방 접종 기록</h3>                    
                     <div class="table-responsive">
@@ -269,7 +311,7 @@
                     
                 </div>
               </div>
-              </div>
+
             </div>
 		</div> <!-- side_overlay end -->
 	</div> <!-- container end -->
@@ -516,8 +558,57 @@ $(function() {
 		return schedule;
 	} // /.getSchedule()
 	
+}); // /.$(function)
+
+<!-- management  main ajax 페이징 부분-->
+/* ajax 시작 */
+$(function (){
+
 	
 
-}); // /.$(function)
+	
+	//페이징 비동기 시작(Mrecord)
+	function page(cp){
+		console.log('cp='+cp);
+		$('#zero_config_paginate').empty();
+		var pageSize = $('#paging option:selected').val();
+		var totalmrecordcount = $('#totalmrecordcount').val();
+
+		var pageCount;
+		console.log('pageSize= '+pageSize);
+		console.log('totalmrecordcount= '+ totalmrecordcount);
+		if((totalmrecordcount % pageSize) == 0){
+			pageCount = totalmrecordcount/pageSize;
+		}else if(totalmrecordcount/pageSize<1){
+			pageCount=1;
+		}else{
+		
+			pageCount = Math.floor(totalmrecordcount/pageSize + 1); 
+		}
+		
+		console.log('pageCount = '+pageCount);
+		let tmp="";
+		console.log('시피 = '+cp);
+		if(cp>1){
+			tmp +='<a href="getMrecordList.bit?cp=${cpage-1}&ps='+pageSize+'" cp="'+(cp-1)+'" ps="'+pageSize+'">이전</a>';
+		}
+		//page 목록 나열하기
+		for(var i=1;i<=pageCount; i++){
+			if(cp==i){
+				tmp +=('<font color="red">['+i+']</font>');
+			}else{
+				tmp +=('<a href="getMrecordList.bit?cp='+i+'&ps='+pageSize+'" cp="'+i+'" ps="'+pageSize+'" >['+i+']</a>');
+			}
+		}
+		//다음 링크
+		if(cp<pageCount){
+			tmp += '<a href="getMrecordList.bit?cp=${cpage+1}&ps='+pageSize+'" cp="'+(cp+1)+'" ps="'+pageSize+'">다음</a>';
+		};
+		$('#zero_config_paginate').append(tmp);
+	};
+
+	/* 페이징 비동기  끝*/
+});
+
 </script>
 </html>

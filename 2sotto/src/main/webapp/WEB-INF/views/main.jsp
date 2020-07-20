@@ -34,10 +34,15 @@
 			/* font-family: 'Sunflower', sans-serif; */
 			font-family: 'Poor Story', cursive;
 			margin-left: 0;
+			color: #9c27b0;
 		}
 		
 		#result {
 			border: 1px solid #EAEAEA;
+		}
+		
+		.row {
+			margin-bottom: 20px;
 		}
     	
     </style>
@@ -69,10 +74,10 @@
 	        <div class="row">
 	        	<div class="col-12">
 	        		<h3 class="h3-korean">팔로우하는 동물</h3>
-	        		<div>  <!--  style="display: inline-block;" -->
+	        		<div>
 	        			<c:set value="${petLikeList}" var="likeList"/>
 						<c:choose>
-							<c:when test="${likeList == null}"> <!-- when 안 나오네? 훔... -->
+							<c:when test="${likeList == null}">
 								팔로우하는 동물이 없어요.							
 							</c:when>
 							<c:otherwise>
@@ -92,10 +97,80 @@
 	        <div class="row">
 	        	<div class="col-12">
 	        		<h3 class="h3-korean">이번주의 인기글</h3>
-	        	</div>
+				</div>
+			</div>
+			
+			<!-- 더미데이터1 시작 -->
+			<div class="row">
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+			</div>
+			<!-- 더미데이터 1 끝 -->
+			
+			<div class="row">
 	        	<div class="col-12">
 	        		<h3 class="h3-korean">도움이 필요해요</h3>
 	        	</div>
+	        </div>
+	        
+	        <!-- 더미데이터2 시작 -->
+	        <div class="row">
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+				<div class="card col-4">
+	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
+	        		<div class="card-body">
+						<h4>글제목</h4>
+					    <p class="card-text" id="">
+					    	글내용
+					    </p>
+					</div>
+				</div>
+			</div>
+			<!-- 더미데이터2 끝 -->
+			
+			
 	        </div>	
 		</div> <!-- /.side_overlay -->
 	</div> <!-- /.container --> 	            

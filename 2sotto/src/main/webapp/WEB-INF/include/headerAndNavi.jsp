@@ -61,6 +61,7 @@
 				<div class="nickname">
 					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">시작하기</button>
 					<button class="btn btn-primary btn-sm" onclick="location.href='mainTest2.bit'">테스트</button>
+					<button class="btn btn-primary btn-sm" onclick="location.href='otherUserTest.bit'">타인블로그 테스트</button>
 				</div>
 			</se:authorize>
 			<br>	

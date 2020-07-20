@@ -22,6 +22,9 @@ public interface BlogDao {
 	// 블로그 > 내 포스트 리스트 조회  
 	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
 	
+	
+	public List<Blog> getOtherUserPostList(int cpage, int pagesize, String userid);
+	
 //	// 블로그 > 모두의 포스트 리스트 조회  //오버로딩 안되는듯...
 //	public List<Blog> getPostList(int cpage, int pagesize); 
 

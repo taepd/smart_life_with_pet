@@ -96,6 +96,16 @@ public class MainController {
 			
 			return "weather/main";
 		}
+		@RequestMapping(value = "otherUserTest.bit", method = RequestMethod.GET)
+		public String otherUserTest(String cp, String ps, Principal principal, Model model) {
+			
+		
+			logger.info("다시작업시작이다..." );
+			
+			
+			
+			return "otherUserTest";
+		}
 		
 
 }

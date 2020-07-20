@@ -384,35 +384,35 @@ public class DonationController {
 	}
 	
 	// 결제 포인트 user point에 입력 처리
-			@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
-			public String payInput(User user, HttpSession session, Principal principal, HttpServletRequest request, Model model) {					
-				logger.info("payInput컨트롤러를 타기는 하는데...: ");
-				logger.info("포인트 값  확인" + user.getPoint());
-				int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에 기존의 point정보를 미리 저장해 놓는 것이 필요함!!!
-				String userid =  principal.getName();//단순히 현재 session의 userid이름을 받아주는 String 변수
-				
-				System.out.println("가져온 포인트: " + point);
-				
-				//Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고
-				user = (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는 것. 그래서 set이 아니라 get이다.
-				
-				System.out.println("기존 포인트: " + user.getPoint());
-				user.setPoint(point + user.getPoint());
-				logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트
-				//int point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거 하고...
-				
-				int result = payservice.payInput(user);
-				if (result >= 1) {			 
-				logger.info("포인트 사용 내역 입력 성공");			  
-				return "redirect:/mypage/main.bit";
-				  
-				} else { // 회원가입 실패시 어찌할지 로직구현해야 함			  
-				logger.info("포인트 사용 내역 입력 실패");
-				return "javascript:history.back();";
-				 
-				}			
+	@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
+	public String payInput(User user, HttpSession session, Principal principal, HttpServletRequest request, Model model) {					
+		logger.info("payInput컨트롤러를 타기는 하는데...: ");
+		logger.info("포인트 값  확인" + user.getPoint());
+		int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에 기존의 point정보를 미리 저장해 놓는 것이 필요함!!!
+		String userid =  principal.getName();//단순히 현재 session의 userid이름을 받아주는 String 변수
+		
+		System.out.println("가져온 포인트: " + point);
+		
+		//Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고
+		user = (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는 것. 그래서 set이 아니라 get이다.
+		
+		System.out.println("기존 포인트: " + user.getPoint());
+		user.setPoint(point + user.getPoint());
+		logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트
+		//int point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거 하고...
+		
+		int result = payservice.payInput(user);
+		if (result >= 1) {			 
+		logger.info("포인트 사용 내역 입력 성공");			  
+		return "redirect:/mypage/main.bit";
+		  
+		} else { // 회원가입 실패시 어찌할지 로직구현해야 함			  
+		logger.info("포인트 사용 내역 입력 실패");
+		return "javascript:history.back();";
+		 
+		}			
 
-			}
+	}
 
 	
 	

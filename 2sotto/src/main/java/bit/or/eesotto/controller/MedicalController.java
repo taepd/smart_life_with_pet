@@ -42,7 +42,7 @@ public class MedicalController {
 	
 
 	// 병원이용 홈 보여주기
-	@RequestMapping(value = "getMrecordList.bit", method = RequestMethod.GET)
+	@RequestMapping(value = "getMrecordList.bit", method = RequestMethod.GET) 
 	public String getMrecordList(String cp, String ps, Principal principal, Model model) {
 		
 		//String userid = (String)session.getAttribute("userid");
@@ -69,7 +69,7 @@ public class MedicalController {
 		model.addAttribute("totalMrecordCount", map.get("totalMrecordCount"));
 		logger.info("병원이용 정보 뷰로 쐈당");
 
-		return "management/medicalMain";
+		return "management/main";
 		
 		
 	}
@@ -114,7 +114,8 @@ public class MedicalController {
 			logger.info("병원 기록 등록 성공");
 			
 			msg = "병원 기록이 등록되었습니다.";
-	        url = "getMrecordList.bit";
+	        //url = "getMrecordList.bit";
+			url = "getMrecordList.bit";
 	        
 		} else { 
 			

@@ -26,11 +26,11 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
+<!-- 			<button class="btn btn-primary btn-round"
 				onclick="location.href='main.bit'">후원글</button>
 			<form method="post" action="kakaoPay.bit">
     		<button class="btn btn-primary btn-round" id="kakaoPay">카카오페이로 결제하기</button>
-    		</form>
+    		</form>  -->
 
 
 			

@@ -47,7 +47,7 @@ public interface UserDao {
 	public int editPwd(@Param("pwd") String pwd, @Param("userid") String userid);
 
 	// 어드민 > 유저 리스트 조회  ajax
-	@Select("select * from user where userid = #{userid}")
+	@Select("select * from user")
 	public List<User> getUserList(@Param("userid") String userid); 
 
 //	// SNS로그인 (가입한 소셜까지 확인)

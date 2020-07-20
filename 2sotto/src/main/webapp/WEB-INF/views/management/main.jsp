@@ -265,17 +265,42 @@
                 </div>
                 <div class="tab-pane" id="tasks-1">
                 
-                <h3>병원 방문 기록</h3>                    
+                  <h3>병원 방문 기록</h3>                    
                     <div class="table-responsive">
                     	<table class="table">
                     		<thead class=" text-primary">
-                    			<tr><th> Name </th> <th> Country </th> <th> City </th> <th class="text-right"> Salary </th></tr></thead>
-                    			<tbody> <tr> <td> Dakota Rice </td> <td> Niger </td> <td> Oud-Turnhout </td> <td class="text-right"> $36,738 </td>
-                    				</tr> <tr> <td> Minerva Hooper </td> <td> Curaçao </td> <td> Sinaai-Waas </td> <td class="text-right"> $23,789 </td> </tr>
-                    	</table>
-
-                    </div>
-                    
+                    			<tr>
+									<th>병원이용 번호</th>
+									<th>보호자</th>
+									<th>반려동물 이름</th>											
+									<th>병원 방문 일시</th>
+									<th>병원명</th>
+								</tr>
+                    		</thead>             		
+                    			<c:forEach var="mrecord" items="${mrecordList}">
+									<tbody>
+										<tr>
+											<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
+											<td>${mrecord.userid}</td>
+											<td>${mrecord.petname}</td>
+											<!-- timestamp 날짜시간 표시 포맷 변환 -->
+											<%-- <fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+											<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+											<td class="text-center">${rtime}</td> --%>
+											<!-- timestamp 날짜시간 표시 포맷 변환 -->												
+											<td class="text-center">${mrecord.vdate}</td>
+											<td class="text-center">${mrecord.hname}</td>																													
+										</tr>
+									</tbody>											
+								</c:forEach>
+                    	 </table>
+                    	 <!-- 글등록 버튼 -->
+                    	 <div class="border-top">
+								<div class="card-body" style="text-align: center;">
+								<button class="btn btn-primary btn-round" type="button" onclick="location.href='medicalRegister.bit'">글 쓰기</button>
+										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->										
+						</div> 
+                  </div>  
 					<h3>예방 접종 기록</h3>                    
                     <div class="table-responsive">
                     	<table class="table">

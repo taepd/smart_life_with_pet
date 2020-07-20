@@ -23,7 +23,7 @@ import bit.or.eesotto.service.MypageService;
 @RequestMapping("/mypage/")
 public class MypageController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MypageController.class); 
 	
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;

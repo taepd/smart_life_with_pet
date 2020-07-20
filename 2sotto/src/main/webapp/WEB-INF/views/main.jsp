@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!DOCTYPE html>
 <html>
 <head>	
 
@@ -61,7 +63,20 @@
 				</div>
 				<div class="col-3"> 
 					<h3 class="h3-korean" style="color: #FFFFFF">나의 반려동물</h3>
-					<select class="custom-select" id="myPetInfo"></select>					
+					<select class="custom-select" id="myPetInfo">
+						<option disabled selected>=====선택=====</option>
+						<c:forEach var="pet" items="${petList}" varStatus="status">
+							<c:choose>
+								<c:when test="${status.index eq 0}">
+									<option selected>${pet.petname}</option>
+								</c:when>
+								<c:otherwise>
+									<option>${pet.petname}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					
+					</select>					
 					<div id="myPetSchedule"></div>
 				</div>
 				<!-- 산책 API 영역 -->
@@ -100,37 +115,20 @@
 				</div>
 			</div>
 			
-			<!-- 더미데이터1 시작 -->
 			<div class="row">
+			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
+	        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+	        					style="width:200px;height:200px" alt="card image">
 	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
+						<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+								<strong>${post.title}</strong>
+								<span id="content${status.index}">${post.content}</span>
+						</a>
 					</div>
 				</div>
-				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
-	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
-					</div>
-				</div>
-				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_boon.jpg" rel="nofollow" alt="card image">
-	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
-					</div>
-				</div>
+			</c:forEach>
 			</div>
-			<!-- 더미데이터 1 끝 -->
 			
 			<div class="row">
 	        	<div class="col-12">
@@ -138,40 +136,23 @@
 	        	</div>
 	        </div>
 	        
-	        <!-- 더미데이터2 시작 -->
-	        <div class="row">
+	       	<div class="row">
+			<c:forEach var="donation" items="${donationList}" varStatus="status">
 				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
+	        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+	        					style="width:200px;height:200px" alt="card image">
 	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
+						<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+								<strong>${donation.title}</strong>
+								<span id="content${status.index}">${donation.content}</span>
+						</a>
 					</div>
 				</div>
-				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
-	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
-					</div>
-				</div>
-				<div class="card col-4">
-	        		<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/sample_dog.jpg" rel="nofollow" alt="card image">
-	        		<div class="card-body">
-						<h4>글제목</h4>
-					    <p class="card-text" id="">
-					    	글내용
-					    </p>
-					</div>
-				</div>
+			</c:forEach>
 			</div>
-			<!-- 더미데이터2 끝 -->
 			
 			
-	        </div>	
+	       
 		</div> <!-- /.side_overlay -->
 	</div> <!-- /.container --> 	            
      
@@ -184,9 +165,14 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
 
 <script type="text/javascript">
-// 날씨 API 시작
+
 	$(function () {
-   
+
+		//블로그 이미지 위치 조정 함수
+		replaceImg();
+
+		// 날씨 API 시작
+		 
 		let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
         let data = { lat: ${user.lat}, lon: ${user.lon}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
 
@@ -406,21 +392,28 @@
 
     // moment.js 한글 변경
     moment.locale('ko');
-	getMyPetName();
-
+	//getMyPetName(); 동기화로 전환해서 사용 안함
+	
+	//최초 로딩시 기본 첫 동물 정보 보이게 설정
+	var whichOne = $('#myPetInfo').val();
+	console.log('위치원'+whichOne);
+	getMyPetSchedule(whichOne);
+	
 	// 반려동물 정보 영역
 	$('#myPetInfo').change(function() {
 		var whichOne = $('#myPetInfo').val();
+		console.log('위치원'+whichOne);
 		getMyPetSchedule(whichOne);
 	});
 	
     console.log("로그인한 유저 아이디: "+'${sessionScope.user.userid}');
- }); // /.onload()
+ }); 
 
 
  	///////////////////////////////////////////////////////////이하 함수 영역///////////////////////////////////////////////////////////////////
 
      // 나의 반려동물 이름 가져오기
+     // 동기화로 전환해서 사용 안함
     	function getMyPetName() {
     		$.ajax({
     			type: "get",
@@ -429,9 +422,11 @@
     			success: function(response) {
     				var option = "<option disabled selected>=====선택=====</option>";
     				$.each(response, function(index, element) {
-    					option += "<option>" + element + "</option>";
+	
+           				option += "<option>" + element + "</option>";
+		
     				});
-    				$('#myPetInfo').append(option);
+    				$('#myPetInfo').append(option);   				
     			}
     		});
     	}
@@ -458,6 +453,7 @@
     				$.each(response, function(index, element) {
     					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
     					image = element.petimg;
+    					console.log('이미지: '+image);
         			});
 
     				var imageSrc = "<img src='${pageContext.request.contextPath}/assets/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
@@ -472,5 +468,30 @@
 
  //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
 // 날씨 API 끝
+
+/**
+* @함수명 : replaceImg()
+* @작성일 : 2020. 7. 17.
+* @작성자 : 태영돈
+* @설명 :이미지 위치 디자인(조정/삭제)을 위한 함수
+* @param void
+**/
+
+function replaceImg(){ 
+	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	    var imgs = $('#content'+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
+	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
+			console.log(imgs[j]);      
+			imgs[j].removeAttribute('src'); //기존 내용 중 이미지는 미리보기시 지저분하므로 지워준다		        
+	        //imgs.remove(imgs[j].src);
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+} 
+
+
 </script>	  
 </html>

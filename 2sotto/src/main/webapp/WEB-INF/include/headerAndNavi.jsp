@@ -96,7 +96,6 @@
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
 				
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-					<li><a href="${pageContext.request.contextPath}/mapTest.bit">map테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
 					</a></li>
 				</se:authorize>

@@ -17,19 +17,19 @@ public interface ScheduleDao {
 
 	//일정 등록
 	@Insert("insert into schedule"
-			+ "(sindex, petindex, userid, title, content, is_complete, start, end, allday, daysofweek, adncdnoti) "
+			+ "(sindex, petindex, userid, title, content, is_complete, start, end, allday, daysofweek, adncdnoti, color) "
 			+ "values( #{sindex}, #{petindex}, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, "
-			+ "#{allday}, #{daysofweek}, #{adncdnoti} )")
+			+ "#{allday}, #{daysofweek}, #{adncdnoti}, #{color} )")
 	public int newSchedule(Schedule schedule);
 	
 	//일정 불러오기
-	@Select("select sindex, petindex, userid, title, content, is_complete, start, end, allday, daysofweek, adncdnoti "
+	@Select("select sindex, petindex, userid, title, content, is_complete, start, end, allday, daysofweek, adncdnoti, color "
 			+ "from schedule where userid = #{userid}")
 	public List<Schedule> getSchedule(@Param("userid") String userid);
 	
 	//일정 업데이트
 	@Update("update schedule set title=#{title}, content=#{content}, is_complete=#{is_complete}, "
-			+ "start=#{start}, end=#{end}, allday=#{allday}, daysofweek=#{daysofweek}, adncdnoti=#{adncdnoti} "
+			+ "start=#{start}, end=#{end}, allday=#{allday}, daysofweek=#{daysofweek}, adncdnoti=#{adncdnoti}, color=#{color} "
 			+ "where sindex=#{sindex}")
 	public int updateSchedule(Schedule schedule);
 	

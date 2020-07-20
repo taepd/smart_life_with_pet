@@ -151,9 +151,10 @@
 												</c:forEach>
 											</select>
 										</div>
-										<!-- <div class="">
-											<label class="" for="edit-color">색상</label>
-											<select class="custom-select" name="color" id="edit-color">
+										
+										<div class="form-group bmd-form-group mb-0">
+											<label class="" for="color">색깔</label>
+											<select class="custom-select" name="color" id="color">
 												<option value="#D25565" style="color:#D25565;">빨간색</option>
 												<option value="#9775fa" style="color:#9775fa;">보라색</option>
 												<option value="#ffa94d" style="color:#ffa94d;">주황색</option>
@@ -164,7 +165,8 @@
 												<option value="#4d638c" style="color:#4d638c;">남색</option>
 												<option value="#495057" style="color:#495057;">검정색</option>
 											</select>
-										</div> -->
+										</div>
+										
 										<div class="form-group bmd-form-group">
 											<!-- <label class="" for="edit-desc">설명</label> -->
 											<textarea rows="2" cols="50" class="form-control" name="content" id="content" placeholder="필요하다면 일정에 관해 메모하세요."></textarea>
@@ -178,7 +180,7 @@
 								<div class="modal-footer modalBtnContainer-modifyEvent">
 									<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">닫기</button>
 									<button type="button" class="btn btn-danger btn-sm" id="deleteEvent">삭제</button>
-									<button type="button" class="btn btn-primary btn-sm" id="updateEvent">저장</button>
+									<button type="button" class="btn btn-primary btn-sm" id="updateEvent">수정</button>
 								</div>
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
@@ -264,10 +266,11 @@
 
 <script>
 $(function() {
-	
+
+	console.log("아아아어ㅣㅏ;ㅓㅣㅏㅓㅣㅏㅓ");
 	console.log('로그인한 유저 아이디: ${sessionScope.user.userid}');
 	
-	//datetimepicker
+	// Datetimepicker
 	$("#start, #end").bootstrapMaterialDatePicker({
 		format: 'YYYY-MM-DD HH:mm',
 		lang: 'ko',
@@ -293,10 +296,35 @@ $(function() {
 			right: 'dayGridMonth,timeGridWeek,timeGridDay'
 		},
 		eventColor: '#E6CDED', //default 컬러 설정
-		events: getSchedule(),
+		displayEventTime: false,
+		events: function(info, successCallback, failureCallback) {
+			
+			$.ajax({
+				url: "getSchedule.bit",
+				data: { userid : '${sessionScope.user.userid}' },
+				dataType: "json",
+				//async: false,
+				success: function(response) {
+					var schedule = response.schedule;
+					var fixedDate = schedule.map(function(array) {
+						//console.log("array>>> "+JSON.stringify(array));
+						//console.log("getAllDay: "+array.allday);
+						array.allday = true;
+						//console.log("again: "+array.allday);
+						//console.log("again array>>> "+JSON.stringify(array));
+						//array.title = "["+moment(array.start).format('HH:mm') + "-" + moment(array.end).format('HH:mm') + "] "+ array.title;
+						
+						//console.log("content>>> "+array.content);
+						return array;
+					});
+					successCallback(fixedDate);
+				}
+			}); // /.ajax
+
+		},
 		select: function(start, end, allDay) {
 
-			// 빈 칸으로 초기화
+			// input 태그값 초기화
 			$('#allday').prop("checked", false);
 			$('#title').val('');
 			$('#start').val('');
@@ -321,13 +349,14 @@ $(function() {
 				var titleVal = $('#title').val();
 				var contentVal = $('#content').val();
 				var petindexVal = $('#petindex').val();
+				var colorVal = $('#color').val();
 				
 				// #allday 체크 여부에 따라 값 부여하기 
-				var allday = $('#allday');
-				var isallDay = "";
+				//var allday = $('#allday');
+				//var isallDay = "";
 				
-				if(allday.is(':checked')) { isallDay = allday.val(); }
-				else { isallDay = 0; }
+				//if(allday.is(':checked')) { isallDay = allday.val(); }
+				//else { isallDay = 0; }
 				
 				var eventData = {
 					userid: '${sessionScope.user.userid}',
@@ -336,11 +365,8 @@ $(function() {
 					start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
 					end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
 					content: contentVal,
-					allday: isallDay //(allday=true면 네모칸으로 나오고 false면 점으로 나옴)
-					// type: editType.val(),
-					// username: '사나',
-					// backgroundColor: editColor.val(),
-					// textColor: '#ffffff',
+					//allday: 1, // 1=true, 0=false 
+					color: colorVal
 				};
 
 				if(eventData.title == "") {
@@ -355,6 +381,7 @@ $(function() {
 
 				calendar.addEvent(eventData);
 				//calendar.render();
+				
 				$('#createEventModal').modal('hide');
 
 				$.ajax({
@@ -374,78 +401,13 @@ $(function() {
 			
 			
 		},
-		eventClick: function(info) {
+		eventClick: function(event, jsEvent, view) {
+			editEvent(event);
+		} /*/.eventClick */
 
-			var schedule = getSchedule();
-			console.log("dfdf: "+schedule);
-			$.each(schedule, function(index, ele) {
-					$.each(ele, function(a, b) {
-						console.log("a: "+a);
-						console.log("b: "+b);
-						});
-				});
+		// 문제: 수정하고 rerender가 바로 안됨 (함수명은 .render() 맞음)
+		
 
-			// 모달 타이틀 바꾸기
-			$('#modal-title-for-add').hide();
-			$('#modal-title-for-edit').show();
-
-			// 모달 버튼 바꾸기
-			addBtnContainer.hide();
-			modifyBtnContainer.show();
-
-			// 모달 열기
-			$('#createEventModal').modal('show');
-
-			var title = info.event.title;
-			var start = info.event.start;
-			var end = info.event.end;
-			var allday = info.event.allDay;
-
-			if(end === null) { //null인 경우가 없긴 한데... 사용자 생각하면...-ㅂ-
-				end = start;
-			}
-
-			console.log(start+"/"+end);
-			
-			if(allday === true) {
-				$('#allday').prop("checked", true);
-			} else {
-				$('#allday').prop("checked", false);
-			}
-
-			$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
-			
-			if(allday === true && end !== start) {
-				$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
-			} else {
-				$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-			}
-			
-
-			$('#title').val(title);
-			$('#content').val(info.event.content); //이건 안 됨;
-			//$('#start').val(info.event.start);
-			//$('#end').val(info.event.end);
-
-			$('#updateEvent').on('click', function() {
-				/*
-				$('#title').val('');
-				$('#content').val('');
-				$('#start').val('');
-				$('#end').val('');
-				$('#allday').prop("checked", false);
-				$('#modal-title-for-add').show();
-*/
-				$('#createEventModal').modal('hide');
-			});
-
-			var event = info.event;
-			
-			$('#deleteEvent').on('click', function(event) {
-				event.remove();
-			});
-				
-		}
 		
 	});
 	
@@ -453,6 +415,146 @@ $(function() {
 
 	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
 
+	
+	var editEvent = function(event, element, view) {
+
+		console.log("======함수 실행==========");
+
+		// JSON 형태로 데이터 출력해보고 싶으면 아래 실행 ---지우지 마세요---
+		// console.log("나와: "+JSON.stringify(event));
+
+		var title = event.event.title;
+		var content = event.event.extendedProps.content;
+		var sindex = event.event.extendedProps.sindex;
+		var petindex = event.event.extendedProps.petindex;
+		var allday = event.event.extendedProps.allday; //true, false로 리턴
+		var start = event.event.start;
+		var end = event.event.end;
+		var color = event.event.backgroundColor;
+		var userid = event.event.extendedProps.userid;
+		
+		// input 태그 초기화
+		$('#allday').prop("checked", false);
+		$('#title').val('');
+		$('#start').val('');
+		$('#end').val('');
+		$('#content').val('');
+		
+		// 모달 타이틀 바꾸기
+		$('#modal-title-for-add').hide();
+		$('#modal-title-for-edit').show();
+
+		// 모달 버튼 바꾸기
+		addBtnContainer.hide();
+		modifyBtnContainer.show();
+
+		// 기존 정보 뿌리기
+		$('#title').val(title);
+		$('#content').val(content); 
+		$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
+		$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+
+		// 하루종일 여부 체크
+		if(allday === true) {
+			$('#allday').prop("checked", true);
+		} else {
+			$('#allday').prop("checked", false);
+		}
+
+		// 모달 열기 > 마지막에 열자
+		$('#createEventModal').modal('show');
+
+
+		$('#updateEvent').on('click', function() {
+
+			$('#createEventModal').modal('hide');
+			
+			$.ajax({
+					type: "get",
+					data: {
+						sindex: sindex,
+						userid: '${sessionScope.user.userid}',
+						petindex: $('#petindex').val(),
+						title: $('#title').val(),
+						start: moment($('#start').val()).format('YYYY-MM-DD HH:mm:ss'),
+						end: moment($('#end').val()).format('YYYY-MM-DD HH:mm:ss'),
+						content: $('#content').val(),
+						//allday: 1, // 1=true, 0=false  $('#allday').val()
+						color: $('#color').val()
+					},
+					dataType: "JSON",
+					url: "updateSchedule.bit",
+					success: function(response) {
+							console.log(response);
+						},
+					error: function(e) {
+							console.log("update error: "+e);
+						}
+
+				});
+			calendar.render(); //이거 테스트해보기...........안돼.......
+
+			});
+		/*
+		
+		if(end === null) {
+			end = start;
+		}
+		
+		var content;
+		var petindex;
+		var end;
+		var schedule = getSchedule();
+		
+		
+		
+		
+		
+		$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+
+		
+
+		// 시작 일자 설정
+		$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
+
+		// 끝 일자 설정
+		//$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+		
+		if(allday === true && end !== start) {
+			$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
+		} else if(allday !== true && end !== start) {
+			$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+		}
+		
+
+		
+		$('#title').val(title);
+		$('#content').val(content);
+		
+		
+
+		$('#updateEvent').on('click', function() {
+			
+			$('#title').val('');
+			$('#content').val('');
+			$('#start').val('');
+			$('#end').val('');
+			$('#allday').prop("checked", false);
+			$('#modal-title-for-add').show();
+
+			$('#createEventModal').modal('hide');
+		});
+
+		//var event = info.event;
+		
+		$('#deleteEvent').on('click', function(info) {
+			info.remove();
+		});
+		*/
+
+	}
+	
+	
 	
 	// 일정 불러오기
 	function getSchedule() {
@@ -465,8 +567,16 @@ $(function() {
 			dataType: "json",
 			async: false,
 			success: function(response) {
+					//console.log(response);
 				$.each(response.schedule, function(index, element) {
+					//console.log(response.schedule); //이거 자체가 json 배열인디? [ {}, {}, {}, ] 이렇게 생겼음
+					//이걸 넘기도록 하자....?
+					
+					schedule = response.schedule;
+
+					/*
 					var viewData = {};
+					
 					viewData["title"] = element.title;
 					viewData["start"] = element.start;
 
@@ -480,14 +590,19 @@ $(function() {
  						viewData["end"] = moment(element.end).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
 					}
 					//viewData["end"] = moment(element.end).format('YYYY-MM-DD HH:mm:ss');
-
 					viewData["color"] = '#E6CDED'; //컬럼에 컬러값이 있어야 색깔별로 출력할 수 있을 듯... 어쨌든 여기에 적용하면 적용됨
-					console.log("콘텐츠: "+element.content);
+					viewData["content"] = element.content;
+					viewData["petindex"] = element.petindex;
+
+					console.log("viewData: "+JSON.stringify(viewData));
 					schedule.push(viewData);
+
+					  */
 				});
 			}
 		});
 
+		//console.log("스케쥴 모양: "+schedule);
 		return schedule;
 	} // /.getSchedule()
 	

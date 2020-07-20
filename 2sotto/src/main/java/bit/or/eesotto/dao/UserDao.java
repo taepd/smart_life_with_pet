@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.User;
 
 public interface UserDao {
@@ -44,6 +45,10 @@ public interface UserDao {
 	// 마이페이지 > 비밀번호 수정
 	@Update("update user set pwd=#{pwd}	where userid = #{userid}")
 	public int editPwd(@Param("pwd") String pwd, @Param("userid") String userid);
+
+	// 어드민 > 유저 리스트 조회  ajax
+	@Select("select * from user where userid = #{userid}")
+	public List<User> getUserList(@Param("userid") String userid); 
 
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")

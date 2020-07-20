@@ -110,7 +110,7 @@
 				<div class="col-10"></div>
 				<div class="col-2" style="margin: 0 auto;">
 					<button class="btn btn-sm" onclick="location.href='register.bit'" style="display: inline-block;">반려동물 등록</button>
-					<a href="#" data-toggle="modal" data-target="#mapModal" type="button"  class="btn btn-sm" onclick="relayout()" >동물병원 보기</a>
+					<a href="#" data-toggle="modal" data-target="#mapModal" type="button"  class="btn btn-sm">동물병원 보기</a>
 				</div>
 			</div>
 			<div class="row" id="tab-row">
@@ -687,9 +687,6 @@ $(function (){
 
 	/* 페이징 비동기  끝*/
 });
-
-
-}); // /.$(function)
 
 
 //카카오 지도 script

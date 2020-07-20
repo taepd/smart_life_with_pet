@@ -35,19 +35,19 @@
 					<!-- 글쓴이 및 관련 반려동물 영역 -->
 					<div class="d-flex">  <!--  style="display: inline-block;" -->
 						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
-						<c:forEach var="myPet" items="${pArr}">
+						<c:forEach var="petArr" items="${pArr}">
 	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
-	        				<c:if test="${petindex eq myPet.petindex}">
-				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
+	        				<c:if test="${petindex eq petArr.petindex}">
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px;">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
 			        			<div  class="rounded-circle card-modal-profile"
                                     style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
                                     <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
-                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+                                        <img  src="${pageContext.request.contextPath}/assets/images/${petArr.petimg}" alt="${petArr.petname}" href="javascript:void(0)"
                                             style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
                                     </div>
                              	</div>
-                             	<div class="text-center"> ${myPet.petname} </div>
+                             	<div class="text-center"> ${petArr.petname} </div>
 		        			</div>
 		        			</c:if>
 				        </c:forTokens>

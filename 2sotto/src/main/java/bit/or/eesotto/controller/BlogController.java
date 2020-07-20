@@ -88,21 +88,29 @@ public class BlogController {
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
 		logger.info("모두의 블로그 글 리스트 조회 완료");
 		
-		Set<Pet> pArr = new HashSet();
-		
+		//포스트와 관련된 pet정보를 추출하기 위한 작업//
+		List<Pet> pArr = new ArrayList<Pet>();
+		Set<String> pindexSet = new HashSet(); //petindex 중복 제거를 위한 임시 Set
+
+		//postList에 담긴 모든 petindex를 검색하여 pindexSet에 추가
 		List<Blog> postList = (List)map.get("postList");
 		for(Blog post: postList) {
-			System.out.println("포스트: "+post);
+			
 			String pIndexes = post.getPetindex();
 			String[] arr = pIndexes.split(",");
 			for(String petindex: arr) {
 				
-				pArr.add(ms.editPetInfo(Integer.parseInt(petindex))); 
+				pindexSet.add(petindex);
+				System.out.println("셋: "+pindexSet);
 			}
+		}
+		//중복이 제거된 petindex들의 pet객체 정보를 pArr에 추가
+		for(String pindex: pindexSet) {
+			pArr.add(ms.editPetInfo(Integer.parseInt(pindex))); 
 		}
 		
 		System.out.println("pindex통한 pet객체 배열: "+pArr);
-		
+		//포스트와 관련된 pet정보를 추출하기 위한 작업 끝//
 		
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));

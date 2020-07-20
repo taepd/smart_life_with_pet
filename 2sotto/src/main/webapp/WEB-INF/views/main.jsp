@@ -118,13 +118,14 @@
 			<div class="row">
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="card col-4">
+	        		<div class="card-body text-center">
+					<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
 	        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 	        					style="width:200px;height:200px" alt="card image">
-	        		<div class="card-body">
-						<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+	        					<hr>
 								<strong>${post.title}</strong>
 								<span id="content${status.index}">${post.content}</span>
-						</a>
+					</a>
 					</div>
 				</div>
 			</c:forEach>

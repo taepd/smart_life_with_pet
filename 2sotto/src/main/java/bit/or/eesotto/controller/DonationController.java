@@ -4,9 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,8 +17,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -442,5 +439,57 @@ public class DonationController {
 	 * 
 	 * return null; }
 	 */
+	
+	// ajax 페이징 컨트롤러
+	//페이징 ajax 처리
+	@ResponseBody
+	@RequestMapping("donationListAjax.bit")
+	public Map<String, Object> donationListAjax(HttpServletRequest request) {
+
+		String ps = request.getParameter("ps"); // pagesize
+		String cp = request.getParameter("cp"); // current page
+
+		// List 페이지 처음 호출 ...
+		if (ps == null || ps.trim().equals("")) {
+			// default 값 설정
+			ps = "5"; // 5개씩
+		}
+
+		if (cp == null || cp.trim().equals("")) {
+			// default 값 설정
+			cp = "1"; // 1번째 페이지 보겠다
+		}
+		System.out.println(ps);
+		System.out.println(cp);
+		int pagesize = Integer.parseInt(ps);
+		int cpage = Integer.parseInt(cp);
+		int pagecount = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Donate> donationList = null;
+		try {
+			DonateDao dao = sqlsession.getMapper(DonateDao.class);
+			donationList = dao.main(cpage, pagesize);
+			// request.setAttribute("emplist", emplist);
+
+			int totaldonationcount = dao.getDonationCount();
+			System.out.println(totaldonationcount);
+
+			if (totaldonationcount % pagesize == 0) {
+				pagecount = totaldonationcount / pagesize;
+
+			} else {
+				pagecount = (totaldonationcount / pagesize) + 1;
+			}
+
+			map.put("donationList", donationList);
+			map.put("cpage", cpage);
+			map.put("totaldonationcount", totaldonationcount);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return map;
+
+	}	
 
 }

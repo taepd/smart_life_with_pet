@@ -862,7 +862,8 @@ SET @ROWNUM:= 0;
 		) S WHERE ROWNUM 
 		BETWEEN 1 AND 5;
 
-	
+select b.*, (SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex) bcCount
+FROM blog b;	
 
 
 
@@ -878,6 +879,15 @@ from pet p
 left outer join subcategory s on p.SCATEGORY = s.SCATEGORY 
 left outer join maincategory m on p.MCATEGORY = m.MCATEGORY
 where petindex = 6;
+
+SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
+			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex order by b.bindex desc ) bcCount
+		FROM blog b, 
+		WHERE USERID='a' 
+		) S WHERE 
+		BETWEEN 1 and 5; 
+
 
 -- 반려동물 petindex 키워드 검색 쿼리
 select * from blog where concat(',',petindex,',') like '%,1,%';

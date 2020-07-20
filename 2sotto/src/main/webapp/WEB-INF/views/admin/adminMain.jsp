@@ -32,10 +32,10 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-
-
+	<!-- 차트끝 -->
 
 </head>
+
 <body>
   <div class="wrapper ">
       <div class="sidebar" data-color="white" data-active-color="danger">
@@ -184,8 +184,8 @@
         </div>
         
         
-        
-        <!-- 차트 뿌려질 부분 -->
+        <!-- 차트 뿌려질 부분 시작-->
+        <!--  
         <div class="row">
           <div class="col-md-12">
             <div class="card ">
@@ -198,13 +198,13 @@
               <!-- 
                 <canvas id=chartHours width="400" height="100"></canvas>
                -->
-                
+                <!--  
                 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
 
 				</div>
                 
-                
-                
+                -->
+                <!--  
               </div>
               <div class="card-footer ">
                 <hr>
@@ -215,6 +215,8 @@
             </div>
           </div>
         </div>
+        -->
+        <!-- 차트 뿌려질 부분 끝-->
         <div class="row">
           <div class="col-md-4">
             <div class="card ">
@@ -277,8 +279,11 @@
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/plugins/bootstrap-notify.js"></script>
+  
+
 
   <!-- 
+  
   <script>
     $(document).ready(function() {
 	 console.log("jquery 실행");
@@ -379,10 +384,14 @@
     });
   </script>
 </body>
+
 	 -->
 
-	<script type="text/javascript">
-/*
+	
+
+
+	
+<!--  
 	$(function(){
 			
 		      Highcharts.setOptions({
@@ -479,7 +488,7 @@
 			
 			
 		});
-		*/
-	</script>
+		-->
+
 
 </html>

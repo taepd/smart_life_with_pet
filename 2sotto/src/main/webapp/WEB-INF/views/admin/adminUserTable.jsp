@@ -78,11 +78,11 @@
             		<table id="myTable" class="myTable hover table">
 						<thead class=" text-primary">
 							<tr>
-								<th>프로필</th>
+								
 								<th>아이디</th>
-								<th>이름</th>
-								<th>비밀번호</th>
-								<th>이메일</th>
+								<th>닉네임</th>
+								<th>번호</th>
+								
 							</tr>
 						</thead>
 					</table>
@@ -104,7 +104,7 @@
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!--  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="${pageContext.request.contextPath}/admin_assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -123,12 +123,13 @@
  
   <!-- 비동기 -->
   <script type="text/javascript">
-	$(function(){		
+//댓글 목록 가져오기
+ $(function(){		
 		var data = "";
 		console.log('작동?');
 		$.ajax(
 			{
-				url:"UserList.ajax",
+				url:"getUserList.bit",
 				type:"POST",
 				dataType:"json",
 				//data: "",
@@ -139,40 +140,17 @@
 			   		$('#myTable').dataTable(
 			   	   			{ 
 			   	   				ajax:{
-			   	   					'url':'UserList.ajax', //이건 왜 필요한거지..
+			   	   					'url':'getUserList.bit', //이건 왜 필요한거지..
 			   	   					'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
 			   	   					'dataSrc': {
 			   	   						"data": [responsedata]
 			   	   					}
 			   	   				},
 			   	   				columns:[
-			   	   					{"data": "user_image",
-			   	                        	 "render": function(data){
-			   	                             data = "<img alt='' src='userUpload/"+ data +"' style='width: 50px; height: 50px'>";
-			   	                             return data;
-			   	                         	 },
-			   	                         	 "orderable":false
-			   						},
-			   	   					{"data": "user_id"},
-			   	   					{"data": "user_name"},
-			   	   					{"data": "user_pwd",
-			   	   							 "render" : function(data){
-				   	   							if (data.length > 2) {
-					   	   						    var originPwd = data.split('');
-					   	   							originPwd.forEach(function(name, i) {
-					   	   						      if (i === 0 || i === originPwd.length - 1) return;
-					   	   								originPwd[i] = '*';
-					   	   						    });
-					   	   						    var joinPwd = originPwd.join();
-					   	   						    return joinPwd.replace(/,/g, '');
-					   	   						} else {
-					   	   						    var pattern = /.$/; // 정규식
-					   	   						    return data.replace(pattern, '*');
-				   	   						  	}
-			   	   							},
-			   	   							"orderable":false
-			   	   					},
-			   	   					{"data": "user_email"}
+			   	   					
+			   	   					{"data": "userid"},
+			   	   					{"data": "nick"},
+			   	   					{"data": "cpnumber"}
 			   	   				]
 			   	   				
 			   	   			}		

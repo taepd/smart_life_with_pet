@@ -382,7 +382,8 @@
 	 -->
 
 	<script type="text/javascript">
-		$(function(){
+/*
+	$(function(){
 			
 		      Highcharts.setOptions({
 		          global: { useUTC: false	//시간표시방법
@@ -478,6 +479,7 @@
 			
 			
 		});
+		*/
 	</script>
 
 </html>

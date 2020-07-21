@@ -614,24 +614,25 @@ $(function() {
 		cancelText: '취소'
 	});
 
-	//풀캘린더 로딩
-	renderFullCalendar();
-	
-//다른 탭에서 작업 후 풀캘린더 탭으로 이동시 깨지는 문제 해결법	
-$('#scheduleTab').on('shown.bs.tab', function () {
-	renderFullCalendar();
-}); //풀캘린더 탭 로드 후 실행되게 래핑
-	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
-	
-	
-	function renderFullCalendar(){
-	
+	//풀캘린더가 사용하는 변수들
 	var calendarEl = document.getElementById('calendar');
 	var addBtnContainer = $('.modalBtnContainer-addEvent');
 	var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
-
-
 	
+	//풀캘린더 로딩
+	renderFullCalendar();
+	
+	//다른 탭에서 작업 후 풀캘린더 탭으로 이동시 깨지는 문제 해결법	
+	$('#scheduleTab').on('shown.bs.tab', function () {
+		renderFullCalendar();
+	}); //풀캘린더 탭 로드 후 실행되게 래핑
+
+
+/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
+	
+	
+	function renderFullCalendar(){
+		
 	// 풀캘린더 그리기
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		
@@ -646,15 +647,41 @@ $('#scheduleTab').on('shown.bs.tab', function () {
 			right: 'dayGridMonth,timeGridWeek,timeGridDay'
 		},
 		eventColor: '#E6CDED', //default 컬러 설정
-		events: getSchedule(),
-		select: function(start, end, allDay) {
+		displayEventTime: false,
+		events: function(info, successCallback, failureCallback) {
+			
+			$.ajax({
+				url: "getSchedule.bit",
+				data: { userid : '${sessionScope.user.userid}' },
+				dataType: "json",
+				//async: false,
+				success: function(response) {
+					var schedule = response.schedule;
+					var fixedDate = schedule.map(function(array) {
+						//console.log("array>>> "+JSON.stringify(array));
+						console.log(typeof(array.start));
+						console.log(typeof(array.end));
+						console.log(typeof(array.allDay));
 
-			// 빈 칸으로 초기화
-			$('#allday').prop("checked", false);
-			$('#title').val('');
-			$('#start').val('');
-			$('#end').val('');
-			$('#content').val('');
+						if (array.allDay == 'true' && !array.start == array.end) {
+							// 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력.....인데 안되네....
+							array.end = moment(array.end).add(1, 'days');
+						}
+						
+						return array;
+					});
+					successCallback(fixedDate);
+				}
+			}); // /.ajax
+
+		},
+		select: function(start, end, allDay) {
+			
+			// 모달 안 태그값 초기화
+			$('#createEventModal input, textarea').val("");
+			$('#allDay').prop("checked", false);
+			$('#createEventModal option:eq(0)').prop("selected", true);
+			$('#color option:eq(0)').prop("selected", true); // 위에서 적용됐어야 하는데 왜...
 
 			// 모달 타이틀 바꾸기
 			$('#modal-title-for-edit').hide();
@@ -667,6 +694,7 @@ $('#scheduleTab').on('shown.bs.tab', function () {
 			// 모달 열기
 			$('#createEventModal').modal('show');
 
+			$('#save-event').unbind();
 			$('#save-event').on('click', function() {
 
 				var start = $('#start').val();
@@ -674,26 +702,24 @@ $('#scheduleTab').on('shown.bs.tab', function () {
 				var titleVal = $('#title').val();
 				var contentVal = $('#content').val();
 				var petindexVal = $('#petindex').val();
+				var colorVal = $('#color').val();
 				
 				// #allday 체크 여부에 따라 값 부여하기 
-				var allday = $('#allday');
-				var isallDay = "";
+				var allDay = $('#allDay');
+				var isAllDay;
 				
-				if(allday.is(':checked')) { isallDay = allday.val(); }
-				else { isallDay = 0; }
+				if(allDay.is(':checked')) { isAllDay = true; }
+				else { isAllDay = false; }
 				
 				var eventData = {
-					userid: '${sessionScope.user.userid}',
 					petindex: petindexVal,
+					userid: '${sessionScope.user.userid}',
 					title: titleVal,
-					start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
-					end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
 					content: contentVal,
-					allday: isallDay //(allday=true면 네모칸으로 나오고 false면 점으로 나옴)
-					// type: editType.val(),
-					// username: '사나',
-					// backgroundColor: editColor.val(),
-					// textColor: '#ffffff',
+					start: start,
+					end: end,
+					allDay: isAllDay, 
+					color: colorVal
 				};
 
 				if(eventData.title == "") {
@@ -706,143 +732,174 @@ $('#scheduleTab').on('shown.bs.tab', function () {
 					return false;
 				}
 
+				//var allDay = $('#allDay');
+
+				if (isAllDay == true) {
+					eventData.start = moment(eventData.start).format('YYYY-MM-DD');
+					eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+				}
+				
+				// 이벤트 추가
 				calendar.addEvent(eventData);
 				//calendar.render();
+				
+				//////////////////////////////////잘못된부분//////////////////////////////////
+				
+				// DB에 일정 넣기
+				var realEndDay;
+				var realStartDay;
+				
+				if(eventData.allDay == true) { // allDay=true일 때
+					realStartDay = moment(eventData.start).format('YYYY-MM-DD');
+					realEndDay = moment(eventData.end).format('YYYY-MM-DD');
+				} else { // allDay=false일 때
+					realStartDay = moment(eventData.start).format('YYYY-MM-DD HH:mm');
+					realEndDay = moment(eventData.end).format('YYYY-MM-DD HH:mm');
+				}
+
+				var DBdata = {
+					petindex: petindexVal,
+					userid: '${sessionScope.user.userid}',
+					title: titleVal,
+					content: contentVal,
+					allDay: isAllDay, 
+					color: colorVal,
+					start: realStartDay,
+					end: realEndDay
+				};
+
 				$('#createEventModal').modal('hide');
 
 				$.ajax({
 					type: "get",
-					data: eventData,
+					data: DBdata,
 					dataType: "JSON",
 					url: "insertSchedule.bit",
 					success: function(data) {
 						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
+						swal('등록');
 					},
 					error: function(e) {
 						console.log("insert에러: "+e);
 					}
 				});
 				
+				
 			}); // /.저장하기
 			
 			
 		},
-		eventClick: function(info) {
+		eventClick: function(event, jsEvent, view) {
+			editEvent(event);
 
-			var schedule = getSchedule();
-			console.log("dfdf: "+schedule);
-			$.each(schedule, function(index, ele) {
-					$.each(ele, function(a, b) {
-						console.log("a: "+a);
-						console.log("b: "+b);
-						});
-				});
-
-			// 모달 타이틀 바꾸기
-			$('#modal-title-for-add').hide();
-			$('#modal-title-for-edit').show();
-
-			// 모달 버튼 바꾸기
-			addBtnContainer.hide();
-			modifyBtnContainer.show();
-
-			// 모달 열기
-			$('#createEventModal').modal('show');
-
-			var title = info.event.title;
-			var start = info.event.start;
-			var end = info.event.end;
-			var allday = info.event.allDay;
-
-			if(end === null) { //null인 경우가 없긴 한데... 사용자 생각하면...-ㅂ-
-				end = start;
-			}
-
-			console.log(start+"/"+end);
 			
-			if(allday === true) {
-				$('#allday').prop("checked", true);
-			} else {
-				$('#allday').prop("checked", false);
-			}
-
-			$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
-			
-			if(allday === true && end !== start) {
-				$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
-			} else {
-				$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-			}
-			
-
-			$('#title').val(title);
-			$('#content').val(info.event.content); //이건 안 됨;
-			//$('#start').val(info.event.start);
-			//$('#end').val(info.event.end);
-
-			$('#updateEvent').on('click', function() {
-				/*
-				$('#title').val('');
-				$('#content').val('');
-				$('#start').val('');
-				$('#end').val('');
-				$('#allday').prop("checked", false);
-				$('#modal-title-for-add').show();
-*/
-				$('#createEventModal').modal('hide');
-			});
-
-			var event = info.event;
-			
-			$('#deleteEvent').on('click', function(event) {
-				event.remove();
-			});
-				
-		}
+		} /*/.eventClick */
 		
 	});
 	calendar.render();
 }
-	
-	
-	// 일정 불러오기
-	function getSchedule() {
+	var editEvent = function(event, element, view) {
 
-		var schedule = [];
+		console.log("======edit 함수 실행==========");
 
-		$.ajax({
-			url: "getSchedule.bit",
-			data: { userid : '${sessionScope.user.userid}' },
-			dataType: "json",
-			async: false,
-			success: function(response) {
-				$.each(response.schedule, function(index, element) {
-					var viewData = {};
-					viewData["title"] = element.title;
-					viewData["start"] = element.start;
+		// JSON 형태로 데이터 출력해보고 싶으면 아래 실행 ---지우지 마세요---
+		console.log("나와: "+JSON.stringify(event));
 
-					if(element.allday == '1') {
-						viewData["allDay"] = true;
-					} else {
-						viewData["allDay"] = false;
-					}
-					
-					if(element.allday == '1' && element.start !== element.end) {
- 						viewData["end"] = moment(element.end).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
-					}
-					//viewData["end"] = moment(element.end).format('YYYY-MM-DD HH:mm:ss');
+		var title = event.event.title;
+		var content = event.event.extendedProps.content;
+		var sindex = event.event.extendedProps.sindex;
+		var petindex = event.event.extendedProps.petindex;
+		var allday = event.event.extendedProps.allDay; // 내가 넣은 allday
+		//console.log("내거: "+allday);
+		// calendar의 allDay는...
+		var allDay = event.el.fcSeg.eventRange.def.allDay;
+		//console.log("이거? "+allDay);
 
-					viewData["color"] = '#E6CDED'; //컬럼에 컬러값이 있어야 색깔별로 출력할 수 있을 듯... 어쨌든 여기에 적용하면 적용됨
-					console.log("콘텐츠: "+element.content);
-					schedule.push(viewData);
+		var start = event.event.start;
+		var end = event.event.end; // 이게 왜 없지??
+		//console.log("end: "+end);
+		var color = event.event.backgroundColor;
+		var userid = event.event.extendedProps.userid;
+		
+		// input 태그 초기화
+		$('#allDay').prop("checked", false);
+		$('#title').val('');
+		$('#start').val('');
+		$('#end').val('');
+		$('#content').val('');
+		
+		// 모달 타이틀 바꾸기
+		$('#modal-title-for-add').hide();
+		$('#modal-title-for-edit').show();
+
+		// 모달 버튼 바꾸기
+		addBtnContainer.hide();
+		modifyBtnContainer.show();
+
+		// 기존 정보 뿌리기
+		$('#title').val(title);
+		$('#content').val(content); 
+		$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
+		$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
+		$('#petindex').val(petindex).prop("selected", true);
+		$('#color').val(color).prop("selected", true);
+		
+		// 하루종일 여부 체크
+		if(allDay == true) {
+			$('#allDay').prop("checked", true);
+		} else {
+			$('#allDay').prop("checked", false);
+		}
+
+		// 모달 열기 > 마지막에 열자
+		$('#createEventModal').modal('show');
+
+		/*
+		if($('#title').val() == "") {
+			swal('일정명을 입력하세요.');
+			return false;
+		}
+
+		if($('#start').val() > $('#end').val() ) {
+			swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
+			return false;
+		}*/
+
+		$('#updateEvent').on('click', function() {
+
+			$('#createEventModal').modal('hide');
+			
+			$.ajax({
+					type: "get",
+					data: {
+						sindex: sindex,
+						userid: '${sessionScope.user.userid}',
+						petindex: $('#petindex').val(),
+						title: $('#title').val(),
+						start: moment($('#start').val()).format('YYYY-MM-DD HH:mm:ss'),
+						end: moment($('#end').val()).format('YYYY-MM-DD HH:mm:ss'),
+						content: $('#content').val(),
+						//allday: 1, // 1=true, 0=false  $('#allDay').val()
+						color: $('#color').val()
+					},
+					dataType: "JSON",
+					url: "updateSchedule.bit",
+					success: function(response) {
+							console.log(response);
+						},
+					error: function(e) {
+							console.log("update error: "+e);
+						}
+
 				});
-			}
-		});
+			calendar.render();
 
-		return schedule;
-	} // /.getSchedule()
+			});
+	}
 	
-}); // /.$(function)
+	
+	
+}); 
 
 <!-- management  main ajax 페이징 부분-->
 /* ajax 시작 */

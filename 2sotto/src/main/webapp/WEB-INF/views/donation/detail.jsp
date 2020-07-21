@@ -36,20 +36,20 @@
       }
       
      /* .recom{position:relative;} */ 
-   /*     .reCom:before { 표시는 되는데 그 위치때문에 .... 잠시...만 안녕...
+   .reCom:before { 
 
      	    content: "";
-		    position: relative;
+		    position: absolute;
 		    display: inline-block;
-		    top: 0;
-		    left: -16px;
+		    top: 11px;
+		    left: 29px;
 		    width: 16px;
 		    height: 16px;
 		    border: 1px solid #ccc;
 		    border-width: 0 0 1px 1px;
 		    border-radius: 0 0 0 2px;
 
- 	}  */
+ 	} 
     
 	</style>
 	<script>
@@ -389,7 +389,7 @@ function getCommentList() {
 
 				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
 				if(element.depth==1){
-					html += "<div class='reCom' style='padding: 15px 0;"+depthCss+"'>";
+					html += "<div class='reCom' style='position: relative; padding: 15px 0;"+depthCss+"'>";
 				}else{
 					html += "<div>";
 				};

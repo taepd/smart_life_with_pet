@@ -115,7 +115,7 @@ public class MedicalController {
 			
 			msg = "병원 기록이 등록되었습니다.";
 	        //url = "getMrecordList.bit";
-			url = "getMrecordList.bit";
+			url = "main.bit";
 	        
 		} else { 
 			

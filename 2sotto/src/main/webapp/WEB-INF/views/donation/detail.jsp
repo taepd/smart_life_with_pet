@@ -19,6 +19,38 @@
 			width: 100%;
 			height: 50px;
 		}
+		
+		
+      p {
+        font-size: 20px;
+      }
+      .a {
+        text-indent: 2em;
+      }
+      .b {
+        text-indent: -2em;
+      }
+      .c {
+        text-indent: -2em;
+        margin-left: 2em;
+      }
+      
+     /* .recom{position:relative;} */ 
+   /*     .reCom:before { 표시는 되는데 그 위치때문에 .... 잠시...만 안녕...
+
+     	    content: "";
+		    position: relative;
+		    display: inline-block;
+		    top: 0;
+		    left: -16px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+
+ 	}  */
+    
 	</style>
 	<script>
 	window.onload = function() {
@@ -140,50 +172,39 @@
 								  ${donate.content}							
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
-										<a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-white btn-round">삭제</a>	
+										<button class="btn btn-primary btn-round" type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
+										<a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	
 										<%-- <button type="button" id="delete" onclick="location.href='delete.bit?dindex=${donate.dindex}'" >삭제</button> --%>
 								</div> 
+															 
 								
-								
-								<hr>
-								<h4 id="reply_h4">댓글</h4>
-								
-								<div id="commentBox"></div>
-									<!-- 댓글 폼 -->
-									<br>
-									<form name="comment" id="comment" method="POST">
-										작성자&nbsp;&nbsp;${sessionScope.user.userid}<br>
-										<%-- <input type="hidden" name="bindex" id="bindex" value="${post.bindex}"> --%>
-										<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
-										<textarea rows="3" cols="" id="dccontent" name="dccontent" style="width: 100%"></textarea>
-										<br>
-										<input type="button" class="" value="댓글 등록" id="writecom">
-										<input type="reset" class="" value="다시 쓰기">
-									</form>
-									<!-- 댓글 폼 끝 -->
-									
-								<hr>
-								 
-								
-							</div>
-						
+								</div>
+				
 
 
 
 						</div>
-
-
-						<!-------------- 끝 ---------------->
-						<!-- 댓글 입력 폼 -->
-						
+				<hr>
+				<h4 id="reply_h4">댓글</h4>
 				
-    <!-- 
-    			<div class="container">
-        			<div class="commentList"></div>
-    			</div> -->
-
-
+				<div id="commentBox"></div>
+				<!-- 댓글 폼 -->
+				<br>
+				
+				<form name="comment" id="comment" method="POST">
+						작성자&nbsp;&nbsp;${sessionScope.user.nick}<br>
+						<%-- <input type="hidden" name="bindex" id="bindex" value="${post.bindex}"> --%>
+						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
+						<textarea  rows="3" cols="" id="dccontent" name="dccontent" style="width: 100%"></textarea>
+						<br>
+						<div style="text-align: center;">
+						<input type="button" class="btn btn-primary btn-round" value="댓글 등록" id="writecom">
+						<input type="reset" class="btn btn-primary btn-round" value="다시 쓰기">
+						</div>
+				</form>
+				<!-- 댓글 폼 끝 -->
+					
+				<hr>
 					</div>
 				</div>
 			</div>
@@ -205,8 +226,8 @@
         게시물을 정말 삭제하시겠습니까?
       </div>
       <div class="modal-footer">
-  		<button onclick="Delete()" type="button" class="btn btn-primary">삭제하기</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+  		<button onclick="Delete()" type="button" class="btn btn-primary btn-round">삭제하기</button>
+        <button type="button" class="btn btn-primary btn-round" data-dismiss="modal">취소하기</button>
        	
       </div>
     </div>
@@ -214,25 +235,23 @@
   </div>
 </div>
 <!-- 삭제Modal -->
-
-<!-- 결제 Modal -->
-
-<!-- 결제modal end -->
-		<!-- container end -->
-		
-		 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
-		<%@ include file="DonateComment.jsp" %>
-		
+<!-- 댓글 -->
+			
+<!-- container end -->		
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 
-
-	
-	<!-- side_overlay end -->
-	<%@ include file="/WEB-INF/include/footer.jsp"%>
+<!-- side_overlay end -->
+<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<!-- ckeditor -->
+
 <!-- 결제시작 -->
 <script type="text/javascript">
+
+
+
 function Delete() {
     location.replace("delete.bit?dindex=${donate.dindex}"); 
   }
@@ -309,9 +328,9 @@ msg += '상점 거래ID : ' + rsp.merchant_uid;
 msg += '결제 금액 : ' + rsp.paid_amount;
 msg += '카드 승인번호 : ' + rsp.apply_num;
 $('#point').val(rsp.paid_amount); 
-} else {
+}else {
 var msg = '결제에 실패하였습니다.';
-msg += '에러내용 : ' + rsp.error_msg;
+//msg += '에러내용 : ' + rsp.error_msg;
 }
 alert(msg);
 });
@@ -363,16 +382,20 @@ function getCommentList() {
 			console.log("data: "+data);
 			
 			$.each(data, function(index, element) {
+				let depthCss = "";
+				if(this.depth == 1) {
+					depthCss = "padding-left:45px";
+				}
 
 				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
 				if(element.depth==1){
-					html += "<div style='background-color:gold'>";
+					html += "<div class='reCom' style='padding: 15px 0;"+depthCss+"'>";
 				}else{
 					html += "<div>";
 				};
 				//html += "<form action='commentDelete.bit' method='POST'>";
-				html += "<div class='d-flex justify-content-between'><div id='commentUserid'><b>";
-				html += element.userid;
+				html += "<div class='d-flex justify-content-between' style='background-color: #F1F1F1; padding: 0 0 0 10px;'><div id='commentUserid'><b>";
+				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
 					html += "</b></div><div><button onclick='openReComment("+element.dcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;'>대댓글</button></div></div>";
@@ -419,6 +442,7 @@ function insertComment() {
 			datatype:"json",
 			data: { dindex:'${donate.dindex}',
 					userid: '${sessionScope.user.userid}',
+					nick: '${sessionScope.user.nick}',
 					dccontent: $('#dccontent').val()
 				  },	
 			success: function(data) {
@@ -435,7 +459,7 @@ function insertComment() {
 }
 
 //댓글 수정 창 열기 
-function editComment(bcindex) {
+function editComment(dcindex) {
 					
 				let html = "";
 				let dccontent = $('#commentContent'+dcindex+'').text();
@@ -443,8 +467,8 @@ function editComment(bcindex) {
 				html += '<form name="editCommentBox" id ="editCommentBox" method="POST">';
 				html +=	'<input type="hidden" id="dcindex" value="'+dcindex+'">';
 				html +=	'<textarea rows="3" cols="" id="dccontent" name="dccontent" style="width: 100%">'+dccontent+'</textarea><br>';
-				html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
-				html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+				html +=	'<input type="button" class="button small" value="댓글 수정" id="editcom">';
+				html +=	'<input type="reset" class="button small" value="다시 쓰기"></form>';
 				
 				$('#editForm'+dcindex+'').append(html);
 				
@@ -495,16 +519,87 @@ $(document).on("click","#editcom",function(){
 //댓글 삭제
 // 블로그 댓글 삭제 전 확인 창 띄우고 확인 시 삭제
 
-/* function deleteComment(dcindex) {
+function deleteComment(dcindex) {
 
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
-		return location.href='deleteComment.bit?dcindex='+dcindex+'&dindex=${DonateComment.dcindex}';
+		return location.href='deleteComment.bit?dcindex='+dcindex+'&dindex=${donate.dindex}';
 	}else{
 
 		return;
 	}
-} */
+}
+
+//대댓글 창 열기 
+function openReComment(dcindex, userid, refer) {
+		let depthCss = "";	
+		if(this.depth == 1) {
+			depthCss = "padding-left:45px";
+		}
+		let html = "";
+		let dccontent = "";
+		
+		console.log("refer" + refer);
+		//로그인 유저 본인의 댓글이 아닐 때 해당 댓글쓴 아이디값을 '@아이디'형태로 인풋창에 불러옴
+		if(userid!='${sessionScope.user.userid}'){
+		   
+		   dccontent='@'+userid+' '; 
+		   console.log('우와와');
+		} 
+		
+		html += '<form name="reCommentBox" id ="reCommentBox" method="POST">';	
+		html +=	'<input type="hidden" id="refer" value="'+refer+'">';
+		html +=	'<input type="hidden" id="dcindex" value="'+dcindex+'">';
+		html +=	'<textarea rows="3" cols="" id="dccontent" name="dccontent" placeholder="대댓글을 입력해 주세요" style="width: 100%">'+dccontent+'</textarea><br>';
+		html +=	'<input type="button" class="" value="대댓글 등록" id="writeRecom">';
+		html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+		
+		$('#editForm'+dcindex+'').append(html);
+		
+		//기본 댓글 입력창 비활성화
+		$('#comment.dccontent.value').empty();
+		$('#comment').hide();
+			
+		return false;
+		
+};
+
+//대댓글 쓰기
+$(document).on("click","#writeRecom",function(){
+		
+		if(!reCommentBox.dccontent.value) {
+			swal('대댓글 내용을 입력하세요!');
+			comment.dccontent.focus();
+			return false;
+		}
+		
+		$.ajax ({
+			
+			url:"writeRecomment.bit",
+			type: "post",
+			datatype:"json",
+			data: { dindex:'${donate.dindex}',
+					dcindex: $('#dcindex').val(),
+					userid: '${sessionScope.user.userid}',
+					nick: '${sessionScope.user.nick}',
+					dccontent: $('#dccontent').val(),
+					refer: $('#refer').val()
+				  },	
+			success: function(data) {
+					$('#commentBox').empty();
+					//$('#reCommentBox').empty();
+					$('#dccontent').val("");
+					getCommentList();
+
+					//기본 댓글 입력창 활성화
+					$('#comment').show();	
+				}
+				
+		});
+		
+		return false;
+		
+	});
 
 
 </script>

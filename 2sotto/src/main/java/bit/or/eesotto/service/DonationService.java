@@ -22,13 +22,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import bit.or.eesotto.controller.DonationController;
+import bit.or.eesotto.dao.BlogCommentDao;
 import bit.or.eesotto.dao.DonateDao;
+import bit.or.eesotto.dao.DonationCommentDao;
 import bit.or.eesotto.dao.UserDao;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.DonationComment;
 import bit.or.eesotto.dto.User;
 
 @Service
 public class DonationService {
+	
 	
 	
 	private SqlSession sqlsession;
@@ -43,6 +49,9 @@ public class DonationService {
 	
 	@Autowired
 	UserDao userdao;
+	
+	@Autowired
+	DonationCommentDao donationCommentDao;
 
 	/*
 	 * private static final Logger logger =
@@ -125,14 +134,14 @@ public class DonationService {
 		 */
 
 		// DAO 데이터 받아오기
-		List<Donate> donateList = null;
+		List<Donate> donationList = null;
 
 		// mapper 를 통한 인터페이스 연결
 		DonateDao donateDao = sqlsession.getMapper(DonateDao.class);
 
 		int totaldonatecount = donateDao.getDonationCount();
 		//
-		donateList = donateDao.main(cpage, pageSize);
+		donationList = donateDao.main(cpage, pageSize);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totaldonatecount % pageSize == 0) {
@@ -141,7 +150,7 @@ public class DonationService {
 			pageCount = (totaldonatecount / pageSize) + 1;
 		}
 
-		map.put("donateList", donateList);
+		map.put("donationList", donationList);
 		map.put("cpage", cpage);
 		map.put("pageSize", pageSize);
 		map.put("pageCount", pageCount);
@@ -309,5 +318,98 @@ public class DonationService {
 		  return result; 
 	}
 		 
+	
+		//후원글 > 댓글 쓰기
+		public int writeCommnet(DonationComment donationComment) {
+			
+			int result = 0;
+
+			try {
+
+				donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+				result = donationCommentDao.writeComment(donationComment);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}
+		
+		//후원글 > 댓글 수정
+		public int editComment(DonationComment donationComment) {
+			
+			int result = 0;
+
+			try {
+
+				donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+				result = donationCommentDao.writeComment(donationComment);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}	
+		
+		//후원글 > 댓글 조회
+		public DonationComment getComment(int dcindex) {
+			
+			DonationComment donationComment = null;
+
+			try {
+
+				donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+				donationComment = donationCommentDao.getComment(dcindex);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return donationComment;
+		}
+		
+		//후원글 > 댓글 리스트 조회
+		public List<DonationComment> getCommentList(String dindex) {
+			
+			List<DonationComment> commentList = null;
+
+			try {
+
+				donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+				commentList = donationCommentDao.getCommentList(dindex);
+				System.out.println(commentList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return commentList;
+		}
+		
+		//후원글 > 댓글 삭제
+		public int deleteComment(DonationComment donationComment) {
+
+			donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+			
+			return donationCommentDao.deleteComment(donationComment);
+		}
+		
+		//후원글 > 댓글 쓰기
+		public int writeRecomment(DonationComment donationComment) {
+			
+			int result = 0;
+
+			try {
+
+				donationCommentDao = sqlsession.getMapper(DonationCommentDao.class);
+				result = donationCommentDao.writeRecomment(donationComment);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}
 	
 }

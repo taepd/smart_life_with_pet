@@ -100,7 +100,7 @@
 									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
 								</div>
 								
-									   <textarea name="content" class="form-control"  rows="10" > ${donate.content}</textarea>
+									   <textarea id="content" name="content" class="form-control"  rows="10" > ${donate.content}</textarea>
 									  
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
@@ -129,6 +129,7 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 

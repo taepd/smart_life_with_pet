@@ -90,12 +90,14 @@
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" > 
 								</div>	
-								<textarea name="content"></textarea>
-								
+								<div class="form-group bmd-form-group">
+								<label for="bmd-label-static">내용</label>
+								<textarea class="form-control" id="content" name="content"></textarea>
+								</div>
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>글 등록</b></button>
-										<button type="reset" class="btn btn-primary">글 등록 취소</button>
+										<button type="submit" class="btn btn-primary btn-round"><b>글 등록</b></button>
+										<button type="reset" class="btn btn-primary btn-round">글 등록 취소</button>
 								</div>
 							</div>
 						</form>
@@ -120,10 +122,11 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ckeditor/ckeditor.js"></script>	
 <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
  	 -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 
 //ckeditor

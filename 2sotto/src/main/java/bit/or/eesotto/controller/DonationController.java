@@ -4,9 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,13 +21,17 @@ import org.springframework.http.HttpRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dao.DonateDao;
 import bit.or.eesotto.dao.UserDao;
+import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.DonationComment;
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.DonationService;
 import bit.or.eesotto.service.PayService;
@@ -160,7 +168,7 @@ public class DonationController {
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
-		model.addAttribute("donateList", map.get("donateList"));
+		model.addAttribute("donationList", map.get("donationList"));
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
 
@@ -381,37 +389,86 @@ public class DonationController {
 	}
 	
 	// 결제 포인트 user point에 입력 처리
-	@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
-	public String payInput(User user, HttpSession session, Principal principal, HttpServletRequest request, Model model) {					
-		logger.info("payInput컨트롤러를 타기는 하는데...: ");
-		logger.info("포인트 값  확인" + user.getPoint());
-		int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에 기존의 point정보를 미리 저장해 놓는 것이 필요함!!!
-		String userid =  principal.getName();//단순히 현재 session의 userid이름을 받아주는 String 변수
-		
-		System.out.println("가져온 포인트: " + point);
-		
-		//Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고
-		user = (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는 것. 그래서 set이 아니라 get이다.
-		
-		System.out.println("기존 포인트: " + user.getPoint());
-		user.setPoint(point + user.getPoint());
-		logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트
-		//int point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거 하고...
-		
-		int result = payservice.payInput(user);
-		if (result >= 1) {			 
-		logger.info("포인트 사용 내역 입력 성공");			  
-		return "redirect:/mypage/main.bit";
-		  
-		} else { // 회원가입 실패시 어찌할지 로직구현해야 함			  
-		logger.info("포인트 사용 내역 입력 실패");
-		return "javascript:history.back();";
-		 
-		}			
+			@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
+			public String payInput(User user, HttpSession session, Principal principal, HttpServletRequest request, Model model) {					
+				logger.info("payInput컨트롤러를 타기는 하는데...: ");
+				logger.info("포인트 값  확인" + user.getPoint());
+				int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에 기존의 point정보를 미리 저장해 놓는 것이 필요함!!!
+				String userid =  principal.getName();//단순히 현재 session의 userid이름을 받아주는 String 변수
+				
+				System.out.println("가져온 포인트: " + point);
+				
+				//Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고
+				user = (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는 것. 그래서 set이 아니라 get이다.
+				
+				System.out.println("기존 포인트: " + user.getPoint());
+				user.setPoint(point + user.getPoint());
+				logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트
+				//int point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거 하고...
+				
+				int result = payservice.payInput(user);
+				if (result >= 1) {			 
+				logger.info("포인트 사용 내역 입력 성공");			  
+				return "redirect:/mypage/main.bit";
+				  
+				} else { // 회원가입 실패시 어찌할지 로직구현해야 함			  
+				logger.info("포인트 사용 내역 입력 실패");
+				return "javascript:history.back();";
+				 
+				}			
 
-	}
+			}
+			
+			//페이징 ajax 처리
+			@ResponseBody
+			@RequestMapping("donationListAjax.bit")
+			public Map<String, Object> donationListAjax(HttpServletRequest request, HttpServletResponse response) {
 
-	
+				String ps = request.getParameter("ps"); // pagesize
+				String cp = request.getParameter("cp"); // current page
+
+				// List 페이지 처음 호출 ...
+				if (ps == null || ps.trim().equals("")) {
+					// default 값 설정
+					ps = "5"; // 5개씩
+				}
+
+				if (cp == null || cp.trim().equals("")) {
+					// default 값 설정
+					cp = "1"; // 1번째 페이지 보겠다
+				}
+				System.out.println(ps);
+				System.out.println(cp);
+				int pagesize = Integer.parseInt(ps);
+				int cpage = Integer.parseInt(cp);
+				int pagecount = 0;
+				Map<String, Object> map = new HashMap<String, Object>();
+				List<Donate> donationList = null;
+				try {
+					DonateDao dao = sqlsession.getMapper(DonateDao.class);
+					donationList = dao.main(cpage, pagesize);
+					// request.setAttribute("emplist", emplist);
+
+					int totaldonationcount = dao.getDonationCount();
+					System.out.println(totaldonationcount);
+
+					if (totaldonationcount % pagesize == 0) {
+						pagecount = totaldonationcount / pagesize;
+
+					} else {
+						pagecount = (totaldonationcount / pagesize) + 1;
+					}
+
+					map.put("donationList", donationList);
+					map.put("cpage", cpage);
+					map.put("totaldonationcount", totaldonationcount);
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				return map;
+
+			}
 	
 	/*
 	 * @RequestMapping(value="completeDonationByColl.bit",
@@ -439,57 +496,112 @@ public class DonationController {
 	 * 
 	 * return null; }
 	 */
-	
-	// ajax 페이징 컨트롤러
-	//페이징 ajax 처리
-	@ResponseBody
-	@RequestMapping("donationListAjax.bit")
-	public Map<String, Object> donationListAjax(HttpServletRequest request) {
+			
+		//후원글 댓글 입력 Ajax 처리  
+		@ResponseBody
+		@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
+		public int writeComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+			logger.info("댓글입력 컨트롤러를 타기는 하는데.. ");
+			//비밀글 체크 여부 
+			if(donationComment.getScstate() == null) {
 
-		String ps = request.getParameter("ps"); // pagesize
-		String cp = request.getParameter("cp"); // current page
-
-		// List 페이지 처음 호출 ...
-		if (ps == null || ps.trim().equals("")) {
-			// default 값 설정
-			ps = "5"; // 5개씩
-		}
-
-		if (cp == null || cp.trim().equals("")) {
-			// default 값 설정
-			cp = "1"; // 1번째 페이지 보겠다
-		}
-		System.out.println(ps);
-		System.out.println(cp);
-		int pagesize = Integer.parseInt(ps);
-		int cpage = Integer.parseInt(cp);
-		int pagecount = 0;
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Donate> donationList = null;
-		try {
-			DonateDao dao = sqlsession.getMapper(DonateDao.class);
-			donationList = dao.main(cpage, pagesize);
-			// request.setAttribute("emplist", emplist);
-
-			int totaldonationcount = dao.getDonationCount();
-			System.out.println(totaldonationcount);
-
-			if (totaldonationcount % pagesize == 0) {
-				pagecount = totaldonationcount / pagesize;
-
-			} else {
-				pagecount = (totaldonationcount / pagesize) + 1;
+				donationComment.setScstate("N");
 			}
-
-			map.put("donationList", donationList);
-			map.put("cpage", cpage);
-			map.put("totaldonationcount", totaldonationcount);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+				
+			int result = ds.writeCommnet(donationComment);
+			logger.info("writeCommnet 메서드 " + result);
+				
+			if(result==1) {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 완료");
+			}else {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 실패");
+			}
+				
+			return result;
 		}
-		return map;
+		
+		//후원글 댓글 수정 Ajax 처리  
+		@ResponseBody
+		@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+		public int editComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+			
+			//비밀글 체크 여부 
+			if(donationComment.getScstate() == null) {
 
-	}	
+				donationComment.setScstate("N");
+			}
+			
+			int result = ds.editComment(donationComment);
+			
+			if(result==1) {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 완료");
+			}else {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 실패");
+			}
+			
+			return result;
+		}
+		
+		//후원글 댓글 조회 Ajax  
+		@ResponseBody
+		@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
+		public List<DonationComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
+			
+			String dindex = request.getParameter("dindex");
+			
+			List<DonationComment> commentList = ds.getCommentList(dindex);
+			
+			if(commentList!=null) {
+				logger.info("후원글 "+dindex+"번글 댓글내역 조회 완료");
+			}else {
+				logger.info("후원글 "+dindex+"번글 댓글입력 조회 실패");
+			}
+			
+			return commentList;
+		}
+		
+		//후원글 > 댓글 삭제 처리
+		@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+		public String deleteComment(DonationComment donationComment, Model model) {
+
+				
+			int result = ds.deleteComment(donationComment);
+			int dindex = donationComment.getDindex();
+			if(result==1) {
+				
+				logger.info("후원글 글 삭제 완료");
+
+				return "redirect:/donation/detail.bit?dindex="+dindex+"";
+				
+			}else { 
+				
+				logger.info("후원글 글 삭제 실패");
+
+		        return "javascript:history.back()";
+			}
+		
+		}
+		
+		//후원글 대댓글 입력 Ajax 처리  
+		@ResponseBody
+		@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
+		public int writeRecomment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+			
+			//비밀글 체크 여부 
+			if(donationComment.getScstate() == null) {
+
+				donationComment.setScstate("N");
+			}
+			
+			int result = ds.writeRecomment(donationComment);
+			
+			if(result==1) {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 완료");
+			}else {
+				logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 실패");
+			}
+			
+			return result;
+		}
 
 }

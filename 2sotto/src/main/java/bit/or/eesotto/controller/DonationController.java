@@ -23,10 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dao.DonateDao;
 import bit.or.eesotto.dao.UserDao;
-import bit.or.eesotto.dto.Donate;
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.DonationService;
-import bit.or.eesotto.service.PayService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 @Controller
 @RequestMapping("/donation/")
@@ -160,7 +158,7 @@ public class DonationController {
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
-		model.addAttribute("donateList", map.get("donateList"));
+		model.addAttribute("donationList", map.get("donationList"));
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
 
@@ -490,6 +488,115 @@ public class DonationController {
 		}
 		return map;
 
-	}	
+	}
+
+	//후원글 댓글 ajax 기능 controller 구문
+	//후원글 댓글 입력 Ajax 처리  
+			@ResponseBody
+			@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
+			public int writeComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+				logger.info("댓글입력 컨트롤러를 타기는 하는데.. ");
+				//비밀글 체크 여부 
+				if(donationComment.getScstate() == null) {
+
+					donationComment.setScstate("N");
+				}
+					
+				int result = ds.writeCommnet(donationComment);
+				logger.info("writeCommnet 메서드 " + result);
+					
+				if(result==1) {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 완료");
+				}else {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 실패");
+				}
+					
+				return result;
+			}
+			
+			//후원글 댓글 수정 Ajax 처리  
+			@ResponseBody
+			@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+			public int editComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+				
+				//비밀글 체크 여부 
+				if(donationComment.getScstate() == null) {
+
+					donationComment.setScstate("N");
+				}
+				
+				int result = ds.editComment(donationComment);
+				
+				if(result==1) {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 완료");
+				}else {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 실패");
+				}
+				
+				return result;
+			}
+			
+			//후원글 댓글 조회 Ajax  
+			@ResponseBody
+			@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
+			public List<DonationComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
+				
+				String dindex = request.getParameter("dindex");
+				
+				List<DonationComment> commentList = ds.getCommentList(dindex);
+				
+				if(commentList!=null) {
+					logger.info("후원글 "+dindex+"번글 댓글내역 조회 완료");
+				}else {
+					logger.info("후원글 "+dindex+"번글 댓글입력 조회 실패");
+				}
+				
+				return commentList;
+			}
+			
+			//후원글 > 댓글 삭제 처리
+			@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+			public String deleteComment(DonationComment donationComment, Model model) {
+
+					
+				int result = ds.deleteComment(donationComment);
+				int dindex = donationComment.getDindex();
+				if(result==1) {
+					
+					logger.info("후원글 글 삭제 완료");
+
+					return "redirect:/donation/detail.bit?dindex="+dindex+"";
+					
+				}else { 
+					
+					logger.info("후원글 글 삭제 실패");
+
+			        return "javascript:history.back()";
+				}
+			
+			}
+			
+			//후원글 대댓글 입력 Ajax 처리  
+			@ResponseBody
+			@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
+			public int writeRecomment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
+				
+				//비밀글 체크 여부 
+				if(donationComment.getScstate() == null) {
+
+					donationComment.setScstate("N");
+				}
+				
+				int result = ds.writeRecomment(donationComment);
+				
+				if(result==1) {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 완료");
+				}else {
+					logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 실패");
+				}
+				
+				return result;
+			}  
+
 
 }

@@ -106,31 +106,22 @@ public class MedicalController {
 		int result = medicalService.medicalRegister(mrecord);
 		logger.info("프론트에서 값 받아오기 성공");
 		
-		String msg = null;
-		String url = null;
 		
 		if(result == 1) {
 			
 			logger.info("병원 기록 등록 성공");
-			
-			msg = "병원 기록이 등록되었습니다.";
-	        //url = "getMrecordList.bit";
-			url = "getMrecordList.bit";
+
+			return "redirect:/management/main.bit?tab=mrecord";
 	        
 		} else { 
 			
 			redirectAttributes.addFlashAttribute("failedRegisterPet", "failed");
 			logger.info("병원 기록 등록 실패");
 			
-			msg = "병원 기록 등록 실패";
-			url = "javascript:history.back();";
+			return "javascript:history.back();";
 
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "redirect";
 	}
 	
 		// 병원 이용기록 상세 페이지 view

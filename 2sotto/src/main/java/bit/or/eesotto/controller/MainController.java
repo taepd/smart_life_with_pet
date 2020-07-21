@@ -28,26 +28,56 @@ public class MainController {
 	@Autowired
 	MainService ms;
 	
+	@Autowired
+	DonationService ds;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 //		@Autowired
 //		LoginService ls;
 		
 		//index페이지
-		// 메인 페이지 
+		//초기 랜딩 페이지 
 		@RequestMapping("/")
 		public String index() {
 			
 			return "index";
 		}
 	
-	    // 메인 페이지 
+	    //로그인 메인 페이지 
 		@RequestMapping("main.bit")
 		/*
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
 			return "redirect:/";
 		}*/
-		 public String main() {		 
+		 public String main(String cp, String ps, Principal principal, Model model) {
+			
+			String userid=null;
+			
+			//블로그 인기글 조회(현재는 그냥 전체글)
+			if(principal!=null) {
+				userid =  principal.getName();
+				logger.info("로그인 유저 아이디: " + userid);
+			}
+
+			HashMap<String, Object> map = bs.mainView(cp, ps, userid);
+			logger.info("모두의 블로그 글 리스트 조회 완료");
+			
+			//반려동물 정보 조회
+			List<Pet> petList = ms.getPetPicture(userid);
+			
+			//후원글 조회
+			HashMap<String, Object> donationList = ds.main(cp, ps);
+			
+			// view까지 전달 (forward)
+			model.addAttribute("cpage", map.get("cpage"));
+			model.addAttribute("pageSize", map.get("pageSize"));
+			model.addAttribute("postList", map.get("postList")); 		
+			model.addAttribute("pageCount", map.get("pageCount"));
+			model.addAttribute("totalPostCount", map.get("totalPostCount"));
+			model.addAttribute("petList", petList); 
+			model.addAttribute("donationList", donationList.get("donateList")); 	
+			
 			 return "main";
 		 }
 		
@@ -99,19 +129,7 @@ public class MainController {
 			return "mainTest2";
 		}
 		
-		
-		// 지도 메인 페이지 
-		@RequestMapping(value = "mapTest.bit", method = RequestMethod.GET)
-		public String payViewTest(String cp, String ps, Principal principal, Model model) {
-			
-		
-			logger.info("다시작업시작이다..." );
-			
-			
-			
-			return "/mapTest";
-		}
-		
+
 		// 알림테스트 메인 페이지 
 		@RequestMapping(value = "alarmTest.bit", method = RequestMethod.GET)
 		public String alarmViewTest(String cp, String ps, Principal principal, Model model) {
@@ -123,6 +141,5 @@ public class MainController {
 			
 			return "/alarmTest";
 		}
-			
 
 }

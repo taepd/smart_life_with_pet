@@ -63,7 +63,7 @@
 				<div class="nickname">
 					${user.nick}<br>(${userid})<br>
 					<a href="${pageContext.request.contextPath}/point/main.bit">${user.point}P</a><br>
-					<button class="btn btn-primary btn-sm" onclick="location.href='mypage/main.bit'">마이페이지</button>
+					<button class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/mypage/main.bit'">마이페이지</button>
 				</div>
 			</se:authorize>
         	<se:authorize access="!hasRole('ROLE_USER')">	
@@ -96,12 +96,11 @@
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
 				
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-					<li><a href="${pageContext.request.contextPath}/mapTest.bit">map테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
 					</a></li>
 				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-					<li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li>
+					<!-- <li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li> -->
 					<li><a href="${pageContext.request.contextPath}/admin/adminMain.bit">admin테스트</a></li>
 				</se:authorize>	
 				</ul>

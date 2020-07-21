@@ -57,7 +57,7 @@
 
 							<div class="table-responsive">
 								<table class="table">
-									<thead class=" text-primary">
+									<thead class="text-primary">
 										<tr>
 											<th>받은사람</th>
 											<th>내용</th>

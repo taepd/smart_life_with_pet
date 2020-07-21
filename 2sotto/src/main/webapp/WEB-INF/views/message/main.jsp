@@ -58,7 +58,7 @@
 							<div class="table-responsive">
 								 <form action="delete.bit" method="get">
 								<table class="table">
-								    <thead class=" text-primary">
+								    <thead class="text-primary">
 								   	 	<tr>
 								             <th class="checkbox"><input type="checkbox" id="ck_all">전체선택</th>
 								        </tr>

@@ -19,8 +19,7 @@ import bit.or.eesotto.dao.ScheduleDao;
 import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Schedule;
 import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.LoginService;
-import bit.or.eesotto.service.ManagementService;
+import bit.or.eesotto.service.*;
 
 @Controller
 @RequestMapping("/management/")
@@ -30,6 +29,9 @@ public class ManagementController {
 	
 	@Autowired
 	private ManagementService managementService;
+	
+	@Autowired
+	private MedicalService medicalService;
 
 	
 	// 반려동물 관리 홈 보여주기
@@ -48,12 +50,17 @@ public class ManagementController {
 			return "redirect:/main.bit";
 		}
 		
+		HashMap<String, Object> map = medicalService.getMrecordList("1", "5", userid); //cp, ps 임시로 박아둠		
+		logger.info("병원이용 리스트 조회 완료");	
+		
+		model.addAttribute("mrecordList", map.get("mrecordList"));
+		
 		return "management/main";
 	}
 
 	// 반려동물 등록 페이지 보여주기
 	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
-	public String registerPets() {
+	public String registerPets() { 
 		return "management/register";
 	}
 	
@@ -253,5 +260,5 @@ public class ManagementController {
 		
 		return "redirect";
 	}
-	
+
 }

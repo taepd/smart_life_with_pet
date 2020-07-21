@@ -90,8 +90,9 @@
 
 										</tr>
 									</thead>
-									<c:forEach var="donate" items="${donateList}">
-										<tbody>
+								<tbody id="donationtable">
+									<c:forEach var="donate" items="${donationList}">
+										
 											<tr>
 												<td>${donate.dindex}</td>
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
@@ -114,10 +115,10 @@
 												<td class="text-center">${donate.dstate}</td><!-- 모금완료 여부 표시 -->																
 											</tr>
 									
-										</tbody>
+										
 											
 									</c:forEach>
-										
+								</tbody>
 								</table>
 								 <!-- 페이징  -->
 								<div class="pagination justify-content-center">
@@ -156,118 +157,50 @@
 											</a></li>
 										</c:if>
 									</ul>
-									<!-- </nav> -->
+									
+								</div> 
+								<%-- <div class="row">
+								<div class="col-sm-12 col-md-5">
+
+									<div class="dataTables_info" id="pagingview"
+										role="status" aria-live="polite"> ${pageCount}</div>
+
 								</div>
+								<div class="col-sm-12 col-md-7">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="pagingview">
+
+										<c:if test="${cpage > 1}">
+											<a href="main.bit?cp=${cpage-1}&ps=${pageSize}" cp="${cpage-1}" ps="${pageSize}">이전</a>
+										</c:if>
+										<!-- page 목록 나열하기 -->
+										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+											<c:choose>
+												<c:when test="${cpage==i }">
+													<font color="red">[${i}]</font>
+												</c:when>
+												<c:otherwise>
+													<a href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}" ps="${pageSize}">[${i}]</a>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+										<!--다음 링크 -->
+										<c:if test="${cpage < pageCount}">
+											<a href="main.bit?cp=${cpage+1}&ps=${pageSize}" cp="${cpage+1}" ps="${pageSize}">다음</a>
+										</c:if>
+										
+									</div>
+									<!-- <a href="EmpInsert.emp">사원 등록</a> -->
+								</div>
+							</div> --%>
 							</div>
 	
 						</div>
 
 						
 
-						<!-- <div class="tab-pane" id="reply">
-							-------- 댓글많은순 ----------------
-
-							<div class="table-responsive">
-								<table class="table">
-									<thead class=" text-primary">
-										<tr>
-											<th>글번호</th>
-											<th>제목</th>
-											<th>작성자</th>
-											<th>등록시간</th>
-											<th>조회수</th>
-
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td style="cursor:pointer;color:#blue;" onclick="location.href='qaView.bit'">후원이 필요합니다.</td>
-											<td>쿼리안</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>후원이 필요합니다.</td>
-											<td>쿼리안</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>후원이 필요합니다.</td>
-											<td>쿼리안</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>후원이 필요합니다.</td>
-											<td>쿼리안</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-								</table>
-							</div>
-
-
-
-						</div>
-
-						-------- 좋아요 많은순 ----------------
-						<div class="tab-pane" id="favorite">
-
-							<div class="table-responsive">
-								<table class="table">
-									<thead class=" text-primary">
-										<tr>
-											<th>글번호</th>
-											<th>제목</th>
-											<th>작성자</th>
-											<th>등록시간</th>
-											<th>조회수</th>
-
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td style="cursor:pointer;color:#blue;" onclick="location.href='qaView.bit'">후원이 필요합니다.</td>
-											<td>lim</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>후원이 필요합니다.</td>
-											<td>lim</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>후원이 필요합니다.</td>
-											<td>lim</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>후원이 필요합니다.</td>
-											<td>lim</td>
-											<td>2020.07.06</td>
-											<td>1</td>
-										</tr>
-								</table>
-							</div>
-
-
-
-						</div> -->
-
-
-						<!-------------- 끝 ---------------->
+						
 
 
 					</div>
@@ -280,4 +213,135 @@
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
+<script type="text/javascript">
+
+$(function(){
+
+	
+
+	
+	//페이지 사이즈 비동기
+	$('#paging').change(function(){
+		let data = {ps : $('#paging option:selected').val(),
+				    cp : $('#cp').val() 
+		           };		
+		$.ajax({
+			url:"donationListAjax.bit",
+			data: data,
+			type:"POST",		
+			dataType: "json",
+			success:function(responsedata){ 
+				 console.log(responsedata);
+				$('#donationtable').empty();
+				$.each(responsedata.donationList,function(index,obj){	
+					$('#donationtable').append(	
+							"<tr><td>"+obj.dindex+"</td>" +
+							"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
+								obj.title+"</a></td>" +
+							"<td class='text-center'>관리자</td>" +					
+							"<td class='text-center'>"+obj.ctime+"</td>"+
+							"<td class='text-center'>"+obj.gcoll+"</td>" +
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							"<td class='text-center'>"+
+
+							"</td>" + 
+							"<td class='text-center'>" + obj.dstate + "</td>"
+					);
+				});
+				$('#zero_config_info').empty();
+				$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
+				console.log("현재 페이지" + responsedata.cpage);
+				//페이지 번호 처리
+				console.log("타입"+ (typeof responsedata.cpage));
+				page(responsedata.cpage);
+		   }
+			
+		
+		}); 
+	});
+	
+	//page()
+	function page(cp){
+		console.log('cp='+cp);
+		$('#pagingview').empty();
+		var pagesize = $('#paging option:selected').val();
+		var totaldonatecount = $('#totaldonatecount').val();
+
+		var pagecount;
+		console.log('pagesize= '+pagesize);
+		console.log('totaldonatecount= '+ totaldonatecount);
+		if((totaldonatecount % pagesize) == 0){
+			pagecount = totaldonatecount/pagesize;
+		}else if(totaldonatecount/pagesize<1){
+			pagecount=1;
+		}else{
+		
+			pagecount = Math.floor(totaldonatecount/pagesize + 1); 
+		}
+		
+		console.log('pagecount = '+pagecount);
+		let tmp="";
+		console.log('시피 = '+cp);
+		if(cp>1){
+			tmp +='<a href="main.bit?cp=${cpage-1}&ps='+pagesize+'" cp="'+(cp-1)+'" ps="'+pagesize+'">이전</a>';
+		}
+		//page 목록 나열하기
+		for(var i=1;i<=pagecount; i++){
+			if(cp==i){
+				tmp +=('<font color="red">['+i+']</font>');
+			}else{
+				tmp +=('<a href="main.bit?cp='+i+'&ps='+pagesize+'" cp="'+i+'" ps="'+pagesize+'" >['+i+']</a>');
+			}
+		}
+		//다음 링크
+		if(cp<pagecount){
+			tmp += '<a href="main.bit?cp=${cpage+1}&ps='+pagesize+'" cp="'+(cp+1)+'" ps="'+pagesize+'">다음</a>';
+		};
+		$('#pagingview').append(tmp);
+	};
+	
+	//페이지 링크 비동기
+	$(document).on('click', '#pagingview a', function(e){
+		e.preventDefault();
+		let data = {ps : $(this).attr('ps'),
+			        cp : $(this).attr('cp')
+	           };		
+	$.ajax({
+		url:"donationListAjax.bit",
+		data: data,
+		type:"POST",		
+		//dataType: "json",
+		success:function(responsedata){ 
+			 console.log(responsedata);
+			$('#donationtable').empty();
+			$.each(responsedata.emplist,function(index,obj){	
+				$('#donationtable').append(	
+						"<tr><td>"+obj.dindex+"</td>" +
+						"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
+							obj.title+"</a></td>" +
+						"<td class='text-center'>관리자</td>" +
+
+						"<td class='text-center'>"+obj.ctime+"</td>"+
+						"<td class='text-center'>"+obj.gcoll+"</td>" +
+						"<td class='text-center'>"+obj.ccoll+"</td>" +
+						"<td class='text-center'>"+
+						"</td>" + 
+						"<td class='text-center'>" + obj.dstate + "</td>"
+				   
+				);
+			});
+			$('#zero_config_info').empty();
+			$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
+			
+			//페이지 번호 처리
+			page(responsedata.cpage);
+	   }
+		
+	
+	}); 
+		
+	});
+});
+</script>
+
 </html>

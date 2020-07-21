@@ -38,7 +38,8 @@
 						<c:forEach var="myPet" items="${myPetList}">
 	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
 	        				<c:if test="${petindex eq myPet.petindex}">
-				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
 			        			<div  class="rounded-circle card-modal-profile"
                                     style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
@@ -147,9 +148,10 @@
 //onload 함수
 $(function(){
 	replaceImg();
+	
 	for(var i =0; i<${fn:length(postList)}; i++){
 		$('#rtime'+i+'').each(function(){
-			$(this).text(prettyDate($(this).text()));
+			$(this).text(timeAgo($(this).text()));
 		});
 	};
 });
@@ -176,30 +178,37 @@ function replaceImg(){
 		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
 } 
-function prettyDate(time){
 
-	  var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ").split(".")[0]),
-	 
+/**
+* @함수명 : timeAgo()
+* @작성일 : 2020. 7. 19.
+* @작성자 : 태영돈
+* @설명 : 현재 시간을 기준으로 등록 시간과의 차이로 시간을 표현하는 함수
+* @param 글 등록 시간의 timestamp형 변수
+**/
 
-	  diff = (((new Date()).getTime() - date.getTime()) / 1000);
-
+function timeAgo(time){
+	  
+	  // 날짜 형식을 표준
+	  var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ").split(".")[0]);
+	  // getTime() 메서드를 이용해 timestamp형식으로 변환하여 현재 날짜와 매개변수 날짜의 시간 차를 구	
+	  var diff = (((new Date()).getTime() - date.getTime()) / 1000); 
+	
 	  console.log(date);
 
-	  //diff = diff - 33000 //- 10227;//수식이 정확히 적용되지 않아서 보정한 값
+	  //diff = diff - 33000 //- 10227;//수식이 정확히 적용되지 않을 경우 보정해서 사
 	  
 	  console.log(diff);
 
 	  if(diff < 0) diff = 0;
-
+	  
+	  //일자 계산을 위해 하루(86400초)로 나눔
 	  day_diff = Math.floor(diff / 86400);
 
-	  
 
 	  if ( isNaN(day_diff) || day_diff < 0 )
 
 	   return;
-
-	    
 
 	  return day_diff == 0 && (
 
@@ -213,15 +222,15 @@ function prettyDate(time){
 
 	    diff < 86400 && Math.floor( diff / 3600 ) + " 시간전") ||
 
-	   day_diff == 1 && "어제" ||
+	    day_diff == 1 && "어제" ||
 
-	   day_diff < 7 && day_diff + " 일전" ||
+	    day_diff < 7 && day_diff + " 일전" ||
 
-	   day_diff < 31 && Math.floor( day_diff / 7 ) + " 주전" ||
+	    day_diff < 31 && Math.floor( day_diff / 7 ) + " 주전" ||
 
-	   day_diff < 360 && Math.floor( day_diff / 30 ) + " 개월 전" ||
+	    day_diff < 360 && Math.floor( day_diff / 30 ) + " 개월 전" ||
 
-	   day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
+	    day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
 
 	 }
 

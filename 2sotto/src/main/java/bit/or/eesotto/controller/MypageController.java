@@ -1,8 +1,9 @@
 package bit.or.eesotto.controller;
 
 import java.security.*;
+import java.util.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -15,21 +16,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import bit.or.eesotto.dto.Pet;
-import bit.or.eesotto.dto.User;
-import bit.or.eesotto.service.MypageService;
+import bit.or.eesotto.dto.*;
+import bit.or.eesotto.service.*;
 
 @Controller
 @RequestMapping("/mypage/")
 public class MypageController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MypageController.class); 
 	
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;
 	
 	@Autowired		
 	MypageService ms;
+	
+	@Autowired		
+	BlogService bs;
+	
+	@Autowired
+	ManagementService managementService;
+	
 	
 	// 마이페이지 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
@@ -170,7 +177,6 @@ public class MypageController {
 		
 		
 		String userid =  principal.getName();
-		session.setAttribute("userid", userid);
 		logger.info("로그인 유저 아이디: "+userid);
 		
 				
@@ -202,28 +208,76 @@ public class MypageController {
 		
 	}
 
-//	// 마이페이지 > 반려동물 상세페이지 view
-//		@RequestMapping(value = "myPetPage.bit", method = RequestMethod.GET)
-//		public String myPetPage(HttpSession session, Model model) {
-//			String userid = (String)session.getAttribute("userid");
-//			
-//			logger.info("로그인 유저 아이디: "+userid);
-//			
-//			Pet pet = ms.getPetInfo(userid);
-//			
-//			if(pet!=null) {
-//				
-//				logger.info("반려동물 정보 가져오기 성공");
-//				model.addAttribute(pet);
-//			}else {
-//				
-//				logger.info("반려동물 정보 가져오기 실패");
-//				
-//				return "redirect:/newPet.bit";
-//			}
-//			
-//			return "mypage/myPetPage";
-//		}
+	// 마이페이지 > 내 반려동물 정보(반려동물 관리의 내 반려동물 정보와 동일한 내용의 페이지)
+	@RequestMapping(value = "myPetsInfo.bit", method = RequestMethod.GET)
+	public String myPetPage(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		List<Pet> petList = ms.getPetInfo(userid);
+		
+		if(petList!=null) {
+			
+			logger.info("반려동물 정보 가져오기 성공");
+			model.addAttribute(petList);
+		}else {
+			
+			logger.info("반려동물 정보 가져오기 실패");
+			
+			return "redirect:/newPet.bit";
+		}
+		
+		return "mypage/myPetsInfo";
+	}
+	
+	// 반려동물의 마이페이지 view
+	@RequestMapping(value = "petPage.bit", method = RequestMethod.GET)
+	public String petPage(String cp, String ps, HttpServletRequest request, Model model) {
+		
+		String petindex = request.getParameter("petindex");
+		
+		//반려동물 정보 가져오기
+		Pet pet = ms.getPet(Integer.parseInt(petindex));		
+		
+		//반려동물 관련 블로그 포스트 리스트 가져오기
+		HashMap<String, Object> map = bs.petPostList(cp, ps, petindex);
+		logger.info("내 블로그 글 리스트 조회 완료");
+		
+		//포스트와 관련된 pet정보를 추출하기 위한 작업//
+		List<Pet> pArr = new ArrayList<Pet>();
+		Set<String> pindexSet = new HashSet(); //petindex 중복 제거를 위한 임시 Set
+
+		//postList에 담긴 모든 petindex를 검색하여 pindexSet에 추가
+		List<Blog> postList = (List)map.get("postList");
+		for(Blog post: postList) {
+			
+			String pIndexes = post.getPetindex();
+			String[] arr = pIndexes.split(",");
+			for(String pidx: arr) {
+				
+				pindexSet.add(pidx);
+				System.out.println("셋: "+pindexSet);
+			}
+		}
+		//중복이 제거된 petindex들의 pet객체 정보를 pArr에 추가
+		for(String pindex: pindexSet) {
+			pArr.add(managementService.editPetInfo(Integer.parseInt(pindex))); 
+		}
+		
+		model.addAttribute(pet);
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("postList", map.get("postList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalPostCount", map.get("totalPostCount"));
+		model.addAttribute("pArr", pArr);
+		
+		return "mypage/petPage";
+	}
+	
+	
+	
 
 
 //		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view

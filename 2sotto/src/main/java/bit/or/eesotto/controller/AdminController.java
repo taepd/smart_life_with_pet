@@ -1,12 +1,39 @@
 package bit.or.eesotto.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import bit.or.eesotto.dto.BlogComment;
+import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.User;
+
+import bit.or.eesotto.service.BlogService;
+import bit.or.eesotto.service.PetService;
+import bit.or.eesotto.service.UserService;
 
 @Controller
 @RequestMapping("/admin/")
 public class AdminController {
+	
+	@Autowired
+	UserService us;
+	
+	@Autowired
+	PetService ps;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
 
 	// human 보러가기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
@@ -45,5 +72,77 @@ public class AdminController {
 		return "admin/adminUserTable";
 	}
 	
+	
+	// UserTable 보러가기
+	@RequestMapping(value = "userPetTable.bit", method = RequestMethod.GET)
+	public String userPetTable() {
+
+		return "admin/adminPetTable";
+	}
+	
+	// 유저리스트 조회 Ajax  
+	@ResponseBody
+	@RequestMapping(value = "getUserList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public List<User> getUserList(User user, Principal principal, Model model) throws IOException {
+		
+		String userid = principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		logger.info("로그인 유저 아이디: " + userid);
+		List<User> userList = us.getUserList(userid);
+		logger.info("너는?: " + userid);
+		logger.info("그리고 넌는?: " + userList);
+		if(userList!=null) {
+			logger.info("유저 "+userid+"유저 조회 완료");
+		}else {
+			logger.info("유저 "+userid+"유저 조회 실패");
+		}
+		
+		return userList;
+	}
+	
+	// 유저가입 조회 Ajax  
+	@ResponseBody
+	@RequestMapping(value = "userCount.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public String getUserCount(User user, Principal principal, Model model) throws IOException {
+		
+		String userid = principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		int result = us.getUserCount(user);
+		logger.info("너는?: " + result);
+		logger.info("그리고 넌는?: " + result);
+		
+		if(result==1) {
+			logger.info("유저 "+result+"유저 조회 완료");
+		}else {
+			logger.info("유저 "+result+"유저 조회 실패");
+		}
+		
+		return null;
+	}
+	
+	
+	
+	// 반려동물리스트 조회 Ajax  
+	@ResponseBody
+	@RequestMapping(value = "getPetList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public List<Pet> getPetList(Pet pet, Principal principal, Model model) throws IOException {
+		
+		String userid = principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+	
+		List<Pet> petList = ps.getPetList(userid);
+		logger.info("너는?: " + userid);
+		logger.info("그리고 넌는?: " + petList);
+		if(petList!=null) {
+			logger.info("동물 "+userid+"동물 조회 완료");
+		}else {
+			logger.info("동물 "+userid+"동물 조회 실패");
+		}
+		
+		return petList;
+	}
+	
+
 
 }

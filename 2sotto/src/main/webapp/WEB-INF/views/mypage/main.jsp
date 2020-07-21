@@ -33,10 +33,10 @@
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
 								<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-									<i class="material-icons">email</i> 마이 페이지</a>
+									<i class="material-icons">email</i> 내 정보</a>
 								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='../management/myPetPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-									<i class="material-icons">email</i> 내 반려동물 페이지</a>
+								<li class="nav-item"><a class="nav-link" onclick="location.href='../mypage/myPetsInfo.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+									<i class="material-icons">email</i> 내 반려동물 정보</a>
 								</li>
 								<li class="nav-item"><a class="nav-link" onclick="location.href='edit.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
 								 	<i class="material-icons">email</i> 내 정보 수정</a>

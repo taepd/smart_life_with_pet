@@ -124,6 +124,7 @@
 	        					style="width:200px;height:200px" alt="card image">
 	        					<hr>
 								<strong>${post.title}</strong>
+								<br>
 								<span id="content${status.index}">${post.content}</span>
 					</a>
 					</div>
@@ -171,6 +172,7 @@
 
 		//블로그 이미지 위치 조정 함수
 		replaceImg();
+		shortContent();	
 
 		// 날씨 API 시작
 		 
@@ -454,10 +456,14 @@
     				$.each(response, function(index, element) {
     					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
     					image = element.petimg;
+    					petindex = element.petindex;
     					console.log('이미지: '+image);
         			});
 
-    				var imageSrc = "<img src='${pageContext.request.contextPath}/assets/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
+					//(추가)반려동물 마이페이지 링크 래핑함
+    				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+petindex + "'>" +
+        							"<img src='${pageContext.request.contextPath}/assets/images/" + image + 
+        							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
 
     				$('#myPetSchedule').empty().append(info);
     				$('#myPetImage').empty().append(imageSrc);
@@ -484,14 +490,21 @@ function replaceImg(){
 	    var imgSrcs = [];
 	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
 	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
-			console.log(imgs[j]);      
-			imgs[j].removeAttribute('src'); //기존 내용 중 이미지는 미리보기시 지저분하므로 지워준다		        
-	        //imgs.remove(imgs[j].src);
+			console.log(imgs[j]);    
+			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
+			  
 	    }
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
 } 
+
+//포스팅 내용의 일부만 노출시키는 함수
+function shortContent(){
+	for(var i =0; i<${fn:length(postList)}; i++){ 
+		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
+	}
+}
 
 
 </script>	  

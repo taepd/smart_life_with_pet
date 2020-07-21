@@ -20,14 +20,13 @@ public interface BlogDao {
 	public int writePost(Blog blog);
 	
 	// 블로그 > 내 포스트 리스트 조회  
-	public List<Blog> getMyPostList(int cpage, int pagesize, String userid); 
+	public List<Blog> getMyPostList(int cpage, int pagesize, String id, String column); 
 	
 	// 블로그 > 모두의 포스트 리스트 조회
-	public List<Blog> getPostList(int cpage, int pagesize, String userid); 
+	public List<Blog> getPostList(int cpage, int pagesize, String id, String column); 
 
-	
 	// 블로그 > 포스팅 개수 조회
-	public int getPostCount(@Param("userid") String userid);
+	public int getPostCount(String id, String column);
 	
 	public int getPostCount(String column, int search);
 	
@@ -46,5 +45,6 @@ public interface BlogDao {
 	// 블로그 > 글 삭제
 	@Update("delete from blog where bindex=#{bindex}")
 	public int deletePost(Blog post);
+	
 	
 }

@@ -1,201 +1,352 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
 
-	<title>동물관리 홈</title>
-	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<%@ include file="/WEB-INF/include/import.jsp"%>
-  	
-    <style>
-    
-    	.fc-toolbar-title, a.fc-col-header-cell-cushion, th {
-    		color: black;
-    	}
-    	
-    	.icons {
-    		font-size: 15px;
-    		color: orange;
-    	}
-    	
-    	#wrapper {
-    		display: inline-block;
-    		/* margin: 0 auto; */
-    	}
-    	
-    	.card-img-top {
-    		margin-top: 16px;
-    	}
-    	
-    	.card {
-    		margin-left: 10px;
-    		margin-right: 10px;
-    	}
-    	
-    	#tab-list {
-    		margin: 0 auto;
-    	}
-    	
-    	#tab-row {
-    		margin-bottom: 100px;
-    		margin-top: 73px;
-    	}
-    	
-    	.form-check {
-    		margin-left: 5px;
-    		margin-top: 8px;
-    	}
+<title>동물관리 홈</title>
 
-	/* 카카오 맵*/  
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<%@ include file="/WEB-INF/include/import.jsp"%>
+
+<style>
+	.fc-toolbar-title, a.fc-col-header-cell-cushion, th {
+		color: black;
+	}
 	
-	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-	.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-	.map_wrap {position:relative;width:100%;height:500px;}
-	.bg_white {background:#fff;}
+	.icons {
+		font-size: 15px;
+		color: orange;
+	}
 	
-	#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-	#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-	#menu_wrap .option{text-align: center;}
-	#menu_wrap .option p {margin:10px 0;}  
-	#menu_wrap .option button {margin-left:5px;}
+	#wrapper {
+		display: inline-block;
+		/* margin: 0 auto; */
+	}
 	
-	#placesList li {list-style: none;}
-	#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-	#placesList .item span {display: block;margin-top:4px;}
-	#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-	#placesList .item .info{padding:10px 0 10px 55px;}
-	#placesList .info .gray {color:#8a8a8a;}
-	#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-	#placesList .info .tel {color:#009900;}
-	#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-	#placesList .item .marker_1 {background-position: 0 -10px;}
-	#placesList .item .marker_2 {background-position: 0 -56px;}
-	#placesList .item .marker_3 {background-position: 0 -102px}
-	#placesList .item .marker_4 {background-position: 0 -148px;}
-	#placesList .item .marker_5 {background-position: 0 -194px;}
-	#placesList .item .marker_6 {background-position: 0 -240px;}
-	#placesList .item .marker_7 {background-position: 0 -286px;}
-	#placesList .item .marker_8 {background-position: 0 -332px;}
-	#placesList .item .marker_9 {background-position: 0 -378px;}
-	#placesList .item .marker_10 {background-position: 0 -423px;}
-	#placesList .item .marker_11 {background-position: 0 -470px;}
-	#placesList .item .marker_12 {background-position: 0 -516px;}
-	#placesList .item .marker_13 {background-position: 0 -562px;}
-	#placesList .item .marker_14 {background-position: 0 -608px;}
-	#placesList .item .marker_15 {background-position: 0 -654px;}
-	#pagination {margin:10px auto;text-align: center;}
-	#pagination a {display:inline-block;margin-right:10px;}
-	#pagination .on {font-weight: bold; cursor: default;color:#777;}
+	.card-img-top {
+		margin-top: 16px;
+	}
 	
-	/* 카카오 맵*/ 
+	.card {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 	
-    </style>
-    
-    
+	#tab-list {
+		margin: 0 auto;
+	}
+	
+	#tab-row {
+		margin-bottom: 100px;
+		margin-top: 73px;
+	}
+	
+	.form-check {
+		margin-left: 5px;
+		margin-top: 8px;
+	}
+	
+	/* 카카오 맵*/
+	.map_wrap, .map_wrap * {
+		margin: 0;
+		padding: 0;
+		font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+		font-size: 12px;
+	}
+	
+	.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
+		color: #000;
+		text-decoration: none;
+	}
+	
+	.map_wrap {
+		position: relative;
+		width: 100%;
+		height: 500px;
+	}
+	
+	.bg_white {
+		background: #fff;
+	}
+	
+	#menu_wrap {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 250px;
+		margin: 10px 0 30px 10px;
+		padding: 5px;
+		overflow-y: auto;
+		background: rgba(255, 255, 255, 0.7);
+		z-index: 1;
+		font-size: 12px;
+		border-radius: 10px;
+	}
+	
+	#menu_wrap hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 2px solid #5F5F5F;
+		margin: 3px 0;
+	}
+	
+	#menu_wrap .option {
+		text-align: center;
+	}
+	
+	#menu_wrap .option p {
+		margin: 10px 0;
+	}
+	
+	#menu_wrap .option button {
+		margin-left: 5px;
+	}
+	
+	#placesList li {
+		list-style: none;
+	}
+	
+	#placesList .item {
+		position: relative;
+		border-bottom: 1px solid #888;
+		overflow: hidden;
+		cursor: pointer;
+		min-height: 65px;
+	}
+	
+	#placesList .item span {
+		display: block;
+		margin-top: 4px;
+	}
+	
+	#placesList .item h5, #placesList .item .info {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	
+	#placesList .item .info {
+		padding: 10px 0 10px 55px;
+	}
+	
+	#placesList .info .gray {
+		color: #8a8a8a;
+	}
+	
+	#placesList .info .jibun {
+		padding-left: 26px;
+		background:
+			url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
+			no-repeat;
+	}
+	
+	#placesList .info .tel {
+		color: #009900;
+	}
+	
+	#placesList .item .markerbg {
+		float: left;
+		position: absolute;
+		width: 36px;
+		height: 37px;
+		margin: 10px 0 0 10px;
+		background:
+			url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
+			no-repeat;
+	}
+	
+	#placesList .item .marker_1 {
+		background-position: 0 -10px;
+	}
+	
+	#placesList .item .marker_2 {
+		background-position: 0 -56px;
+	}
+	
+	#placesList .item .marker_3 {
+		background-position: 0 -102px
+	}
+	
+	#placesList .item .marker_4 {
+		background-position: 0 -148px;
+	}
+	
+	#placesList .item .marker_5 {
+		background-position: 0 -194px;
+	}
+	
+	#placesList .item .marker_6 {
+		background-position: 0 -240px;
+	}
+	
+	#placesList .item .marker_7 {
+		background-position: 0 -286px;
+	}
+	
+	#placesList .item .marker_8 {
+		background-position: 0 -332px;
+	}
+	
+	#placesList .item .marker_9 {
+		background-position: 0 -378px;
+	}
+	
+	#placesList .item .marker_10 {
+		background-position: 0 -423px;
+	}
+	
+	#placesList .item .marker_11 {
+		background-position: 0 -470px;
+	}
+	
+	#placesList .item .marker_12 {
+		background-position: 0 -516px;
+	}
+	
+	#placesList .item .marker_13 {
+		background-position: 0 -562px;
+	}
+	
+	#placesList .item .marker_14 {
+		background-position: 0 -608px;
+	}
+	
+	#placesList .item .marker_15 {
+		background-position: 0 -654px;
+	}
+	
+	#pagination {
+		margin: 10px auto;
+		text-align: center;
+	}
+	
+	#pagination a {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	
+	#pagination .on {
+		font-weight: bold;
+		cursor: default;
+		color: #777;
+	}
+	
+	/* 카카오 맵*/
+</style>
+
+
 </head>
 <body>
-	 
+
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<c:set value="${petInfoList}" var="petInfo"/>
-	 
+	<c:set value="${petInfoList}" var="petInfo" />
+
 	<div class="container">
 		<div class="side_overlay">
 			<div class="row">
 				<div class="col-10"></div>
 				<div class="col-2" style="margin: 0 auto;">
-					<button class="btn btn-sm" onclick="location.href='register.bit'" style="display: inline-block;">반려동물 등록</button>
-					<a href="#" data-toggle="modal" data-target="#mapModal" type="button"  class="btn btn-sm" onclick="relayout()" >동물병원 보기</a>
+					<button class="btn btn-sm" onclick="location.href='register.bit'"
+						style="display: inline-block;">반려동물 등록</button>
+					<a href="#" data-toggle="modal" data-target="#mapModal"
+						type="button" class="btn btn-sm">동물병원 보기</a>
 				</div>
 			</div>
 			<div class="row" id="tab-row">
-				<ul class="nav nav-pills nav-pills-icons" id="tab-list" role="tablist">
-                <!--
+				<ul class="nav nav-pills nav-pills-icons" id="tab-list"
+					role="tablist">
+					<!--
                                 color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
                             -->
-                <li class="nav-item">
-                  <a class="nav-link active show" href="#dashboard-1" role="tab" data-toggle="tab" aria-selected="false">
-					<i class="material-icons">calendar_today</i>
-                    	일정
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab" aria-selected="false">
-                    <i class="material-icons">pets</i>
-                    <!-- <span class="material-icons">home</span>  -->
-                    	내 반려동물
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab" aria-selected="true">
-                    <i class="material-icons">local_hospital</i>
-                    	병원/접종기록
-                  </a>
-                </li>
-              </ul>
-			</div> <!-- /.row -->
-            
-            <div class="row">
-            	<div class="col-12">
-              <div class="tab-content tab-space">
-                <div class="tab-pane active show" id="dashboard-1">
-                  		<div id="calendar"></div>
-                  <!-- 일정 추가 MODAL -->
-					<div class="modal fade" tabindex="-1" role="dialog" id="createEventModal">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="modal-title-for-add">일정 추가하기</h4>
-									<h4 class="modal-title" id="modal-title-for-edit">일정 수정하기</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
+					<li class="nav-item"><a class="nav-link active show"
+						href="#dashboard-1" role="tab" data-toggle="tab"
+						aria-selected="false"> <i class="material-icons">calendar_today</i>
+							일정
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#schedule-1"
+						role="tab" data-toggle="tab" aria-selected="false"> <i
+							class="material-icons">pets</i> <!-- <span class="material-icons">home</span>  -->
+							내 반려동물
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#tasks-1"
+						role="tab" data-toggle="tab" aria-selected="true"> <i
+							class="material-icons">local_hospital</i> 병원/접종기록
+					</a></li>
+				</ul>
+			</div>
+			<!-- /.row -->
 
-
-										<div class="form-check">
-											<label class="form-check-label">
-											  <input class="form-check-input" type="checkbox" value="1" id="allday" name="allday">
-											  하루종일
-											  <span class="form-check-sign">
-												<span class="check"></span>
-											  </span>
-											</label>
+			<div class="row">
+				<div class="col-12">
+					<div class="tab-content tab-space">
+						<div class="tab-pane active show" id="dashboard-1">
+							<div id="calendar"></div>
+							<!-- 일정 추가 MODAL -->
+							<div class="modal fade" tabindex="-1" role="dialog"
+								id="createEventModal">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="modal-title-for-add">일정 추가하기</h4>
+											<h4 class="modal-title" id="modal-title-for-edit">일정
+												수정하기</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
 										</div>
+										<div class="modal-body">
 
-										<div class="form-group bmd-form-group mb-0">
-											<!-- <label class="bmd-label-static">일정명</label> -->
-											<input type="text" class="form-control" name="title" id="title" placeholder="일정명" required>
-											<!-- <input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required> -->
-										</div>
 
-										<div class="form-group bmd-form-group mb-0">
-											<!-- <label class="bmd-label-static">시작</label> -->
-											<input type="text" class="form-control" name="start" id="start" placeholder="시작" required>
-											<!-- <input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required> -->
-										</div>
+											<div class="form-check">
+												<label class="form-check-label"> <input
+													class="form-check-input" type="checkbox" value="1"
+													id="allday" name="allday"> 하루종일 <span
+													class="form-check-sign"> <span class="check"></span>
+												</span>
+												</label>
+											</div>
 
-										<div class="form-group bmd-form-group mb-0">
-											<!-- <label class="bmd-label-static">끝</label> -->
-											<input type="text" class="form-control datetimepicker" name="end" id="end" placeholder="끝" required>
-											<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
-										</div>
+											<div class="form-group bmd-form-group mb-0">
+												<!-- <label class="bmd-label-static">일정명</label> -->
+												<input type="text" class="form-control" name="title"
+													id="title" placeholder="일정명" required>
+												<!-- <input type="text" class="form-control" name="edit-title" id="edit-title" placeholder="" required> -->
+											</div>
 
-										<div class="form-group bmd-form-group mb-0">
-											<label class="" for="petindex">누구의 일정인가요?</label>
-											<select class="custom-select" type="text" name="petindex" id="petindex">
-												<c:forEach items="${petInfo}" var="info">
-													<option value="${info.petindex}">${info.petname}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<!-- <div class="">
+											<div class="form-group bmd-form-group mb-0">
+												<!-- <label class="bmd-label-static">시작</label> -->
+												<input type="text" class="form-control" name="start"
+													id="start" placeholder="시작" required>
+												<!-- <input type="text" class="form-control datetimepicker" name="edit-start" id="edit-start" placeholder="" required> -->
+											</div>
+
+											<div class="form-group bmd-form-group mb-0">
+												<!-- <label class="bmd-label-static">끝</label> -->
+												<input type="text" class="form-control datetimepicker"
+													name="end" id="end" placeholder="끝" required>
+												<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
+											</div>
+
+											<div class="form-group bmd-form-group mb-0">
+												<label class="" for="petindex">누구의 일정인가요?</label> <select
+													class="custom-select" type="text" name="petindex"
+													id="petindex">
+													<c:forEach items="${petInfo}" var="info">
+														<option value="${info.petindex}">${info.petname}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<!-- <div class="">
 											<label class="" for="edit-color">색상</label>
 											<select class="custom-select" name="color" id="edit-color">
 												<option value="#D25565" style="color:#D25565;">빨간색</option>
@@ -209,207 +360,245 @@
 												<option value="#495057" style="color:#495057;">검정색</option>
 											</select>
 										</div> -->
-										<div class="form-group bmd-form-group">
-											<!-- <label class="" for="edit-desc">설명</label> -->
-											<textarea rows="2" cols="50" class="form-control" name="content" id="content" placeholder="필요하다면 일정에 관해 메모하세요."></textarea>
+											<div class="form-group bmd-form-group">
+												<!-- <label class="" for="edit-desc">설명</label> -->
+												<textarea rows="2" cols="50" class="form-control"
+													name="content" id="content"
+													placeholder="필요하다면 일정에 관해 메모하세요."></textarea>
+											</div>
 										</div>
+										<div class="modal-footer modalBtnContainer-addEvent">
+											<button type="button" class="btn btn-sm" data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary btn-sm"
+												id="save-event">저장</button>
+										</div>
+										<!-- 기존 일정을 누르면 나오는 버튼 -->
+										<div class="modal-footer modalBtnContainer-modifyEvent">
+											<button type="button" class="btn btn-default btn-sm"
+												data-dismiss="modal">닫기</button>
+											<button type="button" class="btn btn-danger btn-sm"
+												id="deleteEvent">삭제</button>
+											<button type="button" class="btn btn-primary btn-sm"
+												id="updateEvent">저장</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
 								</div>
-								<div class="modal-footer modalBtnContainer-addEvent">
-									<button type="button" class="btn btn-sm" data-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary btn-sm" id="save-event">저장</button>
-								</div>
-								<!-- 기존 일정을 누르면 나오는 버튼 -->
-								<div class="modal-footer modalBtnContainer-modifyEvent">
-									<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">닫기</button>
-									<button type="button" class="btn btn-danger btn-sm" id="deleteEvent">삭제</button>
-									<button type="button" class="btn btn-primary btn-sm" id="updateEvent">저장</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
-                </div>
-                
-                <div class="tab-pane" id="schedule-1">
-                	<div class="row">
-                    	<c:forEach var="petInfo" items="${petInfo}">
-							<div class="card col-4" style="width: 20rem;">
-								<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}" rel="nofollow" alt="card image">
-								  <div class="card-body">
-									<h4>${petInfo.petname}</h4>
-								    <p class="card-text" id="petInfo">
-								    	<fmt:parseNumber var="age" value="${petInfo.age/12}" integerOnly="true"/>
-								    	${petInfo.scaname} | 
-								    	${petInfo.size == 'small' ? '소형':petInfo.size == 'medium'? '중형':'대형'}${petInfo.mcategory == '1' ? '견':'묘'} | 
-								    	${petInfo.weight}kg | 
-								    	<br>
-								    	${age}년 ${petInfo.age%12}개월 | 
-								    	${petInfo.sex == 'female' ? '암컷':'수컷' } | 
-								    	${petInfo.nstate == 'n' ? '중성화X':'중성화O'} |
-								    	<br>
-								    	${petInfo.memo}
-								    </p>
-								    <div>
-
-										<!-- 나중에 아이콘으로 바꾸기~~~ -->
-										
-										<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-								    	<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
-								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								    	<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-								    	<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
-								    </div>
-								  </div>
+								<!-- /.modal-dialog -->
 							</div>
-						</c:forEach> 
-                </div>
-                </div>
-                <div class="tab-pane" id="tasks-1">
-                
-                  <h3>병원 방문 기록</h3>                    
-                    <div class="table-responsive">
-                    	<table class="table">
-                    		<thead class=" text-primary">
-                    			<tr>
-									<th>병원이용 번호</th>
-									<th>보호자</th>
-									<th>반려동물 이름</th>											
-									<th>병원 방문 일시</th>
-									<th>병원명</th>
-								</tr>
-                    		</thead>             		
-                    			<c:forEach var="mrecord" items="${mrecordList}">
-									<tbody>
+							<!-- /.modal -->
+						</div>
+
+						<div class="tab-pane" id="schedule-1">
+							<div class="row">
+								<c:forEach var="petInfo" items="${petInfo}">
+									<div class="card col-4" style="width: 20rem;">
+										<img class="card-img-top"
+											src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}"
+											rel="nofollow" alt="card image">
+										<div class="card-body">
+											<h4>${petInfo.petname}</h4>
+											<p class="card-text" id="petInfo">
+												<fmt:parseNumber var="age" value="${petInfo.age/12}"
+													integerOnly="true" />
+												${petInfo.scaname} | ${petInfo.size == 'small' ? '소형':petInfo.size == 'medium'? '중형':'대형'}${petInfo.mcategory == '1' ? '견':'묘'}
+												| ${petInfo.weight}kg | <br> ${age}년
+												${petInfo.age%12}개월 | ${petInfo.sex == 'female' ? '암컷':'수컷' }
+												| ${petInfo.nstate == 'n' ? '중성화X':'중성화O'} | <br>
+												${petInfo.memo}
+											</p>
+											<div>
+
+												<!-- 나중에 아이콘으로 바꾸기~~~ -->
+
+												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
+												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
+												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="tab-pane" id="tasks-1">
+
+							<h3>병원 방문 기록</h3>
+							<div class="table-responsive">
+								<table class="table">
+									<thead class=" text-primary">
 										<tr>
-											<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
-											<td>${mrecord.userid}</td>
-											<td>${mrecord.petname}</td>
-											<!-- timestamp 날짜시간 표시 포맷 변환 -->
-											<%-- <fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+											<th>병원이용 번호</th>
+											<th>보호자</th>
+											<th>반려동물 이름</th>
+											<th>병원 방문 일시</th>
+											<th>병원명</th>
+										</tr>
+									</thead>
+									<c:forEach var="mrecord" items="${mrecordList}">
+										<tbody>
+											<tr>
+												<td><a
+													href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
+												<td>${mrecord.userid}</td>
+												<td>${mrecord.petname}</td>
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<%-- <fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 											<td class="text-center">${rtime}</td> --%>
-											<!-- timestamp 날짜시간 표시 포맷 변환 -->												
-											<td class="text-center">${mrecord.vdate}</td>
-											<td class="text-center">${mrecord.hname}</td>																													
-										</tr>
-									</tbody>											
-								</c:forEach>
-                    	 </table>
-                    	 <!-- 글등록 버튼 -->
-                    	 <div class="border-top">
-								<div class="card-body" style="text-align: center;">
-								<button class="btn btn-primary btn-round" type="button" onclick="location.href='medicalRegister.bit'">글 쓰기</button>
-										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->										
-						</div> 
-						 <!-- 페이징  -->
-								<div class="pagination justify-content-center">
-									<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
-									<ul class="pagination" id="pagingview">
-										<c:if test="${cpage > 1}">
-											<li class="page-item"><a class="page-link"
-												href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}" 
-												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> 
-												<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-										</c:if>
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<td class="text-center">${mrecord.vdate}</td>
+												<td class="text-center">${mrecord.hname}</td>
+											</tr>
+										</tbody>
+									</c:forEach>
+								</table>
+								<!-- 글등록 버튼 -->
+								<div class="border-top">
+									<div class="card-body" style="text-align: center;">
+										<button class="btn btn-primary btn-round" type="button"
+											onclick="location.href='medicalRegister.bit'">글 쓰기</button>
+										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->
+									</div>
+									<!-- 페이징  -->
+									<div class="pagination justify-content-center">
+										<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+										<ul class="pagination" id="pagingview">
+											<c:if test="${cpage > 1}">
+												<li class="page-item"><a class="page-link"
+													href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}"
+													cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
+														<span aria-hidden="true">&laquo;</span><span
+														class="sr-only">Previous</span>
+												</a></li>
+											</c:if>
 
-										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-											<c:choose>
-												<c:when test="${cpage==i }">
-													<li class="page-item active"><a class="page-link"
-														href="getMrecordList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-														ps="${pageSize}">${i}</a></li>
-												</c:when>
-												<c:otherwise>
-													<li class="page-item"><a class="page-link"
-														href="getMrecordList.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-														ps="${pageSize}">${i}</a></li>
-												</c:otherwise>
-											</c:choose>
+											<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+												<c:choose>
+													<c:when test="${cpage==i }">
+														<li class="page-item active"><a class="page-link"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															cp="${i}" ps="${pageSize}">${i}</a></li>
+													</c:when>
+													<c:otherwise>
+														<li class="page-item"><a class="page-link"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															cp="${i}" ps="${pageSize}">${i}</a></li>
+													</c:otherwise>
+												</c:choose>
 
-										</c:forEach>
+											</c:forEach>
 
-										<c:if test="${cpage < pageCount}">
+											<c:if test="${cpage < pageCount}">
 
-											<li class="page-item">
-											<a class="page-link" href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}" 
-												cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
-												<span aria-hidden="true">&raquo;</span> 
-												<span class="sr-only">Next</span>
-											</a></li>
-										</c:if>
-									</ul>
-									<!-- </nav> -->
+												<li class="page-item"><a class="page-link"
+													href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}"
+													cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> <span
+														aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+												</a></li>
+											</c:if>
+										</ul>
+										<!-- </nav> -->
+									</div>
 								</div>
-                    </div>
-                  </div>
-               
-                  </div>  
-					<h3>예방 접종 기록</h3>                    
-                    <div class="table-responsive">
-                    	<table class="table">
-                    		<thead class=" text-primary">
-                    			<tr><th> Name </th> <th> Country </th> <th> City </th> <th class="text-right"> Salary </th></tr></thead>
-                    			<tbody> <tr> <td> Dakota Rice </td> <td> Niger </td> <td> Oud-Turnhout </td> <td class="text-right"> $36,738 </td>
-                    				</tr> <tr> <td> Minerva Hooper </td> <td> Curaçao </td> <td> Sinaai-Waas </td> <td class="text-right"> $23,789 </td> </tr>
-                    	</table>
-                    </div>
-                    
-                </div>
-              </div>
+							</div>
 
-            </div>
-            
-		</div> <!-- side_overlay end -->
+							<h3>예방 접종 기록</h3>
+							<div class="table-responsive">
+								<table class="table">
+									<thead class=" text-primary">
+										<tr>
+											<th>Name</th>
+											<th>Country</th>
+											<th>City</th>
+											<th class="text-right">Salary</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Dakota Rice</td>
+											<td>Niger</td>
+											<td>Oud-Turnhout</td>
+											<td class="text-right">$36,738</td>
+										</tr>
+										<tr>
+											<td>Minerva Hooper</td>
+											<td>Curaçao</td>
+											<td>Sinaai-Waas</td>
+											<td class="text-right">$23,789</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- side_overlay end -->
 
-	</div> <!-- container end -->
-	
-	 <!--  지도 Modal -->
-	<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	<div class="modal-content" style="width: auto; height: 800px; display: table;">
-	<div class="modal-header justify-content-center">
-	<h2>내 근처 동물 병원 찾기</h2>
+		</div>
+		<!-- side_overlay end -->
+
 	</div>
-	<div class="map_wrap">
+	<!-- container end -->
 
-	  <div id="map" style="width:500px;height:300px;"></div>
-	   
-		<!-- 지도크기를 변경할수있다. -->
-	    <div id="menu_wrap" style="height:300px; width: 485px;  position: relative;" class="bg_white">
-	    <!-- 지도 검색창 style="display: none;" 안나오게 하는거-->
-	        <div class="option">
-	            <div>
-	            <!--  <input type="text" value="${user.loc}동물병원" id="keyword" size="15">  -->
-	                <form onsubmit="searchPlaces(); return false;">
-	                    키워드 : <input type="text" value="${user.loc}동물병원" id="keyword" size="15"> 
-	                    <button type="submit">검색하기</button> 
-	                </form>
-	            </div>
-	        </div>
-	        <hr>
-	        <ul id="placesList"></ul>
-	        <div id="pagination"></div>
-	    </div>
-    </div>
-   	</div>
-	</div>
+	<!--  지도 Modal -->
+	<div class="modal fade" id="mapModal" tabindex="-1" role="dialog"
+		aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"
+				style="width: auto; height: 800px; display: table;">
+				<div class="modal-header justify-content-center">
+					<h2>내 근처 동물 병원 찾기</h2>
+				</div>
+				<div class="map_wrap">
+
+					<div id="map" style="width: 500px; height: 300px;"></div>
+
+					<!-- 지도크기를 변경할수있다. -->
+					<div id="menu_wrap"
+						style="height: 300px; width: 485px; position: relative;"
+						class="bg_white">
+						<!-- 지도 검색창 style="display: none;" 안나오게 하는거-->
+						<div class="option">
+							<div>
+								<!--  <input type="text" value="${user.loc}동물병원" id="keyword" size="15">  -->
+								<form onsubmit="searchPlaces(); return false;">
+									키워드 : <input type="text" value="${user.loc}동물병원" id="keyword"
+										size="15">
+									<button type="submit">검색하기</button>
+								</form>
+							</div>
+						</div>
+						<hr>
+						<ul id="placesList"></ul>
+						<div id="pagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-<!-- 지도 modal end -->
+	<!-- 지도 modal end -->
 
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
-    
+
 <!-- fullcalendar -->
-<link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css' rel='stylesheet' />
+<link href='https://unpkg.com/fullcalendar@5.1.0/main.min.css'
+	rel='stylesheet' />
 <script src='https://unpkg.com/fullcalendar@5.1.0/main.min.js'></script>
 
 <!-- moment.js > 시간 관련 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
+<script
+	src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
 
 <!-- SweetAlert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
 <script>
 $(function() {
 	
@@ -687,9 +876,6 @@ $(function (){
 
 	/* 페이징 비동기  끝*/
 });
-
-
-}); // /.$(function)
 
 
 //카카오 지도 script

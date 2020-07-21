@@ -7,15 +7,19 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DonateComment {
+public class DonationComment {
 	
 	private int dcindex;
 	private int dindex;
 	private String userid;
+	private String nick;
 	private int rplike;
-	private String content;
+	private String dccontent;
 	private String scstate;
 	private String rtime;
+	private int refer;
+	private int depth;
+	private int step;
 	
 
 }

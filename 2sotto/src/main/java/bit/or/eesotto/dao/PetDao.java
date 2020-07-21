@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.User;
 import lombok.Delegate;
 
 
@@ -58,6 +59,8 @@ public interface PetDao {
 		@Select("select petname, petimg from pet where userid = #{userid}")
 		public List<Pet> getPetPicture(@Param("userid") String userid);
 
-
+		// 어드민 > 동물 리스트 조회  ajax
+		@Select("select * from pet")
+		public List<Pet> getPetList(@Param("userid") String userid); 
 	
 }

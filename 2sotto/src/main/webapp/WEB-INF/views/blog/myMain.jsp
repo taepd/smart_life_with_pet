@@ -38,7 +38,8 @@
 						<c:forEach var="myPet" items="${myPetList}">
 	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
 	        				<c:if test="${petindex eq myPet.petindex}">
-				        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
 			        			<div  class="rounded-circle card-modal-profile"
                                     style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">

@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM blog b
 		<where>
 				<if test="param3 != null">
-					userid not in (#{param3}) 
+					${param4} not in (#{param3}) 
 				</if>
 		</where>		
 		) S WHERE ROWNUM 
@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getPostCount" resultType="int">
 		select count(*) from blog
-		<if test="#{userid} != null">
-			where userid = #{userid}
+		<if test="param1 != null">
+			where ${param2} = #{param1}
 		</if>
 	</select>
 	
@@ -38,7 +38,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
 			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
 		FROM blog b, (SELECT @ROWNUM := 0) TMP
-		WHERE USERID=#{param3}	order by b.bindex desc	
+		<choose>
+			<when test='param4 == "userid"'>
+				WHERE ${param4}=#{param3}
+			</when>
+			<when test='param4 == "petindex"'>
+				WHERE concat(',',petindex,',') like '%,${param3},%'
+			</when>
+		</choose>	
+		order by b.bindex desc	
 		) S WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2} 
 		order by s.rownum

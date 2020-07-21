@@ -28,7 +28,7 @@
 			
 			<hr>
 			
-			
+		
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
 					<div class="col-9">
@@ -38,7 +38,9 @@
 						<c:forEach var="petArr" items="${pArr}">
 	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
 	        				<c:if test="${petindex eq petArr.petindex}">
-				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px;">
+				        	
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petArr.petindex}'">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
 			        			<div  class="rounded-circle card-modal-profile"
                                     style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
@@ -49,6 +51,7 @@
                              	</div>
                              	<div class="text-center"> ${petArr.petname} </div>
 		        			</div>
+		        	
 		        			</c:if>
 				        </c:forTokens>
 				        </c:forEach>
@@ -88,7 +91,7 @@
 			</c:forEach>
 
 			<div>
-			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalpostcount: ${totalpostcount } </h4>
+			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalPostCount: ${totalPostCount } </h4>
 			</div>
 
 			<!-- 페이징 -->

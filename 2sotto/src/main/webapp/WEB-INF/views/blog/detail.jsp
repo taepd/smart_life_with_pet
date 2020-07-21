@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -63,6 +63,29 @@
 	<div class="side_overlay">
 		<div class="container">
 			<h1>${post.title}</h1>
+			<!-- 글쓴이 및 관련 반려동물 영역 -->
+					<div class="d-flex">  <!--  style="display: inline-block;" -->
+						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
+						<c:forEach var="myPet" items="${pArr}">
+	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+	        				<c:if test="${petindex eq myPet.petindex}">
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
+				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+			        			<div  class="rounded-circle card-modal-profile"
+                                    style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
+                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+                                            style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
+                                    </div>
+                             	</div>
+                             	<div class="text-center"> ${myPet.petname} </div>
+		        			</div>
+		        			</c:if>
+				        </c:forTokens>
+				        </c:forEach>
+				        <span class="align-self-center">의 이야기</span>   			
+	        		</div>	
 			<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 			<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
 			<h4>${rtime}</h4>
@@ -87,9 +110,10 @@
 				${post.content}
 			</div>
 			<hr>
+			<c:if test="${sessionScope.user.userid eq post.userid}">
 			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
 			<button type="button" id="delete">삭제</button>
-
+			</c:if>
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
 				

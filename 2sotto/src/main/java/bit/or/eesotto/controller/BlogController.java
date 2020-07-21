@@ -51,11 +51,7 @@ public class BlogController {
 		
 		List<Pet> myPetList = ms.getPetInfo(userid);
 		logger.info("내 반려동물 리스트: "+myPetList);
-		
-		//테스트
-		List<Blog> postList = (List)map.get("postList");
-		System.out.println(postList);
-		
+				
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
@@ -84,7 +80,7 @@ public class BlogController {
 		}
 		
 		logger.info("로그인 유저 아이디: " + userid);
-		
+
 		HashMap<String, Object> map = bs.mainView(cp, ps, userid);
 		logger.info("모두의 블로그 글 리스트 조회 완료");
 		
@@ -134,6 +130,18 @@ public class BlogController {
 		Blog post = bs.getPost(bindex);
 		logger.info(bindex+"번 블로그 글 조회 완료");
 		
+		//펫 이미지 정보 배열로 담기
+		List<Pet> pArr = new ArrayList<Pet>();
+		String pIndexes = post.getPetindex();
+		String[] arr = pIndexes.split(",");
+		
+		for(String petindex: arr) {
+			
+			pArr.add(ms.editPetInfo(Integer.parseInt(petindex))); 
+		}
+		
+		
+		
 		//자신의 글이 아니면 조회수 증가
 		if(!post.getUserid().equals(userid)) {
 			result = bs.updateCount(bindex);  
@@ -144,6 +152,7 @@ public class BlogController {
 		}
 	
 		model.addAttribute("post", post);
+		model.addAttribute("pArr", pArr);
 		
 		return "blog/detail";	
 	}

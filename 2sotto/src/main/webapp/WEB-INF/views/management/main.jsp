@@ -9,10 +9,8 @@
 
 <title>동물관리 홈</title>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
 <style>
@@ -268,16 +266,16 @@
                                 color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
                             -->
 					<li class="nav-item"><a class="nav-link active show"
-						href="#dashboard-1" role="tab" data-toggle="tab"
+						href="#dashboard-1" role="tab" data-toggle="tab" id="scheduleTab"
 						aria-selected="false"> <i class="material-icons">calendar_today</i>
 							일정
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#schedule-1"
+					<li class="nav-item"><a class="nav-link" href="#myPets" id="myPetsTab"
 						role="tab" data-toggle="tab" aria-selected="false"> <i
 							class="material-icons">pets</i> <!-- <span class="material-icons">home</span>  -->
 							내 반려동물
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#tasks-1"
+					<li class="nav-item"><a class="nav-link" href="#mrecord" id="mrecordTab"
 						role="tab" data-toggle="tab" aria-selected="true"> <i
 							class="material-icons">local_hospital</i> 병원/접종기록
 					</a></li>
@@ -308,10 +306,10 @@
 
 
 											<div class="form-check">
-												<label class="form-check-label"> <input
-													class="form-check-input" type="checkbox" value="1"
-													id="allday" name="allday"> 하루종일 <span
-													class="form-check-sign"> <span class="check"></span>
+												<label class="form-check-label">   
+												<input class="form-check-input" type="checkbox" id="allDay" 
+												name="allDay"> 하루종일 
+												<span class="form-check-sign"> <span class="check"></span>
 												</span>
 												</label>
 											</div>
@@ -337,18 +335,18 @@
 												<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
 											</div>
 
-											<div class="form-group bmd-form-group mb-0">
-												<label class="" for="petindex">누구의 일정인가요?</label> <select
-													class="custom-select" type="text" name="petindex"
-													id="petindex">
-													<c:forEach items="${petInfo}" var="info">
-														<option value="${info.petindex}">${info.petname}</option>
-													</c:forEach>
-												</select>
-											</div>
-											<!-- <div class="">
-											<label class="" for="edit-color">색상</label>
-											<select class="custom-select" name="color" id="edit-color">
+										<div class="form-group bmd-form-group mb-0">
+											<label class="" for="petindex">누구의 일정인가요?</label>
+											<select class="custom-select" type="text" name="petindex" id="petindex">
+												<c:forEach items="${petInfo}" var="info">
+													<option value="${info.petindex}">${info.petname}</option>
+												</c:forEach>
+											</select>
+										</div>
+										
+										<div class="form-group bmd-form-group mb-0">
+											<label class="" for="color">색깔</label>
+											<select class="custom-select" name="color" id="color">
 												<option value="#D25565" style="color:#D25565;">빨간색</option>
 												<option value="#9775fa" style="color:#9775fa;">보라색</option>
 												<option value="#ffa94d" style="color:#ffa94d;">주황색</option>
@@ -359,7 +357,8 @@
 												<option value="#4d638c" style="color:#4d638c;">남색</option>
 												<option value="#495057" style="color:#495057;">검정색</option>
 											</select>
-										</div> -->
+										</div>
+										
 											<div class="form-group bmd-form-group">
 												<!-- <label class="" for="edit-desc">설명</label> -->
 												<textarea rows="2" cols="50" class="form-control"
@@ -379,7 +378,7 @@
 											<button type="button" class="btn btn-danger btn-sm"
 												id="deleteEvent">삭제</button>
 											<button type="button" class="btn btn-primary btn-sm"
-												id="updateEvent">저장</button>
+												id="updateEvent">수정</button>
 										</div>
 									</div>
 									<!-- /.modal-content -->
@@ -389,7 +388,7 @@
 							<!-- /.modal -->
 						</div>
 
-						<div class="tab-pane" id="schedule-1">
+						<div class="tab-pane" id="myPets">
 							<div class="row">
 								<c:forEach var="petInfo" items="${petInfo}">
 									<div class="card col-4" style="width: 20rem;">
@@ -422,7 +421,7 @@
 								</c:forEach>
 							</div>
 						</div>
-						<div class="tab-pane" id="tasks-1">
+						<div class="tab-pane" id="mrecord">
 
 							<h3>병원 방문 기록</h3>
 							<div class="table-responsive">
@@ -601,7 +600,10 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
 <script>
 $(function() {
-	
+
+	//탭 이동 함수
+	moveTab();
+
 	console.log('로그인한 유저 아이디: ${sessionScope.user.userid}');
 	
 	//datetimepicker
@@ -612,10 +614,24 @@ $(function() {
 		cancelText: '취소'
 	});
 
+	//풀캘린더 로딩
+	renderFullCalendar();
+	
+//다른 탭에서 작업 후 풀캘린더 탭으로 이동시 깨지는 문제 해결법	
+$('#scheduleTab').on('shown.bs.tab', function () {
+	renderFullCalendar();
+}); //풀캘린더 탭 로드 후 실행되게 래핑
+	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
+	
+	
+	function renderFullCalendar(){
+	
 	var calendarEl = document.getElementById('calendar');
 	var addBtnContainer = $('.modalBtnContainer-addEvent');
 	var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
+
+	
 	// 풀캘린더 그리기
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		
@@ -785,11 +801,9 @@ $(function() {
 		}
 		
 	});
-	
 	calendar.render();
-
-	/////////////////////////////////////////////함수 영역/////////////////////////////////////////////
-
+}
+	
 	
 	// 일정 불러오기
 	function getSchedule() {
@@ -1159,6 +1173,26 @@ function removeAllChildNods(el) {
 
 }); 
 //카카오 지도 script
+
+
+/**
+* @함수명 : moveTab()
+* @작성일 : 2020. 7. 21.
+* @작성자 : 김건휘, 김보성, 태영돈
+* @설명 : 작업 처리 후 원래 탭 위치로 이동시키는  함수
+* @param void
+**/
+
+//탭 이동 함수
+function moveTab(){
+		if(${param.tab eq 'mrecord'}){
+			$("#mrecordTab").trigger("click");
+		}
+		//탭 위치 수정하고 활성화 하기
+		/* else if(${param.tab eq 'myPets'}){
+			document.getElementById("myPetsTab")[0].click(); //위와 같은 기능의 js문법
+		} */
+}
 
 </script>
 </html>

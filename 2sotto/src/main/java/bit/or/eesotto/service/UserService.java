@@ -1,5 +1,7 @@
 package bit.or.eesotto.service;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,7 +44,27 @@ public class UserService {
 		}
 
 		return userList;
-}
+	}
+	
+	
+	//어드민 > 유저 가입 확인
+		public int getUserCount(User user) {
+			
+			int result = 0;
+
+			try {
+
+				userDao = sqlsession.getMapper(UserDao.class);
+				result = userDao.getUserCount(user);
+				System.out.println("너는 값이 뭐로 나오나??");
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}
+	
 	
 }
 

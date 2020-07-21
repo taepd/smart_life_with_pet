@@ -49,7 +49,11 @@ public interface UserDao {
 	// 어드민 > 유저 리스트 조회  ajax
 	@Select("select * from user")
 	public List<User> getUserList(@Param("userid") String userid); 
-
+	
+	// 어드민 > 유저 카운트  ajax
+	@Select("select count(*) count from user")
+	public int getUserCount(User user);
+	
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")
 //	public User snsLogin(@Param("uEmail") String uEmail);

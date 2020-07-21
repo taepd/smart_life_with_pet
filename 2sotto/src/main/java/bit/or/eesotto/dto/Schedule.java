@@ -17,7 +17,7 @@ public class Schedule {
 	private String is_complete;
 	private String start;
 	private String end;
-	private String allday;
+	private String allDay;
 	private String daysofweek;
 	private String adncdnoti;
 	private String color;

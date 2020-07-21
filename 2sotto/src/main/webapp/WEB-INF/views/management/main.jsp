@@ -117,7 +117,7 @@
 
 										<div class="form-check">
 											<label class="form-check-label">
-											  <input class="form-check-input" type="checkbox" value="1" id="allday" name="allday">
+											  <input class="form-check-input" type="checkbox" id="allDay" name="allDay">
 											  하루종일
 											  <span class="form-check-sign">
 												<span class="check"></span>
@@ -267,7 +267,6 @@
 <script>
 $(function() {
 
-	console.log("아아아어ㅣㅏ;ㅓㅣㅏㅓㅣㅏㅓ");
 	console.log('로그인한 유저 아이디: ${sessionScope.user.userid}');
 	
 	// Datetimepicker
@@ -308,13 +307,15 @@ $(function() {
 					var schedule = response.schedule;
 					var fixedDate = schedule.map(function(array) {
 						//console.log("array>>> "+JSON.stringify(array));
-						//console.log("getAllDay: "+array.allday);
-						array.allday = true;
-						//console.log("again: "+array.allday);
-						//console.log("again array>>> "+JSON.stringify(array));
-						//array.title = "["+moment(array.start).format('HH:mm') + "-" + moment(array.end).format('HH:mm') + "] "+ array.title;
+						console.log(typeof(array.start));
+						console.log(typeof(array.end));
+						console.log(typeof(array.allDay));
+
+						if (array.allDay == 'true' && !array.start == array.end) {
+							// 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력.....인데 안되네....
+							array.end = moment(array.end).add(1, 'days');
+						}
 						
-						//console.log("content>>> "+array.content);
 						return array;
 					});
 					successCallback(fixedDate);
@@ -323,13 +324,12 @@ $(function() {
 
 		},
 		select: function(start, end, allDay) {
-
-			// input 태그값 초기화
+			
+			// 모달 안 태그값 초기화
+			$('#createEventModal input, textarea').val("");
 			$('#allday').prop("checked", false);
-			$('#title').val('');
-			$('#start').val('');
-			$('#end').val('');
-			$('#content').val('');
+			$('#createEventModal option:eq(0)').prop("selected", true);
+			$('#color option:eq(0)').prop("selected", true); // 위에서 적용됐어야 하는데 왜...
 
 			// 모달 타이틀 바꾸기
 			$('#modal-title-for-edit').hide();
@@ -342,6 +342,7 @@ $(function() {
 			// 모달 열기
 			$('#createEventModal').modal('show');
 
+			$('#save-event').unbind();
 			$('#save-event').on('click', function() {
 
 				var start = $('#start').val();
@@ -352,20 +353,20 @@ $(function() {
 				var colorVal = $('#color').val();
 				
 				// #allday 체크 여부에 따라 값 부여하기 
-				//var allday = $('#allday');
-				//var isallDay = "";
+				var allDay = $('#allDay');
+				var isAllDay;
 				
-				//if(allday.is(':checked')) { isallDay = allday.val(); }
-				//else { isallDay = 0; }
+				if(allDay.is(':checked')) { isAllDay = true; }
+				else { isAllDay = false; }
 				
 				var eventData = {
-					userid: '${sessionScope.user.userid}',
 					petindex: petindexVal,
+					userid: '${sessionScope.user.userid}',
 					title: titleVal,
-					start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
-					end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
 					content: contentVal,
-					//allday: 1, // 1=true, 0=false 
+					start: start,
+					end: end,
+					allDay: isAllDay, 
 					color: colorVal
 				};
 
@@ -379,23 +380,58 @@ $(function() {
 					return false;
 				}
 
+				//var allDay = $('#allDay');
+
+				if (isAllDay == true) {
+					eventData.start = moment(eventData.start).format('YYYY-MM-DD');
+					eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+				}
+				
+				// 이벤트 추가
 				calendar.addEvent(eventData);
 				//calendar.render();
 				
+				//////////////////////////////////잘못된부분//////////////////////////////////
+				
+				// DB에 일정 넣기
+				var realEndDay;
+				var realStartDay;
+				
+				if(eventData.allDay == true) { // allDay=true일 때
+					realStartDay = moment(eventData.start).format('YYYY-MM-DD');
+					realEndDay = moment(eventData.end).format('YYYY-MM-DD');
+				} else { // allDay=false일 때
+					realStartDay = moment(eventData.start).format('YYYY-MM-DD HH:mm');
+					realEndDay = moment(eventData.end).format('YYYY-MM-DD HH:mm');
+				}
+
+				var DBdata = {
+					petindex: petindexVal,
+					userid: '${sessionScope.user.userid}',
+					title: titleVal,
+					content: contentVal,
+					allDay: isAllDay, 
+					color: colorVal,
+					start: realStartDay,
+					end: realEndDay
+				};
+
 				$('#createEventModal').modal('hide');
 
 				$.ajax({
 					type: "get",
-					data: eventData,
+					data: DBdata,
 					dataType: "JSON",
 					url: "insertSchedule.bit",
 					success: function(data) {
 						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
+						swal('등록');
 					},
 					error: function(e) {
 						console.log("insert에러: "+e);
 					}
 				});
+				
 				
 			}); // /.저장하기
 			
@@ -418,18 +454,24 @@ $(function() {
 	
 	var editEvent = function(event, element, view) {
 
-		console.log("======함수 실행==========");
+		console.log("======edit 함수 실행==========");
 
 		// JSON 형태로 데이터 출력해보고 싶으면 아래 실행 ---지우지 마세요---
-		// console.log("나와: "+JSON.stringify(event));
+		console.log("나와: "+JSON.stringify(event));
 
 		var title = event.event.title;
 		var content = event.event.extendedProps.content;
 		var sindex = event.event.extendedProps.sindex;
 		var petindex = event.event.extendedProps.petindex;
-		var allday = event.event.extendedProps.allday; //true, false로 리턴
+		var allday = event.event.extendedProps.allDay; // 내가 넣은 allday
+		//console.log("내거: "+allday);
+		// calendar의 allDay는...
+		var allDay = event.el.fcSeg.eventRange.def.allDay;
+		//console.log("이거? "+allDay);
+
 		var start = event.event.start;
-		var end = event.event.end;
+		var end = event.event.end; // 이게 왜 없지??
+		//console.log("end: "+end);
 		var color = event.event.backgroundColor;
 		var userid = event.event.extendedProps.userid;
 		
@@ -453,9 +495,11 @@ $(function() {
 		$('#content').val(content); 
 		$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
 		$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-
+		$('#petindex').val(petindex).prop("selected", true);
+		$('#color').val(color).prop("selected", true);
+		
 		// 하루종일 여부 체크
-		if(allday === true) {
+		if(allday == true) {
 			$('#allday').prop("checked", true);
 		} else {
 			$('#allday').prop("checked", false);
@@ -464,6 +508,16 @@ $(function() {
 		// 모달 열기 > 마지막에 열자
 		$('#createEventModal').modal('show');
 
+		/*
+		if($('#title').val() == "") {
+			swal('일정명을 입력하세요.');
+			return false;
+		}
+
+		if($('#start').val() > $('#end').val() ) {
+			swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
+			return false;
+		}*/
 
 		$('#updateEvent').on('click', function() {
 
@@ -492,122 +546,12 @@ $(function() {
 						}
 
 				});
-			calendar.render(); //이거 테스트해보기...........안돼.......
+			calendar.render();
 
 			});
-		/*
-		
-		if(end === null) {
-			end = start;
-		}
-		
-		var content;
-		var petindex;
-		var end;
-		var schedule = getSchedule();
-		
-		
-		
-		
-		
-		$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-
-		
-
-		// 시작 일자 설정
-		$('#start').val(moment(start).format('YYYY-MM-DD HH:mm'));
-
-		// 끝 일자 설정
-		//$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-		
-		if(allday === true && end !== start) {
-			$('#end').val(moment(end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'));
-		} else if(allday !== true && end !== start) {
-			$('#end').val(moment(end).format('YYYY-MM-DD HH:mm'));
-		}
-		
-
-		
-		$('#title').val(title);
-		$('#content').val(content);
-		
-		
-
-		$('#updateEvent').on('click', function() {
-			
-			$('#title').val('');
-			$('#content').val('');
-			$('#start').val('');
-			$('#end').val('');
-			$('#allday').prop("checked", false);
-			$('#modal-title-for-add').show();
-
-			$('#createEventModal').modal('hide');
-		});
-
-		//var event = info.event;
-		
-		$('#deleteEvent').on('click', function(info) {
-			info.remove();
-		});
-		*/
-
 	}
 	
 	
-	
-	// 일정 불러오기
-	function getSchedule() {
-
-		var schedule = [];
-
-		$.ajax({
-			url: "getSchedule.bit",
-			data: { userid : '${sessionScope.user.userid}' },
-			dataType: "json",
-			async: false,
-			success: function(response) {
-					//console.log(response);
-				$.each(response.schedule, function(index, element) {
-					//console.log(response.schedule); //이거 자체가 json 배열인디? [ {}, {}, {}, ] 이렇게 생겼음
-					//이걸 넘기도록 하자....?
-					
-					schedule = response.schedule;
-
-					/*
-					var viewData = {};
-					
-					viewData["title"] = element.title;
-					viewData["start"] = element.start;
-
-					if(element.allday == '1') {
-						viewData["allDay"] = true;
-					} else {
-						viewData["allDay"] = false;
-					}
-					
-					if(element.allday == '1' && element.start !== element.end) {
- 						viewData["end"] = moment(element.end).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
-					}
-					//viewData["end"] = moment(element.end).format('YYYY-MM-DD HH:mm:ss');
-					viewData["color"] = '#E6CDED'; //컬럼에 컬러값이 있어야 색깔별로 출력할 수 있을 듯... 어쨌든 여기에 적용하면 적용됨
-					viewData["content"] = element.content;
-					viewData["petindex"] = element.petindex;
-
-					console.log("viewData: "+JSON.stringify(viewData));
-					schedule.push(viewData);
-
-					  */
-				});
-			}
-		});
-
-		//console.log("스케쥴 모양: "+schedule);
-		return schedule;
-	} // /.getSchedule()
-	
-	
-
 }); // /.$(function)
 </script>
 </html>

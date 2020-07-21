@@ -3,7 +3,7 @@ package bit.or.eesotto.controller;
 import java.security.*;
 import java.util.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -224,6 +224,23 @@ public class MypageController {
 		
 		return "mypage/myPetsInfo";
 	}
+	
+	// 반려동물의 마이페이지 view
+	@RequestMapping(value = "petPage.bit", method = RequestMethod.GET)
+	public String petPage(HttpServletRequest request, Model model) {
+		
+		String petindex = request.getParameter("petindex");
+		
+		//반려동물 정보 가져오기
+		Pet pet = ms.getPet(Integer.parseInt(petindex));
+		
+		model.addAttribute(pet);
+		
+		return "mypage/petPage";
+	}
+	
+	
+	
 
 
 //		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view

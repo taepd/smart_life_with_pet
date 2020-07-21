@@ -456,10 +456,14 @@
     				$.each(response, function(index, element) {
     					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
     					image = element.petimg;
+    					petindex = element.petindex;
     					console.log('이미지: '+image);
         			});
 
-    				var imageSrc = "<img src='${pageContext.request.contextPath}/assets/images/" + image + "' class='rounded-circle img-fluid img' width='150px' height='150px'>";
+					//(추가)반려동물 마이페이지 링크 래핑함
+    				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+petindex + "'>" +
+        							"<img src='${pageContext.request.contextPath}/assets/images/" + image + 
+        							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
 
     				$('#myPetSchedule').empty().append(info);
     				$('#myPetImage').empty().append(imageSrc);

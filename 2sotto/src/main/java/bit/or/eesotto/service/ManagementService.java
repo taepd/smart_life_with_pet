@@ -65,6 +65,7 @@ public class ManagementService {
 		return petDao.getPetInfo(userid);
 		
 	}
+		
 	
 	//반려동물 수정할 정보 가져오기
 	public Pet editPetInfo(int petindex) {

@@ -117,7 +117,7 @@ public class ManagementController {
 			logger.info("반려동물 등록 성공");
 			
 			msg = "반려동물이 등록되었습니다.";
-	        return "redirect:/management/main.bit";
+	        return "redirect:/management/main.bit?tab=myPets";
 	        
 		} else { 
 			
@@ -211,21 +211,21 @@ public class ManagementController {
 		if(result==1) {
 			
 			logger.info("반려동물 정보 수정 완료");
-			msg = "반려동물 정보 수정 완료";
-	        url = "main.bit";
-			
+			//msg = "반려동물 정보 수정 완료";
+	        //url = "main.bit";
+			return "redirect:/management/main.bit?tab=myPets";
 		}else { 
 			
 			logger.info("반려동물 정보 수정 실패");
-			msg = "반려동물 정보 수정 실패";
-	        url = "javascript:history.back();";
-
+			//msg = "반려동물 정보 수정 실패";
+	        // url = "javascript:history.back();";
+			return "javascript:history.back();";
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+		//model.addAttribute("msg", msg);
+		//model.addAttribute("url", url);
 		
-		return "redirect";	
+		//return "redirect";	
 		
 	}
 	

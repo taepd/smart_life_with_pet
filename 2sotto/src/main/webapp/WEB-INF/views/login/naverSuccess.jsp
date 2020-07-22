@@ -27,12 +27,13 @@ h3 {
       $("#name").html("환영합니다. "+name+"님");
       $("#email").html(email);
      });  
+
 </script>
 
 </head>
 <body>
 	<div style="background-color: #15a181; width: 100%; height: 50px; text-align: center; color: white;">
-		<h3>Naver_Login Success</h3>
+		<h3>Login Success</h3>
 	</div>
 	<br>
 	<h2 style="text-align: center" id="name"></h2>

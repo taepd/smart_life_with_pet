@@ -39,7 +39,7 @@
 		<beans:constructor-arg value="MqAeHeUS9PI1CjSPmGhoMXVE" />
 	</beans:bean>
 	-->
-	 <!-- Google 소셜 로그인 연결 설정 -->
+	 <!-- Google 소셜 로그인 연결 설정 시작 -->
     <beans:bean id="googleOAuth2Template"
         class="org.springframework.social.google.connect.GoogleOAuth2Template">
         <beans:constructor-arg
@@ -61,6 +61,21 @@
         <beans:constructor-arg value="MqAeHeUS9PI1CjSPmGhoMXVE" />
  
     </beans:bean>
+    <!-- Google 소셜 로그인 연결 설정 끝 -->
+    <!-- 페이스북 소셜 로그인 연결 설정 시작 -->
+    <beans:bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <beans:constructor-arg value="2685505378403600" />
+        <beans:constructor-arg value="0e8da77ff5640ed2c01c7ceb97341edc" />
+    </beans:bean>
+ 
+    <beans:bean id="oAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <beans:property name="scope" value="email" />
+        <beans:property name="redirectUri" value="http://localhost:8090/bit/login/facebookSignInCallback.bit" />
+    </beans:bean>
+
+    <!-- 페이스북 소셜 로그인 연결 설정 시작 -->
 	
 	
 

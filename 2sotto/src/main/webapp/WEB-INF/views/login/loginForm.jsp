@@ -102,7 +102,7 @@
 								<div id="signUpList-wrapper">
 									<ul id="signUpList">
 										<a href="${naver_url}"><li style="border: 1px solid #19ce60"><span class="span">네이버 아이디로 로그인</span></li></a>
-										<a href="${kakao_url}"><li style="border: 1px solid #ffe500"><span class="span">카카오 아이디로 로그인</span></li></a>
+										<a href="${facebook_url}"><li style="border: 1px solid #ffe500"><span class="span">페이스북 아이디로 로그인</span></li></a>
 										<a href="${google_url}"><li style="border: 1px solid #2962ff"><span class="span">구글 아이디로 로그인</span></li></a>
 									</ul>
 									<br>

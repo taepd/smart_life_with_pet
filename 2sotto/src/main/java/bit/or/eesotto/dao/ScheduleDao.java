@@ -16,11 +16,10 @@ import bit.or.eesotto.dto.User;
 public interface ScheduleDao {
 
 	//일정 등록
-	@Insert("insert into schedule"
-			+ "(sindex, petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color) "
-			+ "values( #{sindex}, #{petindex}, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, "
-			+ "#{allDay}, #{daysofweek}, #{adncdnoti}, #{color} )")
 	public int newSchedule(Schedule schedule);
+	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastSindex();
 	
 	//일정 불러오기
 	@Select("select sindex, petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color "
@@ -32,6 +31,12 @@ public interface ScheduleDao {
 			+ "start=#{start}, end=#{end}, allDay=#{allDay}, daysofweek=#{daysofweek}, adncdnoti=#{adncdnoti}, color=#{color} "
 			+ "where sindex=#{sindex}")
 	public int updateSchedule(Schedule schedule);
+	
+	//일정 업데이트
+	@Update("update schedule set start=#{start}, end=#{end} where sindex=#{sindex}")
+	public int dndUpdateSchedule(Schedule schedule);
+	
+	
 	
 	//일정 삭제
 	@Delete("delete from schedule where sindex=#{sindex}")

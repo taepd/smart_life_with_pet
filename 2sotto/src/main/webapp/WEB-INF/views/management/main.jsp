@@ -331,7 +331,7 @@
 											<div class="form-group bmd-form-group mb-0">
 												<!-- <label class="bmd-label-static">끝</label> -->
 												<input type="text" class="form-control datetimepicker"
-													name="end" id="end" placeholder="끝" required>
+													name="end" id="end" placeholder="끝">
 												<!-- <input type="text" class="form-control datetimepicker" name="edit-end" id="edit-end" placeholder="" required> -->
 											</div>
 
@@ -632,6 +632,7 @@ $(function() {
 	var addBtnContainer = $('.modalBtnContainer-addEvent');
 	var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 	var calendar =""; // 캘린더 전역변수화
+	var draggedEventIsAllDay;
 	
 	function renderFullCalendar(){
 		
@@ -639,6 +640,7 @@ $(function() {
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		
 		editable: true,
+		eventResizableFromStart: true,	
 		selectable: true,
 		locale: 'ko',
 		initialView: 'dayGridMonth',
@@ -700,6 +702,19 @@ $(function() {
 			// 모달 열기
 			$('#createEventModal').modal('show');
 
+			//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
+						
+			$('#allDay').change(function(){
+		        if($("#allDay").is(":checked")){
+		           console.log('하루종일 체크함');
+		           $('#end').attr("type","hidden");
+		        }else{
+		        	console.log('하루종일 체크 해제함');
+		        	$('#end').attr("type","text");
+		        }
+		    });
+	
+
 			$('#save-event').unbind();
 			$('#save-event').on('click', function() {
 
@@ -713,9 +728,9 @@ $(function() {
 				// #allday 체크 여부에 따라 값 부여하기 
 				var allDay = $('#allDay');
 				var isAllDay;
-				
-				if(allDay.is(':checked')) { isAllDay = true; }
-				else { isAllDay = false; }
+	
+				if(allDay.is(':checked')) {isAllDay = true;}
+				else {isAllDay = false; }
 	
 				var eventData = {
 					petindex: petindexVal,
@@ -733,29 +748,23 @@ $(function() {
 					return false;
 				}
 
-				if(eventData.start > eventData.end) {
-					swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
-					return false;
+				if(!allDay){  // 하루종일 체크하면 이 조건 패스
+					if(eventData.start > eventData.end) {
+						swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
+						return false;
+					}
 				}
-
 				//var allDay = $('#allDay');
 
 				if (isAllDay == true) {
 					eventData.start = moment(eventData.start).format('YYYY-MM-DD');
-					eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+					eventData.end = moment(eventData.start).add(1, 'days').format('YYYY-MM-DD');
 				}
 				
-				// 이벤트 추가
-				calendar.addEvent(eventData);
-				//calendar.render();
-				
-				//////////////////////////////////잘못된부분//////////////////////////////////
-				
+	
 				// DB에 일정 넣기
 				var realEndDay;
 				var realStartDay;
-				console.log('타입오브올데이 이거 다음 나옴');
-				console.log(typeof eventData.allDay);
 				
 				if(eventData.allDay) { // allDay=true일 때
 					realStartDay = moment(eventData.start).format('YYYY-MM-DD');
@@ -776,6 +785,8 @@ $(function() {
 					end: realEndDay
 				};
 
+				
+
 				$('#createEventModal').modal('hide');
 
 				$.ajax({
@@ -786,27 +797,77 @@ $(function() {
 					success: function(data) {
 						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
 						swal('등록');
+						eventData.sindex=data;
 					},
 					error: function(e) {
 						console.log("insert에러: "+e);
 					}
 				});
-				
+
+				// 이벤트 추가
+				calendar.addEvent(eventData);
+				calendar.render();
 				
 			}); // /.저장하기
 			
 			
 		},
 		eventClick: function(event, jsEvent, view) { //일정을 클릭하면 수정창이 나와 처리하는 메서드
-		
 			editEvent(event);
-			
-			
-		} /*/.eventClick */
+			calendar.render();
+		},
+		eventDragStart: function (event, jsEvent, ui, view) {
+			    draggedEventIsAllDay = event.el.fcSeg.eventRange.def.allDay;
+		},
+		//일정 드래그앤드롭
+		eventDrop: function (event) {
+
+			console.log(event);
+		    
+		    //주,일 view일때 종일 <-> 시간 변경불가
+ 		     if (event.view.type === 'timeGridWeek' || event.view.type === 'timeGridDay') { 
+		      	if (draggedEventIsAllDay !== event.event.allDay) {
+			        alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
+			        location.reload();  //임시로 리로드로 예외처리
+		        	return false;
+		        }
+		    }
+	
+	     // 드랍시 수정된 날짜반영
+		 //var newDates = calDateWhenDragnDrop(event);  //퍼올 커스텀 함수인데 우선 보류
+		  var sindex = event.event.extendedProps.sindex;
+		  var newStart = event.event.start;
+		  var newEnd = event.event.end;
+		  console.log('뉴스타트: '+ newStart); 
+		  console.log('뉴엔드: '+ newEnd);
+		  
+	
+
+	
+		    //드롭한 일정 업데이트
+		   	$.ajax({
+				type: "post",
+				data: {
+					sindex: sindex,
+					start: moment(newStart).format('YYYY-MM-DD HH:mm:ss'),
+					end: moment(newEnd).format('YYYY-MM-DD HH:mm:ss'),
+				},
+				dataType: "JSON",
+				url: "dndUpdateSchedule.bit",
+				success: function(response) {
+						console.log(response);
+					},
+				error: function(e) {
+						console.log("update error: "+e);
+					}
+		
+			});
+	
+		}
 		
 	});
 		calendar.render();
-	}
+}
 
 	
 	//일정을 클릭하면 수정창이 나와 처리하는 메서드	
@@ -829,7 +890,7 @@ $(function() {
 		console.log("이거? "+allDay);
 
 		var start = event.event.start;
-		var end = event.event.end; // 이게 왜 없지??
+		var end = event.event.end; 
 		console.log("end: "+end);
 		var color = event.event.backgroundColor;
 		var userid = event.event.extendedProps.userid;
@@ -866,6 +927,22 @@ $(function() {
 
 		// 모달 열기 > 마지막에 열자
 		$('#createEventModal').modal('show');
+
+ 		//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
+		if($("#allDay").is(":checked")){
+	           console.log('하루종일 체크함');
+	           $('#end').attr("type","hidden");
+	    }
+ 		
+		$('#allDay').change(function(){
+	        if($("#allDay").is(":checked")){
+	           console.log('하루종일 체크함');
+	           $('#end').attr("type","hidden");
+	        }else{
+	        	console.log('하루종일 체크 해제함');
+	        	$('#end').attr("type","text");
+	        }
+	    }); 
 
 		/*
 		if($('#title').val() == "") {
@@ -959,9 +1036,6 @@ $(function() {
 	}
 	
 	
-	
- 
-
 <!-- management  main ajax 페이징 부분-->
 /* ajax 시작 */
 $(function (){

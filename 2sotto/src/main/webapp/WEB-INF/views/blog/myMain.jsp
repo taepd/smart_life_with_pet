@@ -196,7 +196,7 @@ function timeAgo(time){
 	
 	  console.log(date);
 
-	  //diff = diff - 33000 //- 10227;//수식이 정확히 적용되지 않을 경우 보정해서 사
+	  //diff = diff - 33000 //- 10227;//수식이 정확히 적용되지 않을 경우 보정해서 사용
 	  
 	  console.log(diff);
 

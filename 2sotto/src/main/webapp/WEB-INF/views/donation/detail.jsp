@@ -36,20 +36,35 @@
       }
       
      /* .recom{position:relative;} */ 
-   /*     .reCom:before { 표시는 되는데 그 위치때문에 .... 잠시...만 안녕...
+   .reCom:before {
 
      	    content: "";
-		    position: relative;
+		    position: absolute;
 		    display: inline-block;
-		    top: 0;
-		    left: -16px;
+		    top: 10;
+		    left: 30px;
 		    width: 16px;
 		    height: 16px;
 		    border: 1px solid #ccc;
 		    border-width: 0 0 1px 1px;
 		    border-radius: 0 0 0 2px;
 
- 	}  */
+ 	}
+ 	.writereCom
+ 	:before {
+
+     	    content: "";
+		    position: absolute;
+		    display: inline-block;
+		    top: 0;
+		    left: 30px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+
+ 	}
     
 	</style>
 	<script>
@@ -179,11 +194,11 @@
 															 
 								
 								</div>
-				
-
-
 
 						</div>
+				
+					</div>
+				</div>
 				<hr>
 				<h4 id="reply_h4">댓글</h4>
 				
@@ -205,8 +220,6 @@
 				<!-- 댓글 폼 끝 -->
 					
 				<hr>
-					</div>
-				</div>
 			</div>
 
 		</div>
@@ -389,7 +402,7 @@ function getCommentList() {
 
 				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
 				if(element.depth==1){
-					html += "<div class='reCom' style='padding: 15px 0;"+depthCss+"'>";
+					html += "<div class='reCom' style='position:relative; padding: 15px 0;"+depthCss+"'>";
 				}else{
 					html += "<div>";
 				};
@@ -532,14 +545,17 @@ function deleteComment(dcindex) {
 
 //대댓글 창 열기 
 function openReComment(dcindex, userid, refer) {
-		let depthCss = "";	
-		if(this.depth == 1) {
-			depthCss = "padding-left:45px";
-		}
+		
 		let html = "";
 		let dccontent = "";
 		
 		console.log("refer" + refer);
+
+		let depthCss = "";	
+		if(this.depth == 1) {
+			depthCss = "padding-left:45px";
+		}
+		
 		//로그인 유저 본인의 댓글이 아닐 때 해당 댓글쓴 아이디값을 '@아이디'형태로 인풋창에 불러옴
 		if(userid!='${sessionScope.user.userid}'){
 		   
@@ -547,12 +563,15 @@ function openReComment(dcindex, userid, refer) {
 		   console.log('우와와');
 		} 
 		
+
+		html += '<div class="writereCom" style="position:relative; top:10px; padding-left:45px">';
 		html += '<form name="reCommentBox" id ="reCommentBox" method="POST">';	
 		html +=	'<input type="hidden" id="refer" value="'+refer+'">';
 		html +=	'<input type="hidden" id="dcindex" value="'+dcindex+'">';
 		html +=	'<textarea rows="3" cols="" id="dccontent" name="dccontent" placeholder="대댓글을 입력해 주세요" style="width: 100%">'+dccontent+'</textarea><br>';
 		html +=	'<input type="button" class="" value="대댓글 등록" id="writeRecom">';
 		html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+		html += '</div>';
 		
 		$('#editForm'+dcindex+'').append(html);
 		

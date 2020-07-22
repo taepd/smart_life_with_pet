@@ -53,6 +53,34 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 			float: right;
 		}
 		
+		.reCom:before {
+
+     	    content: "";
+		    position: absolute;
+		    display: inline-block;
+		    top: 10;
+		    left: 30px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+
+ 		}
+ 		.writereCom:before {
+
+     	    content: "";
+		    position: absolute;
+		    display: inline-block;
+		    top: 0;
+		    left: 30px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+
+ 	}
 	
 		
 	</style>
@@ -178,15 +206,19 @@ function getCommentList() {
 			console.log("data: "+data);
 			
 			$.each(data, function(index, element) {
+				let depthCss = "";
+				if(this.depth == 1) {
+					depthCss = "padding-left:45px";
+				}
 
 				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
 				if(element.depth==1){
-					html += "<div style='background-color:gold'>";
+					html += "<div class='reCom' style='position:relative; padding: 15px 0;"+depthCss+"'>";
 				}else{
 					html += "<div>";
 				};
 				//html += "<form action='commentDelete.bit' method='POST'>";
-				html += "<div class='d-flex justify-content-between'><div id='commentUserid'><b>";
+				html += "<div class='d-flex justify-content-between'style='background-color: #F1F1F1; padding: 0 0 0 10px;'><div id='commentUserid'><b>";
 				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
@@ -324,22 +356,31 @@ function deleteComment(bcindex) {
 
 //대댓글 창 열기 
 function openReComment(bcindex, userid, refer) {
-			
+
+		
+	
 		let html = "";
 		let content = "";
 		console.log("refer" + refer);
+
+		let depthCss = "";
+		if(this.depth == 1) {
+			depthCss = "padding-left:45px";
+		}
+		
 		//로그인 유저 본인의 댓글이 아닐 때 해당 댓글쓴 아이디값을 '@아이디'형태로 인풋창에 불러옴
 		if(userid!='${sessionScope.user.userid}'){
 			content='@'+userid+' '; 
 			console.log('우와와');
 		} 
-		
+		html += '<div class="writereCom" style="position:relative; top:10px; padding-left:45px">';
 		html += '<form name="reCommentBox" id ="reCommentBox" method="POST">';
 		html +=	'<input type="hidden" id="refer" value="'+refer+'">';
 		html +=	'<input type="hidden" id="bcindex" value="'+bcindex+'">';
-		html +=	'<textarea rows="3" cols="" id="content" name="content" placeholder="대댓글을 입력해 주세요" style="width: 100%">'+content+'</textarea><br>';
+		html +=	'<textarea rows="3" cols="" id="content" name="content" placeholder="대댓글을 입력해 주세요" style="width: 100%; '+depthCss+'">'+content+'</textarea><br>';
 		html +=	'<input type="button" class="" value="대댓글 등록" id="writeRecom">';
 		html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+		html += '</div>';
 		
 		$('#editForm'+bcindex+'').append(html);
 		

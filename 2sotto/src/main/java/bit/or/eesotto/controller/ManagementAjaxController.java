@@ -141,6 +141,8 @@ public class ManagementAjaxController {
 	@RequestMapping("updateSchedule.bit")
 	public int updateSchedule(Schedule schedule) {
 		
+		System.out.println("올데이: "+ schedule.getAllDay());
+		
 		int result = 0;
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
@@ -160,6 +162,12 @@ public class ManagementAjaxController {
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
 			result = dao.deleteSchedule(sindex);
+			
+			if(result==1) {
+				logger.info(sindex+"번 일정 삭제 성공");
+			}else {
+				logger.info(sindex+"번 일정 삭제 실패");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

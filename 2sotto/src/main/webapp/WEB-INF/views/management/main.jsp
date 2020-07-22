@@ -792,22 +792,24 @@ $(function() {
 					data: DBdata,
 					dataType: "JSON",
 					url: "insertSchedule.bit",
+					async: false, //eventData객체에 DB에서 가져온 sindex값을 넣기 위해서 동기식 처리 옵션 지정
 					success: function(data) {
 						console.log(data); //result값인 0(실패) 또는 1(성공) 출력
 						swal('등록');
 						eventData.sindex=data;
+						
 					},
 					error: function(e) {
 						console.log("insert에러: "+e);
 					}
 				});
-
+				console.log('이벤트데이터객체: '+JSON.stringify(eventData));
 				// 이벤트 추가
 				calendar.addEvent(eventData);
 				calendar.render();
 				
 			}); // /.저장하기
-			
+			 
 			
 		},
 		eventClick: function(event, jsEvent, view) { //일정을 클릭하면 수정창이 나와 처리하는 메서드
@@ -817,54 +819,25 @@ $(function() {
 		eventDragStart: function (event, jsEvent, ui, view) {
 			    draggedEventIsAllDay = event.el.fcSeg.eventRange.def.allDay;
 		},
-		//일정 드래그앤드롭
+		//일정 드래그앤드롭으로 변경하는 메서드
 		eventDrop: function (event) {
-
-			console.log(event);
-		    
-		    //주,일 view일때 종일 <-> 시간 변경불가
- 		     if (event.view.type === 'timeGridWeek' || event.view.type === 'timeGridDay') { 
-		      	if (draggedEventIsAllDay !== event.event.allDay) {
+			//주,일 view일때 종일 <-> 시간 변경불가
+			 if (event.view.type === 'timeGridWeek' || event.view.type === 'timeGridDay') { 
+		     	if (draggedEventIsAllDay !== event.event.allDay) {
 			        alert('드래그앤드롭으로 종일<->시간 변경은 불가합니다.');
 			        location.reload();  //임시로 리로드로 예외처리
 		        	return false;
 		        }
-		    }
-	
-	     // 드랍시 수정된 날짜반영
-		 //var newDates = calDateWhenDragnDrop(event);  //퍼올 커스텀 함수인데 우선 보류
-		  var sindex = event.event.extendedProps.sindex;
-		  var newStart = event.event.start;
-		  var newEnd = event.event.end;
-		  console.log('뉴스타트: '+ newStart); 
-		  console.log('뉴엔드: '+ newEnd);
-		  
-	
-
-	
-		    //드롭한 일정 업데이트
-		   	$.ajax({
-				type: "post",
-				data: {
-					sindex: sindex,
-					start: moment(newStart).format('YYYY-MM-DD HH:mm:ss'),
-					end: moment(newEnd).format('YYYY-MM-DD HH:mm:ss'),
-				},
-				dataType: "JSON",
-				url: "dndUpdateSchedule.bit",
-				success: function(response) {
-						console.log(response);
-					},
-				error: function(e) {
-						console.log("update error: "+e);
-					}
-		
-			});
-	
+		     }
+			
+			dndResize(event);		
+		},
+		eventResize(event){
+			dndResize(event);
 		}
 		
 	});
-		calendar.render();
+		calendar.render(); //init
 }
 
 	
@@ -994,6 +967,7 @@ $(function() {
 					},
 					dataType: "JSON",
 					url: "updateSchedule.bit",
+					async: false,
 					success: function(response) {
 							console.log(response);
 						},
@@ -1020,6 +994,7 @@ $(function() {
 					},
 					dataType: "JSON",
 					url: "deleteSchedule.bit",
+					async: false,
 					success: function(response) {
 							console.log(response);
 						},
@@ -1031,6 +1006,41 @@ $(function() {
 
 			});
 
+	}
+	
+	//재사용을 위해 모듈화
+	function dndResize(event){
+		console.log(event);
+	    
+	     // 드랍시 수정된 날짜반영
+		 //var newDates = calDateWhenDragnDrop(event);  //퍼올 커스텀 함수인데 우선 보류
+		  var sindex = event.event.extendedProps.sindex;
+		  var newStart = event.event.start;
+		  var newEnd = event.event.end;
+		  console.log('뉴스타트: '+ newStart); 
+		  console.log('뉴엔드: '+ newEnd);
+		  
+	
+		  //드롭한 일정 업데이트
+		  $.ajax({
+				type: "post",
+				data: {
+					sindex: sindex,
+					start: moment(newStart).format('YYYY-MM-DD HH:mm:ss'),
+					end: moment(newEnd).format('YYYY-MM-DD HH:mm:ss'),
+				},
+				dataType: "JSON",
+				url: "dndUpdateSchedule.bit",
+				success: function(response) {
+						console.log(response);
+					},
+				error: function(e) {
+						console.log("update error: "+e);
+					}
+		
+			});
+		   	calendar.render();
+		
 	}
 	
 	

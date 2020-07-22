@@ -548,7 +548,7 @@
 			<div class="modal-content"
 				style="width: auto; height: 800px; display: table;">
 				<div class="modal-header justify-content-center">
-					<h2>내 근처 동물 병원 찾기</h2>
+					<h3>내 근처 동물 병원 찾기</h3>
 				</div>
 				<div class="map_wrap">
 
@@ -594,8 +594,6 @@
 <script
 	src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
 
-<!-- SweetAlert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
 <script>

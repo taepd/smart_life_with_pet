@@ -74,6 +74,25 @@ public class MypageService {
 		
 	}
 	
+	// 닉네임 중복체크
+	public List<String> nickCheck(String nick) {
+
+		/*
+		List<String> list = null;
+
+		try {
+
+			userDao = sqlsession.getMapper(UserDao.class);
+			list = userDao.getNick(nick);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		*/
+
+		return userDao.getNick(nick);
+	}
+	
 	
 	
 	

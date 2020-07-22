@@ -10,6 +10,10 @@
     <%@ include file="/WEB-INF/include/import.jsp"%>
     
     <style type="text/css">
+    
+    	* {
+    		box-sizing: border-box;
+    	}
     	.img {
     		height: 100%;
     		width: 100%;
@@ -34,17 +38,48 @@
     	
 		.h3-korean {
 			/* font-family: 'Sunflower', sans-serif; */
-			font-family: 'Poor Story', cursive;
+			/* font-family: 'Poor Story', cursive; */
+			font-family : 'netmarbleM', sans-serif;
 			margin-left: 0;
+			margin-top: 0;
+			margin-bottom: 30px;
 			color: #9c27b0;
+			font-size: 1.8rem;
+			
 		}
 		
 		#result {
-			border: 1px solid #EAEAEA;
+			/* border: 1px solid #EAEAEA; */
 		}
 		
 		.row {
 			margin-bottom: 20px;
+		}
+		
+		/* body {
+			background-color: #fafafa;
+		} */
+		
+		.main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 40px;
+			border-radius: 6px;	
+		}
+		
+		#myPetNameAndSchedule {
+			position: absolute;
+			top: 111px;
+			left: 300px;
+		}
+		
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('./assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+		
+		#myPetInfo {
+			margin-bottom: 30px;
 		}
     	
     </style>
@@ -57,100 +92,121 @@
     <div class="container">
     	<div class="side_overlay"> 
     		<div class="row">
-				<div class="col-3">
-					<h3 class="h3-korean">나의 반려동물</h3>
-					<div id="myPetImage"></div>
-				</div>
-				<div class="col-3"> 
-					<h3 class="h3-korean" style="color: #FFFFFF">나의 반려동물</h3>
-					<select class="custom-select" id="myPetInfo">
-						<option disabled selected>=====선택=====</option>
-						<c:forEach var="pet" items="${petList}" varStatus="status">
-							<c:choose>
-								<c:when test="${status.index eq 0}">
-									<option selected>${pet.petname}</option>
-								</c:when>
-								<c:otherwise>
-									<option>${pet.petname}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					
-					</select>					
-					<div id="myPetSchedule"></div>
+				<div class="col-6">
+					<div class="main-card" style="position: relative; height: 379px;">
+						<h3 class="h3-korean">나의 반려동물</h3>
+						<c:set value="${petList}" var="pet"/>
+						<c:choose>
+							<c:when test="${pet == null}">
+								나의 반려동물을 등록해보세요.
+							</c:when>
+							<c:otherwise>
+						<div id="myPetImage"></div>
+						<div id="myPetNameAndSchedule">
+							<select class="custom-select" id="myPetInfo">
+								<!-- <option disabled selected>=====선택=====</option> -->
+								<c:forEach var="pet" items="${pet}" varStatus="status">
+									<c:choose>
+										<c:when test="${status.index eq 0}">
+											<option selected>${pet.petname}</option>
+										</c:when>
+										<c:otherwise>
+											<option>${pet.petname}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						<div id="myPetSchedule"></div>
+						</div>
+						</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 				<!-- 산책 API 영역 -->
 	        	<div class="col-6">
-	        		<h3 class="h3-korean">오늘의 산책지수</h3>
-              		<div id="result"></div>
+	        		<div class="main-card" style="height: 379px;">
+		        		<h3 class="h3-korean">오늘의 산책지수</h3>
+	              		<div id="result"></div>
+              		</div>
 	        	</div>
 	        	<!-- /.산책 API 영역 -->
 	        </div>
 	        <div class="row">
 	        	<div class="col-12">
-	        		<h3 class="h3-korean">팔로우하는 동물</h3>
-	        		<div>
-	        			<c:set value="${petLikeList}" var="likeList"/>
-						<c:choose>
-							<c:when test="${likeList == null}">
-								팔로우하는 동물이 없어요.							
-							</c:when>
-							<c:otherwise>
-				        		<c:forEach items="${likeList}" var="like">
-				        			<div class="follow-img-wrapper">
-					        			<a href="#">
-					        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
-			 		        					rel="nofollow" alt="${like.petname}">
-			 		        			</a>
-				        			</div>
-				        		</c:forEach>
-							</c:otherwise>
-						</c:choose>	        			
+	        		<div class=" main-card">
+		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
+		        		<div>
+		        			<c:set value="${petLikeList}" var="likeList"/>
+							<c:choose>
+								<c:when test="${likeList == null}">
+									팔로우하는 동물이 없어요. 찾으러 가볼까요?						
+								</c:when>
+								<c:otherwise>
+					        		<c:forEach items="${likeList}" var="like">
+					        			<div class="follow-img-wrapper">
+						        			<a href="#">
+						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
+				 		        					rel="nofollow" alt="${like.petname}">
+				 		        			</a>
+					        			</div>
+					        		</c:forEach>
+								</c:otherwise>
+							</c:choose>	        			
+		        		</div>
 	        		</div>
 	        	</div>
 	        </div>
-	        <div class="row">
-	        	<div class="col-12">
-	        		<h3 class="h3-korean">이번주의 인기글</h3>
+	        
+	        <!-- <div class="row">
+	        	<div class="col-12 main-card">
+				</div>
+			</div> -->
+			
+			<div class="row">
+				<div class="col-12">
+				<div class="main-card">
+		        	<h3 class="h3-korean">이번주의 인기글</h3>
+						<c:forEach var="post" items="${postList}" varStatus="status">
+							<div class="card col-4">
+				        		<div class="card-body text-center">
+								<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+				        					style="width:200px;height:200px" alt="card image">
+				        					<hr>
+											<strong>${post.title}</strong>
+											<br>
+											<span id="content${status.index}">${post.content}</span>
+								</a>
+								</div>
+							</div>
+						</c:forEach>
+				</div>
 				</div>
 			</div>
 			
-			<div class="row">
-			<c:forEach var="post" items="${postList}" varStatus="status">
-				<div class="card col-4">
-	        		<div class="card-body text-center">
-					<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-	        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-	        					style="width:200px;height:200px" alt="card image">
-	        					<hr>
-								<strong>${post.title}</strong>
-								<br>
-								<span id="content${status.index}">${post.content}</span>
-					</a>
-					</div>
-				</div>
-			</c:forEach>
-			</div>
-			
-			<div class="row">
+			<!-- <div class="row">
 	        	<div class="col-12">
-	        		<h3 class="h3-korean">도움이 필요해요</h3>
 	        	</div>
-	        </div>
+	        </div> -->
 	        
 	       	<div class="row">
-			<c:forEach var="donation" items="${donationList}" varStatus="status">
-				<div class="card col-4">
-	        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-	        					style="width:200px;height:200px" alt="card image">
-	        		<div class="card-body">
-						<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-								<strong>${donation.title}</strong>
-								<span id="content${status.index}">${donation.content}</span>
-						</a>
+	       		<div class="col-12">
+		       		<div class="main-card">
+		        		<h3 class="h3-korean">도움이 필요해요</h3>
+						<c:forEach var="donation" items="${donationList}" varStatus="status">
+							<div class="card col-4">
+				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+				        					style="width:200px;height:200px" alt="card image">
+				        		<div class="card-body">
+									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+											<strong>${donation.title}</strong>
+											<span id="content${status.index}">${donation.content}</span>
+									</a>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
-			</c:forEach>
 			</div>
 			
 			
@@ -197,30 +253,37 @@
 			let day = today.getDay();  // 요일
 			
 			let Cday = year + '년 ' + month + '월 ' + date + '일';
-	
-			
+
 			var table = "<table>";
 				table += "<tr align='center'>";
-					table += "<td colspan='2'>" + arr[0]+" "+arr[1]+" "+arr[2] + "</td>";
-					table += "<td>"+Cday+"</td>";
-					table += "<td>산책지수</td>";
-					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
-				table += "</tr>";
-				table += "<tr align='center'>";
-					table += "<td colspan='2' rowspan='3'><img id='walk' src='' alt='Weather icon' width='110'></td>";
-					table += "<td colspan='2' rowspan='3'><span id='talk'></span></td>";
+				 	/* 날짜 */
+					table += "<td colspan='2' style='padding-top: 16px;'>"+Cday+"</td>";
+					/* 기상 아이콘 */
 					table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
-					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
+					/* 지역 */
+					table += "<td colspan='2' style='padding-top: 16px;'>" + arr[0]+" "+arr[1]+" "+arr[2] + "</td>";
+					/* 기온 */
+					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
 				table += "</tr>";
 				table += "<tr align='center'>";
+					/* 얼굴 아이콘 */
+					table += "<td rowspan='2'><img id='walk' src='' alt='Weather icon' width='110'></td>";
+					/* 한글 메시지 */
+					table += "<td rowspan='2' style='padding-top: 42px;'><span id='talk'></span></td>";
+					/* 풍속 */
+					table += "<td style='padding-top: 16px; padding-bottom: 16px;'><img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
+				table += "</tr>";
+				table += "<tr align='center'>";
+					/* 습도 */
 					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
 				table += "</tr>";
 			table += "</table>";
 	        $('#result').empty();
 	        $('#result').append(table);
 	        $('table').addClass('table');
+	        $('table').css('margin-bottom', '0');
 	        var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다.
 	        console.log(iconcode);
 	        
@@ -349,7 +412,7 @@
 	        {
 
 	        	case "01d" :
-	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	 $('#talk').html("<p>산책하기 좋아요!<br>오늘을 놓치지 마세요</p>");
 	            break;
 	
 	          	case "02d" :
@@ -361,7 +424,7 @@
 	 	            break;
 	
 	         	case "04d" :
-	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	 $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	            break;
 	 
 	            case "01n" :
@@ -381,7 +444,7 @@
 	             break;
 	
 	          	default :
-	        	  $('#talk').html("<p>오늘은 반려동물과 </p><p>실내에서 좋은 시간 보내세요!</p>");
+	        	  $('#talk').html("오늘은  실내에서 <br> 좋은 시간 보내세요!");
 	        };
   
 			/* 이미지 올려주는 코드
@@ -467,7 +530,7 @@
 
     				$('#myPetSchedule').empty().append(info);
     				$('#myPetImage').empty().append(imageSrc);
-    				console.log("SRC: "+imageSrc);
+    				//console.log("SRC: "+imageSrc);
 
     			}
     		});

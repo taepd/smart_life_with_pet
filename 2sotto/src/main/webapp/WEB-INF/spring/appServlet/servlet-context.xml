@@ -30,6 +30,38 @@
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO" class="bit.or.eesotto.controller.NaverLoginBO" />
 	
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅-->
+	<!-- 
+	<beans:bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<beans:constructor-arg value="235868660365-q3sv4tkavmc2jos6ub2qtejg1o5of2a3.apps.googleusercontent.com" />
+		<beans:constructor-arg value="MqAeHeUS9PI1CjSPmGhoMXVE" />
+	</beans:bean>
+	-->
+	 <!-- Google 소셜 로그인 연결 설정 -->
+    <beans:bean id="googleOAuth2Template"
+        class="org.springframework.social.google.connect.GoogleOAuth2Template">
+        <beans:constructor-arg
+            value="235868660365-q3sv4tkavmc2jos6ub2qtejg1o5of2a3.apps.googleusercontent.com" />
+        <beans:constructor-arg value="MqAeHeUS9PI1CjSPmGhoMXVE" />
+    </beans:bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		 
+		 <!-- <beans:property name="scope" value="https://www.googleapis.com/auth/plus.login" /> -->
+		<beans:property name="scope" value="email" />
+		 <beans:property name="redirectUri" value="http://localhost:8090/bit/login/oauth2callback.bit" />  <!-- callback을 동일하게 해준다. -->
+	    <!-- 서비스계정을 추가해준다. -->
+	     <!--  <beans:property name="redirectUri" value="http://localhost:8090/login_project2/oauth2callback" /> -->
+	</beans:bean>
+	<beans:bean id="authInfo" class="bit.or.eesotto.dto.AuthInfo">
+        <beans:constructor-arg
+            value="235868660365-q3sv4tkavmc2jos6ub2qtejg1o5of2a3.apps.googleusercontent.com" />
+        <beans:constructor-arg value="MqAeHeUS9PI1CjSPmGhoMXVE" />
+ 
+    </beans:bean>
+	
 	
 
 	     

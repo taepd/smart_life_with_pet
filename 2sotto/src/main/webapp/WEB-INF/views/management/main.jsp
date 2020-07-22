@@ -1187,12 +1187,13 @@ function removeAllChildNods(el) {
 function moveTab(){
 		if(${param.tab eq 'mrecord'}){
 			$("#mrecordTab").trigger("click");
-		}
+		}else if(${param.tab eq 'myPets'}){
+			$("#myPetsTab").trigger("click");
 		//탭 위치 수정하고 활성화 하기
 		/* else if(${param.tab eq 'myPets'}){
 			document.getElementById("myPetsTab")[0].click(); //위와 같은 기능의 js문법
 		} */
+	}
 }
-
 </script>
 </html>

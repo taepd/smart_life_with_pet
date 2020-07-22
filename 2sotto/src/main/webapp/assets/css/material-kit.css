@@ -2366,7 +2366,7 @@ pre code {
 
 .form-control:disabled,
 .form-control[readonly] {
-  background-color: #e9ecef;
+  background-color: #ffffff; /* modified by CH */
   opacity: 1;
 }
 
@@ -11591,7 +11591,8 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 }
 
 body {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: #fafafa; /* modified by CH / 여기 바꿨더니 body 바뀜 */
   color: #000000;
   font-weight: 300;
 }
@@ -14659,8 +14660,10 @@ textarea {
   padding: 0.85rem 0;
   /* margin-bottom: 100px; */
   color: #555;
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255,255,255,0.8) !important;
+  border-bottom: 1px solid #EDEDED;
+  /* box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15); */
+  /* modified by CH */
 }
 
 .navbar .dropdown-item:hover,
@@ -14905,7 +14908,7 @@ textarea {
 .navbar.navbar-transparent {
   /* background-color: transparent !important; */
   box-shadow: none;
-  padding-top: 25px;
+  padding-top: 13.6px;
   color: #ffffff;
 }
 

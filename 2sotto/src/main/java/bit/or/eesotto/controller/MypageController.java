@@ -40,7 +40,17 @@ public class MypageController {
 	
 	// 마이페이지 view
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String mainView() {
+	public String mainView(Principal principal, Model model) {
+		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: "+userid);
+		
+		List<Pet> petList = ms.getPetInfo(userid);
+		model.addAttribute(petList);
+		
+		User user = ms.getUserInfo(userid);
+		model.addAttribute(user);
+		
 		return "mypage/main";
 	}
 
@@ -68,6 +78,7 @@ public class MypageController {
 		}
 	}
 	
+	/*
 	// 마이페이지 > 수정 처리
 	@RequestMapping(value = "edit.bit", method = RequestMethod.POST)
 	public String editUser(Principal principal, String crntPwd, String pwd, Model model) {
@@ -103,6 +114,10 @@ public class MypageController {
 		return "redirect";	
 		
 	}	
+	*/
+	
+	
+	
 
 	// 마이페이지 > 비밀번호 변경 view
 	@RequestMapping(value = "editPwd.bit", method = RequestMethod.GET)

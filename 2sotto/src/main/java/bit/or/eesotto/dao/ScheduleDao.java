@@ -28,7 +28,7 @@ public interface ScheduleDao {
 	public List<Schedule> getSchedule(@Param("userid") String userid);
 	
 	//일정 업데이트
-	@Update("update schedule set title=#{title}, content=#{content}, is_complete=#{is_complete}, "
+	@Update("update schedule set petindex=#{petindex},title=#{title}, content=#{content}, is_complete=#{is_complete}, "
 			+ "start=#{start}, end=#{end}, allDay=#{allDay}, daysofweek=#{daysofweek}, adncdnoti=#{adncdnoti}, color=#{color} "
 			+ "where sindex=#{sindex}")
 	public int updateSchedule(Schedule schedule);

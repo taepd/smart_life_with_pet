@@ -132,6 +132,8 @@
 			<version>2.8.1</version>
 		</dependency>
 		<!-- naver -->
+		
+		
 		<!-- 제이슨 파싱 -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -139,7 +141,56 @@
 			<version>1.1.1</version>
 		</dependency>
 		<!-- 제이슨 파싱 -->
-
+		<!--  google 시작 -->
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-google</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.9.8</version>
+     	 </dependency>
+      	<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+      	<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<!--  google 끝 -->
+		<!--  Facebook 시작 -->
+		<dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+		<!--  Facebook 끝 -->
+		<!-- velocity 시작 -->
+		<dependency> 
+			<groupId>org.apache.velocity</groupId> 
+			<artifactId>velocity</artifactId> 
+			<version>1.7</version> 
+		</dependency>
+		<!-- velocity 끝-->
+		<!-- mail 인증을  위한 설정 시작-->
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.5.RELEASE</version>
+		</dependency>
+        <!-- mail 인증을  위한 설정 시작-->
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

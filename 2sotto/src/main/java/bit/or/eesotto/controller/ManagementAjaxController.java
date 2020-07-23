@@ -111,11 +111,12 @@ public class ManagementAjaxController {
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
 			result = dao.newSchedule(schedule);
+			System.out.println("이게 된다구?"+schedule.getSindex());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return result;
+
+		return schedule.getSindex();
 	}
 	
 	// 전체 일정 불러오기
@@ -141,15 +142,37 @@ public class ManagementAjaxController {
 	@RequestMapping("updateSchedule.bit")
 	public int updateSchedule(Schedule schedule) {
 		
+		System.out.println("올데이: "+ schedule.getAllDay());
+		
 		int result = 0;
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
 			result = dao.updateSchedule(schedule);
+			System.out.println("뤼줠트"+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	// 드래그 앤 드롭 일정 업데이트
+	@RequestMapping("dndUpdateSchedule.bit")
+	public int dndUpdateSchedule(Schedule schedule) {
+		
+		System.out.println("올데이: "+ schedule.getAllDay());
+		
+		int result = 0;
+		try {
+			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
+			result = dao.dndUpdateSchedule(schedule);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	
+	
 	
 	// 일정 삭제하기
 	@RequestMapping("deleteSchedule.bit")
@@ -160,6 +183,12 @@ public class ManagementAjaxController {
 		try {
 			ScheduleDao dao = sqlsession.getMapper(ScheduleDao.class);
 			result = dao.deleteSchedule(sindex);
+			
+			if(result==1) {
+				logger.info(sindex+"번 일정 삭제 성공");
+			}else {
+				logger.info(sindex+"번 일정 삭제 실패");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

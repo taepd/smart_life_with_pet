@@ -3,27 +3,53 @@ package bit.or.eesotto.controller;
 import java.io.*;
 import java.util.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.*;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.authority.*;
 import org.springframework.security.core.context.*;
 
 import org.springframework.security.web.context.*;
+import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.UserOperations;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.google.connect.GoogleOAuth2Template;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.*;
 
+import bit.or.eesotto.dto.AuthInfo;
+import bit.or.eesotto.dto.FacebookInfo;
 import bit.or.eesotto.dto.User;
 import bit.or.eesotto.service.*;
-
 
 
 
@@ -35,6 +61,32 @@ public class LoginController {
 
 	@Autowired
 	private LoginService ls;
+	
+	//구글 작업중 시작
+	@Inject
+	private AuthInfo authInfo;
+	//구글 작업중 끝
+
+	
+	/* GoogleLogin 시작*/
+	//@Autowired
+	//private GoogleConnectionFactory googleConnectionFactory;
+	//@Autowired
+	//private OAuth2Parameters googleOAuth2Parameters;
+	/* GoogleLogin 끝*/
+	//구글 테스트 시작
+    @Autowired
+    private GoogleOAuth2Template googleOAuth2Template;
+    
+    @Autowired
+    private OAuth2Parameters googleOAuth2Parameters;
+	//구글 테스트  끝 
+    // 페이스북 oAuth 관련 시작
+    @Autowired
+    private FacebookConnectionFactory connectionFactory;
+    @Autowired
+    private OAuth2Parameters oAuth2Parameters;
+    // 페이스북 oAuth 관련 끝
 	
 //	@Autowired
 //	BCryptPasswordEncoder pwEncoder;
@@ -59,14 +111,31 @@ public class LoginController {
 	public String login(Model model, HttpSession session) {
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		String naver_url = naverLoginBO.getAuthorizationUrl(session);
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-				logger.info("네이버:" + naverAuthUrl);	
+		//페이스북URL을 생성한다 시작.
+		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+		//페이스북URL을 생성한다 시작.
+		//구글URL을 생성한다 시작.
+		String googleUrl = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);        
+		//OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		//String googleUrl = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		logger.info("구글:" + googleUrl);
+		model.addAttribute("google_url", googleUrl);
+		//model.addAttribute("google_url", url);
+		 //구글URL을 생성한다 끝.
+				logger.info("네이버:" + naver_url);	
 				//네이버
 				
-				model.addAttribute("url", naverAuthUrl);
-				logger.info("url:" + naverAuthUrl);
+				model.addAttribute("naver_url", naver_url);
+				logger.info("url:" + naver_url);
+				//페이스북 시작
+				model.addAttribute("facebook_url", facebook_url);
+		        System.out.println("/facebook" + facebook_url);
+				//페이스북 끝
+				
 		return "login/loginForm";
 	}
 	
@@ -141,8 +210,204 @@ public class LoginController {
 	return "login/naverSuccess";
 
 	}
+	
+	// 구글 Callback호출 메소드 시작callback.bit /oauth2callback.bit
+	///oauth2callback
+	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String doSessionAssignActionPage(Model model, HttpSession session, HttpServletRequest request) throws Exception {
+		logger.info("여기는 googleCallback");
+		String code = request.getParameter("code");
+		logger.info("code 확인" + code);
+		
+		//RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
+		RestTemplate restTemplate = new RestTemplate();
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("code", code);
+        parameters.add("client_id", authInfo.getClientId());
+        parameters.add("client_secret", authInfo.getClientSecret());
+        parameters.add("redirect_uri", googleOAuth2Parameters.getRedirectUri());
+        parameters.add("grant_type", "authorization_code");		
+        logger.info("parameters" + parameters);
+        
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+        ResponseEntity<Map> responseEntity = restTemplate.exchange("https://www.googleapis.com/oauth2/v4/token", HttpMethod.POST, requestEntity, Map.class);
+        Map<String, Object> responseMap = responseEntity.getBody();
+        
+        // id_token 라는 키에 사용자가 정보가 존재한다.
+        // 받아온 결과는 JWT (Json Web Token) 형식으로 받아온다. 콤마 단위로 끊어서 첫 번째는 현 토큰에 대한 메타 정보, 두 번째는 우리가 필요한 내용이 존재한다.
+        // 세번째 부분에는 위변조를 방지하기 위한 특정 알고리즘으로 암호화되어 사이닝에 사용한다.
+        //Base 64로 인코딩 되어 있으므로 디코딩한다.
+        
+        String[] tokens = ((String)responseMap.get("id_token")).split("\\.");
+        Base64 base64 = new Base64(true);
+        String body = new String(base64.decode(tokens[1]));
+       
+        System.out.println(tokens.length);
+        System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
+        System.out.println(new String(Base64.decodeBase64(tokens[1]), "utf-8"));
+        
+        //Jackson을 사용한 JSON을 자바 Map 형식으로 변환
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> result = mapper.readValue(body, Map.class);
+        System.out.println(result);
+        System.out.println("너는 어디에 찍히는값인가: "+result.get(""));
+        
+		String email = (String) result.get("email");
+        
+		//return "login/naverSuccess"; 여기까지가 성공
+        
+        if(ls.normalLogin(email)==null) {
+			logger.info("가입안한 아이디면 여기로");
+			
+			model.addAttribute("sns_id", email);  //회원가입 시 id로 활용
+			model.addAttribute("snstype", "google"); //snstype 파악을 위해
+			return "join/SNSJoinForm";  //나중에 redirect화 하자
+		}
+		
 
+		//스프링 시큐리티 수동 로그인을 위한 작업//
+			//로그인 세션에 들어갈 권한을 설정
+					List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+					list.add(new SimpleGrantedAuthority("ROLE_USER"));
+		
+					SecurityContext sc = SecurityContextHolder.getContext();
+			//아이디, 패스워드, 권한을 설정. 아이디는 Object단위로 넣어도 무방하며
+			//패스워드는 null로 하여도 값이 생성.
+					sc.setAuthentication(new UsernamePasswordAuthenticationToken(email, null, list));
+					session = request.getSession(true);
+		
+			//위에서 설정한 값을 Spring security에서 사용할 수 있도록 세션에 설정
+					session.setAttribute(HttpSessionSecurityContextRepository.
+			                       SPRING_SECURITY_CONTEXT_KEY, sc);
+		//스프링 시큐리티 수동 로그인을 위한 작업 끝//
+		
+		//로그인 유저 정보 가져와서 세션객체에 저장  
+		    User user = ls.normalLogin(email);
+		    logger.info("유저네임: "+user.getUserid());      	   
+		   
+		    session = request.getSession();
+		    session.setAttribute("user", user);
+		//로그인 유저 정보 가져와서 세션객체에 저장 끝//		
+			
+		return "login/naverSuccess";
+		
+		}
 
+	// 구글 Callback호출 메소드 끝
+	
+	//구글 콜백 시작
+	/*
+	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String googleCallback(HttpServletRequest request) throws Exception {
+ 
+        String code = request.getParameter("code");
+        System.out.println(code);
+        
+        return "login/naverSuccess";
+ 	
+    }
+	*/
+	//구글 콜백 끝
+
+	//페이스북 콜백 시작
+	@RequestMapping(value = "/facebookSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String facebookSignInCallback(@RequestParam String code,Model model, HttpSession session, HttpServletRequest request) throws Exception {
+		logger.info("여기까지는 들어와있나요???");
+        try {
+             String redirectUri = oAuth2Parameters.getRedirectUri();
+            System.out.println("Redirect URI : " + redirectUri);
+            System.out.println("Code : " + code);
+ 
+            OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+            AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, redirectUri, null);
+            String accessToken = accessGrant.getAccessToken();
+            System.out.println("AccessToken: " + accessToken);
+            Long expireTime = accessGrant.getExpireTime();
+            
+       
+            
+            if (expireTime != null && expireTime < System.currentTimeMillis()) {
+                accessToken = accessGrant.getRefreshToken();
+                logger.info("accessToken is expired. refresh token = {}", accessToken);
+            };
+            
+          
+            Connection<Facebook> connection = connectionFactory.createConnection(accessGrant);
+            Facebook facebook = connection == null ? new FacebookTemplate(accessToken) : connection.getApi();
+            UserOperations userOperations = facebook.userOperations();
+            System.out.println("1번타니?"+ connection);
+            System.out.println("2번 타니?"+ userOperations);
+           
+            String [] fields = { "email", "id",  "name"};
+            FacebookInfo userProfile = facebook.fetchObject("me", FacebookInfo.class, fields);
+            String id = (String) userProfile.getId();
+            System.out.println("유저 id : " + userProfile.getId());
+           
+            if(ls.normalLogin(id)==null) {
+    			logger.info("가입안한 아이디면 여기로");
+    			
+    			//model.addAttribute("sns_id", email);  //회원가입 시 id로 활용
+    			model.addAttribute("snstype", id); //snstype 파악을 위해
+    			return "join/joinForm";  //나중에 redirect화 하자
+    		}
+    		
+
+    		//스프링 시큐리티 수동 로그인을 위한 작업//
+			//로그인 세션에 들어갈 권한을 설정
+					List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+					list.add(new SimpleGrantedAuthority("ROLE_USER"));
+		
+					SecurityContext sc = SecurityContextHolder.getContext();
+			//아이디, 패스워드, 권한을 설정. 아이디는 Object단위로 넣어도 무방하며
+			//패스워드는 null로 하여도 값이 생성.
+					sc.setAuthentication(new UsernamePasswordAuthenticationToken(id, null, list));
+					session = request.getSession(true);
+		
+			//위에서 설정한 값을 Spring security에서 사용할 수 있도록 세션에 설정
+					session.setAttribute(HttpSessionSecurityContextRepository.
+			                       SPRING_SECURITY_CONTEXT_KEY, sc);
+		//스프링 시큐리티 수동 로그인을 위한 작업 끝//
+		
+		//로그인 유저 정보 가져와서 세션객체에 저장  
+		    User user = ls.normalLogin(id);
+		    logger.info("유저네임: "+user.getUserid());      	   
+		   
+		    session = request.getSession();
+		    session.setAttribute("user", user);
+    		//로그인 유저 정보 가져와서 세션객체에 저장 끝//
+            
+            
+            
+            //try
+ 
+           // {            
+               //String [] fields = { "email", "id",  "name"};
+               //FacebookInfo userProfile = facebook.fetchObject("me", FacebookInfo.class, fields);
+               //System.out.println("유저이메일 : " + userProfile.getEmail());
+               //System.out.println("유저 id : " + userProfile.getId());
+               //System.out.println("유저 name : " + userProfile.getName());
+                
+          //  } catch (MissingAuthorizationException e) {
+          //      e.printStackTrace();
+          //  }
+
+        
+        } catch (Exception e) {
+ 
+           e.printStackTrace();
+        
+        }
+        return "login/naverSuccess";
+            
+    }
+
+	//페이스북 콜백 끝
+	
+	
+	
 	//로그아웃
 	@RequestMapping(value = "logout.bit", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session) throws IOException {

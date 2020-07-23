@@ -55,7 +55,7 @@ public interface PetDao {
 		public List<String> getSimplePetInfo(@Param("userid") String userid);
 		
 		// 반려동물 사진만 가져오기
-		@Select("select petname, petimg from pet where userid = #{userid}")
+		@Select("select petindex, petname, petimg from pet where userid = #{userid}")
 		public List<Pet> getPetPicture(@Param("userid") String userid);
 
 

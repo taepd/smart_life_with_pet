@@ -456,6 +456,10 @@
     }); // /.getJSON
 
 
+   //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
+   // 날씨 API 끝
+    
+
     // moment.js 한글 변경
     moment.locale('ko');
 	//getMyPetName(); 동기화로 전환해서 사용 안함
@@ -475,6 +479,8 @@
     console.log("로그인한 유저 아이디: "+'${sessionScope.user.userid}');
  }); 
 
+ 
+ 
 
  	///////////////////////////////////////////////////////////이하 함수 영역///////////////////////////////////////////////////////////////////
 
@@ -509,28 +515,39 @@
     			},
     			async:false,
     			success: function(response) {
-					  				
-	    				var info = "";
-	    				var image = "";
+				    if(response!=""){ //일정이 하나라도 등록됐다면
+	    				var info="";
+	    				var image;
 	    				var now = moment().format("YYYY-MM-DD HH:mm:ss");
 	
 	    				//참고: https://stackoverrun.com/ko/q/9770534
-	
-	    				var image;
 	    				
 	    				$.each(response, function(index, element) {
 	    					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
 	    					image = element.petimg;
 	    					petindex = element.petindex;
-	    					console.log('이미지: '+image);
+	    					
 	        			});
-					
+				    }else{ //일정이 하나도 없다면
+				    	//console.log('${petList[0]}');
+				    	<c:forEach items="${petList}" var="pet">  
+				    		if(whichOne =='${pet.petname}'){
+						    	image = '${pet.petimg}';
+						    	petindex = '${pet.petindex}';
+				    		}
+				    	</c:forEach>
+					        info = `<p class="text-center">다가올 일정이 없습니다.</p>
+					        		<button class="btn btn-outline-primary btn-round" >
+					        	  		<i class="material-icons">favorite</i> 일정 등록하기
+					        		</button>`; 
+				    	
+				    }
 					//(추가)반려동물 마이페이지 링크 래핑함
     				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+ petindex + "'>" +
         							"<img src='${pageContext.request.contextPath}/assets/images/" + image + 
         							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
 
-    				$('#myPetSchedule').empty().append(info);
+    				$('#myPetSchedule').html(info);
     				$('#myPetImage').empty().append(imageSrc);
     				//console.log("SRC: "+imageSrc);
 
@@ -538,8 +555,6 @@
     		});
     	}
 
- //http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=d2f22ea4bf87f5e2f1c91e3d19c58d8a
-// 날씨 API 끝
 
 /**
 * @함수명 : replaceImg()

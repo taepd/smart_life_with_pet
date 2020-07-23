@@ -97,9 +97,5 @@ public class JoinService {
 		return result;
 	}
 	
-	// 이메일 중복확인
-	//public int checkDuplicate(String uEmail) {
-	//	return userDao.checkDuplicate(uEmail);
-	//	}
 
 }

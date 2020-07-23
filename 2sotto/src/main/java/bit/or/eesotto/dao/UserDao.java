@@ -1,5 +1,6 @@
 package bit.or.eesotto.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -53,6 +54,7 @@ public interface UserDao {
 	// 어드민 > 유저 카운트  ajax
 	@Select("select count(*) count from user")
 	public int getUserCount(User user);
+		
 	
 //	// SNS로그인 (가입한 소셜까지 확인)
 //	@Select("select * from users where uEmail = #{uEmail}")

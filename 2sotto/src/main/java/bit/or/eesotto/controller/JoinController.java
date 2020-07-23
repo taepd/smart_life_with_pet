@@ -39,6 +39,13 @@ public class JoinController {
 	@Autowired
 	JoinService joinService;
 	
+	
+	//메일인증  해야되서 사용중
+	@Autowired
+	UserService	UserService;
+	//메일인증 끝
+	
+	
 	//구글 테스트 시작
     @Autowired
     private GoogleOAuth2Template googleOAuth2Template;
@@ -67,9 +74,6 @@ public class JoinController {
 	@RequestMapping(value = "register.bit", method = RequestMethod.GET)
 	public String register(Model model, HttpSession session) throws IOException {
 
-		/* 구글code 발행 */
-		// OAuth2Operations oauthOperations =
-		// googleConnectionFactory.getOAuthOperations();
 		/* SNS 로그인 인증을 위한 url 생성 */
 
 		/* 생성한 url 전달 */
@@ -104,9 +108,8 @@ public class JoinController {
 	@RequestMapping(value = "normalJoin.bit", method = RequestMethod.POST)
 	public String normalJoin(User user, HttpServletRequest request, MultipartHttpServletRequest multiFile,
 							 Principal principal, HttpSession session, RedirectAttributes redirectAttributes,
-							 Model model) throws IOException{
-		
-		
+							 Model model,RedirectAttributes rttr) throws IOException{
+
 		if(user.getSnstype()==null) { //소셜 가입은 암호가 없으므로
 		//비밀번호 암호화 
 		String inputPwd = user.getPwd();
@@ -154,7 +157,7 @@ public class JoinController {
 			msg = "회원가입 성공";
 	        url = "../"; 
 	        
-	      //스프링 시큐리티 수동 로그인을 위한 작업//
+	        //스프링 시큐리티 수동 로그인을 위한 작업//
 			//로그인 세션에 들어갈 권한을 설정
 					List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 					list.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -196,6 +199,7 @@ public class JoinController {
 	} 
 
 	// ID 중복체크 Ajax 호출
+	//ID가 이메일이니까 인증도 같이 시작.
 	@ResponseBody
 	@RequestMapping(value = "idCheck.bit", method = { RequestMethod.POST })
 	public List<String> idCheck(HttpServletRequest request, Model model) throws IOException {
@@ -214,7 +218,21 @@ public class JoinController {
 
 		return joinService.nickCheck(id);
 	}
+	
+	
+	
+	//------------- 이메일 인증번호 전송 시작-------------
+	@ResponseBody
+	@RequestMapping("/confirmEmail")
+	public int sendConfirmEmail(Email emaildto) throws Exception {
+        return UserService.sendConfirmEmail(emaildto);
+    }
+	//------------- 이메일 인증번호 전송 끝-------------
+
 		
+	
+	
+	
 	/*
 	  // 휴대폰 중복체크 Ajax 호출
 	  

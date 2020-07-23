@@ -334,7 +334,7 @@ function popupMessage(){
 	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 	
 	window.open('${pageContext.request.contextPath}/message/write.bit','_blank',
-'width=580, height=700, left='+ popupX + ', top='+ popupY);
+'width=700, height=700, left='+ popupX + ', top='+ popupY);
 	
 }
 

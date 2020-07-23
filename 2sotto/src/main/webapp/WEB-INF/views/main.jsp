@@ -144,10 +144,11 @@
 								<c:otherwise>
 					        		<c:forEach items="${likeList}" var="like">
 					        			<div class="follow-img-wrapper">
-						        			<a href="#">
+						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
 						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
 				 		        					rel="nofollow" alt="${like.petname}">
 				 		        			</a>
+				 		        			<div class="text-center"> ${like.petname} </div>
 					        			</div>
 					        		</c:forEach>
 								</c:otherwise>

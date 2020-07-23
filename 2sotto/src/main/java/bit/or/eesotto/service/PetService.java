@@ -26,6 +26,9 @@ public class PetService {
 	@Autowired
 	PetDao petDao;
 	
+	@Autowired
+	PetLikeDao petLikeDao;
+	
 
 	//어드민 > 동물 리스트 조회
 	public List<Pet> getPetList(String userid) {
@@ -51,8 +54,8 @@ public class PetService {
 
 		try {
 
-			petDao = sqlsession.getMapper(PetDao.class);
-			result = petDao.followPet(petLike);
+			petLikeDao = sqlsession.getMapper(PetLikeDao.class);
+			result = petLikeDao.followPet(petLike);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -68,8 +71,8 @@ public class PetService {
 
 		try {
 
-			petDao = sqlsession.getMapper(PetDao.class);
-			result = petDao.unFollowPet(petLike);
+			petLikeDao = sqlsession.getMapper(PetLikeDao.class);
+			result = petLikeDao.unFollowPet(petLike);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -85,8 +88,8 @@ public class PetService {
 
 		try {
 
-			petDao = sqlsession.getMapper(PetDao.class);
-			petLike = petDao.isFollowPet(Integer.parseInt(petindex), userid);
+			petLikeDao = sqlsession.getMapper(PetLikeDao.class);
+			petLike = petLikeDao.isFollowPet(Integer.parseInt(petindex), userid);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

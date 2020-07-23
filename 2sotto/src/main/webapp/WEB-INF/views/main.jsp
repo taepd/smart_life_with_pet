@@ -499,6 +499,7 @@
 
     	// 이름에 따른 반려동물 일정 가져오기
     	function getMyPetSchedule(whichOne) {
+			
     		$.ajax({
     			type: "get",
     			url: "getMyPetSchedule.bit",
@@ -506,25 +507,26 @@
     				userid: '${sessionScope.user.userid}',
     				petname: whichOne
     			},
+    			async:false,
     			success: function(response) {
-    				
-    				var info = "";
-    				var image = "";
-    				var now = moment().format("YYYY-MM-DD HH:mm:ss");
-
-    				//참고: https://stackoverrun.com/ko/q/9770534
-
-    				var image;
-    				
-    				$.each(response, function(index, element) {
-    					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
-    					image = element.petimg;
-    					petindex = element.petindex;
-    					console.log('이미지: '+image);
-        			});
-
+					  				
+	    				var info = "";
+	    				var image = "";
+	    				var now = moment().format("YYYY-MM-DD HH:mm:ss");
+	
+	    				//참고: https://stackoverrun.com/ko/q/9770534
+	
+	    				var image;
+	    				
+	    				$.each(response, function(index, element) {
+	    					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
+	    					image = element.petimg;
+	    					petindex = element.petindex;
+	    					console.log('이미지: '+image);
+	        			});
+					
 					//(추가)반려동물 마이페이지 링크 래핑함
-    				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+petindex + "'>" +
+    				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+ petindex + "'>" +
         							"<img src='${pageContext.request.contextPath}/assets/images/" + image + 
         							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
 

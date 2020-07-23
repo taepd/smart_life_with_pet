@@ -812,6 +812,37 @@ $(function() {
 			 
 			
 		},
+		//popover로 일정 뜨게 하는 함수 작동 안되서 보류
+/* 		eventMouseEnter: function(event){
+			console.log("호버 이벤트: "+event.el);
+			event.el.popover({
+			      title: $('<div />', {
+			        class: 'popoverTitleCalendar',
+			        text: event.event.title
+			      }).css({
+			        'background': event.event.color,
+			      }),
+			      content: $('<div />', {
+			          class: 'popoverInfoCalendar'
+			        }).append('<p><strong>등록자 : </strong> ' + event.event.content + '</p>')
+			        //.append('<p><strong>일정 시간 : </strong> ' + getDisplayEventDate(event) + '</p>')
+			        //.append('<div class="popoverDescCalendar"><strong>일정 설 : </strong> ' + event.event.content + '</div>'),
+			        ,
+			      delay: {
+			        show: "800",
+			        hide: "50"
+			      },
+			      trigger: 'hover',
+			      placement: 'top',
+			      html: true,
+			      container: 'body'
+			    });
+
+			    return true;
+
+			  }, */
+
+		
 		eventClick: function(event, jsEvent, view) { //일정을 클릭하면 수정창이 나와 처리하는 메서드
 			editEvent(event);
 			calendar.render();
@@ -832,7 +863,7 @@ $(function() {
 			
 			dndResize(event);		
 		},
-		eventResize(event){
+		eventResize: function(event){
 			dndResize(event);
 		}
 		

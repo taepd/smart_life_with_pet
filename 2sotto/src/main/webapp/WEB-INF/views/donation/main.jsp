@@ -214,7 +214,7 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 <script type="text/javascript">
-
+/* 
 $(function(){
 
 	
@@ -341,7 +341,7 @@ $(function(){
 	}); 
 		
 	});
-});
+}); */
 </script>
 
 </html>

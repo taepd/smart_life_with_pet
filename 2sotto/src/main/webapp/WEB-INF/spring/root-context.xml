@@ -81,16 +81,16 @@ SqlSessionTemplate
 	<!-- @Transactional 애노테이션을 sacn하기 위한 설정 -->
 	<tx:annotation-driven/>
 	<!-- Gmail 시작-->
-	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
 	    <property name="username" value="2sotto.bit155@gmail.com" />
 	    <property name="password" value="fckqtnbrqhzqpjdl" />
 	    <property name="javaMailProperties">
-	   <props>
-	      <prop key="mail.smtp.auth">true</prop>
-	      <prop key="mail.smtp.starttls.enable">true</prop>
-	    </props>
+		   <props>
+		      <prop key="mail.smtp.auth">true</prop>
+		      <prop key="mail.smtp.starttls.enable">true</prop>
+		   </props>
 	    </property>
 	  </bean>
    <!-- 

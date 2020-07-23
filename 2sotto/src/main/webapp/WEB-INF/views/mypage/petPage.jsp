@@ -55,12 +55,12 @@
 	}
 	
 </style>
-
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
 </head>
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
+	
 	 
 	<c:set value="${petInfoList}" var="petInfo" />
 
@@ -95,6 +95,17 @@
 							<a href="delete.bit?petindex=${pet.petindex}">삭제</a>
 						</div>
 					</c:if>
+				</div>
+				<div class="col-3 text-center" style="margin-top:20px;">
+							<button id="unFollowBtn"> 언팔로우 </button>
+							<button id="followBtn">	팔로우 </button>
+				</div>
+				<div class="col-9" style="margin-top:20px;">
+							<span onclick='popupMessage()'
+							style="cursor:pointer">
+								<i class="far fa-envelope"></i>
+								<strong>${pet.petname}의 ${pet.mcategory eq "1"? "주인":"집사"} ${pet.nick}에게 쪽지보내기</strong>
+							</span>
 				</div>
 			</div>			
 
@@ -221,6 +232,16 @@
 <script>
 $(function(){
 	replaceImg();
+
+	//팔로우/언팔로우 버튼 토글
+	if(${petLike.petindex eq pet.petindex}){
+		$('#followBtn').hide();
+		console.log('팔로우');
+	}else{
+		$('#unFollowBtn').hide();
+		console.log('언팔로우');
+	}
+
 });
 
 /**
@@ -244,7 +265,79 @@ function replaceImg(){
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
-} 
+}
+
+
+//반려동물 팔로우 
+$('#followBtn').click(function() {
+
+	$.ajax({
+		type : "POST",
+		url : 'followPet.bit',
+		data : {
+			petindex: '${pet.petindex}'
+		},
+		datatype : 'json',
+		async: false,
+		success : function(data) {
+			
+			if (data == 1) {
+
+				$('#followBtn').hide();
+				$('#unFollowBtn').show();
+								
+				return;
+			} else {
+				alert("문제가 생겨 팔로우 요청이 취소되었습니다.");
+
+				return;
+			}
+		}
+	});
+});
+
+//반려동물 언팔로우 
+$('#unFollowBtn').click(function() {
+	
+	$.ajax({
+		type : "POST",
+		url : 'unFollowPet.bit',
+		data : {
+			petindex: '${pet.petindex}'  
+		},
+		datatype : 'json',
+		async: false,
+		success : function(data) {
+			
+			if (data == 1) {
+
+				$('#unFollowBtn').hide();
+				$('#followBtn').show();
+								
+				return;
+			} else {
+				alert("문제가 생겨 언팔로우 요청이 취소되었습니다.");
+
+				return;
+			}
+		}
+	});
+	
+});
+
+function popupMessage(){
+	
+	var popupX = (document.body.offsetWidth / 2) - (580 / 2);
+	//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height / 2) - (780 / 2);
+	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	
+	window.open('${pageContext.request.contextPath}/message/write.bit','_blank',
+'width=580, height=700, left='+ popupX + ', top='+ popupY);
+	
+}
+
 
 </script>
 </html>

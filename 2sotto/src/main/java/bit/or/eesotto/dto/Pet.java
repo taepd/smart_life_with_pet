@@ -31,6 +31,7 @@ public class Pet {
 	private String scaname;
 	private String mcaname;
 	
+	private String nick;
 	
 
 }

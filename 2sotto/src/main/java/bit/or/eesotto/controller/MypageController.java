@@ -13,8 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import bit.or.eesotto.dto.*;
 import bit.or.eesotto.service.*;
@@ -36,6 +35,9 @@ public class MypageController {
 	
 	@Autowired
 	ManagementService managementService;
+	
+	@Autowired
+	PetService petService;
 	
 	
 	// 마이페이지 view
@@ -250,6 +252,8 @@ public class MypageController {
 	@RequestMapping(value = "petPage.bit", method = RequestMethod.GET)
 	public String petPage(String cp, String ps, HttpServletRequest request, Model model) {
 		
+		//request객체로 세션 접근해서 userid 빼기
+		String userid = ((User)request.getSession().getAttribute("user")).getUserid();
 		String petindex = request.getParameter("petindex");
 		
 		//반려동물 정보 가져오기
@@ -280,6 +284,9 @@ public class MypageController {
 			pArr.add(managementService.editPetInfo(Integer.parseInt(pindex))); 
 		}
 		
+		//유저가 팔로우한 반려동물인지 확인
+		PetLike petLike = petService.isFollowPet(petindex, userid);		 
+		
 		model.addAttribute(pet);
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
@@ -287,14 +294,37 @@ public class MypageController {
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalPostCount", map.get("totalPostCount"));
 		model.addAttribute("pArr", pArr);
+		model.addAttribute("petLike", petLike);
 		
 		return "mypage/petPage";
 	}
 	
+	// 반려동물 팔로우(petlike) 처리
+	@ResponseBody
+	@RequestMapping(value = "followPet.bit", method = RequestMethod.POST)
+	public int followPet(PetLike petLike, Principal principal) {
+		
+		petLike.setUserid(principal.getName());
+		
+		return petService.followPet(petLike);
+	}
+	
+	// 반려동물 언팔로우(petlike) 처리
+	@ResponseBody
+	@RequestMapping(value = "unFollowPet.bit", method = RequestMethod.POST)
+	public int unFollowPet(PetLike petLike, Principal principal) {
+		
+		petLike.setUserid(principal.getName());		
+		
+		return petService.unFollowPet(petLike);
+	}
+	
+	
+	
 	
 	
 
-
+//		management로 이관했는듯 확인하고 지울 것
 //		// 마이페이지 > 반려동물 상세페이지 >> 반려동물 수정 view
 //		@RequestMapping(value = "editPet.bit", method = RequestMethod.GET)
 //		public String editPetView(Model model, HttpSession session) {

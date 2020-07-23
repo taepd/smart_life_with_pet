@@ -209,8 +209,7 @@
 				</div>
 			</div>
 			
-			
-	       
+
 		</div> <!-- /.side_overlay -->
 	</div> <!-- /.container --> 	            
      

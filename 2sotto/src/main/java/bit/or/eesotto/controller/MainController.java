@@ -134,12 +134,11 @@ public class MainController {
 		@RequestMapping(value = "alarmTest.bit", method = RequestMethod.GET)
 		public String alarmViewTest(String cp, String ps, Principal principal, Model model) {
 			
-		
 			logger.info("다시작업시작이다..." );
-			
-			
-			
+
 			return "/alarmTest";
 		}
+		
+		
 
 }

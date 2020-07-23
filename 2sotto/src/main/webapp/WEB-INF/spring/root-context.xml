@@ -32,7 +32,7 @@
  -->
  <bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
  <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
- 	<property name="url" value="jdbc:mysql://localhost:3306/2sottotest?
+ 	<property name="url" value="jdbc:mysql://localhost:3306/2sotto?
  				    allowMultiQueries=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
  	<property name="username" value="2sotto" />
  	<property name="password" value="1004" />
@@ -81,18 +81,18 @@ SqlSessionTemplate
 	<!-- @Transactional 애노테이션을 sacn하기 위한 설정 -->
 	<tx:annotation-driven/>
 	<!-- Gmail 시작-->
-  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-    <property name="host" value="smtp.gmail.com" />
-    <property name="port" value="587" />
-    <property name="username" value="2sotto.bit155@gmail.com" />
-    <property name="password" value="fckqtnbrqhzqpjdl" />
-    <property name="javaMailProperties">
-   <props>
-      <prop key="mail.smtp.auth">true</prop>
-      <prop key="mail.smtp.starttls.enable">true</prop>
-    </props>
-    </property>
-  </bean>
+	  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="2sotto.bit155@gmail.com" />
+	    <property name="password" value="fckqtnbrqhzqpjdl" />
+	    <property name="javaMailProperties">
+	   <props>
+	      <prop key="mail.smtp.auth">true</prop>
+	      <prop key="mail.smtp.starttls.enable">true</prop>
+	    </props>
+	    </property>
+	  </bean>
    <!-- 
     <props> 
     	<prop key="email.debug">true</prop> 

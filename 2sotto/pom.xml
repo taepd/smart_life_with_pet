@@ -132,7 +132,8 @@
 			<version>2.8.1</version>
 		</dependency>
 		<!-- naver -->
-
+		
+		
 		<!-- 제이슨 파싱 -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -170,6 +171,26 @@
             <version>2.0.3.RELEASE</version>
         </dependency>
 		<!--  Facebook 끝 -->
+		<!-- velocity 시작 -->
+		<dependency> 
+			<groupId>org.apache.velocity</groupId> 
+			<artifactId>velocity</artifactId> 
+			<version>1.7</version> 
+		</dependency>
+		<!-- velocity 끝-->
+		<!-- mail 인증을  위한 설정 시작-->
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.5.RELEASE</version>
+		</dependency>
+        <!-- mail 인증을  위한 설정 시작-->
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

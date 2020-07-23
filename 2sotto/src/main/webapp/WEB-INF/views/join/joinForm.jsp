@@ -307,6 +307,56 @@ input {
 				return false;
 			}
 		});
+
+		//이메일 인증 시작
+		$("#emailCheck").click(function(){
+   		 console.log("emailCheck버튼 눌림")
+   		 $.ajax({
+                type: "post",
+                url : "idCheck.bit",
+                data : {"userid" : $('#userid').val()},
+                success : function(data) {
+                      console.log(data);
+                      if(data == 1) {
+                      		alert("이미 같은 메일이 존재합니다!");
+                      		$('#userid').focus();
+                      		return false;
+                      } else {
+                          alert("입력하신 E-mail 주소로 인증번호가 발송됩니다.");
+                        $('#emailChecking').append(
+                      		"<input type='text' class='form-control' placeholder='이메일을 통해 받은 인증번호를 입력하세요' id='confirmNum'>"
+                       	+ "<button type='button' class='btn btn-outline-primary' id='confirm'>인증번호 확인</button>"
+                           + "<input type='hidden' class='form-control' id='confirmVal' required>"
+                          
+                          );
+							/* $('#confirmNum').attr(type,'text');
+							$('#confirm').removeAttr('hidden'); */
+                          $.ajax({
+                                type : "post",
+                                url : "confirmEmail",
+                                data : {"receiveMail" : $('#userid').val()},
+                                success : function(data) {
+                                    alert("인증번호를 발송했습니다!", "메일을 확인해주세요!")
+                                    $('#confirm').click(function() {
+				        		 		console.log("confirm버튼 눌림")
+                                        console.log(data);
+				        		 		console.log($('#confirmNum').val());
+                                        if($('#confirmNum').val() != data) {
+                                            alert("인증정보가 정확하지 않습니다!")
+                                        } else {
+                                            alert("인증정보가 확인되었습니다!")
+                                            $('#confirmVal').val('1');
+                                            $('#userid').attr("email_chk", "success");
+                                        }
+                                    })
+                                }
+                            });
+                      }
+                  }
+            })
+   	 });
+		//이메일 인증 끝	
+		
 	});
 </script>
 
@@ -346,17 +396,13 @@ input {
 				
 
 				<div class="table-responsive">
-						<form class="form-horizontal" action="normalJoin.bit"
-							enctype="multipart/form-data" method="post">
+						<form class="mt-5 mb-5 login-input" action="normalJoin.bit" enctype="multipart/form-data" method="post">
 							<div class="card-body">
-
 								<div class="wrap-input100">
 									<div class="form-group row">
 										<div class="col-sm-12">
-
-											<div class="row row-space">
-
-												<div class="col-10">
+											<div class="form-group row">
+												<div class="col-8">
 													<div class="input-group">
 														<label for="fname" class="label" style="text-align: left">아이디</label>
 														<input class="input--style-4" type="text" maxlength="20"
@@ -364,17 +410,19 @@ input {
 															title="5~16자리의 영문+숫자 조합으로 입력해주세요"
 															placeholder="이메일 형식으로 입력해 주세요" check_result="fail">
 													</div>
+													<!-- 적합하지 않은 이메일 형식입니다. -->
+													<div class="col-sm-9 tdemail" align="left"></div>
+													<!-- 적합하지 않은 이메일 형식입니다. -->
 												</div>
-
 												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary"
-														id="btn-idchk" style="padding: 10px 20px">중복확인</button>
+													<button type="button" class="btn btn-primary" id="btn-idchk" style="padding: 10px 20px">중복확인</button>
 												</div>
-											</div>
-										</div>
-										<!-- 적합하지 않은 이메일 형식입니다. -->
-										<div class="col-sm-9 tdemail" align="left"></div>
-										<!-- 적합하지 않은 이메일 형식입니다. -->
+												<div class="col-2" style="padding-top: 22px">
+													<button type="button" class="btn btn-primary" id="emailCheck" name="emailCheck" email_chk="fail">이메일 확인</button>
+		                                    	</div>
+		                                    	<!--  <div class="tdemail"></div>-->
+		                                    	<div class="col-12" id="emailChecking"></div>
+									
 									</div>
 
 									<div class="form-group row">
@@ -564,7 +612,7 @@ input {
 									<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
 								</div>
 							</div>
-
+						</div>
 						</form>
 					</div>
 			

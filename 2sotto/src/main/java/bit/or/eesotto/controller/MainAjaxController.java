@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bit.or.eesotto.dao.PetDao;
 import bit.or.eesotto.dao.ScheduleDao;
-import bit.or.eesotto.dto.Schedule;
+import bit.or.eesotto.dto.*;
 
 @RestController
 public class MainAjaxController {
@@ -45,6 +45,13 @@ public class MainAjaxController {
 		try {
 			ScheduleDao scheduleDao = sqlsession.getMapper(ScheduleDao.class);
 			list = scheduleDao.getMyPetSchedule(userid, petname);
+			
+			/*
+			 * if(list==null) { PetDao petDao = sqlsession.getMapper(PetDao.class);
+			 * List<Pet> petList = petDao.getPetInfo(userid);
+			 * 
+			 * return petList; }
+			 */
 			
 		} catch (Exception e) {
 			e.printStackTrace();

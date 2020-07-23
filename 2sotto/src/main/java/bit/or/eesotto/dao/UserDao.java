@@ -36,7 +36,7 @@ public interface UserDao {
 	//public List<String> getCpnumber(@Param("cpnumber") String cpnumber);
 
 	// 마이페이지 > 회원정보 수정
-	@Update("update user set cpnumber = #{cpnumber}, nick = #{nick}, loc=#{loc}	where userid=#{userid}")
+	@Update("update user set cpnumber=#{cpnumber}, nick=#{nick}, loc=#{loc}, uimg=#{uimg} where userid=#{userid}")
 	public int editUser(User user);
 
 	// 마이페이지 > 회원정보 삭제

@@ -142,7 +142,7 @@ public class JoinController {
 			}
 				user.setUimg(filename); //파일명을 별도 관리 (DB insert)
 		}else { //프로필 사진 입력을 하지 않았을 경우
-			user.setUimg("profile.png");
+			user.setUimg("profile-circle.png");
 		}
 		
 		int result = joinService.normalJoin(user);

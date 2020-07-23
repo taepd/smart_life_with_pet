@@ -13,11 +13,12 @@
 		
 		<span id="header-title">
 			<se:authorize access="!hasAnyRole('ROLE_USER')">
-				<a href="${pageContext.request.contextPath}/">슬기로운 반려생활</a>
+				<a href="${pageContext.request.contextPath}/">
 			</se:authorize>
 			<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
-				<a href="${pageContext.request.contextPath}/main.bit">슬기로운 반려생활</a>
+				<a href="${pageContext.request.contextPath}/main.bit">
 			</se:authorize>
+			슬기로운 반려생활</a>
 		</span>
 		
 		

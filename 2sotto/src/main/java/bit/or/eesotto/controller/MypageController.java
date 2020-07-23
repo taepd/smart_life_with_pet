@@ -127,7 +127,7 @@ public class MypageController {
 	
 	// 마이페이지 > 비밀번호 변경 처리
 	@RequestMapping(value = "editPwd.bit", method = RequestMethod.POST)
-	public String editPwd(Principal principal, String crntPwd, String pwd, Model model) {
+	public String editPwd(Principal principal, String pwd, String newPwd, Model model) {
 							
 		//String userid = (String)session.getAttribute("userid");
 		String userid =  principal.getName();
@@ -138,14 +138,14 @@ public class MypageController {
 		String url = null;
 		
 		//현재 비밀번호 제대로 입력했는지 확인
-		if(!pwEncoder.matches(crntPwd, user.getPwd())) {
+		if(!pwEncoder.matches(pwd, user.getPwd())) {
 			
 			logger.info("현재 비밀번호 입력 불일치");
 			msg = "현재 비밀번호 입력이 일치하지 않습니다";
 	        url = "javascript:history.back();";
 	    
 	        //현재 비밀번호와 변경할 비밀번호가 같은 경우    
-		}else if(crntPwd.equals(pwd)){
+		}else if(pwd.equals(newPwd)){
 			
 			logger.info("현재 비밀번호와 변경 비밀번호 동일");
 			msg = "현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다";
@@ -153,7 +153,7 @@ public class MypageController {
 			
 		}else {
 			
-			int result = ms.editPwd(pwEncoder.encode(pwd), userid);
+			int result = ms.editPwd(pwEncoder.encode(newPwd), userid);
 						
 			if(result==1) {
 				
@@ -178,15 +178,43 @@ public class MypageController {
 	}
 	
 
-	// 마이페이지 > 회원 탈퇴 view
+	// 마이페이지 > 회원 탈퇴
 	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.GET)
-	public String withdrawal(User userid) {
+	public String withdrawal(Model model, Principal principal, HttpSession session) {
 		
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: "+userid);
+				
+		int result = ms.deleteUser(userid);
 		
-		return "mypage/withdrawal";
+		String msg = null;
+		String url = null;
+		
+		if(result==1) {
+			session.removeAttribute("userid");
+			session.invalidate();	
+			
+			logger.info("회원탈퇴 처리완료");
+			msg = "회원 탈퇴가 정상적으로 처리되었습니다.";
+	        url = "../";
+			
+		}else { 
+			
+			logger.info("회원탈퇴 처리실패");
+			msg = "문제가 생겨 회원탈퇴가 정상적으로 이루어지지 않았습니다.";
+			url = "main.bit";
+
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "redirect:/";	 // 완전히 맞는 건 아닌 거 같다..?
+		
 	}
 	
 	// 마이페이지 > 회원 탈퇴 view
+	/*
 	@RequestMapping(value = "withdrawal.bit", method = RequestMethod.POST)
 	public String withdrawalOk(Model model, Principal principal, HttpSession session) {
 		
@@ -221,7 +249,7 @@ public class MypageController {
 		
 		return "redirect";	
 		
-	}
+	}*/
 
 	// 마이페이지 > 내 반려동물 정보(반려동물 관리의 내 반려동물 정보와 동일한 내용의 페이지)
 	@RequestMapping(value = "myPetsInfo.bit", method = RequestMethod.GET)

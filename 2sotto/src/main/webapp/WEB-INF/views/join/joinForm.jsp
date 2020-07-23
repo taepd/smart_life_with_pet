@@ -537,9 +537,9 @@ input {
 																name="file" style="display: none;"
 																onchange="readURL(this);">
 															</label> &nbsp;&nbsp;&nbsp;&nbsp; 
-																<img id="img" src="../images/profile.png" alt="" width="150px"
+																<img id="img" src="../assets/images/profile-circle.png" alt="" width="150px"
 																height="150px" style="border-radius: 10px;" /> 
-																<span id="imgFileName">&nbsp;&nbsp;</span>
+																<span id="imgFileName" style="display: none;">&nbsp;&nbsp;</span>
 														</div>	
 														
 													</div>

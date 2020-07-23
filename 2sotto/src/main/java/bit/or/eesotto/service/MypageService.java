@@ -35,11 +35,8 @@ public class MypageService {
 	
 	//유저 정보 수정하기
 	public int editUser(User user) {
-
 		userDao = sqlsession.getMapper(UserDao.class);
-
 		return userDao.editUser(user);
-		
 	}
 	
 	//유저 정보 삭제하기

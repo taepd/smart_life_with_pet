@@ -35,8 +35,14 @@
 			</ul>
 		</se:authorize>	
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
+					
 					<li class="nav-item" id="item03">
 						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-bell"></i></span>
+						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
+							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
+						</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/chatList.bit"><span id="message"><i class="fas fa-comment"></i></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
 							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
 						</a>
@@ -97,7 +103,6 @@
 				
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
-					</a></li>
 				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<!-- <li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li> -->

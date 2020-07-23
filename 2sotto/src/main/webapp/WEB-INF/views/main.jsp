@@ -153,8 +153,7 @@
 			</c:forEach>
 			</div>
 			
-			
-	       
+
 		</div> <!-- /.side_overlay -->
 	</div> <!-- /.container --> 	            
      

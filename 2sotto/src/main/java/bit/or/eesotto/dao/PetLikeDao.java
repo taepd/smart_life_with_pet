@@ -17,11 +17,11 @@ public interface PetLikeDao {
 			+ "order by lindex")
 	public List<PetLike> getPetLike(@Param("userid") String userid);
 	
-	// 반려동물 좋아요(팔로우) 등록  //여기 고쳐야 함
+	// 반려동물 좋아요(팔로우) 등록
 	@Insert("insert into petlike (petindex, userid) values( #{petindex}, #{userid})")
 	public int followPet(PetLike petlike);
 	
-	// 반려동물 좋아요(팔로우) 등록  //여기 고쳐야 함
+	// 반려동물 좋아요(언팔로우) 취소
 	@Delete("delete from petlike where petindex=#{petindex} and userid=#{userid}")
 	public int unFollowPet(PetLike petlike);
 	

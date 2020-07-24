@@ -21,8 +21,8 @@
 	<div class="side_overlay">
 		<div class="container">
 			
-			<h3>블로그  페이지</h3>
-			<button type="button" class="btn btn-warning" onclick="location.href='write.bit'">블로그 글쓰기</button>
+			<h3>모두의 블로그</h3>
+			
 			<br>
 			<br>
 			
@@ -67,7 +67,7 @@
 						<!-- 하트/코멘트 갯수 영역 -->
 						<div class="heart-and-comment">
 							<div class="heart-comment-time-area">
-								<span class="heart"><i class="fas fa-heart"></i></span>
+								<span class="heart"><i id="heart" class="fas fa-heart"></i></span>
 								<span>${post.blike}</span>
 							</div>
 							<div class="heart-comment-time-area">
@@ -150,6 +150,7 @@
 //onload 함수
 $(function(){
 	replaceImg();
+	
 });
 
 /**

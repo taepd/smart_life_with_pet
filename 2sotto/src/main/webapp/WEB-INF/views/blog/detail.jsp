@@ -10,6 +10,7 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
     <style type="text/css">
 
 		a:visited {
@@ -114,9 +115,15 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 				        </c:forEach>
 				        <span class="align-self-center">의 이야기</span>   			
 	        		</div>	
-			<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-			<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
-			<h4>${rtime}</h4>
+	        
+					<div class="heart-comment-time-area">
+						<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+						<span>${rtime}</span>
+					</div>
+				
+	        		
+				
 			
 			<!-- 직관적인 badge
 			<a href="#"><span class="badge badge-default">수정</span></a>
@@ -142,6 +149,19 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
 			<button type="button" id="delete">삭제</button>
 			</c:if>
+			<!-- 하트/코멘트 갯수 영역 -->
+			<div class="heart-and-comment">
+				<div class="heart-comment-time-area" onclick='toggleHeart()'
+						style="cursor:pointer">
+					<span class="heart"><i id="heart" class="far fa-heart"></i></span>
+					좋아요<span id="blikeCount">${post.blike}</span>
+				</div>
+			 	<div class="heart-comment-time-area">
+					<span class="icon"><i class="far fa-comment"></i></span>
+					<span id="bcCount">${post.bcCount}</span>
+				</div> 			
+			</div>	
+			
 			<hr>
 				<h4 id="reply_h4">댓글</h4>
 				
@@ -168,8 +188,81 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>	
 </body>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
+
+//모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
+$(function() {
+	
+	getCommentList();
+	insertComment();
+
+	//좋아요 하트 활성/비활성 체크
+	if(${blike.bindex eq post.bindex}){
+		$('#heart').attr('class','fas fa-heart'); 
+	}
+	
+});
+
+//좋아요 토글
+function toggleHeart(){
+	
+	if(($('#heart').attr('class')) == 'far fa-heart'){ //좋아요 클릭하면(좋아요 안된 상태일 때)
+		
+		$.ajax({
+			type : "POST",
+			url : 'likePost.bit',
+			data : {
+				bindex: '${post.bindex}',
+				userid: '${sessionScope.user.userid}'	
+			},
+			datatype : 'json',
+			async: false,
+			success : function(data) {
+				
+				if (data == 1) {
+
+					$('#heart').attr('class','fas fa-heart'); 
+					$('#blikeCount').html($('#blikeCount').html()*1+1);
+
+					return;
+				} else {
+					alert("문제가 생겨 좋아요 요청이 취소되었습니다.");
+
+					return;
+				}
+			}
+		});
+
+		
+	}else{
+
+		$.ajax({
+			type : "POST",
+			url : 'unlikePost.bit',
+			data : {
+				bindex: '${post.bindex}',
+				userid: '${sessionScope.user.userid}'	
+			},
+			datatype : 'json',
+			async: false,
+			success : function(data) {
+				
+				if (data == 1) {
+
+					$('#heart').attr('class','far fa-heart');
+					$('#blikeCount').html($('#blikeCount').html()*1-1);
+									
+					return;
+				} else {
+					alert("문제가 생겨 좋아요 요청이 취소되었습니다.");
+
+					return;
+				}
+			}
+		});
+	}
+}
 
 
 // 블로그 글 삭제 전 확인 창 띄우고 확인 시 삭제
@@ -180,14 +273,6 @@ $('#delete').click(function(){
 	}else{
 		return;
 	}
-});
-
-//모든 요소 load 후 댓글 목록과 댓글 쓰기 폼 불러오기
-$(function() {
-	
-	getCommentList();
-	insertComment();
-	
 });
 
 
@@ -273,6 +358,7 @@ function insertComment() {
 					$('#commentBox').empty();
 					$('#content').val("");
 					getCommentList();
+					$('#bcCount').html($('#bcCount').html()*1+1);
 				}
 				
 		});
@@ -340,7 +426,7 @@ $(document).on("click","#editcom",function(){
 
 
 
-//댓글 삭제
+//댓글 삭제  >> 비동기로 전환해야 함
 // 블로그 댓글 삭제 전 확인 창 띄우고 확인 시 삭제
 
 function deleteComment(bcindex) {
@@ -418,6 +504,7 @@ $(document).on("click","#writeRecom",function(){
 					//$('#reCommentBox').empty();
 					$('#content').val("");
 					getCommentList();
+					$('#bcCount').html($('#bcCount').html()*1+1);
 
 					//기본 댓글 입력창 활성화
 					$('#comment').show();	

@@ -12,8 +12,12 @@
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 	<style type="text/css">
 		
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
 		
-		#area {
+		.area {
 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
 			padding-top: 50px;
 			padding-bottom: 40px;
@@ -21,7 +25,7 @@
 			background-color: #fafafa;
 		}
 		 
-		#title-area {
+		.title-area {
 			text-align: center;
 			margin-bottom: 80px;
 		}
@@ -55,7 +59,8 @@
 		}
 		
 		.h3-korean {
-			font-family: 'Poor Story', cursive;
+			font-family : 'netmarbleM', sans-serif;
+			/* font-family: 'Poor Story', cursive; */
 			/* font-family: 'Nanum Myeongjo', serif; */
 		}
 		
@@ -71,12 +76,12 @@
 	<div class="container">
 		<div class="side_overlay">
 			<div class="row">
-				<div class="col-12" id="title-area">
+				<div class="col-12 title-area">
 					<h1 class="title">Love your pet more</h1>
 					<h3 class="h3-korean">슬기로운 반려생활 시작하기</h3>
 				</div>
 				<div class="col-2"></div>
-				<div id="area" class="col-8">
+				<div class="col-8 area">
 					<div id="signUpList-wrapper">
 						<ul id="signUpList">
 							<a href="joinForm.bit"><li><span class="span">일반 회원가입하기</span></li></a>

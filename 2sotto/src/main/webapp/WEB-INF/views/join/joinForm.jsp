@@ -3,202 +3,155 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <html>
 <head>
+	<title>회원가입</title>
+	<%@ include file="/WEB-INF/include/import.jsp"%>
 
-<title>회원 가입</title>
+	<!-- 아래 jquery cdn을 주석처리하면 중복체크 속성값이 인풋창 클릭시 리셋되는 문제 발생. 어째서? -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- 카카오 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14e1cd5829baabce1e0239e9778eb76a&libraries=services"></script>
+	<!-- 카카오 주소 api 호출 -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
 
-<!-- 아래 jquery cdn을 주석처리하면 중복체크 속성값이 인풋창 클릭시 리셋되는 문제 발생. 어째서? -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		.area {
+			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding-top: 100px;
+			padding-bottom: 100px;
+			text-align: center;
+			background-color: #fafafa;
+		}
 
-<!-- 카카오 api -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14e1cd5829baabce1e0239e9778eb76a&libraries=services"></script>
-<!-- 카카오 주소 api 호출 -->
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		h1, h3 {
+			font-family : 'netmarbleM', sans-serif;
+			/* color: #9c27b0; */
+		}
 
+		h1 {
+			margin-top: 30px;
+		}
 
-<style>
-.btn-file {
-	position: relative;
-	overflow: hidden;
-}
+		.title-area {
+			text-align: center;
+			margin-bottom: 80px;
+		}
 
-.btn-file input[type=file] {
-	position: absolute;
-	top: 0;
-	right: 0;
-	min-width: 100%;
-	min-height: 100%;
-	font-size: 100px;
-	text-align: right;
-	filter: alpha(opacity = 0);
-	opacity: 0;
-	outline: none;
-	background: white;
-	cursor: inherit;
-	display: block;
-}
+		#joinForm-wrapper {
+			display: inline-block;
+			width: 428px;
+		}
 
-/*------------------------------------------------------------------
-[ Input ]*/
+		#joinForm {
+			margin-bottom: 0;
+		}
 
-/* .wrap-input100 { */
-/* 	display: -webkit-box; */
-/* 	display: -webkit-flex; */
-/* 	display: -moz-box; */
-/* 	display: -ms-flexbox; */
-/* 	display: flex; */
-/* 	flex-wrap: wrap; */
-/* 	align-items: flex-end; */
-/* 	width: 100%; */
-/* 	/*   height: 80px; */
-/* 	padding: 100px; */
-/* 	position: relative; */
-/* 	border: 1px solid #e6e6e6; */
-/* 	border-radius: 10px; */
-/* 	margin-bottom: 10px; */
-/* } */
-.wrap-input100 {
-	width: 100%;
-	/*   height: 80px; */
-	padding: 100px;
-	position: relative;
-	border: 1px solid #e6e6e6;
-	border-radius: 10px;
-	margin-bottom: 10px;
-	text-align: center;
-}
+	</style>
 
-input {
-	outline: none;
-	margin: 0;
-	border: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	width: 100%;
-	font-size: 14px;
-	font-family: inherit;
-}
+</head>
+<body>
+	<!-- header -->
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+	
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col-12 title-area">
+					<h1>어서오시개, 가입하냥 <i class="fas fa-paw"></i></h1>
+				</div>
+				<div class="col-2"></div>
+				<div class="col-8 area">
+					<form id="joinForm" action="normalJoin.bit" enctype="multipart/form-data" method="post">
+						<div id="joinForm-wrapper">
 
-.input--style-4 {
-	line-height: 50px;
-	background: #fafafa;
-	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-	-moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-	box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	padding: 0 20px;
-	font-size: 16px;
-	color: #666;
-	-webkit-transition: all 0.4s ease;
-	-o-transition: all 0.4s ease;
-	-moz-transition: all 0.4s ease;
-	transition: all 0.4s ease;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="text" class="form-control" placeholder="아이디로 쓸 이메일을 입력하세요." id="userid" name="userid">
+								<button type="button" class="btn btn-sm" id="emailCheck" name="emailCheck" email_chk="fail" style="position: absolute; top: 23px; right: 0;">메일 인증</button>
+								<!-- 적합하지 않은 이메일 형식입니다. -->
+								<div class="tdemail" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
+							</div>
+                           	<div id="emailChecking"></div>
 
-.input--style-4::-webkit-input-placeholder {
-	/* WebKit, Blink, Edge */
-	color: #666;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="password" class="form-control" placeholder="비밀번호를 입력하세요." id="pwd" name="pwd">
+								<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
+								<div class="tdpw" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
+							</div>
 
-.input--style-4:-moz-placeholder {
-	/* Mozilla Firefox 4 to 18 */
-	color: #666;
-	opacity: 1;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="password" class="form-control" placeholder="비밀번호를 확인합니다." id="pwdCheck" name="pwdCheck">
+								<!-- 비밀번호가 다릅니다. -->
+								<div class="tdpwch" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
+							</div>
 
-.input--style-4::-moz-placeholder {
-	/* Mozilla Firefox 19+ */
-	color: #666;
-	opacity: 1;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick">
+								<button type="button" class="btn btn-sm" id="btn-nickchk" style="position: absolute; top: 23px; right: 0;">중복확인</button>
+								<!-- 닉네임 응원. > ????? -->
+								<div class="col-sm-12 tdnick" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
+							</div>
 
-.input--style-4:-ms-input-placeholder {
-	/* Internet Explorer 10-11 */
-	color: #666;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="text" class="form-control" placeholder="휴대폰 번호를 입력하세요." id="cpnumber" name="cpnumber">
+								<!-- <button type="button" class="btn btn-sm" id="btn-cpnumberchk" style="position: absolute; top: 23px; right: 0;">중복확인</button> -->
+							</div>
 
-.input--style-4:-ms-input-placeholder {
-	/* Microsoft Edge */
-	color: #666;
-}
+							<div class="form-group has-default bmd-form-group">
+								<input type="text" class="form-control" placeholder="지역을 설정합니다." id="loc" name="loc">
+								<input type="hidden" name="lat" id="lat"> 
+								<input type="hidden" name="lon" id="lon">
+								<button type="button" id="currentLoc" class="btn btn-sm social facebook btn-flat btn-addon mb-3"
+									style="position: absolute; bottom: -9px; right: -1px;">
+									<i class="fa fa-crosshairs"></i> 현재 위치로 찾기
+								</button>
+							</div>
 
-.label {
-	font-size: 16px;
-	color: #555;
-	text-transform: capitalize;
-	display: block;
-	margin-bottom: 5px;
-}
+							<div id="layer"
+								style="border-radius: 10px; margin-bottom: 10px; display: none; position: absolute; overflow: hidden; z-index: 1; top: 0px; left: 0px; max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6;">
+								<img
+									src="//t1.daumcdn.net/postcode/resource/images/close.png"
+									id="btnCloseLayer"
+									style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1; width: 20px"
+									alt="닫기 버튼">
+							</div>
 
-.input-group {
-	position: relative;
-	margin-bottom: 22px;
-}
+							<div class="form-group has-default bmd-form-group">
+								<div style="display: inline-block;">
+									<img id="img" src="../assets/images/profile-circle.png" alt="" width="150px"
+									height="150px" class="rounded-circle img-fluid"  />  <!--style="border-radius: 10px;" -->
+									<!-- <span id="imgFileName" style="display: none;">&nbsp;&nbsp;</span> -->
+									<label class="btn btn-primary btn-default btn-file btn-sm">
+										이미지 설정/변경 
+										<input class="input--style-4" type="file" name="file" style="display: none;" onchange="readURL(this);">
+									</label>
+								</div>	
+							</div>
+							<div class="form-group has-default bmd-form-group" style="margin-bottom: 0;">
+								<div>
+									<button type="submit" class="btn btn-primary">전송</button>
+									<button type="reset" class="btn btn-rose">취소</button>
+								</div>
+							</div>
+						</div> <!-- /.wrapper -->
+					</form>
+				</div>
+				<div class="col-2"></div>
+			</div> <!-- /.row -->
+		</div> <!-- /.side_overlay --> 
+	</div> <!-- /.container -->
 
-.input-group-icon {
-	position: relative;
-}
-
-.input-icon {
-	position: absolute;
-	font-size: 18px;
-	color: #999;
-	right: 18px;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
-	transform: translateY(-50%);
-	cursor: pointer;
-}
-
-/* ==========================================================================
-   #GRID
-   ========================================================================== */
-.row {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
-.row-space {
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	-moz-box-pack: justify;
-	-ms-flex-pack: justify;
-	justify-content: space-between;
-}
-
-.col-2 {
-	width: -webkit-calc(( 100% - 30px)/2);
-	width: -moz-calc(( 100% - 30px)/2);
-	width: calc(( 100% - 30px)/2);
-}
-
-@media ( max-width : 767px) {
-	.col-2 {
-		width: 100%;
-	}
-}
-</style>
+<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 <script type="text/javascript">
+
 	var validate = new Array;
+
 	$(function() {
 		//id검증(이메일 형식)
 		$('#userid')
@@ -208,10 +161,10 @@ input {
 							if (!email.test($('#userid').val())) {
 								$('.tdemail')
 										.html(
-												'<b style="color:red">적합하지 않은 이메일 형식입니다.</b>');
+												'<b>적합하지 않은 이메일 형식입니다.</b>');
 								validate[0] = false;
 							} else {
-								$('.tdemail').html('<b>적합한 이메일입니다.</b>');
+								$('.tdemail').html('<b>적합한 형식입니다.</b>');
 								validate[0] = true;
 							}
 							console.log(validate[0]);
@@ -226,7 +179,7 @@ input {
 							if (!nick.test($('#nick').val())) {
 								$('.tdnick')
 										.html(
-												'<b style="color:red">적합하지 않은 닉네임 형식입니다.</b>');
+												'<b>적합하지 않은 닉네임 형식입니다.</b>');
 								validate[0] = false;
 							} else {
 								$('.tdnick').html('<b>아주 멋진 닉네임입니다.</b>');
@@ -242,20 +195,19 @@ input {
 						function() {
 							let pwd = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{8,20}$/;
 							if (!pwd.test($(this).val())) {
-								$('.tdpw')
-										.html(
-												'<b style="color:red">8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
+								$('.tdpw').html('<b>8~20자 사이에 적어도 하나의 영어 대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
 								validate[1] = false;
 							} else {
-								$('.tdpw').html('<b>적합한 패스워드입니다.</b>');
+								$('.tdpw').html('<b>적합한 비밀번호입니다.</b>');
 								validate[1] = true;
 							}
-							console.log(validate[1]);
+							//console.log(validate[1]);
 						});
+
 		//password check
-		$('#pwdCheck, #pwd').keyup(function() {
+		$('#pwdCheck').keyup(function() {
 			if ($('#pwd').val() != $('#pwdCheck').val()) {
-				$('.tdpwch').html('<b style="color:red">비밀번호가 다릅니다.</b>');
+				$('.tdpwch').html('<b>비밀번호가 다릅니다.</b>');
 				validate[2] = false;
 			} else {
 				$('.tdpwch').html('<b>비밀번호가 일치합니다.</b>');
@@ -264,12 +216,6 @@ input {
 			console.log(validate[2]);
 		});
 
-		$('input').focus(function() {
-			$(this).css('background-color', "gold");
-		});
-		$('input').blur(function() {
-			$(this).css('background-color', "white");
-		});
 		//입력 다 했는지 검증
 		$('input:not([type=file])').prop("required", true);
 		//$('#id').attr("required","required");
@@ -308,323 +254,69 @@ input {
 			}
 		});
 
-		//이메일 인증 시작
-		$("#emailCheck").click(function(){
-   		 console.log("emailCheck버튼 눌림")
-   		 $.ajax({
-                type: "post",
-                url : "idCheck.bit",
-                data : {"userid" : $('#userid').val()},
-                success : function(data) {
-                      console.log(data);
-                      if(data == 1) {
-                      		alert("이미 같은 메일이 존재합니다!");
-                      		$('#userid').focus();
-                      		return false;
-                      } else {
-                          alert("입력하신 E-mail 주소로 인증번호가 발송됩니다.");
-                        $('#emailChecking').append(
-                      		"<input type='text' class='form-control' placeholder='이메일을 통해 받은 인증번호를 입력하세요' id='confirmNum'>"
-                       	+ "<button type='button' class='btn btn-outline-primary' id='confirm'>인증번호 확인</button>"
-                           + "<input type='hidden' class='form-control' id='confirmVal' required>"
-                          
-                          );
+
+		
+		
+	}); // /.onload
+
+
+
+	//이메일 인증 시작
+	$("#emailCheck").on('click', function(){
+
+		if ($('#userid').val() == '') {
+			swal('이메일을 입력해주세요!');
+			return false;
+		}
+
+		$.ajax({
+				type: "post",
+				url : "idCheck.bit",
+				data : { "userid" : $('#userid').val() },
+				success : function(data) {
+					if(data == $('#userid').val() ) {
+						swal("이미 가입한 메일입니다!");
+						$('#userid').focus();
+						return false;
+					} else {
+						//swal("입력하신 E-mail 주소로 인증번호가 발송됩니다.");
+						$('#emailChecking').empty();
+						$('#emailChecking').addClass('form-group has-default bmd-form-group');
+						$('#emailChecking').append(
+							"<input type='text' class='form-control' placeholder='이메일을 통해 받은 인증번호를 입력하세요' id='confirmNum'>"
+							+ "<button type='button' class='btn btn-outline btn-sm' style='position: absolute; top: 23px; right: 0;' id='confirm'>확인</button>"
+							+ "<input type='hidden' class='form-control' id='confirmVal' required>");
 							/* $('#confirmNum').attr(type,'text');
 							$('#confirm').removeAttr('hidden'); */
-                          $.ajax({
-                                type : "post",
-                                url : "confirmEmail",
-                                data : {"receiveMail" : $('#userid').val()},
-                                success : function(data) {
-                                    alert("인증번호를 발송했습니다!", "메일을 확인해주세요!")
-                                    $('#confirm').click(function() {
-				        		 		console.log("confirm버튼 눌림")
-                                        console.log(data);
-				        		 		console.log($('#confirmNum').val());
-                                        if($('#confirmNum').val() != data) {
-                                            alert("인증정보가 정확하지 않습니다!")
-                                        } else {
-                                            alert("인증정보가 확인되었습니다!")
-                                            $('#confirmVal').val('1');
-                                            $('#userid').attr("email_chk", "success");
-                                        }
-                                    })
-                                }
-                            });
-                      }
-                  }
-            })
-   	 });
-		//이메일 인증 끝	
-		
-	});
+						$.ajax({
+								type : "post",
+								url : "confirmEmail",
+								data : {"receiveMail" : $('#userid').val()},
+								success : function(data) {
+									//swal("인증 번호가 발송되었습니다. 메일을 확인해주세요~!");
+									$('#confirm').click(function() {
+										// console.log("confirm버튼 눌림")
+										// console.log(data);
+										// console.log($('#confirmNum').val());
+										if($('#confirmNum').val() != data) {
+											swal("번호가 잘못되었습니다.")
+										} else {
+											swal("인증 완료!")
+											$('#confirmVal').val('1');
+											$('#userid').attr("email_chk", "success");
+											$('#confirmNum').attr('readonly', true);
+											$('#confirm').attr('disabled', true);
+										}
+									})
+								}
+							});
+					}
+				}
+			}); // /.ajax
+	}); // /.이메일 인증
+
+
 </script>
-
-
-
-
-</head>
-<body>
-	<!-- header -->
-	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<!-- header -->
-
-
-
-
-	<div class="side_overlay">
-
-		<div class="container">
-
-
-			<h1 class="logo" align="center">
-				<a href="register.bit"><b>슬기로운 반려생활</b></a>
-			</h1>
-
-			<h3 class="logo" align="center">
-				<a href="register.bit"><b>어서오시개, 가입하냥</b></a>
-			</h3>
-			<br>
-			
-			
-			<div class="card-body">
-					<div class="tab-content text-center">
-					
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
-				<!-- ============================================================== -->
-				
-
-				<div class="table-responsive">
-						<form class="mt-5 mb-5 login-input" action="normalJoin.bit" enctype="multipart/form-data" method="post">
-							<div class="card-body">
-								<div class="wrap-input100">
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="form-group row">
-												<div class="col-8">
-													<div class="input-group">
-														<label for="fname" class="label" style="text-align: left">아이디</label>
-														<input class="input--style-4" type="text" maxlength="20"
-															id="userid" name="userid"
-															title="5~16자리의 영문+숫자 조합으로 입력해주세요"
-															placeholder="이메일 형식으로 입력해 주세요" check_result="fail">
-													</div>
-													<!-- 적합하지 않은 이메일 형식입니다. -->
-													<div class="col-sm-9 tdemail" align="left"></div>
-													<!-- 적합하지 않은 이메일 형식입니다. -->
-												</div>
-												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary" id="btn-idchk" style="padding: 10px 20px">중복확인</button>
-												</div>
-												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary" id="emailCheck" name="emailCheck" email_chk="fail">이메일 확인</button>
-		                                    	</div>
-		                                    	<!--  <div class="tdemail"></div>-->
-		                                    	<div class="col-12" id="emailChecking"></div>
-									
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="lname" class="label" style="text-align: left">비밀번호</label>
-														<input class="input--style-4" type="password"
-															maxlength="20" id="pwd" name="pwd"
-															title="8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다."
-															placeholder="비밀번호를 입력해주세요">
-													</div>
-												</div>
-												<!-- 중복확인 아래 부분 -->
-												<div class="col-2"></div>
-												<!-- 중복확인 아래 부분 -->
-											</div>
-										</div>
-										<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
-										<div class="col-sm-12 tdpw" align="left"></div>
-										<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="email1" class="label" style="text-align: left">비밀번호
-															확인</label> <input class="input--style-4" type="password"
-															maxlength="20" id="pwdCheck" name="pwdCheck"
-															title="패스워드 확인" placeholder="비밀번호를 입력해주세요">
-													</div>
-												</div>
-												<!-- 중복확인 아래 부분 -->
-												<div class="col-2"></div>
-												<!-- 중복확인 아래 부분 -->
-											</div>
-										</div>
-										<!-- 비밀번호가 다릅니다. -->
-										<div class="col-sm-12 tdpwch" align="left"></div>
-										<!-- 비밀번호가 다릅니다. -->
-									</div>
-
-
-
-
-
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="cono1" class="label" style="text-align: left">닉네임</label>
-														<input class="input--style-4" type="text" maxlength="20"
-															id="nick" name="nick" title="닉네임"
-															placeholder="사용할 닉네임을 입력해 주세요" check_result="fail">
-													</div>
-												</div>
-												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary"
-														id="btn-nickchk" style="padding: 10px 20px">중복확인 </button>
-												</div>
-											</div>
-										</div>
-										<!-- 닉네임 응원. -->
-										<div class="col-sm-12 tdnick" align="left"></div>
-										<!-- 닉네임 응원. -->
-									</div>
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-														<label for="cono1" class="label" style="text-align: left">휴대폰
-															번호</label> <input class="input--style-4" type="text"
-															maxlength="20" id="cpnumber" name="cpnumber" title="휴대폰"
-															placeholder="휴대폰 번호를 입력해 주세요">
-													</div>
-												</div>
-												<div class="col-2" style="padding-top: 22px">
-													<button type="button" class="btn btn-primary"
-														id="btn-cpnumberchk" style="padding: 10px 20px">인증 </button>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12"></div>
-									</div>
-
-
-									<div class="form-group row">
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-
-														<label for="cono1" class="label" style="text-align: left">주소</label>
-
-														<!-- 카카오 지도 API 적용 -->
-														<input class="input--style-4" type="text" maxlength="20"
-															size="45" id="loc" name="loc" title="주소-기본주소"
-															placeholder="동명(읍,면)으로 검색 (ex.서초동)"> 
-															<input type="hidden" name="lat" id="lat"> 
-															<input type="hidden" name="lon" id="lon"> 
-															<br> 
-															<br>
-
-
-
-														<button type="button" id="currentLoc"
-															class="btn btn-primary social facebook btn-flat btn-addon mb-3"
-															style="padding: 10px 20px">
-															<i class="fa fa-crosshairs"></i>현재 위치로 찾기
-														</button>
-
-														<!-- 지도로 찾기 잠시 보류 <button type="button" class="btn btn-primary" id="searchMap">지도에서 찾기</button> -->
-														<!-- 카카오지도 뿌려지는 곳 -->
-														<!-- 	<div id="map" style="width:300px;height:300px;"></div>   -->
-
-														<div id="layer"
-															style="border-radius: 10px; margin-bottom: 10px; display: none; position: absolute; overflow: hidden; z-index: 1; top: 0px; left: 0px; max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6;">
-															<img
-																src="//t1.daumcdn.net/postcode/resource/images/close.png"
-																id="btnCloseLayer"
-																style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1; width: 20px"
-																alt="닫기 버튼">
-														</div>
-
-													</div>
-												</div>
-												<div class="col-2"></div>
-											</div>
-										</div>
-										<div class="col-sm-12"></div>
-									</div>
-
-									<!-- 지도로 찾기 잠시 보류 <button type="button" class="btn btn-primary" id="searchMap">지도에서 찾기</button> -->
-									<!-- 카카오지도 뿌려지는 곳 -->
-									<!-- 	<div id="map" style="width:300px;height:300px;"></div>   -->
-
-									<div class="form-group row">
-
-										<div class="col-sm-12">
-											<div class="row row-space">
-												<div class="col-10">
-													<div class="input-group">
-
-														<label for="cono1" class="label" style="text-align: left">
-															이미지 추가
-														</label>
-
-														<div style="float: left;">
-															<label class="btn btn-primary btn-default btn-file"
-																style="padding: 10px 20px; margin-right: 80px">
-																이미지 설정/변경 
-																<input class="input--style-4" type="file"
-																name="file" style="display: none;"
-																onchange="readURL(this);">
-															</label> &nbsp;&nbsp;&nbsp;&nbsp; 
-																<img id="img" src="../images/profile.png" alt="" width="150px"
-																height="150px" style="border-radius: 10px;" /> 
-																<span id="imgFileName">&nbsp;&nbsp;</span>
-														</div>	
-														
-													</div>
-													
-												</div>
-												<div class="col-2"></div>
-											</div>
-										</div>
-										<div class="col-sm-12"></div>
-									</div>
-
-								</div>
-								<!-- wrap -->
-							</div>
-							<!-- form 다음 -->
-							<div class="border-top">
-								<div class="card-body" style="text-align: center;">
-									<button type="submit" class="btn btn-primary"
-										style="padding: 10px 20px">
-										<b>전송</b>
-									</button>
-									<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
-								</div>
-							</div>
-						</div>
-						</form>
-					</div>
-			
-				</div>
-
-			</div>
-		
-		</div>
-
-	</div>
-
-<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 	<script>
 		//카카오 지도
@@ -722,9 +414,9 @@ input {
 								navigator.geolocation
 										.getCurrentPosition(
 												function(position) {
-													alert(position.coords.latitude
-															+ ' '
-															+ position.coords.longitude);
+													// alert(position.coords.latitude
+													// 		+ ' '
+													// 		+ position.coords.longitude);
 													//위도/경도 값 저장
 													$('#lat')
 															.val(
@@ -792,65 +484,8 @@ input {
 				}
 				reader.readAsDataURL(input.files[0]);
 			}
-			$('#imgFileName').html(input.files[0].name);
+			//$('#imgFileName').html(input.files[0].name);
 		};
-
-		//***********************************//
-		//  아이디 중복 체크
-		//***********************************//	
-
-		$('#btn-idchk')
-				.click(
-						function() {
-							//아이디 적합성 체크
-							let email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-							if (!email.test($('#userid').val())) {
-								alert('적합하지 않은 이메일 형식입니다');
-								$('#userid').focus();
-								return;
-							}
-							;
-							//아이디 중복 체크
-							$('#userid').change(function() {
-								//$('#id_check_sucess').hide();
-								$('#btn-idchk').show();
-								$('#userid').attr("check_result", "fail");
-							});
-							
-
-							if ($('#userid').val() == '') {
-								alert('이메일을 입력해주세요.')
-								return;
-							}
-
-							console.log($('#userid').val());
-
-							$.ajax({
-								type : "POST",
-								url : 'idCheck.bit',
-								data : {
-									userid : $('#userid').val()
-								},
-								datatype : 'json',
-								success : function(data) {
-									console.log(data);
-									if (data[0] != null) {
-										alert("이미 존재하는 아이디 입니다.");
-										$("#userid").val('');
-										$("#userid").focus();
-										return;
-									} else {
-										alert("사용가능한 아이디 입니다.");
-										$('#userid').attr("check_result",
-												"success");
-										// $('#id_check_sucess').show();
-										//$('#btn-idchk').hide();
-										return;
-									}
-								}
-							});
-						});
-
 
 		//***********************************//
 		//  닉네임 중복 체크
@@ -960,7 +595,7 @@ input {
 		
 
 		/*colorpicker*/
-		$('.demo').each(function() {
+		// $('.demo').each(function() {
 			//
 			// Dear reader, it's actually very easy to initialize MiniColors. For example:
 			//
@@ -970,31 +605,33 @@ input {
 			// by it. Also, data- attributes aren't supported at this time...they're
 			// only used for this demo.
 			//
-			$(this).minicolors({
-				control : $(this).attr('data-control') || 'hue',
-				position : $(this).attr('data-position') || 'bottom left',
-				change : function(value, opacity) {
-					if (!value)
-						return;
-					if (opacity)
-						value += ', ' + opacity;
-					if (typeof console === 'object') {
-						console.log(value);
-					}
-				},
-				theme : 'bootstrap'
-			});
+		// 	$(this).minicolors({
+		// 		control : $(this).attr('data-control') || 'hue',
+		// 		position : $(this).attr('data-position') || 'bottom left',
+		// 		change : function(value, opacity) {
+		// 			if (!value)
+		// 				return;
+		// 			if (opacity)
+		// 				value += ', ' + opacity;
+		// 			if (typeof console === 'object') {
+		// 				console.log(value);
+		// 			}
+		// 		},
+		// 		theme : 'bootstrap'
+		// 	});
 
-		});
+		// });
+
+
 		/*datwpicker*/
-		$('.mydatepicker').datepicker();
-		$('#datepicker-autoclose').datepicker({
-			autoclose : true,
-			todayHighlight : true
-		});
-		var quill = new Quill('#editor', {
-			theme : 'snow'
-		})
+		// $('.mydatepicker').datepicker();
+		// $('#datepicker-autoclose').datepicker({
+		// 	autoclose : true,
+		// 	todayHighlight : true
+		// });
+		// var quill = new Quill('#editor', {
+		// 	theme : 'snow'
+		// })
 	</script>
 </body>
 </html>

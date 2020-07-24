@@ -24,7 +24,7 @@
  			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
 			padding: 40 100px;
 			border-radius: 6px;	
-			margin-bottom: 300px;
+			/* margin-bottom: 300px; */
 			position: relative;
 			height: 500px;
     	}
@@ -40,7 +40,7 @@
     	#edit-link {
     		 position: absolute;
     		 top: 385px;
-    		 left: 293px;
+    		 left: 285px;
     		 font-size: 13px;
     		 text-align: center;
     	}
@@ -50,6 +50,25 @@
 		.card {
 			margin-left: 10px;
 			margin-right: 10px;
+		}
+		#mypage-editPwd-wrapper {
+			width: 425px;
+			position: absolute;
+			transform: translate(83%, 32%);
+		}
+		#pwdEditBtn {
+			position: absolute;		
+			bottom: 72px;
+			left: 500px;	
+		}
+		#delete {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			margin: 10px;
+			font-size: 13px;
+			color: #9E9E9E;
+			font-weight: bold;
 		}
 	
 	</style>
@@ -80,7 +99,7 @@
 	                </li>
 	                <li class="nav-item">
 	                  <a class="nav-link" href="#myPage-editMyPwd" role="tab" data-toggle="tab" aria-selected="true">
-	                    <i class="material-icons">local_hospital</i>
+	                    <i class="material-icons">vpn_key</i>
 	                    	비밀번호 변경
 	                  </a>
 	                </li>
@@ -93,9 +112,6 @@
 					<div class="tab-content tab-space">
 						<div class="tab-pane active show" id="myPage-myInfo">
 							<div class="mypage-card">
-								<div id="mypage-img-wrapper">
-									<img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/assets/images/${user.uimg}" rel="nofollow" alt="프로필 사진">
-								</div>
 								<form action="edit.bit" id="editForm" method="post" enctype="multipart/form-data">
 									<div id="mypage-myinfo-wrapper">
 							            <div class="form-group has-default bmd-form-group">
@@ -131,12 +147,18 @@
 							                <input type="text" class="form-control" placeholder="휴대폰번호" value="${user.cpnumber}" id="cpnumber" name="cpnumber">
 							            </div>
 									</div>
+									<div id="mypage-img-wrapper">
+										<img id="previous-img" class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/assets/images/${user.uimg}" rel="nofollow" alt="프로필 사진">
+									</div>
+									<div id="edit-link">
+										<label for="uimg" id="editImgText">사진 바꾸기</label>
+										<input type="file" id="uimg" name="file" style="display: none;" onchange="readURL(this);">
+										<!-- <span id="imgFileName" style="display: none;">&nbsp;&nbsp;</span> -->
+										<br>
+										<a href="javascript:void(0);" onclick="changeBtn();" id="editBtn" class="btn btn-sm">내 정보 수정</a>
+									</div>
+									<input type="hidden" value="${sessionScope.user.userid}" name="userid">
 								</form>
-								<div id="edit-link">
-									<a href="#">사진 바꾸기</a>
-									<br>
-									<a href="javascript:void(0);" onclick="editMyInfo();" id="editBtn">내 정보 수정</a>
-								</div>
 							</div>
 						</div>
 						
@@ -187,86 +209,35 @@
 						
 						
 						<div class="tab-pane" id="myPage-editMyPwd">
-							비밀번호 수정
-						</div>
-				
-				
-				
-			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
-					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-					<div class="nav-tabs-navigation">
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item">
-								<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-									<i class="material-icons">email</i> 내 정보</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='../mypage/myPetsInfo.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-									<i class="material-icons">email</i> 내 반려동물 정보</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='edit.bit'" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-								 	<i class="material-icons">email</i> 내 정보 수정</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='editPwd.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-									<i class="material-icons">email</i> 비밀번호 변경</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='withdrawal.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-									<i class="material-icons">email</i> 회원 탈퇴</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="card-body">
-					<div class="tab-content text-center">
-						<!---------- 마이 페이지 ------------------>
-						<div class="tab-pane active show" id="">
-							
-
-							<div class="table-responsive">
-								<table class="table">
-									<thead class="text">
-										<tr>
-											<th rowspan="5" style="text-align: center">
-												<div class="card" style="width: 20rem;">
-													<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${user.uimg}" rel="nofollow" alt="card image">
-													<h4>${user.nick}</h4>
-												</div>
-											</th>
-											<td>보유 포인트</td>
-											<td>${user.point}포인트</td>
-										</tr>
-										<tr>
-											<td>이메일</td>
-											<td>${user.userid}</td>
-										</tr>
-										<tr>
-											<td>회원 위치</td>
-											<td>${user.loc}</td>
-										</tr>
-										<tr>
-											<td>가입일시</td>
-											<td>${user.rtime}</td>
-										</tr>
-										<tr>
-											<td>등록 반려동물 수</td>
-											<td>구현해야 함</td>
-										</tr>
-									</thead>
-								</table>
+							<div class="mypage-card">
+								<form action="editPwd.bit" id="editPwdForm" method="post" enctype="multipart/form-data">
+									<div id="mypage-editPwd-wrapper">
+							            <div class="form-group has-default bmd-form-group">
+							            	<label>현재 비밀번호</label>
+							                <input type="password" class="form-control" placeholder="" id="pwd" name="pwd">
+							            </div>
+							            <div class="form-group has-default bmd-form-group">
+							            	<label>새 비밀번호</label>
+							                <input type="password" class="form-control" placeholder="" id="newPwd" name="newPwd"
+												title="8~20자 사이에 적어도 하나의 영어 대문자, 숫자, 특수문자가 포함되어야 합니다.">
+											<div class="newPwdMsg" style="font-size: 12px; color: #F27D7D"></div>
+							            </div>
+							            <div class="form-group has-default bmd-form-group">
+							            	<label>새 비밀번호 확인</label>
+							                <input type="password" class="form-control" placeholder="" id="newPwdCheck" name="newPwdCheck">
+							            	<div class="newPwdChkMsg" style="font-size: 12px; color: #F27D7D"></div>
+							            </div>
+							            <!-- <div class="col-sm-12 tdpwch" align="left	"></div> -->
+									</div>
+									<button type="submit" class="btn btn-sm" id="pwdEditBtn">비밀번호 수정</button>
+								</form>
+								
+								
+								<a href="javascript:void(0);" id="delete">회원 탈퇴</a>
+								 
+								<!-- <button id="delete" class="btn btn-white btn-round btn-sm">회원탈퇴</button> -->
 							</div>
-
-
 						</div>
-
-									<!-------------- 끝 ---------------->
-
-					</div>
-				</div>
-			</div>
-			
 					</div>
 				</div> <!-- /.col-12 -->
 			</div> <!-- /.row -->
@@ -284,20 +255,99 @@
 <script>
 
 	$(function() {
-		console.log("zzzㅋㅋㅋㅋㅋ");
+		
+		$('#currentLoc, #btn-nickchk, #editImgText').hide();
 		$('#nick, #loc, #cpnumber').attr('readonly', true);
-		$('#currentLoc, #btn-nickchk').hide();
+
 		//moveTab();
 
-	});
+
+
+		// 비밀번호 확인
+		var validate = new Array;
+		//password
+		$('#newPwd')
+				.keyup(
+						function() {
+							let pwd = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{8,20}$/;
+							if (!pwd.test($(this).val())) {
+								$('.newPwdMsg').html('<b>8~20자 사이에 적어도 하나의 영어 대문자, 숫자, 특수문자가 포함되어야 합니다.</b>');
+								validate[0] = false;
+							} else if( $('#pwd').val() == $(this).val() ) {
+								$('.newPwdMsg').html('<b>기존 비밀번호와 같을 수 없습니다.</b>');
+								validate[0] = false;
+							} else {
+								$('.newPwdMsg').html('<b>적합한 패스워드입니다.</b>');
+								validate[0] = true;
+							}
+							console.log(validate[0]);
+						});
+		//password check
+		$('#newPwdCheck').keyup(function() {
+			if ($('#newPwd').val() != $('#newPwdCheck').val()) {
+				$('.newPwdChkMsg').html('<b>비밀번호가 다릅니다.</b>');
+				validate[1] = false;
+			} else {
+				$('.newPwdChkMsg').html('<b>비밀번호가 일치합니다.</b>');
+				validate[1] = true;
+			}
+			console.log(validate[1]);
+		});
+
+		/*
+		$('input').focus(function() {
+			$(this).css('background-color', "gold");
+		});
+		$('input').blur(function() {
+			$(this).css('background-color', "white");
+		});
+		*/
+
+		//입력 다 했는지 검증
+		//$('input:not([type=file])').prop("required", true);
+		//$('#id').attr("required","required");
+
+		//submit 클릭시 올바르지 않은 입력 검증
+		$('button:submit').click(function() {
+			for (let i = 0; i < validate.length; i++) {
+				if (validate[i] == false) {
+					swal("올바르지 않은 입력이 있습니다.");
+					console.log(i);
+					switch (i) {
+					case 0:
+						$('#pwd').focus();
+						return false;
+					case 1:
+						$('#pwdCheck').focus();
+						return false;
+					}
+				}
+			}
+		});
+
+		// 탈퇴 전 확인 창 띄우기
+		$('#delete').click(function(){
+			
+			let con = confirm("정말로 탈퇴하시겠습니까?");
+			if(con){
+				return location.href='withdrawal.bit?userid=${userid}';
+			}else{
+				return false;
+			}
+		});
+		
+
+		
+
+		
+
+		
+		
+
+	}); /*/.onload */
+
 
 	
-
-
-
-
-
-
 	
 
 	/**
@@ -324,35 +374,42 @@
 	* @설명 : 회원 정보 수정 처리
 	* @param void
 	**/
-	function editMyInfo() {
+	function changeBtn() {
 		
 		$('#editBtn').html('수정 완료');
-		$('#currentLoc, #btn-nickchk').show();
+		$('#currentLoc, #btn-nickchk, #editImgText').show();
 		$('#nick, #loc, #cpnumber').attr('readonly', false);
 		$('#nick, #loc, #cpnumber').css('background-color', 'rgba(151, 150, 240, 0.15)');
-		
-		$('#editBtn').on('click', function() {
+		editMyInfo();
+	}
 
-			var editNick = $('#nick').val();
-			var editLoc = $('#loc').val();
-			var editCpnumber = $('#cpnumber').val();
+
+	// 수정포인트 1. 정보를 가져오는 것도 ajax여야 한다 
+	// 비동기로 하는 게 맞나... 고민...
+	// 비동기면 headerandnavi도 비동기로 가져와야 함;;;;
+	
+	function editMyInfo() {
+		$('#editBtn').on('click', function() {
+			
+			var form = $('#editForm')[0];
+			var formData = new FormData(form);
+			//var userid = '${sessionScope.user.userid}';
 			
 			$.ajax({
 				url: "edit.bit",
 				type: "post",
-				data: {
-					nick: editNick,
-					loc: editLoc,
-					cpnumber: editCpnumber,
-					userid: '${sessionScope.user.userid}'
-				},
+				async: false,
+				data: formData, 	
+				enctype: 'multipart/form-data',
+				processData: false,
+				contentType: false,
 				success: function(response) {
 					console.log(response);
 					$('#editBtn').html('내 정보 수정');
 					$('#nick, #loc, #cpnumber').css('background-color', '#ffffff');
-					$('#currentLoc, #btn-nickchk').hide();
-					$('#nick, #loc, #cpnumber').attr('readonly', true);
 					
+					$('#nick, #loc, #cpnumber').attr('readonly', true);
+					$('#currentLoc, #btn-nickchk, #editImgText').hide();
 				}
 			});			
 		});
@@ -415,7 +472,6 @@
 	}
 
 	// html5 geolocation을 이용하여 현재 위치 값 받아내기
-
 	$('#currentLoc')
 			.click(
 					function getLocation() {
@@ -423,9 +479,11 @@
 							navigator.geolocation
 									.getCurrentPosition(
 											function(position) {
+												/*
 												alert(position.coords.latitude
 														+ ' '
 														+ position.coords.longitude);
+												*/
 												//위도/경도 값 저장
 												$('#lat')
 														.val(
@@ -434,12 +492,8 @@
 														.val(
 																position.coords.longitude);
 
-												console
-														.log($('#lat')
-																.val());
-												console
-														.log($('#lon')
-																.val());
+												console.log($('#lat').val());
+												console.log($('#lon').val());
 												//카카오 지도 api 라이브러리 활용, 좌표에서 주소로 변환 // 
 												var geocoder = new kakao.maps.services.Geocoder();
 
@@ -450,10 +504,7 @@
 														result, status) {
 													let currentAddr = result[0].address.address_name;
 													if (status === kakao.maps.services.Status.OK) {
-														console
-																.log('그런 너를 마주칠까 '
-																		+ currentAddr
-																		+ '을 못가');
+														//console.log('그런 너를 마주칠까 '+ currentAddr+ '을 못가');
 													}
 													$("#loc").val(
 															currentAddr);
@@ -548,9 +599,19 @@
 						});
 					});
 
-	
-
-	
+	//***********************************//
+	// 이미지 파일 업로드시 이미지 미리보기
+	//***********************************//
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#previous-img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+		//$('#imgFileName').html(input.files[0].name);
+	};
 		
 </script>
 </html>

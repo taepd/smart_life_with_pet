@@ -8,8 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import bit.or.eesotto.dto.Pet;
-import bit.or.eesotto.dto.User;
+import bit.or.eesotto.dto.*;
 import lombok.Delegate;
 
 
@@ -56,7 +55,7 @@ public interface PetDao {
 		public List<String> getSimplePetInfo(@Param("userid") String userid);
 		
 		// 반려동물 사진만 가져오기
-		@Select("select petname, petimg from pet where userid = #{userid}")
+		@Select("select petindex, petname, petimg from pet where userid = #{userid}")
 		public List<Pet> getPetPicture(@Param("userid") String userid);
 
 
@@ -66,12 +65,12 @@ public interface PetDao {
 
 		// 반려동물 한 마리 정보 가져오기
 		//@Select("select * from pet where userid = #{userid}")
-		@Select("select p.*, s.SCANAME as scaname, m.MCANAME as mcaname " 
+		@Select("select p.*, s.SCANAME as scaname, m.MCANAME as mcaname, u.nick as nick " 
 				+ "from pet p "
+				+ "left outer join user u on p.userid = u.userid "
 				+ "left outer join subcategory s on p.SCATEGORY = s.SCATEGORY "
 			    + "left outer join maincategory m on p.MCATEGORY = m.MCATEGORY "
 			    + "where petindex = #{petindex}")
 		public Pet getPet(@Param("petindex") int petindex);
-
 	
 }

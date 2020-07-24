@@ -69,6 +69,10 @@ public class MainController {
 			//후원글 조회
 			HashMap<String, Object> donationList = ds.main(cp, ps);
 			
+			//팔로우(좋아요)한 반려동물 목록 조회
+			List<PetLike> list = ms.getPetLike(userid);
+			
+			
 			// view까지 전달 (forward)
 			model.addAttribute("cpage", map.get("cpage"));
 			model.addAttribute("pageSize", map.get("pageSize"));
@@ -76,7 +80,8 @@ public class MainController {
 			model.addAttribute("pageCount", map.get("pageCount"));
 			model.addAttribute("totalPostCount", map.get("totalPostCount"));
 			model.addAttribute("petList", petList); 
-			model.addAttribute("donationList", donationList.get("donateList")); 	
+			model.addAttribute("donationList", donationList.get("donateList")); 
+			model.addAttribute("petLikeList", list);
 			
 			 return "main";
 		 }
@@ -134,12 +139,11 @@ public class MainController {
 		@RequestMapping(value = "alarmTest.bit", method = RequestMethod.GET)
 		public String alarmViewTest(String cp, String ps, Principal principal, Model model) {
 			
-		
 			logger.info("다시작업시작이다..." );
-			
-			
-			
+
 			return "/alarmTest";
 		}
+		
+		
 
 }

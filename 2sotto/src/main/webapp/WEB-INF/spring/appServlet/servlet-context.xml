@@ -4,11 +4,22 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/websocket 
+ 		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
 
+
+	<!-- 웹소캣 추가사항 시작 -->
+	<!--  
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	http://www.springframework.org/schema/websocket 
+ 	http://www.springframework.org/schema/websocket/spring-websocket.xsd 
+	 -->
+	<!-- 웹소캣 추가사항 끝 -->
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -77,6 +88,26 @@
 
     <!-- 페이스북 소셜 로그인 연결 설정 시작 -->
 	
+	<!-- 웹소켓 시작-->
+	<websocket:handlers>
+		<websocket:mapping path="/chat" handler="chatHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="bit.or.eesotto.interceptor.ChatHandShakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	<websocket:handlers>
+		<websocket:mapping path="/alarm" handler="alarmHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="bit.or.eesotto.interceptor.AlarmHandShakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
+	<beans:bean class="bit.or.eesotto.websocket.WebSocketChatHandler"
+		id="chatHandler" />
+
+	<beans:bean class="bit.or.eesotto.websocket.WebSocketAlarmHandler"
+		id="alarmHandler" />
+	<!-- 웹소켓 끝-->
 	
 
 	     

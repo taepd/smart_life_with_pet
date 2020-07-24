@@ -124,7 +124,20 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-
+		<!-- 웹소켓 시작 -->
+	     <dependency>
+	         <groupId>org.springframework</groupId>
+	         <artifactId>spring-websocket</artifactId>
+	         <version>${org.springframework-version}</version>
+	     </dependency>
+	     <dependency>
+	         <groupId>org.codehaus.jackson</groupId>
+	         <artifactId>jackson-mapper-asl</artifactId>
+	         <version>1.4.2</version>
+      	 </dependency>
+	     
+		<!-- 웹소켓 끝 -->
+		
 		<!-- naver -->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>

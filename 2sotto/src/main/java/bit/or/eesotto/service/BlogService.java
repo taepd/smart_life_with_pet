@@ -14,12 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import bit.or.eesotto.controller.BlogController;
-import bit.or.eesotto.dao.BlogCommentDao;
-import bit.or.eesotto.dao.BlogDao;
-import bit.or.eesotto.dao.UserDao;
-import bit.or.eesotto.dto.Blog;
-import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.User;
+import bit.or.eesotto.dao.*;
+import bit.or.eesotto.dto.*;
 
 @Service
 public class BlogService {
@@ -35,6 +31,9 @@ public class BlogService {
 
 	@Autowired
 	BlogDao blogDao;
+	
+	@Autowired
+	BlikeDao blikeDao;
 	
 	@Autowired
 	BlogCommentDao blogCommentDao;
@@ -334,6 +333,57 @@ public class BlogService {
 		map.put("totalPostCount", totalPostCount);
 		
 		return map;
+	}
+	
+	// 포스트 좋아요 처리
+		public int likePost(Blike blike) {
+			
+			int result = 0;
+
+			try {
+
+				blikeDao = sqlsession.getMapper(BlikeDao.class);
+				result = blikeDao.likePost(blike);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return result;
+		}
+		
+	// 포스트 좋아요 취소 처리
+	public int unlikePost(Blike blike) {
+		
+		int result = 0;
+
+		try {
+
+			blikeDao = sqlsession.getMapper(BlikeDao.class);
+			result = blikeDao.unlikePost(blike);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
+	
+	// 포스트 좋아요 여부 확인
+	public Blike isLikePost(String bindex, String userid) {
+		
+		Blike blike = null;
+
+		try {
+
+			blikeDao = sqlsession.getMapper(BlikeDao.class);
+			blike = blikeDao.isLikePost(Integer.parseInt(bindex), userid);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return blike;
 	}
 	
 }

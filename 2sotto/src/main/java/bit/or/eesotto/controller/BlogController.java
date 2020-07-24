@@ -140,6 +140,8 @@ public class BlogController {
 			pArr.add(ms.editPetInfo(Integer.parseInt(petindex))); 
 		}
 		
+		//유저가 좋아요한 포스트인지 확인
+		Blike blike = bs.isLikePost(bindex, userid);	
 		
 		
 		//자신의 글이 아니면 조회수 증가
@@ -153,6 +155,7 @@ public class BlogController {
 	
 		model.addAttribute("post", post);
 		model.addAttribute("pArr", pArr);
+		model.addAttribute("blike", blike);
 		
 		return "blog/detail";	
 	}
@@ -447,6 +450,26 @@ public class BlogController {
 		}
 		
 		return result;
+	}
+	
+	// 반려동물 팔로우(petlike) 처리
+	@ResponseBody
+	@RequestMapping(value = "likePost.bit", method = RequestMethod.POST)
+	public int followPet(Blike blike , Principal principal) {
+		
+		blike.setUserid(principal.getName());
+		
+		return bs.likePost(blike);
+	}
+	
+	// 반려동물 언팔로우(petlike) 처리
+	@ResponseBody
+	@RequestMapping(value = "unlikePost.bit", method = RequestMethod.POST)
+	public int unFollowPet(Blike blike, Principal principal) {
+		
+		blike.setUserid(principal.getName());		
+		
+		return bs.unlikePost(blike);
 	}
 
 

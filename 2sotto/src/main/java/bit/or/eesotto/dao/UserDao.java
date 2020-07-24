@@ -25,7 +25,7 @@ public interface UserDao {
 
 	// 회원가입 > 아이디 중복체크 ajax
 	@Select("select userid from user where userid = #{userid}")
-	public List<String> getUserId(@Param("userid") String userid);
+	public String getUserId(@Param("userid") String userid);
 
 	// 회원가입 > 닉네임 중복체크 ajax
 	@Select("select nick from user where nick = #{nick}")
@@ -36,7 +36,7 @@ public interface UserDao {
 	//public List<String> getCpnumber(@Param("cpnumber") String cpnumber);
 
 	// 마이페이지 > 회원정보 수정
-	@Update("update user set cpnumber = #{cpnumber}, nick = #{nick}, loc=#{loc}	where userid=#{userid}")
+	@Update("update user set cpnumber=#{cpnumber}, nick=#{nick}, loc=#{loc}, uimg=#{uimg} where userid=#{userid}")
 	public int editUser(User user);
 
 	// 마이페이지 > 회원정보 삭제

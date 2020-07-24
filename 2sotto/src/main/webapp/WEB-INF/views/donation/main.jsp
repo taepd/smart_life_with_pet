@@ -210,9 +210,4 @@
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
-<script type="text/javascript">
-
-
-</script>
-
 </html>

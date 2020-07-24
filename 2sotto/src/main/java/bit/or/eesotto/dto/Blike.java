@@ -11,6 +11,6 @@ public class Blike {
 	
 	private int bmindex;
 	private String userid;
-	private int bdindex;
+	private int bindex;
 
 }

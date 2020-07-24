@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import bit.or.eesotto.dao.UserDao;
-import bit.or.eesotto.dto.Email;
-import bit.or.eesotto.dto.User;
+import bit.or.eesotto.dao.*;
+import bit.or.eesotto.dto.*;
 
 @Service
 public class UserService {
@@ -70,6 +69,7 @@ public class UserService {
 		//어드민 > 유저 가입 확인 끝
 		// -----------이메일 체크 시작----------- 
 		//중복된 코드같은데 일단 가지고있음.
+		/*
 		public List<String> idCheck(String userid) {
 
 			List<String> list = null;
@@ -85,6 +85,7 @@ public class UserService {
 
 			return list;
 		}
+		*/
 		
 		// -----------이메일 체크 끝-----------
 		// ------------이메일 발송 서비스 시작------------
@@ -112,6 +113,9 @@ public class UserService {
 			return confirmation;
 		}
 		// ------------이메일 발송 서비스 끝------------
+		
+	
+
 		
 }
 

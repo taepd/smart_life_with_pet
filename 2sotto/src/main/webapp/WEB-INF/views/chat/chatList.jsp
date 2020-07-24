@@ -1,85 +1,165 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>슬기로운생활</title>
+
 <%@ include file="/WEB-INF/include/import.jsp"%>
+
 </head>
 <body>
 
-	<div class="esstto-wrapper">
-		<div class="content pt-4">
-			<div class="row" id="chatList">
-				<div class="col-12 mb-4">
-					<button type="button" class="btn btn-primary btn-lg w-100" data-toggle="modal" data-target="#roomMake">방만들기</button>
-					<!-- Large modal -->
-					<div id="roomMake" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">
-										<span>&times;</span>
-									</button>
-								</div>
-									<div class="modal-body p-4">
-										<form method="POST" action="createChatRoom">
-											<label for="chat_title">채팅방 타이틀</label> 
-											<input id="room_title" name="room_title" type="text" class="form-control input-lg w-100" placeholder="몇 자 내로 작성하세요"> 
-											<label for="chat_people" class="mt-3">채팅 인원수</label> 
-											<input id="room_count" name="room_count" placeholder="2명에서 10명까지만 가능합니다." class="form-control" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
-									<div class="row mt-3">
-											<div class="col-4">
-												<label for="toggle-secret">비공개 여부</label><br> <label class="switch"> 
-												<input id="room_secret" name="room_secret" type="checkbox"> <span class="slider round"></span>
-												</label>
-											</div>
-										<div class="col secret-input-box"></div>
-									</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-outline-light">취소</button>
-												<button type="submit" class="btn btn-primary">방만들기</button>
-											</div>
-										</form>
-									</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!-- 비밀번호 모달 -->
-					<div class="modal fade bd-example-modal-lg" id="pwdmodal" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">
-										<span>&times;</span>
-									</button>
-								</div>
-							<div class="modal-body p-4">
-								<label for='secret-input'>비밀번호</label><input class='form-control' id='pwdChk' name='pwdChk' placeholder='네 자리의 숫자를 입력하세요' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
-								<div class="modal-footer">
-										<button type="button" class="btn btn-outline-light">취소</button>
-										<div class="mt-3"><button type="button" onclick="pwdcheck();" class="btn btn-primary">입장하기</button></div>
-								</div>
-							</div>
-								
-								
-							</div>
+	<div class="side_overlay">
+		
+		<div class="container">
+			<button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#roomMake">방만들기</button>
+
+			<div class="card card-nav-tabs">
+				<div class="card-header card-header-primary">
+					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+					<div class="nav-tabs-navigation">
+						<div class="nav-tabs-wrapper">
+							<ul class="nav nav-tabs" data-tabs="tabs">
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons"></i> 슬기로운 반려생활
+										</a></li>
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+										<i class="material-icons"></i> 
+										</a></li>
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+										<i class="material-icons"></i> 
+										</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
+				<!-- Large modal -->
+				<div id="roomMake" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">
+									<span>&times;</span>
+								</button>
+							</div>
+								<div class="modal-body p-4">
+									<form method="POST" action="createChatRoom">
+										<label for="chat_title">채팅방 타이틀</label> 
+										<input id="room_title" name="room_title" type="text" class="form-control input-lg w-100" placeholder="몇 자 내로 작성하세요"> 
+										<label for="chat_people" class="mt-3">채팅 인원수</label> 
+										<input id="room_count" name="room_count" placeholder="2명에서 10명까지만 가능합니다." class="form-control" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
+								<div class="row mt-3">
+										<div class="col-4">
+											<label for="toggle-secret">비공개 여부</label><br> <label class="switch"> 
+											<input id="room_secret" name="room_secret" type="checkbox"> <span class="slider round"></span>
+											</label>
+										</div>
+									<div class="col secret-input-box"></div>
+								</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-outline-light">취소</button>
+											<button type="submit" class="btn btn-primary">방만들기</button>
+										</div>
+									</form>
+								</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body" id="chatList">
+					
+					<div class="tab-content text-center">
+						<div class="tab-pane active show" id="">
+							<!---------- 채팅 만들어보자 ------------------>
+
+							<div class="table-responsive">
+								<!-- 비밀번호 모달 -->
+							<div class="modal fade bd-example-modal-lg" id="pwdmodal" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">
+												<span>&times;</span>
+											</button>
+										</div>
+									<div class="modal-body p-4">
+										<label for='secret-input'>비밀번호</label><input class='form-control' id='pwdChk' name='pwdChk' placeholder='네 자리의 숫자를 입력하세요' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
+										<div class="modal-footer">
+												<button type="button" class="btn btn-outline-light">취소</button>
+												<button type="button" onclick="pwdcheck();" class="btn btn-primary" style="text-align: center;">입장하기</button>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+							<!-- 비밀번호 모달 끝 -->
+							<!-- 페이징도 해줘야할수도 -->
+							<div class="pagination justify-content-center">
+							<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+									<ul class="pagination" id="pagingview">
+										<c:if test="${cpage > 1}">
+											<li class="page-item"><a class="page-link"
+												href="main.bit?cp=${cpage-1}&ps=${pageSize}"
+												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
+													aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+										</c:if>
+				
+										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+											<c:choose>
+												<c:when test="${cpage==i }">
+													<li class="page-item active"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+				
+										</c:forEach>
+				
+										<c:if test="${cpage < pageCount}">
+				
+											<li class="page-item">
+												<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+													cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+													<span aria-hidden="true">&raquo;</span>
+													<span class="sr-only">Next</span>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+							<!-- </nav> -->
+							</div>
+							<!-- 여기까지 페이징처리 -->
+							</div>
+			
+						</div>
+
+
+						<!-------------- 끝 ---------------->
+
+
+					</div>
+					
+				</div>
+				
 			</div>
-		</div>
-	</div>
-	<!-- 기본 폼 완성 -->
-	<input type="hidden" id="userid" value="${session.user.userid}">
-	<input type="hidden" id="nick" value="${session.user.nick}">
+
+		</div><!-- container -->
+		
+	</div>	<!-- container end -->
 	
+<!-- 기본 폼 완성 -->
+<input type="hidden" id="userid" value="${session.user.userid}">
+<input type="hidden" id="nick" value="${session.user.nick}">	
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 		var userid = $('#userid').val();
 		var nick = $('#nick').val();
 		
@@ -277,14 +357,16 @@
             else
                 event.target.value = event.target.value.replace(/[^0-9]/g, "");
         }
-			
-		
-		
-		
-		
-		
-		
-		
-	</script>
+
+
+
+</script>
+
 </body>
 </html>
+
+	
+
+	
+	
+	

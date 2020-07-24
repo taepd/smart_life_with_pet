@@ -9,61 +9,60 @@
 <%@ include file="/WEB-INF/include/import.jsp"%>
 </head>
 <body>
-	
-	<div class="bodiary-wrapper">
-		<div class="content pt-4">
-			<div class="row ">
-				<div class="col-lg-3">
-					<div>
-						<div class="p-3">
-							<div class="chat-title mt-3">
-								<h3 text="${chat.room_title}"></h3>
-							</div>
-							<hr>
-							<div class="mt-2">
-								<i class="icon-people mt-2"></i>&nbsp;&nbsp;<small text="${chat.room_count}"></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<i class="icon-lock mt-2"></i>&nbsp;&nbsp;<small if="${chat.room_secret.equals('N')}"></small><small if="${chat.room_secret.equals('Y')}">비밀방</small>
-							</div>
-							<div class="mt-3 mb-4">
-								<button id="exitBtn" class="btn btn-outline-primary w-100" type="button">나가기</button>
-							</div>
-							<div class="mt-3 mb-4">
-								<button id="deleteBtn" style="display:none;" class="btn btn-outline-primary w-100" type="button" >방 삭제</button>
-							</div>
+			
+	<div class="side_overlay">
+		
+		<div class="container">
+			<button type="button" id="exitBtn" class="btn btn-primary btn-round" >나가기</button>
+			<button type="button" id="deleteBtn" class="btn btn-primary btn-round" >방 삭제</button>
+			<div class="card card-nav-tabs">
+				<div class="card-header card-header-primary">
+					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+					<div class="nav-tabs-navigation">
+						<div class="nav-tabs-wrapper">
+							<ul class="nav nav-tabs" data-tabs="tabs">
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons"></i>채팅방:
+										</a></li>
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
+										<i class="material-icons"></i>${chat.room_title} 
+										</a></li>
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+										<i class="count"></i>
+										</a></li>
+							</ul>
 						</div>
 					</div>
-					<div class="card">
-						<div class="card-header count">
-							
-						</div>
-						
-					</div>
-					<div class="userlist">
-							
-						</div>
 				</div>
-				<div class="col chat-content-box m-3">
-					<div class="chat-content">
-						
-					</div> 
+
+				<div class="card-body" id="chatList">
+					<div class="mt-2">
+							<i class="icon-people mt-2"></i>&nbsp;&nbsp;<small text="${chat.room_count}"></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<i class="icon-lock mt-2"></i>&nbsp;&nbsp;<small if="${chat.room_secret.equals('N')}"></small><small if="${chat.room_secret.equals('Y')}">비밀방</small>
+							<i class="userlist"></i>
+						<div class="chat-content">
+						</div> 
+					</div>
+				</div>	
+					<div class="col chat-content-box m-3">
+					<br>
 					<div class="chat-input-box row">
 						<div class="col-10 pr-0">
 						<input type="text" id="message" class="form-control chat-input input-lg pl-4 pr-4" placeholder="매너채팅 하세요!! :)">
 						</div>
 						<div class="col pl-1">
-							<button type="button" id="sendBtn" class="btn btn-lg btn-dark chat-input-btn w-100">전송</button>
+							<button type="button" id="sendBtn" class="btn btn-dark chat-input-btn w-100 btn-round">전송</button>
 						</div>
 					</div>
 				</div>
+				
 			</div>
-		</div>
-	</div>
-	<!-- 기본 폼 완성 -->
 
-	<!-- 공통 스크립트-->
-
+		</div><!-- container -->
+		
+	</div>	<!-- container end -->
 	
-</body>
+<!-- 기본 폼 완성 -->
 
 <script type="text/javascript">
 	
@@ -400,15 +399,10 @@
 	}
 	
 	document.onkeydown = noEvent;
-	
 
-
-
-
-	
-		
-
-	
-		
 	</script>
-</html>
+</html>		
+
+
+	
+	

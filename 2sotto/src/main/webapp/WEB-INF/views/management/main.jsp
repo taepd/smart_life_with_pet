@@ -930,9 +930,10 @@ $(function() {
 		// 모달 열기 > 마지막에 열자
 		$('#createEventModal').modal('show');
 
-		$('#createEventModal').on('hidden.bs.modal', function (e) {
-			event.event.remove();
-		});
+	/* 	$('#createEventModal').on('hidden.bs.modal', function (e) {
+				
+		
+		}); */
 
  		//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
 		if($("#allDay").is(":checked")){
@@ -960,7 +961,7 @@ $(function() {
 			swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
 			return false;
 		}*/
-		
+		$('#updateEvent').unbind();
 		$('#updateEvent').on('click', function() {
 
 			// #allday 체크 여부에 따라 값 부여하기 
@@ -1016,6 +1017,7 @@ $(function() {
 
 
 		//삭제버튼 눌렀을 때 삭제 처리 함수
+		$('#deleteEvent').unbind();
 		$('#deleteEvent').on('click', function() {
 
 			event.event.remove();

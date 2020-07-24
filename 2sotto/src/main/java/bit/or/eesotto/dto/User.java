@@ -20,7 +20,7 @@ public class User {
 	private String lat;
 	private String lon;
 	private String snstype;
-	private int point;
+	private int userPoint;
 	
 	
 }

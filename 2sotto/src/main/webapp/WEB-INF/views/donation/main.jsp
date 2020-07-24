@@ -34,9 +34,6 @@
 
 	<div class="side_overlay">
 		<div class="container">
-
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">게시글</button>
 			<!-- 탭 아이콘 영역 -->
 			<!--  탭영역 음....기다린다 -->
 			<div class="card card-nav-tabs">
@@ -105,7 +102,7 @@
 												<td class="text-center">${rtime}</td>
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												<td class="text-center">${ctime}</td>
 												<td class="text-center">${donate.gcoll}</td>
 												<td class="text-center">${donate.ccoll}</td>
@@ -215,133 +212,7 @@
 </body>
 <script type="text/javascript">
 
-$(function(){
 
-	
-
-	
-	//페이지 사이즈 비동기
-	$('#paging').change(function(){
-		let data = {ps : $('#paging option:selected').val(),
-				    cp : $('#cp').val() 
-		           };		
-		$.ajax({
-			url:"donationListAjax.bit",
-			data: data,
-			type:"POST",		
-			dataType: "json",
-			success:function(responsedata){ 
-				 console.log(responsedata);
-				$('#donationtable').empty();
-				$.each(responsedata.donationList,function(index,obj){	
-					$('#donationtable').append(	
-							"<tr><td>"+obj.dindex+"</td>" +
-							"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
-								obj.title+"</a></td>" +
-							"<td class='text-center'>관리자</td>" +					
-							"<td class='text-center'>"+obj.ctime+"</td>"+
-							"<td class='text-center'>"+obj.gcoll+"</td>" +
-							"<td class='text-center'>"+obj.ccoll+"</td>" +
-							"<td class='text-center'>"+
-
-							"</td>" + 
-							"<td class='text-center'>" + obj.dstate + "</td>"
-					);
-				});
-				$('#zero_config_info').empty();
-				$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
-				console.log("현재 페이지" + responsedata.cpage);
-				//페이지 번호 처리
-				console.log("타입"+ (typeof responsedata.cpage));
-				page(responsedata.cpage);
-		   }
-			
-		
-		}); 
-	});
-	
-	//page()
-	function page(cp){
-		console.log('cp='+cp);
-		$('#pagingview').empty();
-		var pagesize = $('#paging option:selected').val();
-		var totaldonatecount = $('#totaldonatecount').val();
-
-		var pagecount;
-		console.log('pagesize= '+pagesize);
-		console.log('totaldonatecount= '+ totaldonatecount);
-		if((totaldonatecount % pagesize) == 0){
-			pagecount = totaldonatecount/pagesize;
-		}else if(totaldonatecount/pagesize<1){
-			pagecount=1;
-		}else{
-		
-			pagecount = Math.floor(totaldonatecount/pagesize + 1); 
-		}
-		
-		console.log('pagecount = '+pagecount);
-		let tmp="";
-		console.log('시피 = '+cp);
-		if(cp>1){
-			tmp +='<a href="main.bit?cp=${cpage-1}&ps='+pagesize+'" cp="'+(cp-1)+'" ps="'+pagesize+'">이전</a>';
-		}
-		//page 목록 나열하기
-		for(var i=1;i<=pagecount; i++){
-			if(cp==i){
-				tmp +=('<font color="red">['+i+']</font>');
-			}else{
-				tmp +=('<a href="main.bit?cp='+i+'&ps='+pagesize+'" cp="'+i+'" ps="'+pagesize+'" >['+i+']</a>');
-			}
-		}
-		//다음 링크
-		if(cp<pagecount){
-			tmp += '<a href="main.bit?cp=${cpage+1}&ps='+pagesize+'" cp="'+(cp+1)+'" ps="'+pagesize+'">다음</a>';
-		};
-		$('#pagingview').append(tmp);
-	};
-	
-	//페이지 링크 비동기
-	$(document).on('click', '#pagingview a', function(e){
-		e.preventDefault();
-		let data = {ps : $(this).attr('ps'),
-			        cp : $(this).attr('cp')
-	           };		
-	$.ajax({
-		url:"donationListAjax.bit",
-		data: data,
-		type:"POST",		
-		//dataType: "json",
-		success:function(responsedata){ 
-			 console.log(responsedata);
-			$('#donationtable').empty();
-			$.each(responsedata.emplist,function(index,obj){	
-				$('#donationtable').append(	
-						"<tr><td>"+obj.dindex+"</td>" +
-						"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
-							obj.title+"</a></td>" +
-						"<td class='text-center'>관리자</td>" +
-
-						"<td class='text-center'>"+obj.ctime+"</td>"+
-						"<td class='text-center'>"+obj.gcoll+"</td>" +
-						"<td class='text-center'>"+obj.ccoll+"</td>" +
-						"<td class='text-center'>"+
-						"</td>" + 
-						"<td class='text-center'>" + obj.dstate + "</td>"
-				   
-				);
-			});
-			$('#zero_config_info').empty();
-			$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
-			
-			//페이지 번호 처리
-			page(responsedata.cpage);
-	   }
-		
-	
-	}); 
-		
-	});
-});
 </script>
 
 </html>

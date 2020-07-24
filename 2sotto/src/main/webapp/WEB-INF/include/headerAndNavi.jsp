@@ -62,7 +62,7 @@
 				</div>
 				<div class="nickname">
 					${user.nick}<br>(${userid})<br>
-					<a href="${pageContext.request.contextPath}/point/main.bit">${user.point}P</a><br>
+					<a href="${pageContext.request.contextPath}/point/main.bit">${user.userPoint}P</a><br>
 					<button class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/mypage/main.bit'">마이페이지</button>
 				</div>
 			</se:authorize>

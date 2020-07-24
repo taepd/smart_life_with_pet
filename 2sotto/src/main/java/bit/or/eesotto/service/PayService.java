@@ -24,6 +24,7 @@ import bit.or.eesotto.dao.PointDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.BlogComment;
+import bit.or.eesotto.dto.Pay;
 import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.User;
 
@@ -33,6 +34,7 @@ public class PayService {
 	private static final Logger logger = LoggerFactory.getLogger(PayService.class);
 
 	private SqlSession sqlsession;
+	
 
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
@@ -44,13 +46,15 @@ public class PayService {
 	
 	
 	
+	
+	
 
-	// USER테이블 point 입력
-	public int payInput(User user) {//String userid, String point
+	// Pay테이블 입력
+	public int payInput(Pay pay) {//String userid, String point
 		int result = 0;
 		logger.info("payInput 서비스를 타기는 한다..");
-		logger.info("로그인 유저 아이디: " + user.getUserid());
-		logger.info("로그인 포인트: " + user.getPoint());
+		logger.info("결제 유저 아이디: " + pay.getUserid());
+		logger.info("결제 포인트: " + pay.getPamount());
 		/*
 		 * User user = new User(); int upoint = user.getPoint() +
 		 * Integer.parseInt(point); logger.info("합산 포인트: " + upoint);
@@ -63,9 +67,10 @@ public class PayService {
 			/*
 			 * user.setUserid(userid); user.setPoint(upoint);
 			 */
-			result = payDao.payInput(user);
-			logger.info("로그인 유저 아이디: " + user.getUserid());
-			logger.info("로그인 포인트: " + user.getPoint());
+			result = payDao.payInput(pay);
+			logger.info("결제 유저 아이디: " + pay.getUserid());
+			logger.info("결제 포인트: " + pay.getPamount());
+			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

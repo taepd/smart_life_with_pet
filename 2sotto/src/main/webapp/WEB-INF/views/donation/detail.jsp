@@ -89,11 +89,6 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-			
-			<!-- 결제 모달타는 것 -->
-		<!-- 	<button class="btn btn-primary btn-round" id="check_module" type="button">결제</button> -->
 			
 			<!-- 포인트 user point로 업데이트 -->
 			<form action="payInput.bit" method="POST">    		

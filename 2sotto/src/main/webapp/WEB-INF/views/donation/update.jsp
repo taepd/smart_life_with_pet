@@ -25,11 +25,7 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-
-
-			
+		
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->

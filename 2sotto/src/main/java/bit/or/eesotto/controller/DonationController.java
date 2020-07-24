@@ -34,7 +34,7 @@ public class DonationController {
 
 	@Autowired
 	DonationService ds;
-	
+
 	@Autowired
 	PayService payservice;
 
@@ -212,10 +212,9 @@ public class DonationController {
 			throws IOException, ClassNotFoundException, SQLException {
 		String msg = null;
 		String url = null;
-		
+
 		List<CommonsMultipartFile> files = donate.getFiles();
 		List<String> filenames = new ArrayList<String>(); // 파일명관리
-		
 
 		if (files != null && files.size() > 0) { // 최소 1개의 업로드가 있다면
 			for (CommonsMultipartFile multifile : files) {
@@ -247,7 +246,7 @@ public class DonationController {
 		if (result == 1) {
 			logger.info("result입력 성공 :  " + result);
 			msg = "후원글 수정 완료";
-	        url = "detail.bit?dindex="+donate.getDindex();
+			url = "detail.bit?dindex=" + donate.getDindex();
 
 		} else {
 
@@ -256,7 +255,7 @@ public class DonationController {
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		return "redirect";
 	}
 
@@ -275,11 +274,10 @@ public class DonationController {
 			return "javascript:history.back();";
 		}
 	}
-
-	// 유저 포인트 차감 및 현재 모금 포인트 증가
+	
+	//유저 포인트 차감 및 현재 모금 포인트 증가 + 기부테이블에 입력
 	@RequestMapping(value = "donatePoint.bit", method = RequestMethod.POST)
-	public String donatePoint(Donate donate, HttpSession session, HttpServletRequest request, Principal principal,
-			Model model) {
+	public String donatePoint(Donate donate, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
 
 		String dUserid = principal.getName();
 		logger.info("기부 유저 아이디: " + dUserid);
@@ -287,17 +285,19 @@ public class DonationController {
 		int dpoint = Integer.parseInt(request.getParameter("dpoint"));
 		logger.info("입력 기부 포인트: " + dpoint);
 		
-		
-
 		String msg = null;
 		String url = null;
 		logger.info("dindex: " + donate.getDindex());
 
 		User user = (User) session.getAttribute("user");
-		logger.info("유저포인트 가져오는지 확인" + user.getPoint());
+		logger.info("유저포인트 가져오는지 확인" + user.getUserPoint());
 
+		
+		
 		int result = 0;
 		int result2 = 0;
+		
+		
 		int ccoll = Integer.parseInt(request.getParameter("ccoll"));
 		int gcoll = Integer.parseInt(request.getParameter("gcoll"));
 
@@ -312,17 +312,17 @@ public class DonationController {
 		
 		}else if((ccoll + dpoint) == gcoll) {
 			
-			result = ds.donatePoint(donate, dpoint, dUserid);
+			result = ds.donatePoint(donate, dpoint, dUserid);		
 			result2  =  ds.completeDonationByColl(String.valueOf(donate.getDindex()));
-			logger.info("됐냐 이거?" + result);
-			user.setPoint(user.getPoint() - dpoint);
+						
+			user.setUserPoint(user.getUserPoint() - dpoint);
 			session.setAttribute("user", user);
 			msg = "포인트 기부 완료";
 			url = "detail.bit?dindex=" + donate.getDindex();
 		
 		// 목표모금액 보다 적을 경우 처리
 		}else {
-			if (user.getPoint() < dpoint) {
+			if (user.getUserPoint() < dpoint) {
 				logger.info("User 포인트 부족");
 				msg = "보유 포인트가 부족합니다.";
 				url = "detail.bit?dindex=" + donate.getDindex();
@@ -334,7 +334,7 @@ public class DonationController {
 			if (result == 1) {
 				// transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
 
-				user.setPoint(user.getPoint() - dpoint);
+				user.setUserPoint(user.getUserPoint() - dpoint);
 				session.setAttribute("user", user);
 				logger.info("포인트 기부 완료");
 				msg = "포인트 기부 완료";
@@ -373,44 +373,159 @@ public class DonationController {
 		 * 
 		 * }
 		 */
-
 		
-
 	}
 	
-	// 결제 포인트 user point에 입력 처리
+	
+	
+	
+	// 유저 포인트 차감 및 현재 모금 포인트 증가
+	/*
+	  @RequestMapping(value = "donatePoint.bit", method = RequestMethod.POST)
+	  public String donatePoint(Donate donate, HttpSession session,
+	  HttpServletRequest request, Principal principal, Model model) {
+	  
+	  String dUserid = principal.getName(); logger.info("기부 유저 아이디: " + dUserid);
+	  
+	  int dpoint = Integer.parseInt(request.getParameter("dpoint"));
+	  logger.info("입력 기부 포인트: " + dpoint);
+	  
+	  
+	  
+	  String msg = null; String url = null; logger.info("dindex: " +
+	  donate.getDindex());
+	  
+	  User user = (User) session.getAttribute("user"); logger.info("유저포인트 가져오는지 확인"
+	  + user.getUserPoint());
+	  
+	  int result = 0; int result2 = 0; int ccoll =
+	  Integer.parseInt(request.getParameter("ccoll")); int gcoll =
+	  Integer.parseInt(request.getParameter("gcoll"));
+	  
+	  
+	  //모금목표액보다 초과하거나 같을 경우의 처리. if ((ccoll + dpoint) > gcoll) {
+	  
+	  logger.info("ccoll값 줭" + ccoll); logger.info("gcoll값 줭" + gcoll); msg =
+	  "목표모금액을 초과합니다." + (donate.getGcoll() - donate.getCcoll()) +
+	  "보다 작거나 같은 포인트롤 기부해 주세요"; url = "detail.bit?dindex=" + donate.getDindex();
+	  
+	  }else if((ccoll + dpoint) == gcoll) {
+	  
+	  result = ds.donatePoint(donate, dpoint, dUserid); result2 =
+	  ds.completeDonationByColl(String.valueOf(donate.getDindex()));
+	  logger.info("됐냐 이거?" + result); user.setUserPoint(user.getUserPoint() -
+	  dpoint); session.setAttribute("user", user); msg = "포인트 기부 완료"; url =
+	  "detail.bit?dindex=" + donate.getDindex();
+	  
+	  // 목표모금액 보다 적을 경우 처리 }else { if (user.getUserPoint() < dpoint) {
+	  logger.info("User 포인트 부족"); msg = "보유 포인트가 부족합니다."; url =
+	  "detail.bit?dindex=" + donate.getDindex(); } else { result =
+	  ds.donatePoint(donate, dpoint, dUserid);
+	  
+	  }
+	  
+	  if (result == 1) { // transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
+	  
+	  user.setUserPoint(user.getUserPoint() - dpoint); session.setAttribute("user",
+	  user); logger.info("포인트 기부 완료"); msg = "포인트 기부 완료"; url =
+	  "detail.bit?dindex=" + donate.getDindex();
+	  
+	  } else {
+	  
+	  logger.info("보유 포인트가 부족합니다"); msg = "보유 포인트가 부족합니다"; url =
+	  "javascript:history.back();";
+	  
+	  } }
+	  
+	  model.addAttribute("msg", msg); model.addAttribute("url", url);
+	  
+	  return "redirect"; // 포인트 부족시 빠꾸 // else문을 넣어줘야 햄
+	  
+	  if (user.getPoint() < dpoint) { logger.info("User 포인트 부족"); msg =
+	  "보유 포인트가 부족합니다."; url = "detail.bit?dindex=" + donate.getDindex(); } else {
+	  result = ds.donatePoint(donate, dpoint, dUserid); }
+	  
+	  if (result == 1) { // transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
+	  
+	  user.setPoint(user.getPoint() - dpoint); session.setAttribute("user", user);
+	  logger.info("포인트 기부 완료"); msg = "포인트 기부 완료"; url = "detail.bit?dindex=" +
+	  donate.getDindex();
+	  
+	  } else {
+	  
+	  logger.info("포인트 기부 실패"); msg = "포인트 기부 실패"; url =
+	  "javascript:history.back();";
+	  
+	  }
+	  
+	  
+	  
+	  
+	  }
+	 */
+	
+	
+	// 결제 포인트 pay 테이블에 입력 처리
 	@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
-	public String payInput(User user, HttpSession session, Principal principal, HttpServletRequest request, Model model) {					
-		logger.info("payInput컨트롤러를 타기는 하는데...: ");
-		logger.info("포인트 값  확인" + user.getPoint());
-		int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에 기존의 point정보를 미리 저장해 놓는 것이 필요함!!!
-		String userid =  principal.getName();//단순히 현재 session의 userid이름을 받아주는 String 변수
-		
-		System.out.println("가져온 포인트: " + point);
-		
-		//Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고
-		user = (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는 것. 그래서 set이 아니라 get이다.
-		
-		System.out.println("기존 포인트: " + user.getPoint());
-		user.setPoint(point + user.getPoint());
-		logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트
-		//int point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거 하고...
-		
-		int result = payservice.payInput(user);
-		if (result >= 1) {			 
-		logger.info("포인트 사용 내역 입력 성공");			  
-		return "redirect:/mypage/main.bit";
-		  
-		} else { // 회원가입 실패시 어찌할지 로직구현해야 함			  
-		logger.info("포인트 사용 내역 입력 실패");
-		return "javascript:history.back();";
-		 
-		}			
+	public String payInput(HttpSession session, Principal principal, HttpServletRequest request, Model model) {
+		Pay pay = new Pay();
+		String pamount = request.getParameter("point");
+		logger.info("포인트 값을 가지고 오니?" + pamount);
+		String userid = principal.getName();
+		logger.info("ID를 가지고 오니?" + userid);
+		int result = 0;
 
+		pay.setPamount(Integer.parseInt(pamount));
+		pay.getPamount();
+		logger.info("pamount가 pay에 들어가니?" + pay.getPamount());
+		pay.setUserid(userid);
+		pay.getUserid();
+		logger.info("가 pay에 들어가니?" + pay.getUserid());
+
+		result = payservice.payInput(pay);
+		logger.info("됐냐 이거?" + result);
+		if (result == 1) {
+
+			return "redirect:/mypage/main.bit";
+
+		} else {
+
+			return "javascript:history.back();";
+		}
 	}
 
-	
-	
+	// 결제 포인트 user point에 입력 처리
+	/*
+	 * @RequestMapping(value = "payInput.bit", method = RequestMethod.GET) public
+	 * String payInput(User user, HttpSession session, Principal principal,
+	 * HttpServletRequest request, Model model) {
+	 * logger.info("payInput컨트롤러를 타기는 하는데...: "); logger.info("포인트 값  확인" +
+	 * user.getPoint()); int point = user.getPoint();// session에서 user객체 정보를 가져오기 전에
+	 * 기존의 point정보를 미리 저장해 놓는 것이 필요함!!! String userid = principal.getName();//단순히 현재
+	 * session의 userid이름을 받아주는 String 변수
+	 * 
+	 * System.out.println("가져온 포인트: " + point);
+	 * 
+	 * //Handler에서 작업한 Session에서 가져온 user정보 -> 여기를 기점으로 point 정보 바뀌니까 참고 user =
+	 * (User)session.getAttribute("user");//-> Handler에서 session에 넣어둔 user객체 값을 이용하는
+	 * 것. 그래서 set이 아니라 get이다.
+	 * 
+	 * System.out.println("기존 포인트: " + user.getPoint()); user.setPoint(point +
+	 * user.getPoint()); logger.info("총 포인트 값: "+ user.getPoint());//더해진 총 포인트 //int
+	 * point = Integer.parseInt(request.getParameter("point"));//아... 이렇게 하면 기존 거
+	 * 하고...
+	 * 
+	 * int result = payservice.payInput(user); if (result >= 1) {
+	 * logger.info("포인트 사용 내역 입력 성공"); return "redirect:/mypage/main.bit";
+	 * 
+	 * } else { // 회원가입 실패시 어찌할지 로직구현해야 함 logger.info("포인트 사용 내역 입력 실패"); return
+	 * "javascript:history.back();";
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
+
 	/*
 	 * @RequestMapping(value="completeDonationByColl.bit",
 	 * method=RequestMethod.POST) public String completeDonationByColl(String
@@ -437,9 +552,9 @@ public class DonationController {
 	 * 
 	 * return null; }
 	 */
-	
+
 	// ajax 페이징 컨트롤러
-	//페이징 ajax 처리
+	// 페이징 ajax 처리
 	@ResponseBody
 	@RequestMapping("donationListAjax.bit")
 	public Map<String, Object> donationListAjax(HttpServletRequest request) {
@@ -490,113 +605,114 @@ public class DonationController {
 
 	}
 
-	//후원글 댓글 ajax 기능 controller 구문
-	//후원글 댓글 입력 Ajax 처리  
-			@ResponseBody
-			@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
-			public int writeComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
-				logger.info("댓글입력 컨트롤러를 타기는 하는데.. ");
-				//비밀글 체크 여부 
-				if(donationComment.getScstate() == null) {
+	// 후원글 댓글 ajax 기능 controller 구문
+	// 후원글 댓글 입력 Ajax 처리
+	@ResponseBody
+	@RequestMapping(value = "writeComment.bit", method = { RequestMethod.POST })
+	public int writeComment(DonationComment donationComment, HttpServletRequest request, Model model)
+			throws IOException {
+		logger.info("댓글입력 컨트롤러를 타기는 하는데.. ");
+		// 비밀글 체크 여부
+		if (donationComment.getScstate() == null) {
 
-					donationComment.setScstate("N");
-				}
-					
-				int result = ds.writeCommnet(donationComment);
-				logger.info("writeCommnet 메서드 " + result);
-					
-				if(result==1) {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 완료");
-				}else {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 입력 처리 실패");
-				}
-					
-				return result;
-			}
-			
-			//후원글 댓글 수정 Ajax 처리  
-			@ResponseBody
-			@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
-			public int editComment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
-				
-				//비밀글 체크 여부 
-				if(donationComment.getScstate() == null) {
+			donationComment.setScstate("N");
+		}
 
-					donationComment.setScstate("N");
-				}
-				
-				int result = ds.editComment(donationComment);
-				
-				if(result==1) {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 완료");
-				}else {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 댓글 수정 처리 실패");
-				}
-				
-				return result;
-			}
-			
-			//후원글 댓글 조회 Ajax  
-			@ResponseBody
-			@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
-			public List<DonationComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
-				
-				String dindex = request.getParameter("dindex");
-				
-				List<DonationComment> commentList = ds.getCommentList(dindex);
-				
-				if(commentList!=null) {
-					logger.info("후원글 "+dindex+"번글 댓글내역 조회 완료");
-				}else {
-					logger.info("후원글 "+dindex+"번글 댓글입력 조회 실패");
-				}
-				
-				return commentList;
-			}
-			
-			//후원글 > 댓글 삭제 처리
-			@RequestMapping(value = "deleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
-			public String deleteComment(DonationComment donationComment, Model model) {
+		int result = ds.writeCommnet(donationComment);
+		logger.info("writeCommnet 메서드 " + result);
 
-					
-				int result = ds.deleteComment(donationComment);
-				int dindex = donationComment.getDindex();
-				if(result==1) {
-					
-					logger.info("후원글 글 삭제 완료");
+		if (result == 1) {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 댓글 입력 처리 완료");
+		} else {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 댓글 입력 처리 실패");
+		}
 
-					return "redirect:/donation/detail.bit?dindex="+dindex+"";
-					
-				}else { 
-					
-					logger.info("후원글 글 삭제 실패");
+		return result;
+	}
 
-			        return "javascript:history.back()";
-				}
-			
-			}
-			
-			//후원글 대댓글 입력 Ajax 처리  
-			@ResponseBody
-			@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
-			public int writeRecomment(DonationComment donationComment, HttpServletRequest request, Model model) throws IOException {
-				
-				//비밀글 체크 여부 
-				if(donationComment.getScstate() == null) {
+	// 후원글 댓글 수정 Ajax 처리
+	@ResponseBody
+	@RequestMapping(value = "editComment.bit", method = { RequestMethod.POST })
+	public int editComment(DonationComment donationComment, HttpServletRequest request, Model model)
+			throws IOException {
 
-					donationComment.setScstate("N");
-				}
-				
-				int result = ds.writeRecomment(donationComment);
-				
-				if(result==1) {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 완료");
-				}else {
-					logger.info("후원글 "+donationComment.getDindex()+"번글 대댓글 입력 처리 실패");
-				}
-				
-				return result;
-			}  
+		// 비밀글 체크 여부
+		if (donationComment.getScstate() == null) {
 
+			donationComment.setScstate("N");
+		}
+
+		int result = ds.editComment(donationComment);
+
+		if (result == 1) {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 댓글 수정 처리 완료");
+		} else {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 댓글 수정 처리 실패");
+		}
+
+		return result;
+	}
+
+	// 후원글 댓글 조회 Ajax
+	@ResponseBody
+	@RequestMapping(value = "getCommentList.bit", method = { RequestMethod.GET })
+	public List<DonationComment> getCommentList(HttpServletRequest request, Model model) throws IOException {
+
+		String dindex = request.getParameter("dindex");
+
+		List<DonationComment> commentList = ds.getCommentList(dindex);
+
+		if (commentList != null) {
+			logger.info("후원글 " + dindex + "번글 댓글내역 조회 완료");
+		} else {
+			logger.info("후원글 " + dindex + "번글 댓글입력 조회 실패");
+		}
+
+		return commentList;
+	}
+
+	// 후원글 > 댓글 삭제 처리
+	@RequestMapping(value = "deleteComment.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public String deleteComment(DonationComment donationComment, Model model) {
+
+		int result = ds.deleteComment(donationComment);
+		int dindex = donationComment.getDindex();
+		if (result == 1) {
+
+			logger.info("후원글 글 삭제 완료");
+
+			return "redirect:/donation/detail.bit?dindex=" + dindex + "";
+
+		} else {
+
+			logger.info("후원글 글 삭제 실패");
+
+			return "javascript:history.back()";
+		}
+
+	}
+
+	// 후원글 대댓글 입력 Ajax 처리
+	@ResponseBody
+	@RequestMapping(value = "writeRecomment.bit", method = { RequestMethod.POST })
+	public int writeRecomment(DonationComment donationComment, HttpServletRequest request, Model model)
+			throws IOException {
+
+		// 비밀글 체크 여부
+		if (donationComment.getScstate() == null) {
+
+			donationComment.setScstate("N");
+		}
+
+		int result = ds.writeRecomment(donationComment);
+
+		if (result == 1) {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 대댓글 입력 처리 완료");
+		} else {
+			logger.info("후원글 " + donationComment.getDindex() + "번글 대댓글 입력 처리 실패");
+		}
+
+		return result;
+	}
 
 }

@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.context.annotation.Role;
 
 import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.DonationRecord;
+import bit.or.eesotto.dto.Pay;
 import bit.or.eesotto.dto.User;
 
 
@@ -78,4 +80,9 @@ public interface DonateDao {
 	
 	//기부 완료
 	public int completeDonationByColl(int dindex);
+	
+	//기부테이블에 입력하기
+	@Insert("insert into DonationRecord (dindex, userid, dcoll, dtime)"
+			+ "values (#{param1}, #{param2}, #{param3}, now())")
+	public int donationRecord(int dindex, String userid, int dcoll);
 }

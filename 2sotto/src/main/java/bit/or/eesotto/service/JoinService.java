@@ -33,20 +33,20 @@ public class JoinService {
 	*/
 
 	// 아이디 중복체크
-	public List<String> idCheck(String userid) {
+	public String idCheck(String userid) {
 
-		List<String> list = null;
+		String id = null;
 
 		try {
 
 			userDao = sqlsession.getMapper(UserDao.class);
-			list = userDao.getUserId(userid);
+			id = userDao.getUserId(userid);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		return list;
+		return id;
 	}
 
 	// 닉네임 중복체크

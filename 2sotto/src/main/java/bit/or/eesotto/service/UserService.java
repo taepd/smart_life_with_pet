@@ -69,6 +69,7 @@ public class UserService {
 		//어드민 > 유저 가입 확인 끝
 		// -----------이메일 체크 시작----------- 
 		//중복된 코드같은데 일단 가지고있음.
+		/*
 		public List<String> idCheck(String userid) {
 
 			List<String> list = null;
@@ -84,6 +85,7 @@ public class UserService {
 
 			return list;
 		}
+		*/
 		
 		// -----------이메일 체크 끝-----------
 		// ------------이메일 발송 서비스 시작------------

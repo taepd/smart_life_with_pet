@@ -25,7 +25,7 @@ public interface UserDao {
 
 	// 회원가입 > 아이디 중복체크 ajax
 	@Select("select userid from user where userid = #{userid}")
-	public List<String> getUserId(@Param("userid") String userid);
+	public String getUserId(@Param("userid") String userid);
 
 	// 회원가입 > 닉네임 중복체크 ajax
 	@Select("select nick from user where nick = #{nick}")

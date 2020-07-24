@@ -202,11 +202,9 @@ public class JoinController {
 	//ID가 이메일이니까 인증도 같이 시작.
 	@ResponseBody
 	@RequestMapping(value = "idCheck.bit", method = { RequestMethod.POST })
-	public List<String> idCheck(HttpServletRequest request, Model model) throws IOException {
-
-		String id = request.getParameter("userid");
-
-		return joinService.idCheck(id);
+	public String idCheck(String userid) throws IOException {
+		//String id = request.getParameter("userid");
+		return joinService.idCheck(userid);
 	}
 	
 	// nick 중복체크 Ajax 호출

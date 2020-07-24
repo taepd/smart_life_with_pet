@@ -133,9 +133,9 @@
 	        </div>
 	        <div class="row">
 	        	<div class="col-12">
-	        		<div class=" main-card">
+	        		<div class=" main-card" style="height: 287px;">
 		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
-		        		<div>
+		        		<!-- <div> -->
 		        			<c:set value="${petLikeList}" var="likeList"/>
 							<c:choose>
 								<c:when test="${likeList == null}">
@@ -148,12 +148,13 @@
 						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
 				 		        					rel="nofollow" alt="${like.petname}">
 				 		        			</a>
-				 		        			<div class="text-center"> ${like.petname} </div>
+				 		        			<!-- <div class="text-center">${like.petname}</div> -->
+				 		        			<h6 style="text-align: center;">${like.petname}</h6>
 					        			</div>
 					        		</c:forEach>
 								</c:otherwise>
 							</c:choose>	        			
-		        		</div>
+		        		<!-- </div> -->
 	        		</div>
 	        	</div>
 	        </div>

@@ -89,6 +89,57 @@ public class MessageController {
 
 		}
 		
+		
+		// a에게 쪽지보내기 페이지 view
+		@RequestMapping(value = "popmain.bit", method = RequestMethod.GET)
+		public String popmain(String suserid, String cp, String ps, Principal principal, Model model) {
+			
+			String userid =  principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+			HashMap<String, Object> map = ms.mainView(cp, ps, userid);
+			
+			// view까지 전달 (forward)
+			model.addAttribute("cpage", map.get("cpage"));
+			model.addAttribute("pageSize", map.get("pageSize"));
+			model.addAttribute("messageList", map.get("messageList")); 		
+			model.addAttribute("pageCount", map.get("pageCount"));
+			model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
+			
+
+			// 쪽지 할예정
+
+			return "message/popmain";
+		}
+		// a에게 쪽지보내기 페이지 view
+		@RequestMapping(value = "popmain.bit", method = RequestMethod.POST)
+		public String popmain(Message message, Principal principal) {
+
+			//String userid = (String) session.getAttribute("userid");
+			String userid =  principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+		
+			// 세션 userid post객체에 입력
+			message.setSuserid(userid);
+
+			// 임시 petindex 입력
+			//message.setMsindex(1);
+
+			int result = ms.writeMessage(message);
+			if (result == 1) {
+				
+				logger.info("쪽지 보내기 성공");
+
+				return "redirect:/message/popmain.bit";
+				
+			} else { // 회원가입 실패시 어찌할지 로직구현해야 함
+
+				logger.info("쪽지 보내기 실패");
+
+				return "redirect:/message/popmain.bit";
+			}
+
+		}
+		
 		//message보낸사람 보러가기
 		@RequestMapping(value = "messagePage.bit", method = RequestMethod.GET)
 		

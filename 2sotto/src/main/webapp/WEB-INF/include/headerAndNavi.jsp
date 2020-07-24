@@ -43,10 +43,10 @@
 							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/chatList.bit"><span id="message"><i class="fas fa-comment"></i></i></span>
+						<span onclick='popupchatList()' id="message" style="cursor:pointer"><i class="far fa-comment"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
-							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
-						</a>
+							<span class="badge badge-pill badge-warning" id="message-alarm" >0</span>
+						
 		            </li>
 		            <li class="nav-item" id="item02">
 		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
@@ -114,3 +114,19 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+function popupchatList(){
+	
+	var popupX = (window.screen.width / 2) - (1000 / 2);
+	//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height /2) - (1000 / 2);
+	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	
+	window.open('${pageContext.request.contextPath}/chatList.bit','_blank',
+			'width=580, height=700, left='+ popupX + ', top='+ popupY);
+	
+}
+</script>

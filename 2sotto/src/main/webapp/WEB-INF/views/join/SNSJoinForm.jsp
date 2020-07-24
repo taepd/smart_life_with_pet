@@ -330,9 +330,9 @@
 								navigator.geolocation
 										.getCurrentPosition(
 												function(position) {
-													alert(position.coords.latitude
-															+ ' '
-															+ position.coords.longitude);
+													// alert(position.coords.latitude
+													// 		+ ' '
+													// 		+ position.coords.longitude);
 													//위도/경도 값 저장
 													$('#lat')
 															.val(

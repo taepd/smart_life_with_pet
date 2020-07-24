@@ -6,10 +6,12 @@
 <html>
 <head>
 <!-- 달력 쓰려고 가져온 jquery -->
+
 <!--jQuery UI CSS파일   -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 <!-- 달력 쓰려고 가져온 jquery 끝 -->
 
 <!-- //script구문 내부에 해당 메소드를 입력합니다. -->
@@ -18,7 +20,8 @@
 <title>슬기로운 반려생활</title>
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
@@ -31,11 +34,7 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-
-
-			
+	
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -81,11 +80,12 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원이 필요한 아이</label> 
 									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원 기한</label> 
-									<input type="text" class="form-control" name="ctime" id="Datepicker"> 
-								</div>
+								</div>								
+								<div class="form-group bmd-form-group mb-0">								
+									<label for="bmd-label-static">후원 기한</label>
+									<input type="text" class="form-control" name="ctime" 
+									id="ctime" required> 
+								</div>								 	
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
 									<input type="text" name="gcoll" class="form-control" > 
@@ -135,7 +135,19 @@ $(function(){
 		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
 		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
 	});
+
+	//datetimepicker
+	$("#ctime").bootstrapMaterialDatePicker({
+		format: 'YYYY-MM-DD HH:mm',
+		lang: 'ko',
+		okText: '확인',
+		cancelText: '취소'
+	});
+
+	
 });
+
+
 </script>
 </html>
 

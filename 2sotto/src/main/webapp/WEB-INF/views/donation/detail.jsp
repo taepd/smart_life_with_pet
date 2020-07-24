@@ -12,6 +12,10 @@
 <title>슬기로운 반려생활</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<!-- 타임피커 cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
 	<style>
@@ -85,17 +89,20 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-			
-			<!-- 결제 모달타는 것 -->
-		<!-- 	<button class="btn btn-primary btn-round" id="check_module" type="button">결제</button> -->
 			
 			<!-- 포인트 user point로 업데이트 -->
 			<form action="payInput.bit" method="POST">    		
-    		<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">
+    		<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   		
 			<button type="button" id="check_module" class="btn btn-primary">포인트 충전하기</button>
-    		</form>
+    		</form> 
+    		<%-- <form name="myForm" method="post">
+	    		
+    			<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">
+    			<input type="hidden" name="dindex" value="${donate.dindex}">
+	    		<input type="hidden" name="point" value="${point}">
+	    		<input type="hidden" name="ptype" value="결제">
+    			<input type="button" onClick="mySubmit()" id="check_module" class="btn btn-primary" placeholder="포인트 충전하기">
+    		</form> --%>
 
 
 			
@@ -152,14 +159,14 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원 등록 시간</label>
 									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
 									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원 완료 시간</label> 
 									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" readonly> 
+									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<input type="text" name="ctime" class="form-control" value="${ctime}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
@@ -263,6 +270,10 @@
 <!-- 결제시작 -->
 <script type="text/javascript">
 
+/* function mySubmit() {
+	document.myForm.action='payInput.bit';
+	document.myForm.action='writeDonationRecord.bit';
+} */
 
 
 function Delete() {
@@ -619,6 +630,7 @@ $(document).on("click","#writeRecom",function(){
 		return false;
 		
 	});
+
 
 
 </script>

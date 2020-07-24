@@ -11,7 +11,8 @@
 <title>슬기로운 반려생활</title>
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
@@ -24,11 +25,7 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-
-
-			
+		
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -82,14 +79,14 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원 등록 시간</label>
 									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
 									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원 완료 시간</label> 
 									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-									<input type="text" name="ctime" class="form-control" value="${donate.ctime}" > 
+									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<input type="text" name="ctime" id="ctime" placeholder="${ctime}" value="" class="form-control" > 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
@@ -134,11 +131,19 @@
 <script type="text/javascript">
 
 //ckeditor
-$(function(){
-	CKEDITOR.replace('content',{
+	$(function(){
+		CKEDITOR.replace('content',{
 		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit',
 		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit'
 	});
+
+		//datetimepicker
+		$("#ctime").bootstrapMaterialDatePicker({
+			format: 'YYYY-MM-DD HH:mm',
+			lang: 'ko',
+			okText: '확인',
+			cancelText: '취소'
+		});
 });
 </script>
 </html>

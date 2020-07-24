@@ -121,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 유저 포인트 차감-->
 	<update id="minusUserPoint">
-		update user set point= (point-${param1}) where userid=#{param2}
+		update user set userPoint= (userPoint-${param1}) where userid=#{param2}
 	</update>
 	
 	<!-- 현재포인트 증가-->

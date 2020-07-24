@@ -81,6 +81,10 @@
 		#myPetInfo {
 			margin-bottom: 30px;
 		}
+		
+		.main-card card {
+			float: left;
+		}
     	
     </style>
 </head>
@@ -166,23 +170,23 @@
 			
 			<div class="row">
 				<div class="col-12">
-				<div class="main-card">
-		        	<h3 class="h3-korean">이번주의 인기글</h3>
-						<c:forEach var="post" items="${postList}" varStatus="status">
-							<div class="card col-4">
-				        		<div class="card-body text-center">
-								<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-				        					style="width:200px;height:200px" alt="card image">
-				        					<hr>
-											<strong>${post.title}</strong>
-											<br>
-											<span id="content${status.index}">${post.content}</span>
-								</a>
+					<div class="main-card">
+			        	<h3 class="h3-korean">이번주의 인기글</h3>
+							<c:forEach var="post" items="${postList}" varStatus="status">
+								<div class="card col-4">
+					        		<div class="card-body text-center">
+									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+					        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        					style="width:200px;height:200px" alt="card image">
+					        					<hr>
+												<strong>${post.title}</strong>
+												<br>
+												<span id="content${status.index}">${post.content}</span>
+									</a>
+									</div>
 								</div>
-							</div>
-						</c:forEach>
-				</div>
+							</c:forEach>
+					</div>
 				</div>
 			</div>
 			

@@ -71,37 +71,26 @@
 						<div id="joinForm-wrapper">
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="fname">아이디</label> -->
 								<input type="text" class="form-control" placeholder="아이디로 쓸 이메일을 입력하세요." id="userid" name="userid">
 								<button type="button" class="btn btn-sm" id="emailCheck" name="emailCheck" email_chk="fail" style="position: absolute; top: 23px; right: 0;">메일 인증</button>
 								<!-- 적합하지 않은 이메일 형식입니다. -->
 								<div class="tdemail" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
 							</div>
-							
-							<!-- <div class="form-group has-default bmd-form-group">
-								<button type="button" class="btn btn-primary" id="emailCheck" email_chk="fail">이메일 확인</button>
-                           	</div> -->
-                           	<!--  <div class="tdemail"></div>-->
                            	<div id="emailChecking"></div>
-							
-							
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="lname">비밀번호</label> -->
 								<input type="password" class="form-control" placeholder="비밀번호를 입력하세요." id="pwd" name="pwd">
 								<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
 								<div class="tdpw" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="lname">비밀번호 확인</label> -->
 								<input type="password" class="form-control" placeholder="비밀번호를 확인합니다." id="pwdCheck" name="pwdCheck">
 								<!-- 비밀번호가 다릅니다. -->
 								<div class="tdpwch" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="fname">닉네임</label> -->
 								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick">
 								<button type="button" class="btn btn-sm" id="btn-nickchk" style="position: absolute; top: 23px; right: 0;">중복확인</button>
 								<!-- 닉네임 응원. > ????? -->
@@ -109,13 +98,11 @@
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="fname">휴대폰번호</label> -->
 								<input type="text" class="form-control" placeholder="휴대폰 번호를 입력하세요." id="cpnumber" name="cpnumber">
 								<!-- <button type="button" class="btn btn-sm" id="btn-cpnumberchk" style="position: absolute; top: 23px; right: 0;">중복확인</button> -->
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label>지역</label> -->
 								<input type="text" class="form-control" placeholder="지역을 설정합니다." id="loc" name="loc">
 								<input type="hidden" name="lat" id="lat"> 
 								<input type="hidden" name="lon" id="lon">
@@ -135,9 +122,6 @@
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<!-- <label for="cono1" class="label" style="text-align: left">
-									이미지 추가
-								</label> -->
 								<div style="display: inline-block;">
 									<img id="img" src="../assets/images/profile-circle.png" alt="" width="150px"
 									height="150px" class="rounded-circle img-fluid"  />  <!--style="border-radius: 10px;" -->
@@ -165,7 +149,9 @@
 <%@ include file="/WEB-INF/include/footer.jsp"%>
 
 <script type="text/javascript">
+
 	var validate = new Array;
+
 	$(function() {
 		//id검증(이메일 형식)
 		$('#userid')
@@ -209,18 +195,17 @@
 						function() {
 							let pwd = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{8,20}$/;
 							if (!pwd.test($(this).val())) {
-								$('.tdpw')
-										.html(
-												'<b>8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
+								$('.tdpw').html('<b>8~20자 사이에 적어도 하나의 영어 대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
 								validate[1] = false;
 							} else {
-								$('.tdpw').html('<b>적합한 패스워드입니다.</b>');
+								$('.tdpw').html('<b>적합한 비밀번호입니다.</b>');
 								validate[1] = true;
 							}
-							console.log(validate[1]);
+							//console.log(validate[1]);
 						});
+
 		//password check
-		$('#pwdCheck, #pwd').keyup(function() {
+		$('#pwdCheck').keyup(function() {
 			if ($('#pwd').val() != $('#pwdCheck').val()) {
 				$('.tdpwch').html('<b>비밀번호가 다릅니다.</b>');
 				validate[2] = false;
@@ -231,12 +216,6 @@
 			console.log(validate[2]);
 		});
 
-		// $('input').focus(function() {
-		// 	$(this).css('background-color', "gold");
-		// });
-		// $('input').blur(function() {
-		// 	$(this).css('background-color', "white");
-		// });
 		//입력 다 했는지 검증
 		$('input:not([type=file])').prop("required", true);
 		//$('#id').attr("required","required");
@@ -507,64 +486,6 @@
 			}
 			//$('#imgFileName').html(input.files[0].name);
 		};
-
-		//***********************************//
-		//  아이디 중복 체크
-		//***********************************//	
-
-		/*
-		$('#btn-idchk')
-				.click(
-						function() {
-							//아이디 적합성 체크
-							let email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-							if (!email.test($('#userid').val())) {
-								alert('적합하지 않은 이메일 형식입니다');
-								$('#userid').focus();
-								return;
-							}
-							;
-							//아이디 중복 체크
-							$('#userid').change(function() {
-								//$('#id_check_sucess').hide();
-								$('#btn-idchk').show();
-								$('#userid').attr("check_result", "fail");
-							});
-							
-
-							if ($('#userid').val() == '') {
-								alert('이메일을 입력해주세요.')
-								return;
-							}
-
-							console.log($('#userid').val());
-
-							$.ajax({
-								type : "POST",
-								url : 'idCheck.bit',
-								data : {
-									userid : $('#userid').val()
-								},
-								datatype : 'json',
-								success : function(data) {
-									console.log(data);
-									if (data[0] != null) {
-										alert("이미 존재하는 아이디 입니다.");
-										$("#userid").val('');
-										$("#userid").focus();
-										return;
-									} else {
-										alert("사용가능한 아이디 입니다.");
-										$('#userid').attr("check_result",
-												"success");
-										// $('#id_check_sucess').show();
-										//$('#btn-idchk').hide();
-										return;
-									}
-								}
-							});
-						});
-						*/
 
 		//***********************************//
 		//  닉네임 중복 체크

@@ -43,6 +43,7 @@ public class ManagementController {
 		List<Pet> pet = managementService.getPetInfo(userid);
 
 		if(pet != null) {
+			System.out.println("펫인포: "+ pet);
 			logger.info("반려동물 정보 가져오기 성공");
 			model.addAttribute("petInfoList", pet);
 		} else {

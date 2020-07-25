@@ -76,17 +76,17 @@ a:visited, a:link {
 #item01 {
 	position: absolute;
 	right: 150px;
-	top: 8.9px;
+	top: 12.9px;
 }
 
 #item03 {
 	position: absolute;
 	right: 168px;
-	top: 20.9px;
+	top: 24.9px;
 }
 
 #message {
-	color: #e92165;
+	color: #9c27b0;
 	font-size: 25px;	
 	position: relative;
 }

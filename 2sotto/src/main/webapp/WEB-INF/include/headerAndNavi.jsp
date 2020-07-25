@@ -40,14 +40,16 @@
 					<li class="nav-item" id="item03">
 						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-bell"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
-							<span class="badge badge-pill badge-warning" id="message-alarm">0</span>
+							<span class="badge badge-pill badge-warning" id="alarmCount"></span>
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span onclick='popupchatList()' id="message" style="cursor:pointer"><i class="far fa-comment"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
-							<span class="badge badge-pill badge-warning" id="message-alarm" >0</span>
-						
+							<span class="badge badge-pill badge-warning" id="message-alarm" ></span>
+							
+							
 		            </li>
+					
 		            <li class="nav-item" id="item02">
 		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
 		                	로그아웃
@@ -114,8 +116,144 @@
 		</div>
 	</div>
 </div>
-
+	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
+<input type="hidden" id="userid" value="${session.user.userid}">
+	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 끝 -->
+	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
+			<!-- <th:block th:if="${session.currentUser != null}">
+				<input type="hidden" th:value="${session.currentUser.user_email}" id="user_email">
+				</th:block> -->
+	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 끝 -->
 <script>
+//알람 테스트 
+$(document).ready(function() {
+			if($('#userid').val() != null) {
+				connect();	
+			}
+			
+		})
+		
+		var wsocket;
+		
+		function connect() {
+			wsocket = new WebSocket(
+					"ws://" + location.host + "/bit/alarm");
+			wsocket.onopen = onOpen;
+			wsocket.onmessage = onMessage;
+			wsocket.onclose = onClose;
+		}
+		function disconnect() {
+			wsocket.close();
+		}
+		
+		function onOpen(evt) {
+			send();
+		}
+		
+		function onMessage(evt) {
+			
+			
+			var data = evt.data;
+			var msg = JSON.parse(data);
+			appendMessage(msg);
+			console.log(evt.data);
+			
+			
+			
+		}
+		
+		function onClose(evt) {
+		}
+		
+		function send() {
+			var msg = {"type" : "view"};
+			wsocket.send(JSON.stringify(msg));
+			/* wsocket.send("login"); */
+		}
+	
+		function appendMessage(msg) {	
+			$("#alarmCount").html(msg.count);
+			if(msg.type == "view") {
+				if(msg.now == "userid") {
+					$("#alarmMessage").html(
+							'<li>'+
+		                         '<a href="/main.bit">'+
+		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+		                             '<div class="notification-content">'+
+		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
+		                             '</div>'+
+		                         '</a>'+
+		                     '</li>')	
+				}else {
+					$("#alarmMessage").html(
+							'<li>'+
+		                         '<a href="/main.bit">'+
+		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+		                             '<div class="notification-content">'+
+		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
+		                             '</div>'+
+		                         '</a>'+
+		                     '</li>'	)
+				}
+			} else if(msg.type == "user") {
+				$("#alarmMessage").html(
+						'<li>'+
+	                         '<a href="/main.bit">'+
+	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+	                             '<div class="notification-content">'+
+	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
+	                             '</div>'+
+	                         '</a>'+
+	                     '</li>'	)
+			} else if(msg.type == "admin"){
+				$("#alarmMessage").html(
+						'<li>'+
+	                         '<a href="/main.bit">'+
+	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+	                             '<div class="notification-content">'+
+	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
+	                             '</div>'+
+	                         '</a>'+
+	                     '</li>'	)
+			}
+				
+		
+			
+		/* 	var count = msg.split(",")[0];
+			var message = msg.split(",")[1];
+			
+			$(".alarmCount").html(count);
+			if(count === '0') {
+				$("#alarmMessage").empty();
+				
+			}else {
+				if(message === '새로운 문의가 도착했습니다.') {
+				$("#alarmMessage").html(
+						'<li>'+
+	                         '<a href="javascript:void()">'+
+	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+	                             '<div class="notification-content">'+
+	                                '<h6 class="notification-heading">새로운 문의가 도착했습니다.'+count+'건</h6>'+
+	                             '</div>'+
+	                         '</a>'+
+	                     '</li>'		
+					)
+				}else if (message === "관리자가 답변을 했습니다.") {
+					$("#alarmMessage").html(
+							'<li>'+
+		                         '<a href="javascript:void()">'+
+		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
+		                             '<div class="notification-content">'+
+		                                '<h6 class="notification-heading">관리자가 답변을 했습니다.'+count+'건</h6>'+
+		                             '</div>'+
+		                         '</a>'+
+		                     '</li>'		
+						)
+				}
+			} */
+		
+		}
+//알람테스트 
 
 function popupchatList(){
 	

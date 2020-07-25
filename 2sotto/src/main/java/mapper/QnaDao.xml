@@ -48,6 +48,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<!-- 웹소켓 알림 관련 Qna 쿼리문 시작 -->
+    
+	<!-- 사용자가 어드민한테 문의했으나 아직 읽지 않은 모든 글 카운트 -->
+	<select id="getCountAdminNotRead" resultType="Integer">
+    	select count(*) from Qna where awstate = '1'
+	</select>
+	
+	<!-- 어드민이 알림을 읽으면 개수 줄어들게 하기 위해 업데이트  -->
+	<update id="updateAdminRead">
+		update qna set awstate = '2' where awstate = '1' and qaindex = #{qaindex}
+	</update>
+	
+	
+	 <!-- 어드민이 답변을 했을 경우 사용자에게 알림이 가기 위해 상태 업데이트
+	 <update id="updateQnaRep">
+    	UPDATE Qna 
+    	SET awstate='3'
+    	WHERE qna_brd_ref=#{qna_brd_ref} and (qna_brd_answer='2' or qna_brd_answer='1')
+    </update>
+	-->
+
+	<!-- 사용자 입장에서 답변이 왔지만 읽지 않은 문의글 개수 카운트 -->
+	 <select id="getCountUserNotRead" resultType="Integer">
+		select count(*) from Qna where awstate = '3' and userid = #{userid}
+	</select>
+	
+	<!-- 사용자가 답변을 읽었을 경우 상태 업데이트 -->
+	<!--
+	<update id="updateQnaUserRead">
+		update qnabrd set
+		qna_brd_answer = '4'
+		where qna_brd_ref = #{qna_brd_seq} and qna_brd_answer='3'
+    </update>
+    -->
+	<!-- 웹소켓 알림 관련 Qna 쿼리문 끝 -->
 	
 	<!-- 블로그 포스팅 수 조회 -->
 	<!-- 

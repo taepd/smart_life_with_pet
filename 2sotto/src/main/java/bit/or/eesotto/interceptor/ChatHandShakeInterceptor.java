@@ -18,10 +18,10 @@ public class ChatHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
 	    	System.out.println("Before Handshake");
 	    	ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
 	    	HttpServletRequest req= ssreq.getServletRequest();
-
+	    	
 	    	User user  = (User) req.getSession().getAttribute("user");
 	    	String room_number  = req.getParameter("room_number");
-	    	
+
 	        // 파라미터로 입력된 attributes에 put을 하면 WebSocketSession에서 접근가능
 	    	
 	    	attributes.put("user",user);

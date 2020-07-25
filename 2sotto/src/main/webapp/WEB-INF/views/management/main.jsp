@@ -345,6 +345,58 @@
 												name="allDay"> 하루종일 
 												<span class="form-check-sign"> <span class="check"></span>
 												</span>
+												&nbsp;&nbsp;
+												</label>
+												<label class="form-check-label">   
+												<input class="form-check-input" type="checkbox" id="repeat" 
+												name="repeat"> 반복
+												<span class="form-check-sign"> <span class="check"></span>
+												</span>
+												</label>
+											</div>
+											<br>
+											<div class="form-check" id="chbk_daysOfWeek">
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="1"> 월
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="2"> 화
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="3"> 수
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="4"> 목
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="5"> 금
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="6"> 토
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
+												</label>&nbsp;&nbsp;
+												<label class="form-check-label">   
+													<input class="form-check-input" type="checkbox" id="daysOfWeek" 
+													name="daysOfWeek" value="0"> 일
+													<span class="form-check-sign"> <span class="check"></span>
+													</span>
 												</label>
 											</div>
 
@@ -673,6 +725,18 @@ $(function() {
 						//db의 allDay 컬럼은 String값으로 true/false를 저장해놓았기 때문에 fullcalendar가 인식하는 boolean 타입으로 수정해줘야 함
 						if(array.allDay == 'true'){array.allDay=true}
 						else{array.allDay=false};
+						//daysOfWeek 문자열을 배열형태로 형식에 맞게 저장
+						var daysOfWeek = null;
+						var arr = array.daysofweek;
+						if(arr!=null){
+							daysOfWeek = arr.split(',');
+							array.daysOfWeek = daysOfWeek;
+						}else{
+							delete array.dayOfWeek;
+						}
+						console.log('데이즈오브위크배열' + daysOfWeek);
+						//헷깔리므로 디비에서 넘어온 daysofweek는 삭제
+						delete array.daysofweek;
 						console.log("array>>> "+JSON.stringify(array));
 						return array;
 					});
@@ -684,24 +748,70 @@ $(function() {
 		select: function(start, end, allDay) {
 			
 			// 모달 안 태그값 초기화
-			$('#createEventModal input, textarea').val("");
-			$('#allDay').prop("checked", false);
+			$('#createEventModal input, textarea').not('input:checkbox').val(""); //체크박스 값은 초기화하면 안됨 
+			$('#createEventModal input:checkbox').prop("checked", false);
 			$('#createEventModal option:eq(0)').prop("selected", true);
 			$('#color option:eq(0)').prop("selected", true); // 위에서 적용됐어야 하는데 왜...
-
+			$('#end').attr("type","text");
 			// 모달 타이틀 바꾸기
 			$('#modal-title-for-edit').hide();
 			$('#modal-title-for-add').show();
-
+			
 			// 모달 버튼 바꾸기
 			modifyBtnContainer.hide();
 			addBtnContainer.show();
+			
+			// hide #repeat
+			$('#chbk_daysOfWeek').hide();
+			
+			//혜정씨가 준 부분
+			//원본 start 데이터를 사용하기 위해 담았다 (근데 이거 안하면 오류남 왜인지 모르겠음)
+			var instart = start;
+			var inend = start;
+			
+			//현재 시간 불러오기
+			var today = moment();
+			
+			//start 객체 안에 현재 시간 set 해주기 (안하면 00:00)
+			var selectstart = instart.start.setHours(today.hours());
+			selectstart = instart.start.setMinutes(today.minutes());
+			start = moment(selectstart).format('YYYY-MM-DD HH:mm');
+			
+			//end 객체 안에 현재 시간 set 해주기 (안하면 00:00)
+			var selectend = inend.end.setHours(today.hours());
+			selectend = inend.end.setMinutes(today.minutes()+10);
+			selectend = moment(selectend).subtract(1, 'days');
+			end = moment(selectend).format('YYYY-MM-DD HH:mm');
+			
+			//모달에 데이터 쏴주기
+			$('#start').val(start);
+			$('#end').val(end);
+			//혜정씨가 준 부분 끝
 
 			// 모달 열기
 			$('#createEventModal').modal('show');
+			
+			//클릭한 날짜로 날짜세팅  >> 아직 작동 안함
+/* 			if (event.view.type  == "dayGridMonth") {
+				  console.log('여기나옴??');
+			      start.set({
+			        hours: today.hours(),
+			        minute: today.minutes()
+			      });
+			      start = moment(start).format('YYYY-MM-DD HH:mm');
+			      end = moment(end).subtract(1, 'days');
+
+			      end.set({
+			        hours: today.hours() +1,
+			        minute: today.minutes()
+			      });
+			      end = moment(end).format('YYYY-MM-DD HH:mm');
+			    } else {
+			      start = moment(start).format('YYYY-MM-DD HH:mm');
+			      end = moment(end).format('YYYY-MM-DD HH:mm');
+			    } */
 
 			//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
-						
 			$('#allDay').change(function(){
 		        if($("#allDay").is(":checked")){
 		           console.log('하루종일 체크함');
@@ -711,7 +821,23 @@ $(function() {
 		        	$('#end').attr("type","text");
 		        }
 		    });
-	
+           	var checkedArr = new Array(); //반복 요일 체크 배열
+			//반복 체크시, 요일 체크박스 활성화
+			$('#repeat').change(function(){
+		        if($("#repeat").is(":checked")){
+		           console.log('반복 체크함');
+		           $('#chbk_daysOfWeek').show();
+		           
+		           console.log('checkedArr: '+ checkedArr);
+		        } else{
+		        	console.log('반복 체크 해제함');
+		        	console.log('checkedArr: '+ checkedArr);
+		        	$('#chbk_daysOfWeek').hide();
+		        	$('#createEventModal input:checkbox').prop("checked", false);
+		        	checkedArr="";
+		        }
+		    });
+			
 
 			$('#save-event').unbind();
 			$('#save-event').on('click', function() {
@@ -722,6 +848,13 @@ $(function() {
 				var contentVal = $('#content').val();
 				var petindexVal = $('#petindex').val();
 				var colorVal = $('#color').val();
+			
+				//each로 loop를 돌면서 checkbox의 check된 값을 가져와 담아준다.
+	           	$('input:checkbox[name=daysOfWeek]:checked').each(function(){
+		           	checkedArr.push($(this).val());	 
+		           	console.log('checked: '+ $(this).val());
+	        	});
+				
 				
 				// #allday 체크 여부에 따라 값 부여하기 
 				var allDay = $('#allDay');
@@ -729,7 +862,7 @@ $(function() {
 	
 				if(allDay.is(':checked')) {isAllDay = true;}
 				else {isAllDay = false; }
-	
+				
 				var eventData = {
 					petindex: petindexVal,
 					userid: '${sessionScope.user.userid}',
@@ -738,9 +871,17 @@ $(function() {
 					start: start,
 					end: end,
 					allDay: isAllDay, 
-					color: colorVal
-				};
+					color: colorVal,
 
+				};
+				
+				//반복 설정한 요일이 있으면 이벤트데이터에 그 배열을 저장
+				if(checkedArr!=""){
+					console.log('첵드드'+ checkedArr);
+					eventData.daysOfWeek = checkedArr;
+					
+				}
+				eventData.groupId = new Date()+eventData.userid;
 				if(eventData.title == "") {
 					swal('일정명을 입력하세요.');
 					return false;
@@ -780,10 +921,18 @@ $(function() {
 					allDay: isAllDay, 
 					color: colorVal,
 					start: realStartDay,
-					end: realEndDay
+					end: realEndDay,
+					
 				};
 
-				
+				//반복 설정한 요일이 있으면 디비에 그 배열을 저장
+				if(checkedArr!=""){
+					console.log('부와오'+ checkedArr);
+					//join() >> 배열을 문자열로 변환하는 함수
+					DBdata.daysofweek = checkedArr.join(',');
+					
+				}
+				DBdata.groupId = new Date()+eventData.userid;
 
 				$('#createEventModal').modal('hide');
 

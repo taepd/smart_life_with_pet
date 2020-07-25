@@ -4,45 +4,46 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 
-<title>홈_슬기로운 반려생활</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
-
-
-
-	
-
+	<title>홈_슬기로운 반려생활</title>
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		#donation-jumbotron {
+			margin-top: 70px;
+			height: 360px;
+			background-color: #7571f9;
+			padding: 60px 10% 80px 10%;
+		}
+	</style>
 </head>
 <body>
+
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<!-- header -->
 
-
-
-
-
-
-
-
-
-
-	<div class="side_overlay">
-		<div class="container">
-
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">게시글</button>
-			<!-- 탭 아이콘 영역 -->
-			<!--  탭영역 음....기다린다 -->
+	<div id="donation-jumbotron" class="jumbotron">
+		<h2>랜선으로 맺어진 인연,<br> 작은 도움으로 진짜 랜선 집사가 되어보세요.</h2>
+	</div>
+	
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col-lg-4">
+					<div style="width:100%;height:280px;background-color:#999;">
+					</div>
+				</div>
+				<div class="col">asdfasdfasd</div>
+			</div>
+			
+			
+			<br><br><br><br><br><br><br><br><br><br><br><br>
+			
+			
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
-				
-				
 				
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation">

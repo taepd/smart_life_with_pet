@@ -1,4 +1,4 @@
-z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -10,7 +10,8 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
     <title>홈_슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
     <style type="text/css">
 
 		a:visited {
@@ -39,7 +40,8 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 		}
 		
 		#reply_h4 {
-
+			margin-left: 50px;
+			margin-bottom: 50px;
 		}
 		
 		#btns_wrapper {
@@ -80,89 +82,119 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 		    border: 1px solid #ccc;
 		    border-width: 0 0 1px 1px;
 		    border-radius: 0 0 0 2px;
-
- 	}
-	
+		}
+		 
+		.main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 100px;
+			border-radius: 6px;
+			position: relative;	
+		}
 		
+		#back-icon {
+			position: absolute;
+			top: 7px;
+			left: 10px;
+			font-size: 34px;
+			color: rgba(233, 33, 101, 0.2);
+		}
+		
+		.commentIcons {
+			font-size: 20px;
+			color: rgba(233, 33, 101, 0.2);
+			padding: 0 2px;
+		}
+
+		#commentBox, #comment {
+			margin-left: 50px;
+			margin-right: 50px;
+		}
+
+		.heart-comment-time-area {
+			margin: 5px 10px 50px 3px;
+			color: #838383;
+		}
+
+		.heart-and-comment {
+			margin: 50px 0 30px;
+		}
+	
 	</style>
 </head>
 <body>
     
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<div class="side_overlay">
-		<div class="container">
-			<h1>${post.title}</h1>
-			<!-- 글쓴이 및 관련 반려동물 영역 -->
-					<div class="d-flex">  <!--  style="display: inline-block;" -->
-						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
-						<c:forEach var="myPet" items="${pArr}">
-	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
-	        				<c:if test="${petindex eq myPet.petindex}">
-				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
-				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
-				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
-			        			<div  class="rounded-circle card-modal-profile"
-                                    style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
-                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
-                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
-                                            style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
-                                    </div>
-                             	</div>
-                             	<div class="text-center"> ${myPet.petname} </div>
-		        			</div>
-		        			</c:if>
-				        </c:forTokens>
-				        </c:forEach>
-				        <span class="align-self-center">의 이야기</span>   			
-	        		</div>	
-	        
-					<div class="heart-comment-time-area">
-						<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-						<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
-						<span>${rtime}</span>
-					</div>
+	<div class="container">
+		<div class="side_overlay">
+			<div class="main-card">
+				<a href="myMain.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 				
-	        		
-				
+				<!-- 글쓴이 및 관련 반려동물 영역 -->
+				<div class="d-flex">  <!--  style="display: inline-block;" -->
+					<!-- <span class="align-self-center"><b>${post.nick}</b>님과 </span> -->
+					<h4 class="align-self-center">A story of</h4>
+					<c:forEach var="myPet" items="${pArr}">
+					<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+						<c:if test="${petindex eq myPet.petindex}">
+						<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+							onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
+						<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+							<div class="rounded-circle card-modal-profile"
+								style="float : left; background-color: white; overflow: hidden; height:50px; width:50px; margin: 0 auto;">
+								<div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+									<img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+										style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
+								</div>
+							</div>
+							<!-- <div class="text-center"> ${myPet.petname} </div> -->
+						</div>
+						</c:if>
+					</c:forTokens>
+					</c:forEach>
+					<!-- <span class="align-self-center">의 이야기</span>   			 -->
+				</div>
+
+				<h1>${post.title}</h1>	
+		
+				<div class="heart-comment-time-area">
+					<fmt:parseDate var="parseTime" value="${post.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd hh:mm"/>
+					<span>${rtime}</span>
+				</div>
 			
-			<!-- 직관적인 badge
-			<a href="#"><span class="badge badge-default">수정</span></a>
-			<span class="badge badge-default">삭제</span> -->
-			
-			
-			
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown" style="float: right;">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-ellipsis-v"></i></span></a>
-					 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			            <a class="dropdown-item" href="javascript:;">수정</a>
-			            <a class="dropdown-item" href="javascript:;">삭제</a>
-          			</div>
+					<c:if test="${sessionScope.user.userid eq post.userid}">
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			            	<a class="dropdown-item" href="edit.bit?bindex=${post.bindex}">수정</a>
+			            	<a class="dropdown-item" href="javascript:;" id="delete">삭제</a>
+					  	</div>
+					</c:if> 
 				</li>
 			
-			<br>
 			<hr>
-			<div>
+			<div style="margin-top: 50px;">
 				${post.content}
 			</div>
-			<hr>
-			<c:if test="${sessionScope.user.userid eq post.userid}">
-			<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
-			<button type="button" id="delete">삭제</button>
-			</c:if>
+			<!-- <c:if test="${sessionScope.user.userid eq post.userid}">
+				<button type="button" onclick="location.href='edit.bit?bindex=${post.bindex}'">수정</button>
+				<button type="button" id="delete">삭제</button>
+			</c:if> -->
 			<!-- 하트/코멘트 갯수 영역 -->
-			<div class="heart-and-comment">
-				<div class="heart-comment-time-area" onclick='toggleHeart()'
-						style="cursor:pointer">
-					<span class="heart"><i id="heart" class="far fa-heart"></i></span>
-					좋아요<span id="blikeCount">${post.blike}</span>
-				</div>
-			 	<div class="heart-comment-time-area">
-					<span class="icon"><i class="far fa-comment"></i></span>
-					<span id="bcCount">${post.bcCount}</span>
-				</div> 			
-			</div>	
+				<div class="heart-and-comment">
+					<div class="heart-comment-time-area" onclick='toggleHeart()'
+							style="cursor:pointer">
+						<span class="heart"><i id="heart" class="far fa-heart"></i></span>
+						좋아요 <span id="blikeCount">${post.blike}</span>
+					</div>
+					<div class="heart-comment-time-area">
+						<span class="icon"><i class="far fa-comment"></i></span>
+						<span id="bcCount">${post.bcCount}</span>
+					</div> 			
+				</div>	
 			
-			<hr>
+				<hr>
 				<h4 id="reply_h4">댓글</h4>
 				
 				<div id="commentBox"></div>
@@ -174,15 +206,15 @@ z<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="u
 						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
 						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
 						<br>
-						<input type="button" class="" value="댓글 등록" id="writecom">
-						<input type="reset" class="" value="다시 쓰기">
+						<input type="button" class="btn btn-sm" value="등록" id="writecom">
+						<input type="reset" class="btn btn-sm" value="다시 쓰기">
 					</form>
 					<!-- 댓글 폼 끝 -->
 					
 					<hr>
 					
 					
-			
+			</div>
 		</div>
 	</div>
 	
@@ -307,7 +339,7 @@ function getCommentList() {
 				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
-					html += "</b></div><div><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;'>대댓글</button></div></div>";
+					html += "</b></div><div><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;' class='btn btn-sm'>대댓글</button></div></div>";
 				}else{
 					html += "</b></div></div>";
 				};
@@ -319,9 +351,17 @@ function getCommentList() {
 				html += "</h6></div>";
 				html += "<input type='hidden' name='commentNum' id='commentNum' value='";
 				html += element.bcindex;
-				html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
+				// html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
+				html += "'> <a href='" + "javascript:void(0);' onclick='editComment(" + element.bcindex + ")'; id='editCommentBtn" + element.bcindex + "';><span class='commentIcons'><i class='fas fa-edit'></i></span></a>";
+				
 				//html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
-				html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+				// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+				// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+				html += "<a href='" + "javascript:void(0);' onclick='deleteComment(" + element.bcindex + ")'; id='deleteCommentBtn'><span class='commentIcons'><i class='fas fa-trash-alt'></i></span></a>";
+				
+
+
+				
 				//html += "</form>";
 				html += "<div id='editForm"+element.bcindex+"'></div>"
 				html += "</div>";
@@ -377,8 +417,8 @@ function editComment(bcindex) {
 				html += '<form name="editCommentBox" id ="editCommentBox" method="POST">';
 				html +=	'<input type="hidden" id="bcindex" value="'+bcindex+'">';
 				html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%">'+content+'</textarea><br>';
-				html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
-				html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+				html +=	'<input type="button" class="btn btn-sm" value="수정" id="editcom">';
+				html +=	'<input type="reset" class="btn btn-sm" value="원래대로"></form>';
 				
 				$('#editForm'+bcindex+'').append(html);
 				
@@ -464,8 +504,8 @@ function openReComment(bcindex, userid, refer) {
 		html +=	'<input type="hidden" id="refer" value="'+refer+'">';
 		html +=	'<input type="hidden" id="bcindex" value="'+bcindex+'">';
 		html +=	'<textarea rows="3" cols="" id="content" name="content" placeholder="대댓글을 입력해 주세요" style="width: 100%; '+depthCss+'">'+content+'</textarea><br>';
-		html +=	'<input type="button" class="" value="대댓글 등록" id="writeRecom">';
-		html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+		html +=	'<input type="button" class="btn btn-sm" value="등록" id="writeRecom">';
+		html +=	'<input type="reset" class="btn btn-sm" value="다시 쓰기"></form>';
 		html += '</div>';
 		
 		$('#editForm'+bcindex+'').append(html);

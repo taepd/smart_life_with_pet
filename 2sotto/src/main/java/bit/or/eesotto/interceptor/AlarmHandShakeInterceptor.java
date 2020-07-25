@@ -22,12 +22,12 @@ public class AlarmHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     	HttpServletRequest req= ssreq.getServletRequest();
 
     	User user  = (User) req.getSession().getAttribute("user");
-    	
+    	System.out.println("여기까지 오는거 확인 완료.");
     	
         // 파라미터로 입력된 attributes에 put을 하면 WebSocketSession에서 접근가능
     	
-    	attributes.put("user_email", user.getUserid());
-    	
+    	attributes.put("userid", user.getUserid());
+    	System.out.println("여기까지 오는거 확인 완료.");
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
   

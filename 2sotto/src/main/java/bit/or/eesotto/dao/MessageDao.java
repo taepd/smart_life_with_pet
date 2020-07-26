@@ -1,5 +1,6 @@
 package bit.or.eesotto.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -15,8 +16,8 @@ import bit.or.eesotto.dto.User;
 public interface MessageDao {
 	
 		// 쪽지 > 쪽지보내기  
-		@Insert("insert into message (ruserid, suserid, content, sendtime, readtime, readstate)"
-				+ " values ( #{ruserid}, #{suserid}, #{content}, now(), now(), 0)" )
+		@Insert("insert into message (ruserid, suserid, content, sendtime, readstate)"
+				+ " values ( #{ruserid}, #{suserid}, #{content}, now(), 0)" )
 		public int writeMessage(Message message);
 		
 		// 쪽지 > 쪽지 리스트 조회  
@@ -33,10 +34,20 @@ public interface MessageDao {
 		@Update("delete from message where msindex=#{msindex}")
 		public int deleteMessage(Message msindex);
 		
+		// 쪽지 > 읽은 상태로 변경
+		@Update("update message set readtime = now() where msindex = #{msindex}")
+		public int updateReadState(String msindex);
 		
 		// 쪽지 > 쪽지 개수 조회 //동적쿼리 적용할 것 
 		public int getMessageCount();
 		public int getMessageCount(String SUSERID);
 		public int getMessageCount(String column, int search);
+		
+		
+		//사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트
+		public int getCountNotRead()throws ClassNotFoundException, SQLException;	
+		
+		//사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트
+		public int getCountUserNotRead()throws ClassNotFoundException, SQLException;
 		
 	}

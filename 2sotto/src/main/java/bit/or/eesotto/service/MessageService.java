@@ -53,7 +53,7 @@ public class MessageService {
 		return result;
 	}
 
-	public HashMap<String, Object> mainView(String cp, String ps, String userid) {
+	public HashMap<String, Object> rPageView(String cp, String ps, String userid) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -103,7 +103,7 @@ public class MessageService {
 	}
 	
 	
-public HashMap<String, Object> messagePageView(String cp, String ps, String userid) {
+public HashMap<String, Object> sPageView(String cp, String ps, String userid) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -152,13 +152,19 @@ public HashMap<String, Object> messagePageView(String cp, String ps, String user
 		return map;
 	}
 	
-		//글 상세보기 
-	public Message getMessage(String msindex) {
+	//글 상세보기 
+	public Message getMessage(String msindex, String ruserid) {
 				
 		Message message = null;
 
 		messageDao = sqlsession.getMapper(MessageDao.class);
 		message = messageDao.getMessage(msindex);
+		
+		int result = 0;
+		//세션 유저가 쪽지를 수신한 사람이여서 그 쪽지를 읽었을 때
+		if(message!=null && message.getRuserid().equals(ruserid)) {
+			result = messageDao.updateReadState(msindex);
+		}
 							
 		return message;
 	}
@@ -172,6 +178,7 @@ public HashMap<String, Object> messagePageView(String cp, String ps, String user
 		return messageDao.deleteMessage(msindex);
 	}
 
+	
 
 
 }

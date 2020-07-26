@@ -59,9 +59,8 @@ public class MainController {
 				userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);
 			}
-
-			HashMap<String, Object> map = bs.mainView(cp, ps, userid);
-			logger.info("모두의 블로그 글 리스트 조회 완료");
+			HashMap<String, Object> map = bs.popularPostList(cp, ps, userid);
+			logger.info("블로그 인기글 리스트 조회 완료");
 			
 			//반려동물 정보 조회
 			List<Pet> petList = ms.getPetPicture(userid);

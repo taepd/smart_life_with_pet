@@ -36,7 +36,7 @@
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
 					
 					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-bell"></i></span>
+						<a href="${pageContext.request.contextPath}/message/rPage.bit"><span id="message"><i class="far fa-bell"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
 							<span class="badge badge-pill badge-warning" id="alarmCount"></span>
 						</a>
@@ -101,10 +101,10 @@
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
 				</se:authorize>
-				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+				<!-- <se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
-				</se:authorize>
-				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+				</se:authorize> -->	
+				<se:authorize access="hasAnyRole('ROLE_ADMIN')"> 
 					<!-- <li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li> -->
 					<li><a href="${pageContext.request.contextPath}/admin/adminMain.bit">admin테스트</a></li>
 				</se:authorize>	
@@ -114,7 +114,9 @@
 	</div>
 </div>
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
+<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 <input type="hidden" id="userid" value="${session.user.userid}">
+</se:authorize>
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 끝 -->
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
 			<!-- <th:block th:if="${session.currentUser != null}">
@@ -174,7 +176,7 @@ $(document).ready(function() {
 				if(msg.now == "userid") {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="/main.bit">'+
+		                         '<a href="rPage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -184,7 +186,7 @@ $(document).ready(function() {
 				}else {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="/main.bit">'+
+		                         '<a href="rPage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -195,7 +197,7 @@ $(document).ready(function() {
 			} else if(msg.type == "user") {
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="/main.bit">'+
+	                         '<a href="rPage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -205,7 +207,7 @@ $(document).ready(function() {
 			} else if(msg.type == "admin"){
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="/main.bit">'+
+	                         '<a href="rPage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+

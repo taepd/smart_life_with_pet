@@ -12,7 +12,97 @@
 
 
 </head>
+<script type="text/javascript">
+/* $(document).ready(function() {
+	connect();
+	/* $('#sendQna').click(function() { send(); }); */
+/* })
 
+var wsocket;
+
+function connect() {
+	wsocket = new WebSocket("ws://" + location.host + "/bodiary/alarm");
+	wsocket.onopen = onOpen;
+	wsocket.onmessage = onMessage;
+	wsocket.onclose = onClose;
+}
+function disconnect() {
+	wsocket.close();
+}
+
+function onOpen(evt) {
+	console.log("onOpen(evt)");
+}
+
+function onMessage(evt) {
+	console.log("evt :" + evt);
+	var data = evt.data;
+	appendMessage(data);
+}
+
+function onClose(evt) {
+}
+
+function send() {
+	
+	
+	wsocket.send("login");
+	
+}
+
+function appendMessage(msg) {
+	console.log(msg);
+	alert("msg : " + msg);
+}
+ */
+ $(function() {
+
+		CKEDITOR.replace( 'content' );
+
+		
+	}) 
+ $(function() {
+	 console.log(wsocket);
+	 $('#sendQna').click(function() { 
+		 
+		 sendQna(); });
+	/*  function send() {
+		
+		alert("갑니다")
+		wsocket.send("Qna"); 
+		form.submit();
+	} */
+})
+
+function sendQna() {
+	/* let qna_brd_title = $('#qna_brd_title').val();
+	let qna_brd_content = $('#qna_brd_content').val();
+	let user = "새로운 문의가 도착했습니다."; */
+	
+	var text = "새로운 문의가 도착했습니다.";
+	var msg = {"type" : "user",
+				"ruserid" : $('#ruserid').val(),
+				"content" : $('#content').val(),
+				"text" : text
+				};
+	console.log('여기타니니니니니니닝');
+	/* 
+	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
+	wsocket.send(JSON.stringify(msg));
+	$('#ruserid').val('');
+	$('#content').val('');
+
+	alert("성공!", "등록 되었습니다.", "success");
+	setTimeout(function() {
+		  location.href="rPage.bit";
+		}, 1000);
+
+	
+	
+}
+
+
+</script>
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
@@ -23,7 +113,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">쪽지</button>
+				onclick="location.href='rPage.bit'">쪽지</button>
 
 
 			
@@ -34,10 +124,10 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item"><a class="nav-link"
-									onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+									onclick="location.href='rPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons">email</i> 받은 쪽지함
 										</a></li>
-								<li class="nav-item"><a class="nav-link" onclick="location.href='messagePage.bit'"
+								<li class="nav-item"><a class="nav-link" onclick="location.href='sPage.bit'"
 									data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
 										<i class="material-icons">email</i> 보낸 쪽지함
 										</a></li>
@@ -57,21 +147,21 @@
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" >
 
-							<form action="write.bit" method="post">
+							<!--  <form action="write.bit" method="post"> -->
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
-									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
+									<input type="text" name="ruserid" id="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
 								</div>
 								
-									   <textarea name="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
+									   <textarea name="content" id="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
 								
-								<div class="border-top">
+							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>쪽지보내기</b></button>
+										<button type="submit" id="sendQna" class="btn btn-primary"><b>쪽지보내기</b></button>
 										<button type="reset" class="btn btn-primary">취소</button>
 								</div>
 							</div>
-						</form>
+					<!-- </form> -->
 
 
 

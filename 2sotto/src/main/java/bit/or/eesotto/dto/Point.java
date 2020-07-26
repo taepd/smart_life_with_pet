@@ -15,6 +15,8 @@ public class Point {
 	private int pcount;
 	private int pamount;
 	private String pdate;
+	private int pindex;
+	private int drindex;
 	
 
 }

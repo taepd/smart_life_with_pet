@@ -25,7 +25,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">쪽지함</button>
+				onclick="location.href='rPage.bit'">쪽지함</button>
 
 
 
@@ -138,7 +138,7 @@
 	<!-- Modal에서 삭제 -->
 	// 삭제 전 확인 창 띄우기
 	function Delete() {
-	    location.replace("delete.bit?msindex=${message.msindex}"); 
+	    location.replace("detailDelete.bit?msindex=${message.msindex}"); 
 	  }
 	<!-- Modal에서 삭제 --> 
 	

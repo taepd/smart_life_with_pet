@@ -29,7 +29,7 @@
             <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
           </div>
         </a>
-        <a href="/" class="simple-text logo-normal">
+        <a href="adminMain.bit" class="simple-text logo-normal">
           슬기로운 반려생활
         </a>
       </div>
@@ -51,6 +51,12 @@
             <a href="userPetTable.bit">
               <i class="nc-icon nc-diamond"></i>
               <p>동물 리스트</p>
+            </a>
+          </li>
+          <li>
+            <a href="userPointTable.bit">
+              <i class="nc-icon nc-diamond"></i>
+              <p>포인트 리스트</p>
             </a>
           </li>
         </ul>

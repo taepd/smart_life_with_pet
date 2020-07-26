@@ -11,7 +11,97 @@
 
 
 </head>
+<script type="text/javascript">
 
+
+/* $(document).ready(function() {
+	connect();
+	/* $('#sendQna').click(function() { send(); }); */
+/* })
+
+var wsocket;
+
+function connect() {
+	wsocket = new WebSocket("ws://" + location.host + "/bodiary/alarm");
+	wsocket.onopen = onOpen;
+	wsocket.onmessage = onMessage;
+	wsocket.onclose = onClose;
+}
+function disconnect() {
+	wsocket.close();
+}
+
+function onOpen(evt) {
+	console.log("onOpen(evt)");
+}
+
+function onMessage(evt) {
+	console.log("evt :" + evt);
+	var data = evt.data;
+	appendMessage(data);
+}
+
+function onClose(evt) {
+}
+
+function send() {
+	
+	
+	wsocket.send("login");
+	
+}
+
+function appendMessage(msg) {
+	console.log(msg);
+	alert("msg : " + msg);
+}
+ */
+ $(function() {
+
+		CKEDITOR.replace( 'content' );
+
+		
+	}) 
+ $(function() {
+	 console.log(wsocket);
+	 $('#sendQna').click(function() { 
+		 
+		 sendQna(); });
+	/*  function send() {
+		
+		alert("갑니다")
+		wsocket.send("Qna"); 
+		form.submit();
+	} */
+})
+
+function sendQna() {
+	/* let qna_brd_title = $('#qna_brd_title').val();
+	let qna_brd_content = $('#qna_brd_content').val();
+	let user = "새로운 문의가 도착했습니다."; */
+	
+	var text = "새로운 문의가 도착했습니다.";
+	var msg = {"type" : "user",
+				"ruserid" : $('#ruserid').val(),
+				"content" : $('#content').val(),
+				"text" : text
+				};
+	console.log('여기타니니니니니니닝');
+	/* 
+	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
+	wsocket.send(JSON.stringify(msg));
+	$('#ruserid').val('');
+	$('#content').val('');
+
+	alert("성공!", "등록 되었습니다.", "success");
+	setTimeout(function() {
+		  location.href="rPage.bit";
+		}, 1000);
+
+	
+	
+}
+ </script>
 <body>
 
 
@@ -31,15 +121,15 @@
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item"><a class="nav-link active show"
+								<li class="nav-item"><a class="nav-link"
 									href="#A" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons">email</i> 받은 쪽지함
 										</a></li>
-								<li class="nav-item"><a class="nav-link" href="#B"
+								<li class="nav-item"><a class="nav-link " href="#B"
 									data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
 										<i class="material-icons">email</i> 보낸 쪽지함
 										</a></li>
-								<li class="nav-item"><a class="nav-link active show" href="#C"
+								<li class="nav-item"><a class="nav-link" href="#C"
 									data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons">email</i> 쪽지 쓰기
 										</a></li>
@@ -56,31 +146,31 @@
 
 							<div class="table-responsive">
 								 <form action="delete.bit" method="get">
-								<table class="table">
-								    <thead class="text-primary">
-								   	 	<tr>
-								             <th class="checkbox"><input type="checkbox" id="ck_all">전체선택</th>
-								        </tr>
+								<table class="table" style="font-size: 0.5em;">
+								    <thead class="text-primary" style="font-size: 1.5em;">
+								   
 								        <tr>
-								   	 		<th>체크박스</th>
-											<th>쪽지번호</th>
-											<th>보낸사람</th>
-											<th>내용</th>
-											<th class="text-right">받은 날짜</th>
+								   	 		<th class="text-center" >체크박스</th>
+											<th class="text-center" >쪽지번호</th>
+											<th class="text-center" >보낸사람</th>
+											<th class="text-center" >내용</th>
+											<th class="text-center" >받은 날짜</th>
+											<th class="text-center" >읽은 날짜</th>
 										</tr>
 								        
 								    </thead>
 								     <c:forEach var="message" items="${messageList}" >
-								    <tbody id="message">
+								    <tbody id="message" style="font-size: 2em;">
 								        
 								       <tr data-tr_value="${message.msindex}"> 
-								            <td><input type="checkbox" name="msindexes" value="${message.msindex}"></td>
-								            <td>${message.msindex}</td>
-											<td>${message.suserid}</td>
-											  <td onclick="location.href='detail.bit?msindex=${message.msindex}'">${message.content}</td> 
+								            <td><input type="checkbox" name="msindexes" value="${message.msindex}" ></td>
+								            <td class="text-center" >${message.msindex}</td>
+											<td class="text-center" >${message.suserid}</td>
+											  <td class="text-center" style="cursor:pointer;" onclick="location.href='detail.bit?msindex=${message.msindex}'">${message.content}</td> 
 											<!--  <td  data-toggle="modal" data-target="#deleteModal" >${message.content}</td> -->
 											<!-- <td data-toggle="modal" data-target="#deleteModal" onClick="$('#createFormId').modal('show')">${message.content}</td> --> 
-											<td class="text-right">${message.sendtime}</td>
+											<td class="text-center" >${message.sendtime}</td>
+											<td class="text-center" >${message.readtime!=null?message.readtime:'읽지않음'}</td>
 								        </tr>
 								         
 								        
@@ -100,7 +190,7 @@
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
 							<li class="page-item"><a class="page-link"
-								href="main.bit?cp=${cpage-1}&ps=${pageSize}"
+								href="popRePage.bit?cp=${cpage-1}&ps=${pageSize}"
 								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
 									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
 						</c:if>
@@ -109,12 +199,12 @@
 							<c:choose>
 								<c:when test="${cpage==i }">
 									<li class="page-item active"><a class="page-link"
-										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link"
-										href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -124,7 +214,7 @@
 						<c:if test="${cpage < pageCount}">
 
 							<li class="page-item">
-								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+								<a class="page-link" href="popRePage.bit?cp=${cpage+1}&ps=${pageSize}"
 									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
 									<span aria-hidden="true">&raquo;</span>
 									<span class="sr-only">Next</span>
@@ -150,22 +240,20 @@
 								<table class="table">
 									<thead class="text-primary">
 										<tr>
-											<th>받은사람</th>
-											<th>내용</th>
-											<th>보낸 날짜</th>
-											<th>읽음 여부</th>
-											<th>읽은 날짜</th>
+											<th class="text-center">받은사람</th>
+											<th class="text-center">내용</th>
+											<th class="text-center">보낸 날짜</th>
+											<th class="text-center">읽은 날짜</th>
 										</tr>
 									</thead>
 									 <c:forEach var="message" items="${messageList}" >
 									<tbody>
 									
 										<tr>
-											<td>${message.ruserid}</td>
-											<td>${message.content}</td>
-											<td>${message.sendtime}</td>
-											<td>${message.readstate}</td>
-											<td>${message.readtime}</td>
+											<td class="text-center">${message.ruserid}</td>
+											<td class="text-center">${message.content}</td>
+											<td class="text-center">${message.sendtime}</td>
+											<td class="text-center">${message.readtime!=null?message.readtime:'읽지않음'}</td>
 
 										</tr>
 										</tbody>
@@ -178,7 +266,7 @@
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
 							<li class="page-item"><a class="page-link"
-								href="messagePage.bit?cp=${cpage-1}&ps=${pageSize}"
+								href="popRePage.bit?cp=${cpage-1}&ps=${pageSize}"
 								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
 									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
 						</c:if>
@@ -187,12 +275,12 @@
 							<c:choose>
 								<c:when test="${cpage==i }">
 									<li class="page-item active"><a class="page-link"
-										href="messagePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link"
-										href="messagePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -202,7 +290,7 @@
 						<c:if test="${cpage < pageCount}">
 
 							<li class="page-item">
-								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+								<a class="page-link" href="popRePage.bit?cp=${cpage+1}&ps=${pageSize}"
 									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
 									<span aria-hidden="true">&raquo;</span>
 									<span class="sr-only">Next</span>
@@ -223,7 +311,9 @@
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" id="C">
 
-							<form action="popmain.bit" method="post">
+						<form action="popmain.bit" method="post">
+				
+						
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
 									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
@@ -231,13 +321,13 @@
 								
 									   <textarea name="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
 								
-								<div class="border-top">
+							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>쪽지보내기</b></button>
+										<button type="submit" id="sendQna" class="btn btn-primary"><b>쪽지보내기</b></button>
 										<button type="reset" class="btn btn-primary">취소</button>
 								</div>
 							</div>
-						</form>
+				 </form> 
 
 
 
@@ -286,8 +376,8 @@
 <!-- Modal -->
 	
 
-	<!-- side_overlay end -->
-	
+
+
 
 <script>
 <!-- Modal에서 삭제 -->
@@ -379,12 +469,11 @@ $('#delete').click(function(){
 	
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
-		return location.href='delete.bit?msindex=${message.msindex}';
+		return location.href='popDelete.bit?msindex=${message.msindex}';
 	}else{
 		return;
 	}
 });
-
 
 </script>
 

@@ -14,8 +14,10 @@ import org.springframework.security.core.authority.*;
 import org.springframework.security.core.context.*;
 import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.security.web.context.*;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.google.connect.GoogleOAuth2Template;
 import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
@@ -53,7 +55,12 @@ public class JoinController {
     @Autowired
     private OAuth2Parameters googleOAuth2Parameters;
 	//구글 테스트  끝 
-	
+    // 페이스북 oAuth 관련 시작
+    @Autowired
+    private FacebookConnectionFactory connectionFactory;
+    @Autowired
+    private OAuth2Parameters oAuth2Parameters;
+    // 페이스북 oAuth 관련 끝
 	
 	@Autowired
 	private LoginService ls;
@@ -77,7 +84,10 @@ public class JoinController {
 		/* SNS 로그인 인증을 위한 url 생성 */
 
 		/* 생성한 url 전달 */
-		
+		//페이스북URL을 생성한다 시작.
+		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+		//페이스북URL을 생성한다 시작.
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		//구글URL을 생성한다 시작.
@@ -91,6 +101,10 @@ public class JoinController {
 		//구글
 		model.addAttribute("google_url", googleUrl);
 		logger.info("구글:" + googleUrl);
+		//페이스북 시작
+		model.addAttribute("facebook_url", facebook_url);
+        System.out.println("/facebook" + facebook_url);
+		//페이스북 끝
 		return "join/register";
 	}
 

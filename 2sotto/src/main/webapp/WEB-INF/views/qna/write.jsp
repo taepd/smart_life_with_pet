@@ -12,6 +12,38 @@
     
 </head>
 
+<<<<<<< HEAD
+=======
+function sendQna() {
+	/* let qna_brd_title = $('#qna_brd_title').val();
+	let qna_brd_content = $('#qna_brd_content').val();
+	let user = "새로운 문의가 도착했습니다."; */
+	
+	var text = "새로운 문의가 도착했습니다.";
+	var msg = {"type" : "user",
+				"title" : $('#title').val(),
+				"content" : $('#content').val(),
+				"text" : text
+				};
+	
+	/* 
+	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
+	wsocket.send(JSON.stringify(msg));
+	$('#title').val('');
+	$('#content').val('');
+
+	alert("성공!", "등록 되었습니다.", "success");
+	setTimeout(function() {
+		  location.href="main.bit";
+		}, 1000);
+
+	
+	
+}
+
+
+</script>
+>>>>>>> 763b0b9438e181e2f67af4d6125becc059dd75ad
 <body>
 
 

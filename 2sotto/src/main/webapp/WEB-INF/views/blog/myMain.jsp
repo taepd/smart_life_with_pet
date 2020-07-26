@@ -31,6 +31,7 @@
 			
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
+<<<<<<< HEAD
 					<div class="col-9">
 					<!-- 글쓴이 및 관련 반려동물 영역 -->
 					<div class="d-flex">  <!--  style="display: inline-block;" -->
@@ -56,6 +57,37 @@
 				        <span class="align-self-center">의 이야기</span>   			
 	        		</div>	
 					<!-- 제목 및 내용 영역 -->
+=======
+					<!-- <div style="margin-left: 30px; margin-right: 30px;"> -->
+					<div class="col-1"></div>
+					
+					<div class="col-7">
+						<!-- 글쓴이 및 관련 반려동물 영역 -->
+						<div class="d-flex whoseStory">  <!--  style="display: inline-block;" -->
+							<span class="align-self-center">A story of</span>   			
+							<!-- <span class="align-self-center"><b>${post.nick}</b> 님과 </span> -->
+							<c:forEach var="myPet" items="${myPetList}">
+							<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+								<c:if test="${petindex eq myPet.petindex}">
+								<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+									onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
+								<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+									<div  class="rounded-circle card-modal-profile"
+										style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
+										<div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+											<img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+												style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
+										</div>
+									</div>
+									<!-- <div class="text-center"> ${myPet.petname} </div> -->
+								</div>
+								</c:if>
+							</c:forTokens>
+							</c:forEach>
+							<!-- <span class="align-self-center">A story of</span>   			 -->
+						</div>	
+						<!-- 제목 및 내용 영역 -->
+>>>>>>> 763b0b9438e181e2f67af4d6125becc059dd75ad
 						<div class="contents">
 							<a href="detail.bit?bindex=${post.bindex}">
 								<strong style="font-size:1.5em;">${post.title}</strong>

@@ -7,15 +7,14 @@
 
 <head>
 
-	<title>홈_슬기로운 반려생활</title>
+	<title>슬기로운 반려생활</title>
 	<%@ include file="/WEB-INF/include/import.jsp"%>
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 	<style type="text/css">
 		
-		@font-face {
+		/* @font-face {
 			font-family: 'netmarbleM';
 			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
-		}
+		} */
 		
 		.area {
 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
@@ -59,7 +58,8 @@
 		}
 		
 		.h3-korean {
-			font-family : 'netmarbleM', sans-serif;
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
 			/* font-family: 'Poor Story', cursive; */
 			/* font-family: 'Nanum Myeongjo', serif; */
 		}
@@ -86,7 +86,7 @@
 						<ul id="signUpList">
 							<a href="joinForm.bit"><li><span class="span">일반 회원가입하기</span></li></a>
 							<a href="${naver_url}"><li style="border: 1px solid #19ce60"><span class="span">네이버로 가입하기</span></li></a>
-							<a href="${kakao_url}"><li style="border: 1px solid #ffe500"><span class="span">카카오로 가입하기</span></li></a>
+							<a href="${facebook_url}"><li style="border: 1px solid #ffe500"><span class="span">페이스북 가입하기</span></li></a>
 							<a href="${google_url}"><li style="border: 1px solid #2962ff"><span class="span">구글로 가입하기</span></li></a>
 						</ul>
 						<br>

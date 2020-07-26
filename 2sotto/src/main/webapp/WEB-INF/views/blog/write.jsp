@@ -122,6 +122,26 @@
  	 -->
 <script type="text/javascript">
 	
+<<<<<<< HEAD
+=======
+	function petSelect(div){
+		if($(div).attr('flag')==0){ //반려동물 클릭해 선택한 경우
+			$(div).css("background-color", "rgba(156, 39, 176, 0.2)"); // 선택시 활성화 되었다는 효과
+			$(div).attr('flag', '1'); // 플래그 
+			petArr.push($(div).attr('value')); 
+			$('#petArr').val(petArr);
+			console.log(petArr);
+			
+		}else{ //해제한 경우
+			$(div).css("background-color", "");
+			$(div).attr('flag', '0');
+			const idx=petArr.indexOf($(div).attr('value')); //배열에서 특정 요소 선택해서 제거하는 방
+			petArr.splice(idx,1);  //여기까지 방법
+			$('#petArr').val(petArr);
+			console.log(petArr);
+		}
+	}
+>>>>>>> 763b0b9438e181e2f67af4d6125becc059dd75ad
 
 //ckeditor
 $(function(){
@@ -152,6 +172,7 @@ function petSelect(div){
 		$('#petArr').val(petArr);
 		console.log(petArr);
 		
+<<<<<<< HEAD
 	}else{ //해제한 경우
 		$(div).css("border", "");
 		$(div).attr('flag', '0');
@@ -159,6 +180,22 @@ function petSelect(div){
 		petArr.splice(idx,1);  //여기까지 방법
 		$('#petArr').val(petArr);
 		console.log(petArr);
+=======
+		if( $('#petArr').val() == "" ) {
+			swal('글과 관련 있는 반려동물을 선택해주세요!');
+			return false;
+		} 
+		if( $('#title').val().trim() == "") {
+			swal('제목을 입력해주세요.');
+			$('#title').focus();
+			return false;
+		}
+		if (CKEDITOR.instances.content.getData().trim() == '' || CKEDITOR.instances.content.getData().length == 0) {
+			swal('내용을 입력해주세요.');
+			return false;
+		}
+		$('#writeForm').submit();
+>>>>>>> 763b0b9438e181e2f67af4d6125becc059dd75ad
 	}
 }
 

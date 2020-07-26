@@ -23,7 +23,7 @@
 
 
 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">쪽지</button>
+				onclick="location.href='rPage.bit'">쪽지</button>
 
 
 			
@@ -34,10 +34,10 @@
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item"><a class="nav-link "
-									onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+									onclick="location.href='rPage.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons">email</i> 받은 쪽지함
 										</a></li>
-								<li class="nav-item"><a class="nav-link active show" onclick="location.href='messagePage.bit'"
+								<li class="nav-item"><a class="nav-link active show" onclick="location.href='sPage.bit'"
 									data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
 										<i class="material-icons">email</i> 보낸 쪽지함
 										</a></li>
@@ -59,22 +59,20 @@
 								<table class="table">
 									<thead class="text-primary">
 										<tr>
-											<th>받은사람</th>
-											<th>내용</th>
-											<th>보낸 날짜</th>
-											<th>읽음 여부</th>
-											<th>읽은 날짜</th>
+											<th class="text-center">받은사람</th>
+											<th class="text-center">내용</th>
+											<th class="text-center">보낸 날짜</th>
+											<th class="text-center">읽은 날짜</th>
 										</tr>
 									</thead>
 									 <c:forEach var="message" items="${messageList}" >
 									<tbody>
 									
 										<tr>
-											<td>${message.ruserid}</td>
-											<td>${message.content}</td>
-											<td>${message.sendtime}</td>
-											<td>${message.readstate}</td>
-											<td>${message.readtime}</td>
+											<td class="text-center">${message.ruserid}</td>
+											<td class="text-center">${message.content}</td>
+											<td class="text-center">${message.sendtime}</td>
+											<td class="text-center">${message.readtime!=null?message.readtime:'읽지않음'}</td>
 
 										</tr>
 										</tbody>
@@ -87,7 +85,7 @@
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
 							<li class="page-item"><a class="page-link"
-								href="messagePage.bit?cp=${cpage-1}&ps=${pageSize}"
+								href="sPage.bit?cp=${cpage-1}&ps=${pageSize}"
 								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
 									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
 						</c:if>
@@ -96,12 +94,12 @@
 							<c:choose>
 								<c:when test="${cpage==i }">
 									<li class="page-item active"><a class="page-link"
-										href="messagePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="sPage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link"
-										href="messagePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+										href="sPage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
 										ps="${pageSize}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -111,7 +109,7 @@
 						<c:if test="${cpage < pageCount}">
 
 							<li class="page-item">
-								<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
+								<a class="page-link" href="sPage.bit?cp=${cpage+1}&ps=${pageSize}"
 									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
 									<span aria-hidden="true">&raquo;</span>
 									<span class="sr-only">Next</span>

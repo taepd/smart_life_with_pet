@@ -36,6 +36,7 @@ public class AdminController {
 	@Autowired
 	PetService ps;
 	
+	@Autowired
 	PointService pointService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
@@ -158,25 +159,25 @@ public class AdminController {
 	
 	// KKH가 작업함 -> 포인트 리스트 조회
 	// 포인트리스트 조회 Ajax  
-		@ResponseBody
-		@RequestMapping(value = "getPointList.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public List<Point> getPointList(Point point, Principal principal, Model model) throws IOException {
-			
-			String userid = principal.getName();
-			logger.info("로그인 유저 아이디: " + userid);
-			
-			
-			List<Point> pointList = pointService.getPointList(userid);
-			logger.info("너는?: " + userid);
-			logger.info("그리고 넌는?: " + pointList);
-			if(pointList!=null) {
-				logger.info("포인트 "+userid+"유저 조회 완료");
-			}else {
-				logger.info("포인트 "+userid+"유저 조회 실패");
-			}
-			
-			return pointList;
+	@ResponseBody
+	@RequestMapping(value = "getPointList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+	public List<Point> getPointList(Point point, Principal principal, Model model) throws IOException {
+		
+		String userid = principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		
+		List<Point> pointList = pointService.getPointList();
+		logger.info("너는?: " + userid);
+		logger.info("그리고 넌는?: " + pointList);
+		if(pointList!=null) {
+			logger.info("포인트 "+userid+"유저 조회 완료");
+		}else {
+			logger.info("포인트 "+userid+"유저 조회 실패");
 		}
+		
+		return pointList;
+	}
 
 
 }

@@ -14,7 +14,7 @@ public interface PointDao {
 
 		// 어드민 > 포인트 리스트 조회  ajax
 		@Select("select * from point")
-		public List<Point> getPointList(@Param("userid") String userid); 
+		public List<Point> getPointList(); 
 		
 		// 어드민 > 포인트 카운트  ajax
 		@Select("select count(*) count from point")

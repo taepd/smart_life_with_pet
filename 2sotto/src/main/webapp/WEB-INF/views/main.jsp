@@ -23,7 +23,7 @@
     		 width: 100px;
     		 height: 100px;
     		 float: left;
-    		 margin: 10px;
+			 margin: 10px 10px 11px 10px;
     	}
     	
     	#myPetImage {
@@ -81,6 +81,10 @@
 		#myPetInfo {
 			margin-bottom: 30px;
 		}
+		
+		.main-card card {
+			float: left;
+		}
     	
     </style>
 </head>
@@ -133,16 +137,18 @@
 	        </div>
 	        <div class="row">
 	        	<div class="col-12">
-	        		<div class=" main-card" style="height: 287px;">
+	        		<div class=" main-card" style="max-height: 360px;">
 		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
 		        		<!-- <div> -->
-		        			<c:set value="${petLikeList}" var="likeList"/>
+							<div  style="overflow-y: scroll; height: 70%;">
+							<c:set value="${petLikeList}" var="likeList"/>
 							<c:choose>
 								<c:when test="${likeList == null}">
 									팔로우하는 동물이 없어요. 찾으러 가볼까요?						
 								</c:when>
 								<c:otherwise>
-					        		<c:forEach items="${likeList}" var="like">
+									<c:forEach items="${likeList}" var="like">
+										
 					        			<div class="follow-img-wrapper">
 						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
 						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
@@ -153,7 +159,8 @@
 					        			</div>
 					        		</c:forEach>
 								</c:otherwise>
-							</c:choose>	        			
+							</c:choose>	 
+							</div>       			
 		        		<!-- </div> -->
 	        		</div>
 	        	</div>
@@ -166,23 +173,23 @@
 			
 			<div class="row">
 				<div class="col-12">
-				<div class="main-card">
-		        	<h3 class="h3-korean">이번주의 인기글</h3>
-						<c:forEach var="post" items="${postList}" varStatus="status">
-							<div class="card col-4">
-				        		<div class="card-body text-center">
-								<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-				        					style="width:200px;height:200px" alt="card image">
-				        					<hr>
-											<strong>${post.title}</strong>
-											<br>
-											<span id="content${status.index}">${post.content}</span>
-								</a>
+					<div class="main-card">
+			        	<h3 class="h3-korean">이번주의 인기글</h3>
+							<c:forEach var="post" items="${postList}" varStatus="status">
+								<div class="card col-4">
+					        		<div class="card-body text-center">
+									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+					        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        					style="width:200px;height:200px" alt="card image">
+					        					<hr>
+												<strong>${post.title}</strong>
+												<br>
+												<span id="content${status.index}">${post.content}</span>
+									</a>
+									</div>
 								</div>
-							</div>
-						</c:forEach>
-				</div>
+							</c:forEach>
+					</div>
 				</div>
 			</div>
 			

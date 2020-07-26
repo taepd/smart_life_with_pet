@@ -7,7 +7,23 @@
 
 <title>홈_슬기로운 반려생활</title>
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
+ <%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+		#petSelection {
+			padding: 30px;
+		}
+		h3 {
+			font-family : 'netmarbleM', sans-serif;
+		}
+		#writeBtnBox {
+			text-align: center;
+			margin-top: 80px;
+		}
+	</style>
 
 
 </head>
@@ -22,9 +38,9 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
+			<button class="btn btn-primary"
 				onclick="location.href='main.bit'">Q&A게시판</button>
-				<button class="btn btn-primary btn-round"
+				<button class="btn btn-primary"
 				onclick="location.href='write.bit'">글쓰기</button>
 
 
@@ -38,7 +54,7 @@
 						<ul class="nav nav-tabs" data-tabs="tabs">
 						
 						
-		
+							<!--  
 							<form class="form-inline">
 								<div class="form-inline">
 									<span>Show:</span> <label for="selected">&nbsp;&nbsp;&nbsp;<select
@@ -50,6 +66,8 @@
 									</label>
 								</div>
 							</form>
+							-->
+							<!-- 
 							<form class="form-inline ml-auto">
 							
 								<div class="form-group has-primary">
@@ -60,6 +78,7 @@
 									<i class="material-icons">search</i>
 								</button>
 							</form>
+							-->
 						</ul>
 					</div>
 				</div>
@@ -102,7 +121,7 @@
 						</div>
 						<!--  -->
 						<div class="table-responsive">
-						
+							<!-- 
 							<table class="table" style="text-align: left">
 								<thead class="text ">
 									<tr>
@@ -112,7 +131,7 @@
 									</tr>
 								</thead>
 							</table>
-							
+							-->
 						
 							
 							

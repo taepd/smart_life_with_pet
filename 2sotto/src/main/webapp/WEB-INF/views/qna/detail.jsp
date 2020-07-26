@@ -8,10 +8,23 @@
 <head>
 
 <title>홈_슬기로운 반려생활</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
-
-
+	 <%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+		#petSelection {
+			padding: 30px;
+		}
+		h3 {
+			font-family : 'netmarbleM', sans-serif;
+		}
+		#writeBtnBox {
+			text-align: center;
+			margin-top: 80px;
+		}
+	</style>
 </head>
 <body>
 
@@ -24,7 +37,7 @@
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
+			<button class="btn btn-primary"
 				onclick="location.href='main.bit'">Q&A내용</button>
 
 
@@ -64,14 +77,14 @@
 								<tbody>
 									
 									<tr>
-										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
+										<td colspan="5" align="left" valign=top style="font-size: 12;">
 											<h4>내용</h4>
 											<div style="margin: 40px 40px 80px 40px;">${qna.content}</div>
 										</td>
 									</tr>
 									<tr>
 										
-										<td colspan="5" align="left" valign=top style="font-family: 돋음; font-size: 12;">
+										<td colspan="5" align="left" valign=top style="font-size: 12;">
 											<h4>관리자 답글</h4>
 											<div style="margin: 40px 40px 80px 40px;">${qna.replyContent}</div>
 										</td>
@@ -81,15 +94,15 @@
 									<tr align="center" valign="middle">
 										<td colspan="5">
 										<!--<c:if test="${currentPost.user_id == user_id }"> -->
-												<a class="btn btn btn-round" href="javascript:history.back();"> 이전 </a>
-												<a class="btn btn-rose btn-round" href="edit.bit?qaindex=${qna.qaindex}">
+												<a class="btn btn" href="javascript:history.back();"> 이전 </a>
+												<a class="btn btn-primary" href="edit.bit?qaindex=${qna.qaindex}">
 													수정 </a>
-												<a class="btn btn-rose btn-round" href="reply.bit?qaindex=${qna.qaindex}">
+												<a class="btn btn-primary" href="reply.bit?qaindex=${qna.qaindex}">
 													관리자 답글 </a>
 											<!-- <a class="btn btn-rose btn-round" href="reply.bit?qaindex=${qna.qaindex}">답글 </a> -->
 											<!-- <a id="delete" class="btn btn-white btn-round" href="delete.bit?qaindex=${qna.qaindex}"> 삭제 </a> --> 	
 											 <!-- Modal로 보내기 -->
-											 <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-white btn-round">삭제</a>	
+											 <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-white">삭제</a>	
 											 <!-- Modal로 보내기 -->
 											<!-- </c:if> --></td>
 
@@ -110,7 +123,7 @@
 			</div>
 				
 				
-			<button class="btn btn-primary btn-round">관리자 댓글</button>
+			<button class="btn btn">댓글</button>
 				
 				<div id="replybox">댓글</div>
 				<div id="commentBox"></div>
@@ -122,8 +135,8 @@
 						<%-- <input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}"> --%>
 						<textarea rows="3" cols="" id="content" name="content" style="width: 100%"></textarea>
 						<br>
-						<input type="button" class="" value="댓글 등록" id="writecom">
-						<input type="reset" class="" value="다시 쓰기">
+						<input type="reset" class="btn btn-sm" value="다시 쓰기">
+						<input type="button" class="btn btn-sm btn-primary" value="댓글 등록" id="writecom">
 					</form>
 					<!-- 댓글 폼 끝 -->
 					
@@ -224,9 +237,8 @@
 					html += "</h6></div>";
 					html += "<input type='hidden' name='commentNum' id='commentNum' value='";
 					html += element.qnalike;
-					html += "'> <input type='button' id='editCommentBtn"+element.qnaindex+"' value='수정' class='button small' onclick='editComment("+element.qnaindex+"); this.onclick=null;'>";
-					html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.qnaindex+"); this.onclick=null;'>";
-					//html += "</form>";
+					html += "'><input type='submit' id='deleteCommentBtn' value='삭제' class='btn btn-sm' onclick='deleteComment("+element.qnaindex+"); this.onclick=null;'>";
+					html += "<input type='button' id='editCommentBtn"+element.qnaindex+"' value='수정' class='btn btn-sm btn-primary' onclick='editComment("+element.qnaindex+"); this.onclick=null;'>";
 					html += "<div id='editForm"+element.qnaindex+"'></div>"
 				});
 				
@@ -281,8 +293,8 @@
 					html += '<form name="editCommentBox" id ="editCommentBox" method="POST">';
 					html +=	'<input type="hidden" id="qnaindex" value="'+qnaindex+'">';
 					html +=	'<textarea rows="3" cols="" id="content" name="content" style="width: 100%">'+content+'</textarea><br>';
-					html +=	'<input type="button" class="" value="댓글 수정" id="editcom">';
-					html +=	'<input type="reset" class="" value="다시 쓰기"></form>';
+					html +=	'<input type="reset" class="btn btn-sm" value="다시 쓰기">';
+					html +=	'<input type="button" class="btn btn-sm btn-primary" value="댓글 수정" id="editcom"></form>';
 
 					
 					$('#editForm'+qnaindex+'').append(html);

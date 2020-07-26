@@ -185,16 +185,50 @@
 			<br>
 		<!-- <input type="file" id="petimg" name="petimg"> -->
 										
-			<button type="submit" class="btn btn-primary">수정하기</button>
+			<button type="submit" class="btn btn-primary">수정</button>
+			<a href="#" data-toggle="modal" data-target="#deletePetModal" class="btn btn-primary">삭제</a>
 			<button type="reset" class="btn btn-primary" onclick="location.href='#'">취소</button>
 
 		</form>
 	</div>
 	</div>
 	
+	<!-- Modal -->
+	
+	<div class="modal" id="deletePetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">반려동물삭제</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        반려동물을 정말 삭제하시는건가요?
+	      </div>
+	      <div class="modal-footer">
+	  		<button onclick="Delete()" type="button" class="btn btn-primary">삭제하기</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+	       	
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+<!-- Modal -->	
+	
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 <script>
+
+<!-- Modal에서 삭제 -->
+//삭제 전 확인 창 띄우기
+function Delete() {
+	location.replace("delete.bit?petindex=${pet.petindex}"); 
+}
+<!-- Modal에서 삭제 --> 
+
 
 	$(function() {
 		

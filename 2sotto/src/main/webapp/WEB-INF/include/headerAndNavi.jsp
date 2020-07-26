@@ -12,10 +12,10 @@
 		<a class="toggle-btn"><span class="toggle-btn"><i class="fas fa-bars"></i></span></a>
 		
 		<span id="header-title">
-			<se:authorize access="!hasAnyRole('ROLE_USER')">
+			<se:authorize access="!hasAnyRole('ROLE_USER')"> <!-- 유저권한이 없을경우  보여준다.  -->
 				<a href="${pageContext.request.contextPath}/">
 			</se:authorize>
-			<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+			<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"> <!-- 둘중 하나만 있어도 되는거 -->
 				<a href="${pageContext.request.contextPath}/main.bit">
 			</se:authorize>
 			슬기로운 반려생활</a>
@@ -38,7 +38,7 @@
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
 					
 					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-bell"></i></span>
+						<a href="${pageContext.request.contextPath}/message/rPage.bit"><span id="message"><i class="far fa-bell"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
 							<span class="badge badge-pill badge-warning" id="alarmCount"></span>
 						</a>
@@ -117,7 +117,9 @@
 	</div>
 </div>
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
+<se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 <input type="hidden" id="userid" value="${session.user.userid}">
+</se:authorize>
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 끝 -->
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
 			<!-- <th:block th:if="${session.currentUser != null}">
@@ -177,7 +179,7 @@ $(document).ready(function() {
 				if(msg.now == "userid") {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="/main.bit">'+
+		                         '<a href="rPage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -187,7 +189,7 @@ $(document).ready(function() {
 				}else {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="/main.bit">'+
+		                         '<a href="rPage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -198,7 +200,7 @@ $(document).ready(function() {
 			} else if(msg.type == "user") {
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="/main.bit">'+
+	                         '<a href="rPage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -208,7 +210,7 @@ $(document).ready(function() {
 			} else if(msg.type == "admin"){
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="/main.bit">'+
+	                         '<a href="rPage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+

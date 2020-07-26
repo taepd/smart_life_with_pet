@@ -94,7 +94,7 @@ function sendQna() {
 
 	alert("성공!", "등록 되었습니다.", "success");
 	setTimeout(function() {
-		  location.href="/main.bit";
+		  location.href="main.bit";
 		}, 1000);
 
 	

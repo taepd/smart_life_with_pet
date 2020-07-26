@@ -24,6 +24,9 @@ public interface BlogDao {
 	
 	// 블로그 > 모두의 포스트 리스트 조회
 	public List<Blog> getPostList(int cpage, int pagesize, String id, String column); 
+	
+	// 블로그 > 인기 포스트 리스트 조회
+	public List<Blog> getPopularPostList(int cpage, int pagesize, String id, String column); 
 
 	// 블로그 > 포스팅 개수 조회
 	public int getPostCount(String id, String column);

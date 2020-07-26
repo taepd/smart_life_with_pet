@@ -153,6 +153,55 @@ public class BlogService {
 		
 		return map;
 	}
+	// 블로그 > 모두의 포스팅 리스트 조회
+	public HashMap<String, Object> popularPostList(String cp, String ps, String userid) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// List 페이지 처음 호출
+		if (ps == null || ps.trim().equals("")) {
+			// default 값 설정
+			ps = "5"; // 5개씩
+		}
+
+		if (cp == null || cp.trim().equals("")) {
+			// default 값 설정
+			cp = "1"; // 1번째 페이지 보겠다
+		}
+		
+		int pageSize = Integer.parseInt(ps);
+		int cpage = Integer.parseInt(cp);
+		int pageCount = 0;
+
+		logger.info("pageSize :" + pageSize);
+		logger.info("cpage :" + cpage);
+		
+		// DAO 데이터 받아오기
+		List<Blog> postList = null;
+
+		// mapper 를 통한 인터페이스 연결
+		BlogDao blogDao = sqlsession.getMapper(BlogDao.class);
+
+		int totalPostCount = blogDao.getPostCount(null, null);
+		System.out.println("포스트 카운드: "+ totalPostCount);
+		//
+		postList = blogDao.getPopularPostList(cpage, pageSize, userid, "userid"); 
+
+		// 페이지 크기에 맞춰 페이지 수 구하기
+		if (totalPostCount % pageSize == 0) {
+			pageCount = totalPostCount / pageSize;
+		} else {
+			pageCount = (totalPostCount / pageSize) + 1;
+		}
+		
+		map.put("postList", postList);
+		map.put("cpage", cpage);
+		map.put("pageSize", pageSize);
+		map.put("pageCount", pageCount);
+		map.put("totalPostCount", totalPostCount);
+		
+		return map;
+	}	
 
 	//글 상세보기 
 	public Blog getPost(String bindex) {

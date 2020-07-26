@@ -27,10 +27,12 @@
 			padding-bottom: 100px;
 			text-align: center;
 			background-color: #fafafa;
+			border-radius: 6px;	
 		}
 
 		h1, h3 {
-			font-family : 'netmarbleM', sans-serif;
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
 			/* color: #9c27b0; */
 		}
 
@@ -135,7 +137,7 @@
 							<div class="form-group has-default bmd-form-group" style="margin-bottom: 0;">
 								<div>
 									<button type="submit" class="btn btn-primary">전송</button>
-									<button type="reset" class="btn btn-rose">취소</button>
+									<button type="reset" class="btn">취소</button>
 								</div>
 							</div>
 						</div> <!-- /.wrapper -->

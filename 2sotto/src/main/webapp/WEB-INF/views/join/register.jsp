@@ -22,6 +22,7 @@
 			padding-bottom: 40px;
 			text-align: center;
 			background-color: #fafafa;
+			border-radius: 6px;	
 		}
 		 
 		.title-area {

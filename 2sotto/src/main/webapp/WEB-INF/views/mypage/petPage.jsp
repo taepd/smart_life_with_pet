@@ -92,7 +92,7 @@
 							<a href="../management/edit.bit?petindex=${pet.petindex}" class="btn btn-primary">수정</a>
 							&nbsp;&nbsp;&nbsp;
 							<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-							<a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-primary">삭제</a>
+							<!-- <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-primary">삭제</a> -->
 						</div>
 					</c:if>
 				</div>
@@ -102,7 +102,7 @@
 							<button class="btn btn-primary" id="followBtn">	팔로우 </button>
 				</div>
 				<div class="col-9" style="margin-top:20px;">
-							<span onclick='popupMessage()'
+							<span onclick='popupMessage("${pet.userid }")'
 							style="cursor:pointer;">
 								<i class="far fa-envelope"></i>
 								<strong>${pet.petname}의 ${pet.mcategory eq "1"? "주인":"집사"} ${pet.nick}에게 쪽지보내기</strong>
@@ -359,7 +359,7 @@ $('#unFollowBtn').click(function() {
 	
 });
 
-function popupMessage(){
+function popupMessage(ruserid){
 	
 	var popupX = (document.body.offsetWidth / 2) - (580 / 2);
 	//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
@@ -368,7 +368,7 @@ function popupMessage(){
 	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
 	//window.open('${pageContext.request.contextPath}/message/write.bit','_blank',
-	window.open('${pageContext.request.contextPath}/message/popmain.bit','_blank',
+	window.open('${pageContext.request.contextPath}/message/popmain.bit?ruserid='+ruserid+'','_blank',
 'width=580, height=700, left='+ popupX + ', top='+ popupY);
 	
 }

@@ -151,7 +151,7 @@ function sendQna() {
 						
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
-									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
+									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${ruserid }"> 
 								</div>
 								
 									   <textarea name="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>

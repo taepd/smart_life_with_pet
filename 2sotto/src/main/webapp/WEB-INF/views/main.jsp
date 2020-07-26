@@ -27,8 +27,8 @@
     	}
     	
     	#myPetImage {
-    		width: 200px;
-    		height: 200px;
+    		width: 130px;
+    		height: 130px;
     	}
     	
     	/* h3 {
@@ -39,13 +39,14 @@
 		.h3-korean {
 			/* font-family: 'Sunflower', sans-serif; */
 			/* font-family: 'Poor Story', cursive; */
-			font-family : 'netmarbleM', sans-serif;
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
 			margin-left: 0;
 			margin-top: 0;
 			margin-bottom: 30px;
 			color: #9c27b0;
 			font-size: 1.8rem;
-			
+			letter-spacing: -1.5px;
 		}
 		
 		#result {
@@ -63,15 +64,15 @@
 		.main-card {
 			background-color: #ffffff;
  			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
-			padding: 40px;
+			padding: 30px;
 			border-radius: 6px;	
 		}
 		
-		#myPetNameAndSchedule {
+		/* #myPetNameAndSchedule {
 			position: absolute;
 			top: 111px;
 			left: 300px;
-		}
+		} */
 		
 		@font-face {
 			font-family: 'netmarbleM';
@@ -95,8 +96,209 @@
      
     <div class="container">
     	<div class="side_overlay"> 
+			<div class="row">
+				<div class="col-lg-12">
+					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">어서오세요, ${sessionScope.user.nick} 님!
+						<br>오늘도 슬기로운 반려생활 하세요 :)
+					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="main-card" style="">
+		        		<h3 class="h3-korean">오늘의 산책지수</h3>
+	              		<div id="result" class="row"></div>
+              		</div>
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="main-card" style="max-height: 350px;">
+						<h3 class="h3-korean">나의 반려동물</h3>
+						<c:set value="${petList}" var="pet"/>
+						<c:choose>
+							<c:when test="${pet == null}">
+								나의 반려동물을 등록해보세요.
+							</c:when>
+							<c:otherwise>
+								<div class="row">
+									<div class="col-lg-4">
+										<div id="myPetImage"></div>
+									</div>
+									<div class="col-lg-1"></div>
+									<div class="col">
+										<div id="myPetNameAndSchedule">
+											<select class="custom-select" id="myPetInfo">
+												<!-- <option disabled selected>=====선택=====</option> -->
+												<c:forEach var="pet" items="${pet}" varStatus="status">
+													<c:choose>
+														<c:when test="${status.index eq 0}">
+															<option selected>${pet.petname}</option>
+														</c:when>
+														<c:otherwise>
+															<option>${pet.petname}</option>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</select>
+										<div id="myPetSchedule"></div>
+									</div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+				<div class="col">
+					<div class="main-card" style="max-height: 350px;">
+						<h3 class="h3-korean">이번주의 인기글</h3>
+						
+						<div class="card card-raised card-carousel" style="height: 223px;">
+							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+							  <ol class="carousel-indicators">
+								<li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+							  </ol>
+							  <div class="carousel-inner">
+
+
+								<c:forEach var="post" items="${postList}" varStatus="status">
+									<div class="carousel-item">
+										<!-- <div class="card col-4"> -->
+					        			<!-- <div class="card-body text-center"> -->
+										<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+										<img class="d-block w-100" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+													style="width:200px;height:200px" alt="card image">
+												<div class="carousel-caption d-none d-md-block">
+													<h4>${post.title}</h4>
+													<br>
+													<span id="content${status.index}">${post.content}</span>
+												</div>
+										</a>
+									<!-- </div> -->
+									</div>
+								</c:forEach>
+
+
+
+
+
+
+								  <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide">
+								  <div class="carousel-caption d-none d-md-block">
+									<h4>
+									  <i class="material-icons">location_on</i>
+									  Yellowstone National Park, United States
+									</h4>
+								  </div>
+								</div>
+
+
+
+
+
+								<div class="carousel-item active carousel-item-left">
+								  <img class="d-block w-100" src="./assets/img/bg3.jpg" alt="Second slide">
+								  <div class="carousel-caption d-none d-md-block">
+									<h4>
+									  <i class="material-icons">location_on</i>
+									  Somewhere Beyond, United States
+									</h4>
+								  </div>
+								</div>
+								<div class="carousel-item carousel-item-next carousel-item-left">
+								  <img class="d-block w-100" src="./assets/img/bg.jpg" alt="Third slide">
+								  <div class="carousel-caption d-none d-md-block">
+									<h4>
+									  <i class="material-icons">location_on</i>
+									  Yellowstone National Park, United States
+									</h4>
+								  </div>
+								</div>
+							  </div>
+
+
+
+							  <!-- 캐러셀 버튼 -->
+							  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+								<i class="material-icons">keyboard_arrow_left</i>
+								<span class="sr-only">Previous</span>
+							  </a>
+							  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+								<i class="material-icons">keyboard_arrow_right</i>
+								<span class="sr-only">Next</span>
+							  </a>
+							</div>
+						</div>
+
+
+							
+					</div>
+				</div> <!-- /.col -->
+			</div> <!-- /.row -->
+
+			<div class="row">
+				<div class="col-5">
+					<div class=" main-card" style="max-height: 351px; overflow-y: scroll;">
+		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
+		        		<!-- <div> -->
+							<div  style="overflow: hidden;">
+							<c:set value="${petLikeList}" var="likeList"/>
+							<c:choose>
+								<c:when test="${likeList == null}">
+									팔로우하는 동물이 없어요. 찾으러 가볼까요?						
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${likeList}" var="like">
+										
+					        			<div class="follow-img-wrapper">
+						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
+						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
+				 		        					rel="nofollow" alt="${like.petname}">
+				 		        			</a>
+				 		        			<!-- <div class="text-center">${like.petname}</div> -->
+				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+					        			</div>
+					        		</c:forEach>
+								</c:otherwise>
+							</c:choose>	 
+							</div>       			
+		        		<!-- </div> -->
+	        		</div>
+				</div>
+				<div class="col">
+					<div class="main-card">
+		        		<h3 class="h3-korean">도움이 필요해요</h3>
+						<c:forEach var="donation" items="${donationList}" varStatus="status">
+							<div class="card col-4">
+				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+				        					style="width:200px;height:200px" alt="card image">
+				        		<div class="card-body">
+									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+											<strong>${donation.title}</strong>
+											<span id="content${status.index}">${donation.content}</span>
+									</a>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     		<div class="row">
-				<div class="col-6">
+				<div class="col-lg-6">
 					<div class="main-card" style="position: relative; height: 379px;">
 						<h3 class="h3-korean">나의 반려동물</h3>
 						<c:set value="${petList}" var="pet"/>
@@ -127,7 +329,7 @@
 					</div>
 				</div>
 				<!-- 산책 API 영역 -->
-	        	<div class="col-6">
+	        	<div class="col-lg-6">
 	        		<div class="main-card" style="height: 379px;">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
 	              		<div id="result"></div>
@@ -172,7 +374,7 @@
 			</div> -->
 			
 			<div class="row">
-				<div class="col-12">
+				<div class="col-lg-12">
 					<div class="main-card">
 			        	<h3 class="h3-korean">이번주의 인기글</h3>
 							<c:forEach var="post" items="${postList}" varStatus="status">
@@ -262,36 +464,49 @@
 			
 			let Cday = year + '년 ' + month + '월 ' + date + '일';
 
-			var table = "<table>";
-				table += "<tr align='center'>";
-				 	/* 날짜 */
-					table += "<td colspan='2' style='padding-top: 16px;'>"+Cday+"</td>";
-					/* 기상 아이콘 */
-					table += "<td> <img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main +  "</td>";
-				table += "</tr>";
-				table += "<tr align='center'>";
-					/* 지역 */
-					table += "<td colspan='2' style='padding-top: 16px;'>" + arr[0]+" "+arr[1]+" "+arr[2] + "</td>";
-					/* 기온 */
-					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃" +"</td>";
-				table += "</tr>";
-				table += "<tr align='center'>";
+			var table = "<div class='col-2' style='text-align: center;'>";
 					/* 얼굴 아이콘 */
-					table += "<td rowspan='2'><img id='walk' src='' alt='Weather icon' width='110'></td>";
-					/* 한글 메시지 */
-					table += "<td rowspan='2' style='padding-top: 42px;'><span id='talk'></span></td>";
+					table += "<img id='walk' src='' alt='Weather icon' width='100'>";
+				table += "</div>";
+				table += "<div class='col-3'>"
+					table += "<div class='row'>";
+						/* 날짜 */
+						table += Cday;
+						table += "</div>";
+					table += "<div class='row'>";
+						/* 한글 메시지 */
+						table += "<span id='talk'></span>";
+					table += "</div>";
+				table += "</div>";
+				table += "<div class='col-3'>";
+					/* 날짜 */
+					// table += Cday;
+					table += "<div class='row'>";
+					/* 지역 */
+					table += arr[0]+" "+arr[1]+" "+arr[2];
+					table += "</div>";
+					/* 기상 아이콘 */
+					table += "<div class='row'>";
+					table += "<img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;
+					table += "</div>";
+				table += "</div>";
+				table += "<div class='col'>";
 					/* 풍속 */
-					table += "<td style='padding-top: 16px; padding-bottom: 16px;'><img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s"  + "</td>";
-				table += "</tr>";
-				table += "<tr align='center'>";
+					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s";
+				table += "</div>";
+				table += "<div class='col'>";
 					/* 습도 */
-					table += "<td> <img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%"  + "</td>";
-				table += "</tr>";
-			table += "</table>";
+					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%";
+					/* 기온 */
+					table += "<div class='row'>"
+					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃";
+					table += "</div>";
+				table += "</div>";
+			table += "</div>";
 	        $('#result').empty();
 	        $('#result').append(table);
-	        $('table').addClass('table');
-	        $('table').css('margin-bottom', '0');
+	        // $('table').addClass('table');
+	        // $('table').css('margin-bottom', '0');
 	        var iconcode = resp.weather[0].icon; //테이블 만들고서 이미지를 넣어야한다.
 	        console.log(iconcode);
 	        

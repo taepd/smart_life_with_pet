@@ -48,10 +48,13 @@
 	
 	<div class="container">
 		<div class="side_overlay">
-			<c:forEach var="donate" items="${donationList}">
+			<c:forEach var="donate" items="${donationList}" varStatus="status">
+				<span id="content${status.index}" style="display:none;">${donate.content}</span>
 				<div class="row">
 					<div class="col-lg-4">
-						<div style="width:100%;height:280px;background-color:#999;"></div>
+						<div style="width:100%;height:280px;background-color:#999;">
+							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+						</div>
 					</div>
 					<div class="col">
 						<h3>
@@ -130,7 +133,6 @@
 									</thead>
 								<tbody id="donationtable">
 									<c:forEach var="donate" items="${donationList}">
-										
 											<tr>
 												<td>${donate.dindex}</td>
 												<td><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
@@ -252,6 +254,11 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 <script type="text/javascript">
+
+$(function(){
+	replaceImg();
+});
+
 /* 
 $(function(){
 
@@ -380,5 +387,30 @@ $(function(){
 		
 	});
 }); */
+
+
+/**
+* @함수명 : replaceImg()
+* @작성일 : 2020. 7. 17.
+* @작성자 : 태영돈
+* @설명 :이미지 위치 디자인(조정/삭제)을 위한 함수
+* @param void
+**/
+
+function replaceImg(){ 
+	for(var i =0; i<${fn:length(donationList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	    var imgs = $('#content'+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    console.log('imgs: '+ imgs);
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
+	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
+			console.log(imgs[j]);      
+			imgs[j].removeAttribute('src'); //기존 내용 중 이미지는 미리보기시 지저분하므로 지워준다		        
+	        //imgs.remove(imgs[j].src);
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+} 
 </script>
 </html>

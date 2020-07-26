@@ -88,9 +88,6 @@
 				</div>
 			</c:forEach>
 
-			<div>
-			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalPostCount: ${totalPostCount } </h4>
-			</div>
 
 			<!-- 페이징 -->
 			<div class="pagination justify-content-center">

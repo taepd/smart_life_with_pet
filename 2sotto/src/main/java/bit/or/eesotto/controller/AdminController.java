@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Pet;
+import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.User;
 
 import bit.or.eesotto.service.BlogService;
 import bit.or.eesotto.service.PetService;
+import bit.or.eesotto.service.PointService;
 import bit.or.eesotto.service.UserService;
 
 @Controller
@@ -32,6 +35,8 @@ public class AdminController {
 	
 	@Autowired
 	PetService ps;
+	
+	PointService pointService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
 
@@ -78,6 +83,13 @@ public class AdminController {
 	public String userPetTable() {
 
 		return "admin/adminPetTable";
+	}
+	
+	// UserTable 보러가기
+	@RequestMapping(value = "userPointTable.bit", method = RequestMethod.GET)
+	public String userPointTable() {
+
+		return "admin/adminPointTable";
 	}
 	
 	// 유저리스트 조회 Ajax  
@@ -143,6 +155,28 @@ public class AdminController {
 		return petList;
 	}
 	
+	
+	// KKH가 작업함 -> 포인트 리스트 조회
+	// 포인트리스트 조회 Ajax  
+		@ResponseBody
+		@RequestMapping(value = "getPointList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+		public List<Point> getPointList(Point point, Principal principal, Model model) throws IOException {
+			
+			String userid = principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+			
+			
+			List<Point> pointList = pointService.getPointList(userid);
+			logger.info("너는?: " + userid);
+			logger.info("그리고 넌는?: " + pointList);
+			if(pointList!=null) {
+				logger.info("포인트 "+userid+"유저 조회 완료");
+			}else {
+				logger.info("포인트 "+userid+"유저 조회 실패");
+			}
+			
+			return pointList;
+		}
 
 
 }

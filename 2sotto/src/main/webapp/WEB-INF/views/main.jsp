@@ -545,9 +545,9 @@
 				    		}
 				    	</c:forEach>
 					        info = `<p class="text-center">다가올 일정이 없습니다.</p>
-					        		<button class="btn btn-outline-primary btn-round" >
+					        		<button onclick='location.href="${pageContext.request.contextPath}/management/main.bit?tab=schedule"' class="btn btn-outline-primary btn-round" >
 					        	  		<i class="material-icons">favorite</i> 일정 등록하기
-					        		</button>`; 
+					        		</button>`;  
 				    	
 				    }
 					//(추가)반려동물 마이페이지 링크 래핑함

@@ -703,6 +703,7 @@ $(function() {
 		},
 		eventColor: '#E6CDED', //default 컬러 설정
 		displayEventTime: true,
+		slotDuration: '02:00',
 		events: function(info, successCallback, failureCallback) {
 			
 			$.ajax({
@@ -731,12 +732,17 @@ $(function() {
 						if(arr!=null){
 							daysOfWeek = arr.split(',');
 							array.daysOfWeek = daysOfWeek;
+							array.tmpEnd = array.end;  //이벤트 객체가 end를 못받아서 임시로 만든 커스텀 속성
+							console.log('array.tmpEnd'+array.tmpEnd); 
+							//array.startRecur = array.start;
+							//array.endRecur = array.end;
+							
 						}else{
 							delete array.dayOfWeek;
 						}
 						console.log('데이즈오브위크배열' + daysOfWeek);
-						//헷깔리므로 디비에서 넘어온 daysofweek는 삭제
-						delete array.daysofweek;
+						/* //헷깔리므로 디비에서 넘어온 daysofweek는 삭제
+						delete array.daysofweek; */
 						console.log("array>>> "+JSON.stringify(array));
 						return array;
 					});
@@ -764,24 +770,23 @@ $(function() {
 			// hide #repeat
 			$('#chbk_daysOfWeek').hide();
 			
-			//혜정씨가 준 부분
-			//원본 start 데이터를 사용하기 위해 담았다 (근데 이거 안하면 오류남 왜인지 모르겠음)
-			var instart = start;
-			var inend = start;
-			
+			//클릭했을 때 기본으로 표시되는 시간 세팅//
 			//현재 시간 불러오기
 			var today = moment();
 			
-			//start 객체 안에 현재 시간 set 해주기 (안하면 00:00)
-			var selectstart = instart.start.setHours(today.hours());
-			selectstart = instart.start.setMinutes(today.minutes());
-			start = moment(selectstart).format('YYYY-MM-DD HH:mm');
+			//(클릭한)start 객체 안에 현재 시간 set 해주기 (안하면 00:00)
+			var selectstart = start.start.setHours(today.hours()+1);
+			selectstart = start.start.setMinutes(0);
 			
-			//end 객체 안에 현재 시간 set 해주기 (안하면 00:00)
-			var selectend = inend.end.setHours(today.hours());
-			selectend = inend.end.setMinutes(today.minutes()+10);
+			//end 객체 안에 현재 시간 set 해주기 (안하면 00:00)(start를 통해 정의)
+			var selectend = start.end.setHours(today.hours()+2);
+			selectend = start.end.setMinutes(0);
 			selectend = moment(selectend).subtract(1, 'days');
+
+			//포맷 정의
+			start = moment(selectstart).format('YYYY-MM-DD HH:mm');
 			end = moment(selectend).format('YYYY-MM-DD HH:mm');
+			//클릭했을 때 기본으로 표시되는 시간 세팅 끝//
 			
 			//모달에 데이터 쏴주기
 			$('#start').val(start);
@@ -791,26 +796,6 @@ $(function() {
 			// 모달 열기
 			$('#createEventModal').modal('show');
 			
-			//클릭한 날짜로 날짜세팅  >> 아직 작동 안함
-/* 			if (event.view.type  == "dayGridMonth") {
-				  console.log('여기나옴??');
-			      start.set({
-			        hours: today.hours(),
-			        minute: today.minutes()
-			      });
-			      start = moment(start).format('YYYY-MM-DD HH:mm');
-			      end = moment(end).subtract(1, 'days');
-
-			      end.set({
-			        hours: today.hours() +1,
-			        minute: today.minutes()
-			      });
-			      end = moment(end).format('YYYY-MM-DD HH:mm');
-			    } else {
-			      start = moment(start).format('YYYY-MM-DD HH:mm');
-			      end = moment(end).format('YYYY-MM-DD HH:mm');
-			    } */
-
 			//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
 			$('#allDay').change(function(){
 		        if($("#allDay").is(":checked")){
@@ -838,7 +823,7 @@ $(function() {
 		        }
 		    });
 			
-
+			//unbind해주지 않으면 이전에 클릭한 모든 event에 영향을 미친다
 			$('#save-event').unbind();
 			$('#save-event').on('click', function() {
 
@@ -1041,10 +1026,22 @@ $(function() {
 		console.log("이거? "+allDay);
 
 		var start = event.event.start;
-		var end = event.event.end; 
+		//주기를 설정하면 end값을 못받아와서 임시로 변경
+		var end = null;
+		if(event.event.end!=null){ 
+			end = event.event.end;
+		}else{
+			end = event.event.extendedProps.tmpEnd;
+		}	
 		console.log("end: "+end);
 		var color = event.event.backgroundColor;
 		var userid = event.event.extendedProps.userid;
+		
+		/* //배열로 만들어서 다시 체크박스 설정값 로딩해야 하는데 아직 안
+		var daysOfWeek = event.event.extendedProps.daysofweek; //String타입
+		console.log('daysofweek: '+ daysOfWeek); */
+		
+		
 		
 		// input 태그 초기화
 		$('#allDay').prop("checked", false);
@@ -1069,13 +1066,16 @@ $(function() {
 		$('#petindex').val(petindex).prop("selected", true);
 		$('#color').val(color).prop("selected", true);
 		
+		// 
+		
+		
 		// 하루종일 여부 체크
 		if(allDay) {
 			$('#allDay').prop("checked", true);
 		} else {
 			$('#allDay').prop("checked", false);
 		}
-
+		
 		// 모달 열기 > 마지막에 열자
 		$('#createEventModal').modal('show');
 
@@ -1202,6 +1202,13 @@ $(function() {
 		 //var newDates = calDateWhenDragnDrop(event);  //퍼올 커스텀 함수인데 우선 보류
 		  var sindex = event.event.extendedProps.sindex;
 		  var newStart = event.event.start;
+		//주기를 설정하면 end값을 못받아와서 임시로 변경
+			var newEnd = null;
+			if(event.event.end!=null){ 
+				newEnd = event.event.end;
+			}else{
+				newEnd = event.event.extendedProps.tmpEnd;
+			}	
 		  var newEnd = event.event.end;
 		  console.log('뉴스타트: '+ newStart); 
 		  console.log('뉴엔드: '+ newEnd);
@@ -1230,7 +1237,7 @@ $(function() {
 	}
 	
 	
-<!-- management  main ajax 페이징 부분-->
+<!-- management  main ajax 페이징 부분 -->
 /* ajax 시작 */
 $(function (){
 
@@ -1579,7 +1586,9 @@ function moveTab(){
 		/* else if(${param.tab eq 'myPets'}){
 			document.getElementById("myPetsTab")[0].click(); //위와 같은 기능의 js문법
 		} */
-	}
+		}else if(${param.tab eq 'schedule'}){
+			$("#scheduleTab").trigger("click");
+		}
 }
 </script>
 </html>

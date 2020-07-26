@@ -28,6 +28,7 @@
 			padding-bottom: 100px;
 			text-align: center;
 			background-color: #fafafa;
+			border-radius: 6px;	
 		}
 
 		h1, h3 {

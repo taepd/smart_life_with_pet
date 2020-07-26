@@ -289,10 +289,11 @@
 						<div class="tab-pane active show" id="myPets">
 							<div class="row justify-content-center">
 								<c:forEach var="petInfo" items="${petInfoList}">
-									<div class="card col-4" style="width: 20rem;" >
-										<img class="card-img-top" onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petInfo.petindex}'"
+									<div class="card col-4" style="width: 20rem; cursor:pointer;" 
+									 onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petInfo.petindex}'">
+										<img class="card-img-top"
 											src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}"
-											rel="nofollow" style="height:250px; cursor:pointer;" alt="card image">
+											rel="nofollow" style="height:250px" alt="card image">
 										<div class="card-body">
 											<h4>${petInfo.petname}</h4>
 											<p class="card-text" id="petInfo">
@@ -304,19 +305,18 @@
 												| ${petInfo.nstate == 'n' ? '중성화X':'중성화O'} | <br>
 												${petInfo.memo}
 											</p>
-											<div class="text-center">
+											<div>
 
 												<!-- 나중에 아이콘으로 바꾸기~~~ -->
 
 												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-												<a href="edit.bit?petindex=${petInfo.petindex}" class="btn btn-primary">수정</a>
-												
+												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-											
+												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
 											</div>
 										</div>
 									</div>
-									
 								</c:forEach>
 							</div>
 						</div>
@@ -479,7 +479,7 @@
 							<div class="table-responsive">
 								<table class="table">
 									<thead class=" text-primary">
-										<tr>
+										<tr class="text-center">
 											<th>병원이용 번호</th>
 											<th>보호자</th>
 											<th>반려동물 이름</th>
@@ -489,8 +489,8 @@
 									</thead>
 									<c:forEach var="mrecord" items="${mrecordList}">
 										<tbody>
-											<tr>
-												<td><a
+											<tr class="text-center">
+												<td style="color: #800080; font-weight: bold;"><a
 													href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
 												<td>${mrecord.userid}</td>
 												<td>${mrecord.petname}</td>
@@ -508,7 +508,7 @@
 								<!-- 글등록 버튼 -->
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button class="btn btn-primary btn-round" type="button"
+										<button class="btn btn-primary" type="button"
 											onclick="location.href='medicalRegister.bit'">글 쓰기</button>
 										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->
 									</div>
@@ -555,7 +555,7 @@
 								</div>
 							</div>
 
-							<h3>예방 접종 기록</h3>
+							<!-- <h3>예방 접종 기록</h3>
 							<div class="table-responsive">
 								<table class="table">
 									<thead class=" text-primary">
@@ -580,7 +580,7 @@
 											<td class="text-right">$23,789</td>
 										</tr>
 								</table>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -592,8 +592,6 @@
 
 	</div>
 	<!-- container end -->
-
-
 
 	<!--  지도 Modal -->
 	<div class="modal fade" id="mapModal" tabindex="-1" role="dialog"
@@ -650,9 +648,9 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
 <script>
-
 $(function() {
 
+	
 	//탭 이동 함수
 	moveTab();
 
@@ -1595,5 +1593,6 @@ function moveTab(){
 }
 
 
+ 
 </script>
 </html>

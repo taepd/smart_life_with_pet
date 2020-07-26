@@ -12,10 +12,18 @@
 	<%@ include file="/WEB-INF/include/import.jsp"%>
 	<style>
 		#donation-jumbotron {
-			margin-top: 70px;
-			height: 360px;
-			background-color: #7571f9;
-			padding: 60px 10% 80px 10%;
+			margin-top: 76px;
+			height: 420px;
+			/* background-color: #7571f9; */
+			padding: 110px 10% 80px 50%;
+			background-image: url('../assets/images/abandoned_dog2_resize.jpg');
+			background-size: cover;
+			background-position: 30% 34%;
+			color: #ffffff;
+		}
+		#jb {
+			width: 100%;
+			height: 50px;
 		}
 	</style>
 </head>
@@ -24,20 +32,41 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 
-	<div id="donation-jumbotron" class="jumbotron">
-		<h2>랜선으로 맺어진 인연,<br> 작은 도움으로 진짜 랜선 집사가 되어보세요.</h2>
+	<div id="donation-jumbotron" class="jumbotron"">
+		<h2 style="font-family: 'Noto Serif KR', serif !important;">
+			당신의 작은 도움이<br>
+			큰 사랑이 됨을 확인하세요.<br>
+			한줄 더 써야되는데
+		</h2>
 	</div>
 	
 	<div class="container">
 		<div class="side_overlay">
-			<div class="row">
-				<div class="col-lg-4">
-					<div style="width:100%;height:280px;background-color:#999;">
+			<c:forEach var="donate" items="${donationList}">
+				<div class="row">
+					<div class="col-lg-4">
+						<div style="width:100%;height:280px;background-color:#999;"></div>
+					</div>
+					<div class="col">
+						<h3>
+							<a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
+								${donate.title}</a>
+						</h3>
+						<!-- <div class="form-group bmd-form-group"> -->
+							<!-- <label for="bmd-label-static">모금률</label> -->
+							<progress value="0" max="100" id="jb"></progress>
+							<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+						<!-- </div> -->
+						현재 모금액 ${donate.ccoll} <br>
+						목표 모금액 ${donate.gcoll} <br>
+						<!-- timestamp 날짜시간 표시 포맷 변환 -->
+						<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+						<p>${ctime}까지</p>
 					</div>
 				</div>
-				<div class="col">asdfasdfasd</div>
-			</div>
-			
+				<hr>
+			</c:forEach>
 			
 			<br><br><br><br><br><br><br><br><br><br><br><br>
 			

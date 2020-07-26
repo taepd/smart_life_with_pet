@@ -11,23 +11,21 @@
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
-     
-    
     
 </head>
 <body>
     
     <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<div class="side_overlay">
-		<div class="container">
-			
-			<h3>모두의 블로그</h3>
-			
-			<br>
-			<br>
-			
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-11">
+					<h2>모두의 블로그</h2>
+					<button type="button" class="btn btn-primary" onclick="location.href='myMain.bit'">내 블로그 가기</button>
+				</div>
+			</div>
 			<hr>
-			
 		
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">

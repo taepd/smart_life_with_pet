@@ -49,7 +49,7 @@
 		            </li>
 					
 		            <li class="nav-item" id="item02">
-		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
+		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary btn-raised btn-round">
 		                	로그아웃
 		                </a>
         </li>
@@ -94,14 +94,13 @@
 				<ul class="navbar-nav ml-auto">
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/management/main.bit">반려동물 관리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/myMain.bit">내 블로그</a></li>
+					<!-- <li><a href="${pageContext.request.contextPath}/blog/myMain.bit">내 블로그</a></li> -->
 					<%-- <li><a href="${pageContext.request.contextPath}/blog/favorite.bit">즐겨찾기한 글</a></li> 블로그 안쪽으로 들어가야 할듯... 아님 마이페이지 라든지--%>
 					<%-- <li><a href="${pageContext.request.contextPath}/mypage/main.bit">마이페이지</a></li> --%>
-				</se:authorize>
 					<li><a href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a></li>	
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
-				
+				</se:authorize>
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
 				</se:authorize>

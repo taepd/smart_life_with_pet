@@ -37,7 +37,8 @@
 					<div class="col-7">
 						<!-- 글쓴이 및 관련 반려동물 영역 -->
 						<div class="d-flex whoseStory">  <!--  style="display: inline-block;" -->
-							<span class="align-self-center"><b>${post.nick}</b> 님과 </span>
+							<span class="align-self-center">A story of</span>   			
+							<!-- <span class="align-self-center"><b>${post.nick}</b> 님과 </span> -->
 							<c:forEach var="myPet" items="${myPetList}">
 							<c:forTokens var="petindex" items="${post.petindex}" delims=",">
 								<c:if test="${petindex eq myPet.petindex}">
@@ -51,12 +52,12 @@
 												style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
 										</div>
 									</div>
-									<div class="text-center"> ${myPet.petname} </div>
+									<!-- <div class="text-center"> ${myPet.petname} </div> -->
 								</div>
 								</c:if>
 							</c:forTokens>
 							</c:forEach>
-							<span class="align-self-center">의 이야기</span>   			
+							<!-- <span class="align-self-center">A story of</span>   			 -->
 						</div>	
 						<!-- 제목 및 내용 영역 -->
 						<div class="contents">

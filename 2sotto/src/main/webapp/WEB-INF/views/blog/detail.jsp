@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
+
+	<!-- pageContext.request.userPrincipal.name -->
+	<se:authentication property="name" var="userid" />
+	<c:set var="user" value="${sessionScope.user}" />
 
 <!DOCTYPE html>
 <html>
@@ -199,6 +204,7 @@
 				
 				<div id="commentBox"></div>
 					<!-- 댓글 폼 -->
+					<se:authorize access="hasAnyRole('ROLE_USER')">
 					<br>
 					<form name="comment" id="comment" method="POST">
 						작성자&nbsp;&nbsp;${sessionScope.user.nick}<br>
@@ -210,7 +216,7 @@
 						<input type="reset" class="btn btn-sm" value="다시 쓰기">
 					</form>
 					<!-- 댓글 폼 끝 -->
-					
+					</se:authorize>
 					<hr>
 					
 					
@@ -230,7 +236,7 @@ $(function() {
 	insertComment();
 
 	//좋아요 하트 활성/비활성 체크
-	if(${blike.bindex eq post.bindex}){
+	if(${blike.bindex eq post.bindex}){ 
 		$('#heart').attr('class','fas fa-heart'); 
 	}
 	
@@ -328,7 +334,6 @@ function getCommentList() {
 					depthCss = "padding-left:45px";
 				}
 
-				//대댓글은 임시로 배경색 넣음. 나중에 들여쓰기 적용해야 함
 				if(element.depth==1){
 					html += "<div class='reCom' style='position:relative; padding: 15px 0;"+depthCss+"'>";
 				}else{
@@ -339,7 +344,7 @@ function getCommentList() {
 				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
-					html += "</b></div><div><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;' class='btn btn-sm'>대댓글</button></div></div>";
+					html += "</b></div><div><se:authorize access='hasAnyRole(\'ROLE_USER\')'><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;' class='btn btn-sm'>대댓글</button></se:authorize></div></div>";
 				}else{
 					html += "</b></div></div>";
 				};
@@ -352,7 +357,7 @@ function getCommentList() {
 				html += "<input type='hidden' name='commentNum' id='commentNum' value='";
 				html += element.bcindex;
 				// html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
-				html += "'> <a href='" + "javascript:void(0);' onclick='editComment(" + element.bcindex + ")'; id='editCommentBtn" + element.bcindex + "';><span class='commentIcons'><i class='fas fa-edit'></i></span></a>";
+				html += "'> <a href='" + "javascript:void(0);' onclick='editComment(" + element.bcindex + ");  this.onclick=null;'; id='editCommentBtn" + element.bcindex + "';><span class='commentIcons'><i class='fas fa-edit'></i></span></a>";
 				
 				//html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
 				// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";

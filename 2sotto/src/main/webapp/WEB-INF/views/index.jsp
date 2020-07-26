@@ -160,7 +160,7 @@ $(function () {
 		replaceImg_post('p');
 		replaceImg_donation('d');
 		shortContent();	
-}
+});
 
 /**
 * @함수명 : replaceImg()

@@ -124,7 +124,15 @@ public class BlogController {
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
 	public String detail(String bindex, Principal principal, Model model) {
 		
-		String userid = principal.getName();
+		String userid =  null;
+		
+		try {
+			if(principal.getName()!= null) {
+				userid = principal.getName();
+			}
+		} catch (Exception e) {
+		}
+		
 		int result = 0;
 		
 		Blog post = bs.getPost(bindex);

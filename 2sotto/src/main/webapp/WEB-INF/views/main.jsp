@@ -179,12 +179,12 @@
 								<div class="card col-4">
 					        		<div class="card-body text-center">
 									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-					        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        		<img class="card-img-top" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 					        					style="width:200px;height:200px" alt="card image">
 					        					<hr>
 												<strong>${post.title}</strong>
 												<br>
-												<span id="content${status.index}">${post.content}</span>
+												<span id="contentp${status.index}">${post.content}</span>
 									</a>
 									</div>
 								</div>
@@ -204,12 +204,12 @@
 		        		<h3 class="h3-korean">도움이 필요해요</h3>
 						<c:forEach var="donation" items="${donationList}" varStatus="status">
 							<div class="card col-4">
-				        		<img class="card-img-top" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+				        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 				        					style="width:200px;height:200px" alt="card image">
 				        		<div class="card-body">
 									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
 											<strong>${donation.title}</strong>
-											<span id="content${status.index}">${donation.content}</span>
+											<span id="contentd${status.index}">${donation.content}</span>
 									</a>
 								</div>
 							</div>
@@ -235,12 +235,13 @@
 	$(function () {
 
 		//블로그 이미지 위치 조정 함수
-		replaceImg();
+		replaceImg_post('p');
+		replaceImg_donation('d');
 		shortContent();	
 
 		// 날씨 API 시작
 		 
-		let publicAPI = "http://api.openweathermap.org/data/2.5/weather?";
+		let publicAPI = "http://api.openweathermap.org/data/2.5/weather?"; 
         let data = { lat: ${user.lat}, lon: ${user.lon}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
 
         $.getJSON(publicAPI, data, function (resp, textStatus, xhr) {
@@ -572,9 +573,9 @@
 * @param void
 **/
 
-function replaceImg(){ 
+function replaceImg_post(list){ 
 	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
-	    var imgs = $('#content'+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
 	    var imgSrcs = [];
 	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
 	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
@@ -583,7 +584,22 @@ function replaceImg(){
 			  
 	    }
 		console.log("imgSrcs: "+ imgSrcs[0]);
-		$('#'+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+} 
+
+function replaceImg_donation(list){ 
+	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
+	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
+			console.log(imgs[j]);    
+			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
+			  
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
 } 
 

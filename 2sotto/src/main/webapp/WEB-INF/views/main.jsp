@@ -204,14 +204,16 @@
 		        		<h3 class="h3-korean">도움이 필요해요</h3>
 						<c:forEach var="donation" items="${donationList}" varStatus="status">
 							<div class="card col-4">
-				        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-				        					style="width:200px;height:200px" alt="card image">
-				        		<div class="card-body">
+				        		<div class="card-body text-center">
 									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-											<strong>${donation.title}</strong>
-											<span id="contentd${status.index}">${donation.content}</span>
+					        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        					style="width:200px;height:200px" alt="card image">
+					        					<hr>
+												<strong>${donation.title}</strong>
+												<br>
+												<span id="contentd${status.index}">${donation.content}</span>
 									</a>
-								</div>
+									</div>
 							</div>
 						</c:forEach>
 					</div>

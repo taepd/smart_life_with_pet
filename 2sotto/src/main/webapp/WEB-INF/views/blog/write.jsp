@@ -113,7 +113,7 @@
 	
 	function petSelect(div){
 		if($(div).attr('flag')==0){ //반려동물 클릭해 선택한 경우
-			$(div).css("background-color", "rgba(233, 33, 101, 0.2)"); // 선택시 활성화 되었다는 효과
+			$(div).css("background-color", "rgba(156, 39, 176, 0.2)"); // 선택시 활성화 되었다는 효과
 			$(div).attr('flag', '1'); // 플래그 
 			petArr.push($(div).attr('value')); 
 			$('#petArr').val(petArr);
@@ -141,12 +141,12 @@
 			swal('글과 관련 있는 반려동물을 선택해주세요!');
 			return false;
 		} 
-		if( $('#title').val() == "") {
+		if( $('#title').val().trim() == "") {
 			swal('제목을 입력해주세요.');
 			$('#title').focus();
 			return false;
 		}
-		if (CKEDITOR.instances.content.getData() == '' || CKEDITOR.instances.content.getData().length == 0) {
+		if (CKEDITOR.instances.content.getData().trim() == '' || CKEDITOR.instances.content.getData().length == 0) {
 			swal('내용을 입력해주세요.');
 			return false;
 		}

@@ -3,15 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<<<<<<< HEAD
+
 <!-- security 적용해 보고 싶어서.... -->
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <%-- <se:authentication property="name" var="userid" />
 	<c:set var="user" value="${sessionScope.user}" /> --%>
 <!-- security 적용해 보고 싶어서.... 끝 -->
-=======
 
->>>>>>> bf6edb61a92f2041ab01af45af3fffa2d5d99433
 <!DOCTYPE html>
 <html>
 <head>

@@ -310,10 +310,10 @@
 												<!-- 나중에 아이콘으로 바꾸기~~~ -->
 
 												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+												<a href="edit.bit?petindex=${petInfo.petindex}">반려동물 정보 수정</a>
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
+												<%-- <a href="delete.bit?petindex=${petInfo.petindex}">삭제</a> --%>
 											</div>
 										</div>
 									</div>

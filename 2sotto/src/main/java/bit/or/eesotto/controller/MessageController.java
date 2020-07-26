@@ -92,11 +92,16 @@ public class MessageController {
 		
 		// 쪽지 팝업
 		@RequestMapping(value = "popmain.bit", method = RequestMethod.GET)
-		public String popmain(String suserid, String cp, String ps, Principal principal, Model model) {
+		public String popmain(String suserid, String cp, String ps, Principal principal, 
+								HttpServletRequest request, Model model) {
 			
 			String userid =  principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 			HashMap<String, Object> map = ms.rPageView(cp, ps, userid);
+			
+			//받는 사람 id
+			String ruserid = request.getParameter("ruserid");
+			logger.info("쪽지 수신 아이디: "+ ruserid);
 			
 			// view까지 전달 (forward)
 			model.addAttribute("cpage", map.get("cpage"));
@@ -104,7 +109,7 @@ public class MessageController {
 			model.addAttribute("messageList", map.get("messageList")); 		
 			model.addAttribute("pageCount", map.get("pageCount"));
 			model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
-			
+			model.addAttribute("ruserid", ruserid);
 
 			// 쪽지 할예정
 

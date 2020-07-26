@@ -8,13 +8,20 @@
 <title>생활</title>
 <%@ include file="/WEB-INF/include/import.jsp"%>
 </head>
+
+<style>
+.sc {
+        overflow: scroll;
+      }
+</style>
+
 <body>
 			
 	<div class="side_overlay">
 		
 		<div class="container">
-			<button type="button" id="exitBtn" class="btn btn-primary btn-round" >나가기</button>
-			<button type="button" id="deleteBtn" class="btn btn-primary btn-round" >방 삭제</button>
+			<button type="button" id="exitBtn" class="btn btn-primary" >나가기</button>
+			<button type="button" id="deleteBtn" class="btn btn-primary" >방 삭제</button>
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -35,23 +42,23 @@
 					</div>
 				</div>
 
-				<div class="card-body" id="chatList">
+				<div class="card-body sc" id="chatList" style="height: 390px; max-height: 100%;">
 					<div class="mt-2">
 							<i class="icon-people mt-2"></i>&nbsp;&nbsp;<small text="${chat.room_count}"></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<i class="icon-lock mt-2"></i>&nbsp;&nbsp;<small if="${chat.room_secret.equals('N')}"></small><small if="${chat.room_secret.equals('Y')}">비밀방</small>
 							<i class="userlist"></i>
-						<div class="chat-content">
+						<div class="chat-content" style="height: 280px; max-height: 100%;">
 						</div> 
 					</div>
 				</div>	
-					<div class="col chat-content-box m-3">
+					<div class="col chat-content-box m-3 " style="height: 280px; max-height: 100%;">
 					<br>
 					<div class="chat-input-box row">
 						<div class="col-10 pr-0">
 						<input type="text" id="message" class="form-control chat-input input-lg pl-4 pr-4" placeholder="매너채팅 하세요!! :)">
 						</div>
 						<div class="col pl-1">
-							<button type="button" id="sendBtn" class="btn btn-dark chat-input-btn w-100 btn-round">전송</button>
+							<button type="button" id="sendBtn" class="btn btn-dark chat-input-btn w-100">전송</button>
 						</div>
 					</div>
 				</div>
@@ -275,7 +282,7 @@
 			/* memberCount += '<div>'+currentCount + " / " + room_count + '</div>';  */
 		   
 			
-			tag += '<div class="center">';
+			tag += '<div class="center" >';
 			tag += '<span class="small">'+msg.user_nickname + msg.text + ' ['+timeStr +']</span>';
 			tag += '</div>';
 			appendMessage(tag); 

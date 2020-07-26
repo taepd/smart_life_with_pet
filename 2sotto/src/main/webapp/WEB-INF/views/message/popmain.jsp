@@ -122,17 +122,19 @@ function sendQna() {
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item"><a class="nav-link"
-									href="#A" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons">email</i> 받은 쪽지함
-										</a></li>
-								<li class="nav-item"><a class="nav-link " href="#B"
-									data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons">email</i> 보낸 쪽지함
-										</a></li>
-								<li class="nav-item"><a class="nav-link" href="#C"
-									data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+									href="#C" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons">email</i> 쪽지 쓰기
 										</a></li>
+								<!--  
+								<li class="nav-item"><a class="nav-link " href="#B"
+									data-toggle="tab">  <i class="material-icons">chat</i>
+										<i class="material-icons">email</i> 받은 쪽지함
+										</a></li>
+								<li class="nav-item"><a class="nav-link" href="#C"
+									data-toggle="tab"> <i class="material-icons">build</i>
+										<i class="material-icons">email</i> 보낸 쪽지함
+										</a></li>
+										-->
 							</ul>
 						</div>
 					</div>
@@ -141,173 +143,6 @@ function sendQna() {
 				<div class="card-body">
 					
 					<div class="tab-content text-center">
-						<div class="tab-pane" id="A">
-							<!---------- 받은쪽지함 ------------------>
-
-							<div class="table-responsive">
-								 <form action="delete.bit" method="get">
-								<table class="table" style="font-size: 0.5em;">
-								    <thead class="text-primary" style="font-size: 1.5em;">
-								   
-								        <tr>
-								   	 		<th class="text-center" >체크박스</th>
-											<th class="text-center" >쪽지번호</th>
-											<th class="text-center" >보낸사람</th>
-											<th class="text-center" >내용</th>
-											<th class="text-center" >받은 날짜</th>
-											<th class="text-center" >읽은 날짜</th>
-										</tr>
-								        
-								    </thead>
-								     <c:forEach var="message" items="${messageList}" >
-								    <tbody id="message" style="font-size: 2em;">
-								        
-								       <tr data-tr_value="${message.msindex}"> 
-								            <td><input type="checkbox" name="msindexes" value="${message.msindex}" ></td>
-								            <td class="text-center" >${message.msindex}</td>
-											<td class="text-center" >${message.suserid}</td>
-											  <td class="text-center" style="cursor:pointer;" onclick="location.href='detail.bit?msindex=${message.msindex}'">${message.content}</td> 
-											<!--  <td  data-toggle="modal" data-target="#deleteModal" >${message.content}</td> -->
-											<!-- <td data-toggle="modal" data-target="#deleteModal" onClick="$('#createFormId').modal('show')">${message.content}</td> --> 
-											<td class="text-center" >${message.sendtime}</td>
-											<td class="text-center" >${message.readtime!=null?message.readtime:'읽지않음'}</td>
-								        </tr>
-								         
-								        
-								    </tbody>
-								    </c:forEach> 
-								</table>
-								<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>삭제</b></button>
- 								<!--  
- 								<label for="bmd-label-static">삭제</label> 			
-								<input type="button" id="delete" placeholder="삭제">-->
-								</form>
-								
-								
-								<!-- 페이징 -->
-			<div class="pagination justify-content-center">
-			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
-					<ul class="pagination" id="pagingview">
-						<c:if test="${cpage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="popRePage.bit?cp=${cpage-1}&ps=${pageSize}"
-								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
-									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-						</c:if>
-
-						<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-							<c:choose>
-								<c:when test="${cpage==i }">
-									<li class="page-item active"><a class="page-link"
-										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-										ps="${pageSize}">${i}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link"
-										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-										ps="${pageSize}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-
-						</c:forEach>
-
-						<c:if test="${cpage < pageCount}">
-
-							<li class="page-item">
-								<a class="page-link" href="popRePage.bit?cp=${cpage+1}&ps=${pageSize}"
-									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</c:if>
-					</ul>
-			<!-- </nav> -->
-			</div>
-			<!-- 여기까지 페이징처리 -->
-							</div>
-			
-						</div>
-
-							
-						<!-------------- 끝 ---------------->
-						
-						<!-------------- 여기 시작점 ---------------->
-						<div class="tab-pane" id="B">
-							<!---------- 보낸쪽지함 ------------------>
-
-							<div class="table-responsive">
-								<table class="table">
-									<thead class="text-primary">
-										<tr>
-											<th class="text-center">받은사람</th>
-											<th class="text-center">내용</th>
-											<th class="text-center">보낸 날짜</th>
-											<th class="text-center">읽은 날짜</th>
-										</tr>
-									</thead>
-									 <c:forEach var="message" items="${messageList}" >
-									<tbody>
-									
-										<tr>
-											<td class="text-center">${message.ruserid}</td>
-											<td class="text-center">${message.content}</td>
-											<td class="text-center">${message.sendtime}</td>
-											<td class="text-center">${message.readtime!=null?message.readtime:'읽지않음'}</td>
-
-										</tr>
-										</tbody>
-										</c:forEach>
-								</table>
-								
-								<!-- 페이징 -->
-			<div class="pagination justify-content-center">
-			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
-					<ul class="pagination" id="pagingview">
-						<c:if test="${cpage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="popRePage.bit?cp=${cpage-1}&ps=${pageSize}"
-								cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
-									aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-						</c:if>
-
-						<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-							<c:choose>
-								<c:when test="${cpage==i }">
-									<li class="page-item active"><a class="page-link"
-										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-										ps="${pageSize}">${i}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link"
-										href="popRePage.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-										ps="${pageSize}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-
-						</c:forEach>
-
-						<c:if test="${cpage < pageCount}">
-
-							<li class="page-item">
-								<a class="page-link" href="popRePage.bit?cp=${cpage+1}&ps=${pageSize}"
-									cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</c:if>
-					</ul>
-			<!-- </nav> -->
-			</div>
-			<!-- 여기까지 페이징처리 -->
-							</div>
-
-						</div>
-
-
-						<!-------------- 끝 ---------------->
-						<!-------------- 시작 ---------------->
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" id="C">
 
@@ -323,11 +158,11 @@ function sendQna() {
 								
 							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" id="sendQna" class="btn btn-primary"><b>쪽지보내기</b></button>
+										<button type="submit" id="sendQna" class="btn btn-primary" onclick="javascript:btn()"><b>쪽지보내기</b></button>
 										<button type="reset" class="btn btn-primary">취소</button>
 								</div>
 							</div>
-				 </form> 
+						 </form> 
 
 
 
@@ -374,107 +209,9 @@ function sendQna() {
 </div>
 -->
 <!-- Modal -->
-	
-
-
-
-
-<script>
-<!-- Modal에서 삭제 -->
-
-// 삭제 전 확인 창 띄우기
-//function Delete() {
-//  location.replace("delete.bit?msindex=${message.msindex}");
-  //location.replace("delete.bit"); 
-//  }
-
-<!-- Modal에서 삭제 --> 
-
-$(document).ready(function(){
-    //체크박스 전체 선탣&해제
-    $('#ck_all').click(function(){
-         if($("#ck_all").prop("checked")){
-            $("input[type=checkbox]").prop("checked",true); 
-        }else{
-            $("input[type=checkbox]").prop("checked",false); 
-        }
-    });
-});	
-	
-	// 상단 선택버튼 클릭시 체크된 Row의 값을 가져온다.
-	/*
-	$("#selectBtn").click(function(){ 
-		
-		var rowData = new Array();
-		var tdArr = new Array();
-		var checkbox = $("input[name=user_CheckBox]:checked");
-		
-		// 체크된 체크박스 값을 가져온다
-		checkbox.each(function(i) {
-
-			// checkbox.parent() : checkbox의 부모는 <td>이다.
-			// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-			var tr = checkbox.parent().parent().eq(i);
-			var td = tr.children();
-			
-			// 체크된 row의 모든 값을 배열에 담는다.
-			rowData.push(tr.text());
-			
-			// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-			var no = td.eq(1).text()+", "
-			//var userid = td.eq(2).text()+", ";
-			//var name = td.eq(3).text()+", ";
-			//var email = td.eq(4).text()+", ";
-			//var email1 = td.eq(5).text()+", ";
-			// 가져온 값을 배열에 담는다.
-			tdArr.push(no);
-			//tdArr.push(userid);
-			//tdArr.push(name);
-			//tdArr.push(email);
-			//tdArr.push(email1);
-			console.log("msindex : " + no);
-			//console.log("userid : " + userid);
-			//console.log("name : " + name);
-			//console.log("email : " + email);
-		});
-		
-		$("#ex3_Result1").html(" * 체크된 Row의 모든 데이터 = "+rowData);	
-		$("#ex3_Result2").html(tdArr);	
-	
-	});
-
-	*/
-  
-
-
-    
-	/*
-    $('#delete').click(function(){
-        if(confirm("삭제하시겠습니까?")){
-            $("input[name=checkRow]:checked").each(function(){
-                var tr_value =$(this).val();
-                var tr=$("tr[data-tr_value='"+tr_value+"']");
-                tr.remove();
-           		
-            });
-        }else{
-            return false;
-        }
-    });
- 	
-});
-*/
-
-$('#delete').click(function(){
-	
-	let con = confirm("정말로 삭제하시겠습니까?");
-	if(con){
-		return location.href='popDelete.bit?msindex=${message.msindex}';
-	}else{
-		return;
-	}
-});
-
+<script> function btn(){ 
+	alert('쪽지를 보냈습니다.'); 
+	} 
 </script>
 
 </body>

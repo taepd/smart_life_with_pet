@@ -289,11 +289,10 @@
 						<div class="tab-pane active show" id="myPets">
 							<div class="row justify-content-center">
 								<c:forEach var="petInfo" items="${petInfoList}">
-									<div class="card col-4" style="width: 20rem; cursor:pointer;" 
-									 onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petInfo.petindex}'">
-										<img class="card-img-top"
+									<div class="card col-4" style="width: 20rem;" >
+										<img class="card-img-top" onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petInfo.petindex}'"
 											src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}"
-											rel="nofollow" style="height:250px" alt="card image">
+											rel="nofollow" style="height:250px; cursor:pointer;" alt="card image">
 										<div class="card-body">
 											<h4>${petInfo.petname}</h4>
 											<p class="card-text" id="petInfo">
@@ -305,18 +304,19 @@
 												| ${petInfo.nstate == 'n' ? '중성화X':'중성화O'} | <br>
 												${petInfo.memo}
 											</p>
-											<div>
+											<div class="text-center">
 
 												<!-- 나중에 아이콘으로 바꾸기~~~ -->
 
 												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="edit.bit?petindex=${petInfo.petindex}" class="btn btn-primary">수정</a>
+												
 												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
+											
 											</div>
 										</div>
 									</div>
+									
 								</c:forEach>
 							</div>
 						</div>
@@ -593,6 +593,8 @@
 	</div>
 	<!-- container end -->
 
+
+
 	<!--  지도 Modal -->
 	<div class="modal fade" id="mapModal" tabindex="-1" role="dialog"
 		aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
@@ -648,6 +650,7 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71ca5990924535d51e3f23984b8c42e5&libraries=services"></script>
 <script>
+
 $(function() {
 
 	//탭 이동 함수
@@ -1590,5 +1593,7 @@ function moveTab(){
 			$("#scheduleTab").trigger("click");
 		}
 }
+
+
 </script>
 </html>

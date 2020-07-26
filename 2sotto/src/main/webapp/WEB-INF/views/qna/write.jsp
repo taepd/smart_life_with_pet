@@ -6,103 +6,26 @@
 <head>	
 
     <title>홈_슬기로운 반려생활</title>
-    
-     <%@ include file="/WEB-INF/include/import.jsp"%>
-
-    
+	 <%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+		#petSelection {
+			padding: 30px;
+		}
+		h3 {
+			font-family : 'netmarbleM', sans-serif;
+		}
+		#writeBtnBox {
+			text-align: center;
+			margin-top: 80px;
+		}
+	</style>
+	 
 </head>
-<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-<script type="text/javascript">
-/* $(document).ready(function() {
-	connect();
-	/* $('#sendQna').click(function() { send(); }); */
-/* })
 
-var wsocket;
-
-function connect() {
-	wsocket = new WebSocket("ws://" + location.host + "/bodiary/alarm");
-	wsocket.onopen = onOpen;
-	wsocket.onmessage = onMessage;
-	wsocket.onclose = onClose;
-}
-function disconnect() {
-	wsocket.close();
-}
-
-function onOpen(evt) {
-	console.log("onOpen(evt)");
-}
-
-function onMessage(evt) {
-	console.log("evt :" + evt);
-	var data = evt.data;
-	appendMessage(data);
-}
-
-function onClose(evt) {
-}
-
-function send() {
-	
-	
-	wsocket.send("login");
-	
-}
-
-function appendMessage(msg) {
-	console.log(msg);
-	alert("msg : " + msg);
-}
- */
- $(function() {
-
-		CKEDITOR.replace( 'content' );
-
-		
-	}) 
- $(function() {
-	 console.log(wsocket);
-	 $('#sendQna').click(function() { 
-		 
-		 sendQna(); });
-	/*  function send() {
-		
-		alert("갑니다")
-		wsocket.send("Qna"); 
-		form.submit();
-	} */
-})
-
-function sendQna() {
-	/* let qna_brd_title = $('#qna_brd_title').val();
-	let qna_brd_content = $('#qna_brd_content').val();
-	let user = "새로운 문의가 도착했습니다."; */
-	
-	var text = "새로운 문의가 도착했습니다.";
-	var msg = {"type" : "user",
-				"title" : $('#title').val(),
-				"content" : $('#content').val(),
-				"text" : text
-				};
-	
-	/* 
-	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
-	wsocket.send(JSON.stringify(msg));
-	$('#title').val('');
-	$('#content').val('');
-
-	alert("성공!", "등록 되었습니다.", "success");
-	setTimeout(function() {
-		  location.href="main.bit";
-		}, 1000);
-
-	
-	
-}
-
-
-</script>
 <body>
 
 
@@ -117,7 +40,7 @@ function sendQna() {
 			
 						<!---------- 글쓰기  ------------------>
 
-			<!--  <form action="write.bit" method="post"> -->
+			<form action="write.bit" method="post">
 						<div class="form-group bmd-form-group">
 							<label class="bmd-label-static">제목</label>
 						  	<input type="text" name="title" id="title" class="form-control" placeholder="제목을 작성해보세요">
@@ -126,11 +49,12 @@ function sendQna() {
 						<textarea name="content" id="content"></textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
-							<button type="submit" id="sendQna" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
 							<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
+							<button type="submit" id="sendQna" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
+							
 					</div>
 				</div>
-		<!--	</form>		-->
+		</form>	
 							
 
 						</div>
@@ -143,8 +67,18 @@ function sendQna() {
 
 <!-- 글쓰기 등록 -->
 
-
-
-	
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ckeditor/ckeditor.js"></script>	
+<script type="text/javascript">
+
+	$(function(){
+		
+		//ckeditor
+		CKEDITOR.replace('content',{
+			filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit', //파일업로드
+			uploadUrl:'${pageContext.request.contextPath }/fileupload.bit' //드래그 앤 드롭
+		});
+
+	});
+</script>	
 </html>

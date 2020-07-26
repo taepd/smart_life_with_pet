@@ -8,6 +8,21 @@
 <title>슬기로운생활</title>
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
+	
+	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+
+		.area {
+			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding-top: 100px;
+			padding-bottom: 100px;
+			text-align: center;
+			background-color: #fafafa;
+		}
+	</style>
 
 </head>
 <body>
@@ -15,7 +30,7 @@
 	<div class="side_overlay">
 		
 		<div class="container">
-			<button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#roomMake">방만들기</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomMake">방만들기</button>
 
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
@@ -59,7 +74,7 @@
 										</div>
 									<div class="col secret-input-box"></div>
 								</div>
-										<div class="modal-footer">
+										<div class="modal-footer ">
 											<button type="button" class="btn btn-outline-light">취소</button>
 											<button type="submit" class="btn btn-primary">방만들기</button>
 										</div>
@@ -89,7 +104,7 @@
 										<label for='secret-input'>비밀번호</label><input class='form-control' id='pwdChk' name='pwdChk' placeholder='네 자리의 숫자를 입력하세요' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
 										<div class="modal-footer">
 												<button type="button" class="btn btn-outline-light">취소</button>
-												<button type="button" onclick="pwdcheck();" class="btn btn-primary" style="text-align: center;">입장하기</button>
+												<button type="button" onclick="pwdcheck();" class="btn btn-primary" >입장하기</button>
 										</div>
 									</div>
 									</div>
@@ -234,11 +249,11 @@
 	    			
 	    			$.each(data, function(index, obj) {
 	    				var secret = "공개방";
-	    				var	button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-outline-primary btn-lg">입장하기</button>'; 
+	    				var	button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-primary btn-lg text-center">입장하기</button>'; 
 	    				
 	    				if(obj.room_secret == 'Y') {
 	    					secret = '비밀방'
-	    					button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#pwdmodal">입장하기</button>';
+	    					button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pwdmodal">입장하기</button>';
 	    				}
 	    				
 	    				$('#chatList').append(
@@ -250,7 +265,7 @@
 									'<h3>'+obj.room_title+'</h3>'+
 								'</div>'+
 								'<span>'+obj.user_nickname+'</span>'+
-								'<div>'+
+								'<div class="text-center">'+
 									button+	
 									'</div>'+
 							'</div>'+

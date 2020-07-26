@@ -101,9 +101,7 @@
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
 				</se:authorize>
-				<!-- <se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"
-					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
-				</se:authorize> -->	
+				
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')"> 
 					<!-- <li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li> -->
 					<li><a href="${pageContext.request.contextPath}/admin/adminMain.bit">admin테스트</a></li>
@@ -261,10 +259,10 @@ $(document).ready(function() {
 
 function popupchatList(){
 	
-	var popupX = (window.screen.width / 2) - (1000 / 2);
+	var popupX = (window.screen.width / 2) - (1000 / 2); 
 	//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
-	var popupY= (window.screen.height /2) - (1000 / 2);
+	var popupY= (window.screen.height /2) - (1000 / 2); 
 	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 	
 	window.open('${pageContext.request.contextPath}/chatList.bit','_blank',

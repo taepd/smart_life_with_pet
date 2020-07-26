@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>	
@@ -98,26 +101,113 @@
 	            </div> <!-- row end -->
 	          </div> <!-- section end  -->
 	          
-	          
-	          <div class="row">
-	            	
-	            	이번주의 인기글
-	            
-	            </div>
-	            <div class="row">
-	            	
-	            	도움이 필요해요
-	            
-	            </div>
-	            
-            <div align="center">							
-		</div>
-      </div> <!-- carousel end -->
-    </div> <!-- side_overlay end -->
-    
+	     <!-- 이번 주의 인기글 -->    
+	     <div class="row">
+				<div class="col-lg-12">
+					<div class="main-card">
+			        	<h3 class="h3-korean">이번주의 인기글</h3>
+							<c:forEach var="post" items="${postList}" varStatus="status">
+								<div class="card col-4">
+					        		<div class="card-body text-center">
+									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+					        		<img class="card-img-top" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        					style="width:200px;height:200px" alt="card image">
+					        					<hr>
+												<strong>${post.title}</strong>
+												<br>
+												<span id="contentp${status.index}">${post.content}</span>
+									</a>
+									</div>
+								</div>
+							</c:forEach>
+					</div>
+				</div>
+			</div>
+
+	        <!-- 후원글 -->
+	       	<div class="row">
+	       		<div class="col-12">
+		       		<div class="main-card">
+		        		<h3 class="h3-korean">도움이 필요해요</h3>
+						<c:forEach var="donation" items="${donationList}" varStatus="status">
+							<div class="card col-4">
+				        		<div class="card-body text-center">
+									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+					        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+					        					style="width:200px;height:200px" alt="card image">
+					        					<hr>
+												<strong>${donation.title}</strong>
+												<br>
+												<span id="contentd${status.index}">${donation.content}</span>
+									</a>
+									</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+
+      
+    	</div> <!-- side_overlay end -->
+    </div> <!-- container end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
+<script>
+$(function () {
+
+		//블로그 이미지 위치 조정 함수
+		replaceImg_post('p');
+		replaceImg_donation('d');
+		shortContent();	
+}
+
+/**
+* @함수명 : replaceImg()
+* @작성일 : 2020. 7. 17.
+* @작성자 : 태영돈
+* @설명 :이미지 위치 디자인(조정/삭제)을 위한 함수
+* @param void
+**/
+
+function replaceImg_post(list){ 
+	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
+	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
+			console.log(imgs[j]);    
+			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
+			  
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+} 
+
+function replaceImg_donation(list){ 
+	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
+	    var imgSrcs = [];
+	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
+	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
+			console.log(imgs[j]);    
+			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
+			  
+	    }
+		console.log("imgSrcs: "+ imgSrcs[0]);
+		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+	}
+} 
+
+//포스팅 내용의 일부만 노출시키는 함수
+function shortContent(){
+	for(var i =0; i<${fn:length(postList)}; i++){ 
+		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
+	}
+}
 
 
+
+</script>
 </html>

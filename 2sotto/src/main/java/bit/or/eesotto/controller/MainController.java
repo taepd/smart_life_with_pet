@@ -39,7 +39,38 @@ public class MainController {
 		//index페이지
 		//초기 랜딩 페이지 
 		@RequestMapping("/")
-		public String index() {
+		public String index(String cp, String ps, Principal principal, Model model) {
+			
+			String userid=null;
+			
+			//블로그 인기글 조회
+			if(principal!=null) {
+				userid =  principal.getName();
+				logger.info("로그인 유저 아이디: " + userid);
+			}
+			HashMap<String, Object> map = bs.popularPostList(cp, ps, userid);
+			logger.info("블로그 인기글 리스트 조회 완료");
+			
+//			//반려동물 정보 조회
+//			List<Pet> petList = ms.getPetPicture(userid);
+			
+			//후원글 조회
+			HashMap<String, Object> donationList = ds.main(cp, ps);
+			System.out.println("도네이션 리스트: " + donationList);
+			
+//			//팔로우(좋아요)한 반려동물 목록 조회
+//			List<PetLike> list = ms.getPetLike(userid);
+			
+			
+			// view까지 전달 (forward)
+			model.addAttribute("cpage", map.get("cpage"));
+			model.addAttribute("pageSize", map.get("pageSize"));
+			model.addAttribute("postList", map.get("postList")); 		
+			model.addAttribute("pageCount", map.get("pageCount"));
+			model.addAttribute("totalPostCount", map.get("totalPostCount"));
+//			model.addAttribute("petList", petList); 
+			model.addAttribute("donationList", donationList.get("donationList")); 
+//			model.addAttribute("petLikeList", list);
 			
 			return "index";
 		}
@@ -50,11 +81,11 @@ public class MainController {
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
 			return "redirect:/";
 		}*/
-		 public String main(String cp, String ps, Principal principal, Model model) {
+		public String main(String cp, String ps, Principal principal, Model model) {
 			
 			String userid=null;
 			
-			//블로그 인기글 조회(현재는 그냥 전체글)
+			//블로그 인기글 조회
 			if(principal!=null) {
 				userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);
@@ -86,7 +117,7 @@ public class MainController {
 			 return "main";
 		 }
 		
-		// 비로그인 메인 페이지 
+		// 비로그인 메인 페이지 (현재 비로그인하면 index페이지로 보냄. 여기 안씀)
 		@RequestMapping(value = "mainTest.bit", method = RequestMethod.GET)
 		public String mainView(String cp, String ps, Principal principal, Model model) {
 			
@@ -95,7 +126,7 @@ public class MainController {
 			
 			String userid=null;
 			
-			//블로그 인기글 조회(현재는 그냥 전체글)
+			//블로그 인기글 조회
 			if(principal!=null) {
 				userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);

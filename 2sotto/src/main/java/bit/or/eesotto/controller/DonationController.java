@@ -37,6 +37,9 @@ public class DonationController {
 
 	@Autowired
 	PayService payservice;
+	
+	@Autowired
+	LoginService ls;
 
 	@Autowired
 	SqlSession sqlsession;
@@ -481,11 +484,23 @@ public class DonationController {
 		pay.setUserid(userid);
 		pay.getUserid();
 		logger.info("가 pay에 들어가니?" + pay.getUserid());
+		
 
 		result = payservice.payInput(pay);
 		logger.info("됐냐 이거?" + result);
+		
+		int userPoint = ls.normalLogin(userid).getUserPoint();
+		logger.info("트리거 값을 가져왔는가" + userPoint);
+		session.setAttribute("userPoint", userPoint);
+		
 		if (result == 1) {
-
+			//성공해서 db에서 온 데이터를 입력해주는 곳이다. -> 경로로 가기전에 여기서 session에 반영한다.		
+			
+			//User user = (User)session.getAttribute("user");
+			//성공해서 db에서 온 데이터를 입력해주는 곳이다. -> 경로로 가기전에 여기서 session에 반영한다.	 끝		
+					
+			
+			
 			return "redirect:/mypage/main.bit";
 
 		} else {

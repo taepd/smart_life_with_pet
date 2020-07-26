@@ -4,42 +4,52 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- security 적용해 보고 싶어서.... -->
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
+<%-- <se:authentication property="name" var="userid" />
+	<c:set var="user" value="${sessionScope.user}" /> --%>
+<!-- security 적용해 보고 싶어서.... 끝 -->
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<title>홈_슬기로운 반려생활</title>
-
-<%@ include file="/WEB-INF/include/import.jsp"%>
-
-
-
-	
-
+	<title>홈_슬기로운 반려생활</title>
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	<style>
+		#donation-jumbotron {
+			margin-top: 70px;
+			height: 360px;
+			background-color: #7571f9;
+			padding: 60px 10% 80px 10%;
+		}
+	</style>
 </head>
 <body>
+
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<!-- header -->
 
-
-
-
-
-
-
-
-
-
-	<div class="side_overlay">
-		<div class="container">
-			<!-- 탭 아이콘 영역 -->
-			<!--  탭영역 음....기다린다 -->
+	<div id="donation-jumbotron" class="jumbotron">
+		<h2>랜선으로 맺어진 인연,<br> 작은 도움으로 진짜 랜선 집사가 되어보세요.</h2>
+	</div>
+	
+	<div class="container">
+		<div class="side_overlay">
+			<div class="row">
+				<div class="col-lg-4">
+					<div style="width:100%;height:280px;background-color:#999;">
+					</div>
+				</div>
+				<div class="col">asdfasdfasd</div>
+			</div>
+			
+			
+			<br><br><br><br><br><br><br><br><br><br><br><br>
+			
+			
 			<div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
-				
-				
 				
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation">
@@ -55,11 +65,13 @@
 										<i class="material-icons">favorite</i>최신순
 									</a>
 								</li> -->
-								<li class="nav-item">
+								<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+								<li class="nav-item">									
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
+								</se:authorize>
 							</ul>
 						</div>
 					</div>
@@ -98,11 +110,11 @@
 
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												<td class="text-center">${rtime}</td>
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 												<td class="text-center">${ctime}</td>
 												<td class="text-center">${donate.gcoll}</td>
 												<td class="text-center">${donate.ccoll}</td>
@@ -210,4 +222,134 @@
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
+<script type="text/javascript">
+/* 
+$(function(){
+
+	
+
+	
+	//페이지 사이즈 비동기
+	$('#paging').change(function(){
+		let data = {ps : $('#paging option:selected').val(),
+				    cp : $('#cp').val() 
+		           };		
+		$.ajax({
+			url:"donationListAjax.bit",
+			data: data,
+			type:"POST",		
+			dataType: "json",
+			success:function(responsedata){ 
+				 console.log(responsedata);
+				$('#donationtable').empty();
+				$.each(responsedata.donationList,function(index,obj){	
+					$('#donationtable').append(	
+							"<tr><td>"+obj.dindex+"</td>" +
+							"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
+								obj.title+"</a></td>" +
+							"<td class='text-center'>관리자</td>" +					
+							"<td class='text-center'>"+obj.ctime+"</td>"+
+							"<td class='text-center'>"+obj.gcoll+"</td>" +
+							"<td class='text-center'>"+obj.ccoll+"</td>" +
+							"<td class='text-center'>"+
+
+							"</td>" + 
+							"<td class='text-center'>" + obj.dstate + "</td>"
+					);
+				});
+				$('#zero_config_info').empty();
+				$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
+				console.log("현재 페이지" + responsedata.cpage);
+				//페이지 번호 처리
+				console.log("타입"+ (typeof responsedata.cpage));
+				page(responsedata.cpage);
+		   }
+			
+		
+		}); 
+	});
+	
+	//page()
+	function page(cp){
+		console.log('cp='+cp);
+		$('#pagingview').empty();
+		var pagesize = $('#paging option:selected').val();
+		var totaldonatecount = $('#totaldonatecount').val();
+
+		var pagecount;
+		console.log('pagesize= '+pagesize);
+		console.log('totaldonatecount= '+ totaldonatecount);
+		if((totaldonatecount % pagesize) == 0){
+			pagecount = totaldonatecount/pagesize;
+		}else if(totaldonatecount/pagesize<1){
+			pagecount=1;
+		}else{
+		
+			pagecount = Math.floor(totaldonatecount/pagesize + 1); 
+		}
+		
+		console.log('pagecount = '+pagecount);
+		let tmp="";
+		console.log('시피 = '+cp);
+		if(cp>1){
+			tmp +='<a href="main.bit?cp=${cpage-1}&ps='+pagesize+'" cp="'+(cp-1)+'" ps="'+pagesize+'">이전</a>';
+		}
+		//page 목록 나열하기
+		for(var i=1;i<=pagecount; i++){
+			if(cp==i){
+				tmp +=('<font color="red">['+i+']</font>');
+			}else{
+				tmp +=('<a href="main.bit?cp='+i+'&ps='+pagesize+'" cp="'+i+'" ps="'+pagesize+'" >['+i+']</a>');
+			}
+		}
+		//다음 링크
+		if(cp<pagecount){
+			tmp += '<a href="main.bit?cp=${cpage+1}&ps='+pagesize+'" cp="'+(cp+1)+'" ps="'+pagesize+'">다음</a>';
+		};
+		$('#pagingview').append(tmp);
+	};
+	
+	//페이지 링크 비동기
+	$(document).on('click', '#pagingview a', function(e){
+		e.preventDefault();
+		let data = {ps : $(this).attr('ps'),
+			        cp : $(this).attr('cp')
+	           };		
+	$.ajax({
+		url:"donationListAjax.bit",
+		data: data,
+		type:"POST",		
+		//dataType: "json",
+		success:function(responsedata){ 
+			 console.log(responsedata);
+			$('#donationtable').empty();
+			$.each(responsedata.emplist,function(index,obj){	
+				$('#donationtable').append(	
+						"<tr><td>"+obj.dindex+"</td>" +
+						"<td><a href='detail.bit?dindex="+obj.dindex+"&cp=${cpage}&ps=${pageSize}'>" +
+							obj.title+"</a></td>" +
+						"<td class='text-center'>관리자</td>" +
+
+						"<td class='text-center'>"+obj.ctime+"</td>"+
+						"<td class='text-center'>"+obj.gcoll+"</td>" +
+						"<td class='text-center'>"+obj.ccoll+"</td>" +
+						"<td class='text-center'>"+
+						"</td>" + 
+						"<td class='text-center'>" + obj.dstate + "</td>"
+				   
+				);
+			});
+			$('#zero_config_info').empty();
+			$('#zero_config_info').append("총 부서원 " + responsedata.totaldonatecount);
+			
+			//페이지 번호 처리
+			page(responsedata.cpage);
+	   }
+		
+	
+	}); 
+		
+	});
+}); */
+</script>
 </html>

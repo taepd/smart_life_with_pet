@@ -59,6 +59,12 @@
               <p>동물 리스트</p>
             </a>
           </li>
+          <li>
+            <a href="userPointTable.bit">
+              <i class="nc-icon nc-diamond"></i>
+              <p>포인트 리스트</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

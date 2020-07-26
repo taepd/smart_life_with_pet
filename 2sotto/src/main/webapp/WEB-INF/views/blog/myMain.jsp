@@ -21,7 +21,7 @@
 	<div class="container">
 		<div class="side_overlay">
 			<div class="row">
-				<div class="col-1"></div>
+				<div class="col"></div>
 				<div class="col-11">
 					<h2>사랑을 표현하세요. <br> 우리의 시간은 생각보다 짧으니까요.</h2>
 					<button type="button" class="btn btn-primary" onclick="location.href='write.bit'">블로그 글쓰기</button>

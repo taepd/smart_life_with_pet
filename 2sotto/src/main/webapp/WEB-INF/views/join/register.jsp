@@ -87,7 +87,7 @@
 						<ul id="signUpList">
 							<a href="joinForm.bit"><li><span class="span">일반 회원가입하기</span></li></a>
 							<a href="${naver_url}"><li style="border: 1px solid #19ce60"><span class="span">네이버로 가입하기</span></li></a>
-							<a href="${facebook_url}"><li style="border: 1px solid #ffe500"><span class="span">페이스북 가입하기</span></li></a>
+							<a href="${facebook_url}"><li style="border: 1px solid #385898"><span class="span">페이스북 가입하기</span></li></a>
 							<a href="${google_url}"><li style="border: 1px solid #2962ff"><span class="span">구글로 가입하기</span></li></a>
 						</ul>
 						<br>

@@ -15,7 +15,7 @@
 </head>
 <body>
     
-    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 	<div class="container">
 		<div class="side_overlay">
 			<div class="row">
@@ -29,14 +29,14 @@
 		
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
-					<div class="col-9">
+					<div class="col-1"></div>
+					<div class="col-7">
 					<!-- 글쓴이 및 관련 반려동물 영역 -->
-					<div class="d-flex">  <!--  style="display: inline-block;" -->
+					<div class="d-flex whoseStory">  <!--  style="display: inline-block;" -->
 						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
 						<c:forEach var="petArr" items="${pArr}">
 	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
 	        				<c:if test="${petindex eq petArr.petindex}">
-				        	
 				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
 				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petArr.petindex}'">
 				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
@@ -87,7 +87,9 @@
 							</a>
 						</div>
 					</div>
-				</div>
+					<div class="col-1"></div>
+				</div> <!-- /.row -->
+				<hr>
 			</c:forEach>
 
 

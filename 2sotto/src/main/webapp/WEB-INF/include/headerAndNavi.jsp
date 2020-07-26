@@ -59,37 +59,43 @@
 
 <!-- navi -->
 <div id="wrapSideMenu" class="sidenav">
-	<div id="sideMenu">
-		<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
-		<div class="sideMenu-wrapper">
-        	<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-				<div class="profile-img-box">
-					<img src="${pageContext.request.contextPath}/assets/images/${user.uimg}" class="rounded-circle img-fluid">
-				</div>
-				<div class="nickname">
-					${user.nick}<br>(${userid})<br>
-					<a href="${pageContext.request.contextPath}/point/main.bit">${user.userPoint}P</a><br>
-					<button class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/mypage/main.bit'">마이페이지</button>
-				</div>
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-lg-2">
+			<span class="sideMenu-close-icon"><i class="fas fa-times"></i></span>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 40px;">
+		<div class="col-lg-12" style="text-align: center;">
+			<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+					<div class="profile-img-box">
+						<img src="${pageContext.request.contextPath}/assets/images/${user.uimg}" class="rounded-circle img-fluid">
+					</div>
+					<div class="nickname">
+						${user.nick}<br>(${userid})<br>
+						<a href="${pageContext.request.contextPath}/point/main.bit">${user.userPoint}P</a><br>
+						<button class="btn btn-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/mypage/main.bit'">마이페이지</button>
+					</div>
 			</se:authorize>
-        	<se:authorize access="!hasRole('ROLE_USER')">	
-        		<!-- 뭔가 멘트가 구린데... 생각나는 게 없넴 -->
-					<p id="nav-paragraph" style="font-family: 'Noto Serif KR', serif;">
-					내 반려동물을
-					<br>
-					더 사랑하는 방법,
-					<br>
-					ㅡ
-					<br>
-					슬기로운 반려생활
+			<se:authorize access="!hasRole('ROLE_USER')">	
+				<!-- 뭔가 멘트가 구린데... 생각나는 게 없넴 -->
+					<p id="nav-paragraph">
+						내 반려동물을
+						<br>
+						더 사랑하는 방법,
+						<br>
+						<br>
+						슬기로운 반려생활<br>
 					</p>
 				<div class="nickname">
 					<button class="btn btn-primary btn-sm" onclick="location.href='join/register.bit'">회원가입</button>
 					<!-- <button class="btn btn-primary btn-sm" onclick="location.href='mainTest2.bit'">테스트</button> -->
 				</div>
 			</se:authorize>
-			<br>	
-			<br>	
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12" style="text-align: center;">
 			<div class="menuList">
 				<ul class="navbar-nav ml-auto">
 				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
@@ -111,7 +117,8 @@
 		</div>
 	</div>
 </div>
-	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
+
+<!-- 알람테스트 세션에 저장된 유저 이메일 저장 시작 -->
 <se:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 <input type="hidden" id="userid" value="${session.user.userid}">
 </se:authorize>

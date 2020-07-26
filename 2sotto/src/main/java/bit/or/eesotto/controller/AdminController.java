@@ -36,6 +36,7 @@ public class AdminController {
 	@Autowired
 	PetService ps;
 	
+	@Autowired
 	PointService pointService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
@@ -166,7 +167,7 @@ public class AdminController {
 			logger.info("로그인 유저 아이디: " + userid);
 			
 			
-			List<Point> pointList = pointService.getPointList(userid);
+			List<Point> pointList = pointService.getPointList();
 			logger.info("너는?: " + userid);
 			logger.info("그리고 넌는?: " + pointList);
 			if(pointList!=null) {

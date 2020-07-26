@@ -244,7 +244,7 @@ public class ManagementController {
 			logger.info("반려동물 삭제 성공");
 			
 			msg = "반려동물 정보가 삭제되었습니다.";
-	        url = "main.bit";
+	        url = "../";
 	        
 		} else { 
 			

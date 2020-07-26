@@ -53,7 +53,7 @@
 		margin-left: 5px;
 		margin-top: 8px;
 	}
-	
+
 </style>
  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
 </head>
@@ -89,24 +89,26 @@
 							<!-- 나중에 아이콘으로 바꾸기~~~ -->
 							
 							<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-							<a href="edit.bit?petindex=${pet.petindex}">수정</a>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="../management/edit.bit?petindex=${pet.petindex}" class="btn btn-primary">수정</a>
+							&nbsp;&nbsp;&nbsp;
 							<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-							<a href="delete.bit?petindex=${pet.petindex}">삭제</a>
+							<a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-primary">삭제</a>
 						</div>
 					</c:if>
 				</div>
+				<c:if test="${sessionScope.user.userid != pet.userid}">
 				<div class="col-3 text-center" style="margin-top:20px;">
-							<button id="unFollowBtn"> 언팔로우 </button>
-							<button id="followBtn">	팔로우 </button>
+							<button class="btn btn-primary" id="unFollowBtn"> 언팔로우 </button>
+							<button class="btn btn-primary" id="followBtn">	팔로우 </button>
 				</div>
 				<div class="col-9" style="margin-top:20px;">
 							<span onclick='popupMessage()'
-							style="cursor:pointer">
+							style="cursor:pointer;">
 								<i class="far fa-envelope"></i>
 								<strong>${pet.petname}의 ${pet.mcategory eq "1"? "주인":"집사"} ${pet.nick}에게 쪽지보내기</strong>
 							</span>
 				</div>
+				</c:if>
 			</div>			
 
 			<hr>
@@ -224,12 +226,44 @@
 	</div>
 	<!-- container end -->
 
+<!-- Modal -->
+	
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">반려동물삭제</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        반려동물을 정말 삭제하시는건가요?
+      </div>
+      <div class="modal-footer">
+  		<button onclick="Delete()" type="button" class="btn btn-primary">삭제하기</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+       	
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal -->	
+
 
 
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 
 <script>
+<!-- Modal에서 삭제 -->
+// 삭제 전 확인 창 띄우기
+function Delete() {
+    location.replace("../management/delete.bit?petindex=${pet.petindex}"); 
+  }
+<!-- Modal에서 삭제 --> 
+
 $(function(){
 	replaceImg();
 

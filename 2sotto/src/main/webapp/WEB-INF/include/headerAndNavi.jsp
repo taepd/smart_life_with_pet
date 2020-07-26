@@ -29,7 +29,7 @@
 			            </li>
 					            
 			            <li class="nav-item" id="item02">
-			                <a href="${pageContext.request.contextPath}/join/register.bit" class="btn btn-rose btn-raised btn-round">
+			                <a href="${pageContext.request.contextPath}/join/register.bit" class="btn btn-primary btn-raised btn-round">
 			                	시작하기
 			                </a>
 						</li>
@@ -51,7 +51,7 @@
 		            </li>
 					
 		            <li class="nav-item" id="item02">
-		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-rose btn-raised btn-round">
+		                <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary btn-raised btn-round">
 		                	로그아웃
 		                </a>
 					</li>
@@ -104,10 +104,10 @@
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
 					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
 				
-				<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+			<!--  <se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 					<li><a href="${pageContext.request.contextPath}/alarmTest.bit">alarm테스트</a></li>
-				</se:authorize>
-				<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+				</se:authorize> -->	
+				<se:authorize access="hasAnyRole('ROLE_ADMIN')"> 
 					<!-- <li><a href="${pageContext.request.contextPath}/admin/main.bit">관리자 페이지</a></li> -->
 					<li><a href="${pageContext.request.contextPath}/admin/adminMain.bit">admin테스트</a></li>
 				</se:authorize>	

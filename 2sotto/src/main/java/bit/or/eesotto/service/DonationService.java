@@ -427,4 +427,21 @@ public class DonationService {
 
 		return result;
 	}
+	
+	//어드민 > 후원 리스트 조회
+		public List<Donate> getDonationList() {
+			System.out.println("건휘야");
+			List<Donate> donationList = null;
+			System.out.println("집에가자");
+			try {
+
+				donatedao = sqlsession.getMapper(DonateDao.class);
+				donationList = donatedao.getDonationList();
+				System.out.println(donationList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return donationList;
+		}
 }

@@ -22,13 +22,13 @@ public interface ScheduleDao {
 	public int getLastSindex();
 	
 	//일정 불러오기
-	@Select("select sindex, petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color "
+	@Select("select sindex, petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, groupId, adncdnoti, color "
 			+ "from schedule where userid = #{userid}")
 	public List<Schedule> getSchedule(@Param("userid") String userid);
 	
 	//일정 업데이트
 	@Update("update schedule set petindex=#{petindex},title=#{title}, content=#{content}, is_complete=#{is_complete}, "
-			+ "start=#{start}, end=#{end}, allDay=#{allDay}, daysofweek=#{daysofweek}, adncdnoti=#{adncdnoti}, color=#{color} "
+			+ "start=#{start}, end=#{end}, allDay=#{allDay}, daysofweek=#{daysofweek}, groupId=#{groupId}, adncdnoti=#{adncdnoti}, color=#{color} "
 			+ "where sindex=#{sindex}")
 	public int updateSchedule(Schedule schedule);
 	

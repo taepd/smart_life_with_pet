@@ -29,7 +29,7 @@
             <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
           </div>
         </a>
-        <a href="/" class="simple-text logo-normal">
+        <a href="adminMain.bit" class="simple-text logo-normal">
           슬기로운 반려생활
         </a>
       </div>

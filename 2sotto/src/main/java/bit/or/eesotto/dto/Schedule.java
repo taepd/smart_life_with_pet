@@ -21,6 +21,7 @@ public class Schedule {
 	private String daysofweek;
 	private String adncdnoti;
 	private String color;
+	private String groupId;
 	
 	//임시
 	private String petname;

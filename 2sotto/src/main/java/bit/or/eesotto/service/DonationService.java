@@ -427,4 +427,23 @@ public class DonationService {
 
 		return result;
 	}
+	
+	//Admin 후원 리스트 가져오기
+	
+	//어드민 > 포인트 리스트 조회
+		public List<Donate> getDonationList() {
+			System.out.println("건휘야");
+			List<Donate> donationList = null;
+			System.out.println("집에가자");
+			try {
+
+				donatedao = sqlsession.getMapper(DonateDao.class);
+				donationList = donatedao.getDonationList();
+				System.out.println(donationList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return donationList;
+		}
 }

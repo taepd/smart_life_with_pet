@@ -246,7 +246,7 @@
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-
+	<c:set value="${petInfoList}" var="petInfo" />
 
 	<div class="container">
 		<div class="side_overlay">
@@ -265,15 +265,15 @@
 					<!--
                                 color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
                             -->
-					<li class="nav-item"><a class="nav-link active show" href="#myPets" id="myPetsTab"
-						role="tab" data-toggle="tab" aria-selected="false"> <i
-							class="material-icons">pets</i> <!-- <span class="material-icons">home</span>  -->
-							내 반려동물
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link active show"
 						href="#dashboard-1" role="tab" data-toggle="tab" id="scheduleTab"
 						aria-selected="false"> <i class="material-icons">calendar_today</i>
 							일정
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#myPets" id="myPetsTab"
+						role="tab" data-toggle="tab" aria-selected="false"> <i
+							class="material-icons">pets</i> <!-- <span class="material-icons">home</span>  -->
+							내 반려동물
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#mrecord" id="mrecordTab"
 						role="tab" data-toggle="tab" aria-selected="true"> <i
@@ -286,41 +286,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="tab-content tab-space">
-						<div class="tab-pane active show" id="myPets">
-							<div class="row justify-content-center">
-								<c:forEach var="petInfo" items="${petInfoList}">
-									<div class="card col-4" style="width: 20rem; cursor:pointer;" 
-									 onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petInfo.petindex}'">
-										<img class="card-img-top"
-											src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}"
-											rel="nofollow" style="height:250px" alt="card image">
-										<div class="card-body">
-											<h4>${petInfo.petname}</h4>
-											<p class="card-text" id="petInfo">
-												<fmt:parseNumber var="age" value="${petInfo.age/12}"
-													integerOnly="true" />
-												${petInfo.scaname} | ${petInfo.size == 'small' ? '소형':petInfo.size == 'medium'? '중형':'대형'}${petInfo.mcategory == '1' ? '견':'묘'}
-												| ${petInfo.weight}kg | <br> ${age}년
-												${petInfo.age%12}개월 | ${petInfo.sex == 'female' ? '암컷':'수컷' }
-												| ${petInfo.nstate == 'n' ? '중성화X':'중성화O'} | <br>
-												${petInfo.memo}
-											</p>
-											<div>
-
-												<!-- 나중에 아이콘으로 바꾸기~~~ -->
-
-												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="tab-pane" id="dashboard-1">
+						<div class="tab-pane active show" id="dashboard-1">
 							<div id="calendar"></div>
 							<!-- 일정 추가 MODAL -->
 							<div class="modal fade" tabindex="-1" role="dialog"
@@ -372,7 +338,7 @@
 										<div class="form-group bmd-form-group mb-0">
 											<label class="" for="petindex">누구의 일정인가요?</label>
 											<select class="custom-select" type="text" name="petindex" id="petindex">
-												<c:forEach items="${petInfoList}" var="info">
+												<c:forEach items="${petInfo}" var="info">
 													<option value="${info.petindex}">${info.petname}</option>
 												</c:forEach>
 											</select>
@@ -420,6 +386,40 @@
 								<!-- /.modal-dialog -->
 							</div>
 							<!-- /.modal -->
+						</div>
+
+						<div class="tab-pane" id="myPets">
+							<div class="row">
+								<c:forEach var="petInfo" items="${petInfo}">
+									<div class="card col-4" style="width: 20rem;">
+										<img class="card-img-top"
+											src="${pageContext.request.contextPath}/assets/images/${petInfo.petimg}"
+											rel="nofollow" alt="card image">
+										<div class="card-body">
+											<h4>${petInfo.petname}</h4>
+											<p class="card-text" id="petInfo">
+												<fmt:parseNumber var="age" value="${petInfo.age/12}"
+													integerOnly="true" />
+												${petInfo.scaname} | ${petInfo.size == 'small' ? '소형':petInfo.size == 'medium'? '중형':'대형'}${petInfo.mcategory == '1' ? '견':'묘'}
+												| ${petInfo.weight}kg | <br> ${age}년
+												${petInfo.age%12}개월 | ${petInfo.sex == 'female' ? '암컷':'수컷' }
+												| ${petInfo.nstate == 'n' ? '중성화X':'중성화O'} | <br>
+												${petInfo.memo}
+											</p>
+											<div>
+
+												<!-- 나중에 아이콘으로 바꾸기~~~ -->
+
+												<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
+												<a href="edit.bit?petindex=${petInfo.petindex}">수정</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
+												<a href="delete.bit?petindex=${petInfo.petindex}">삭제</a>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
 						</div>
 						<div class="tab-pane" id="mrecord">
 
@@ -502,32 +502,95 @@
 									</div>
 								</div>
 							</div>
-
+							<!-- 병원이용 끝 -->
+							<!-- 예방접종 시작-->
 							<h3>예방 접종 기록</h3>
 							<div class="table-responsive">
 								<table class="table">
 									<thead class=" text-primary">
 										<tr>
-											<th>Name</th>
-											<th>Country</th>
-											<th>City</th>
-											<th class="text-right">Salary</th>
+											<th>접종 이력 변호</th>
+											<th>보호자</th>
+											<th>나의 반려동물</th>																						
+											<th>접종여부</th>
+											<th>접종유형</th>
+											<th>접종일</th>
+											<th>접종예정일</th>
+											<th>잔여접종횟수</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>Dakota Rice</td>
-											<td>Niger</td>
-											<td>Oud-Turnhout</td>
-											<td class="text-right">$36,738</td>
-										</tr>
-										<tr>
-											<td>Minerva Hooper</td>
-											<td>Curaçao</td>
-											<td>Sinaai-Waas</td>
-											<td class="text-right">$23,789</td>
-										</tr>
+									<c:forEach var="inspection" items="${inspectionList}">
+										<tbody>
+											<tr>
+												<td><a
+													href="getInspectionDetail.bit?iindex=${inspection.iindex}&cp=${cpage}&ps=${pageSize}">${inspection.iindex}</a></td>
+												<td>${inspection.userid}</td>
+												<td>${inspection.petname}</td>
+												<td>${inspection.vstate}</td>
+												<td>${inspection.vtype}</td>
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<fmt:parseDate var="parseTime" value="${inspection.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/>
+												<td class="text-center">${vdate}</td>
+												<fmt:parseDate var="parseTime" value="${inspection.evdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/>
+												<td class="text-center">${vdate}</td>
+												<!-- timestamp 날짜시간 표시 포맷 변환 -->
+												<td class="text-center">${mrecord.vdate}</td>
+												<td class="text-center">${mrecord.hname}</td>
+											</tr>
+										</tbody>
+									</c:forEach>
 								</table>
+								<!-- 글등록 버튼 -->
+								<div class="border-top">
+									<div class="card-body" style="text-align: center;">
+										<button class="btn btn-primary btn-round" type="button"
+											onclick="location.href='medicalRegister.bit'">글 쓰기</button>
+										<!-- <a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	 -->
+									</div>
+									<!-- 페이징  -->
+									<div class="pagination justify-content-center">
+										<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+										<ul class="pagination" id="pagingview">
+											<c:if test="${cpage > 1}">
+												<li class="page-item"><a class="page-link"
+													href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}"
+													cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
+														<span aria-hidden="true">&laquo;</span><span
+														class="sr-only">Previous</span>
+												</a></li>
+											</c:if>
+
+											<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+												<c:choose>
+													<c:when test="${cpage==i }">
+														<li class="page-item active"><a class="page-link"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															cp="${i}" ps="${pageSize}">${i}</a></li>
+													</c:when>
+													<c:otherwise>
+														<li class="page-item"><a class="page-link"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															cp="${i}" ps="${pageSize}">${i}</a></li>
+													</c:otherwise>
+												</c:choose>
+
+											</c:forEach>
+
+											<c:if test="${cpage < pageCount}">
+
+												<li class="page-item"><a class="page-link"
+													href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}"
+													cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> <span
+														aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+												</a></li>
+											</c:if>
+										</ul>
+										<!-- </nav> -->
+									</div>
+								</div>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -845,7 +908,7 @@ $(function() {
 		
 		eventClick: function(event, jsEvent, view) { //일정을 클릭하면 수정창이 나와 처리하는 메서드
 			editEvent(event);
-			//calendar.render();
+			calendar.render();
 		},
 		eventDragStart: function (event, jsEvent, ui, view) {
 			    draggedEventIsAllDay = event.el.fcSeg.eventRange.def.allDay;
@@ -930,11 +993,6 @@ $(function() {
 		// 모달 열기 > 마지막에 열자
 		$('#createEventModal').modal('show');
 
-	/* 	$('#createEventModal').on('hidden.bs.modal', function (e) {
-				
-		
-		}); */
-
  		//하루종일 체크시, 일정 끝 인풋창 숨김 메서드
 		if($("#allDay").is(":checked")){
 	           console.log('하루종일 체크함');
@@ -961,7 +1019,7 @@ $(function() {
 			swal('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
 			return false;
 		}*/
-		$('#updateEvent').unbind();
+		
 		$('#updateEvent').on('click', function() {
 
 			// #allday 체크 여부에 따라 값 부여하기 
@@ -973,7 +1031,7 @@ $(function() {
 			
 			console.log("올데이발:"+isAllDay);
 
-			console.log("이벤트이벤트"+event.event);
+			
 			//event 객체 업데이트 (DB는 아님)
 			event.event.setProp("title", $('#title').val());
 			event.event.setStart($('#start').val());
@@ -1017,7 +1075,6 @@ $(function() {
 
 
 		//삭제버튼 눌렀을 때 삭제 처리 함수
-		$('#deleteEvent').unbind();
 		$('#deleteEvent').on('click', function() {
 
 			event.event.remove();

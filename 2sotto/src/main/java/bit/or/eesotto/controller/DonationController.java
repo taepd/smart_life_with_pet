@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.SessionScope;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -152,6 +153,7 @@ public class DonationController {
 	 */
 
 	// 후원글메인 view
+	@ResponseBody // 이거 admin쪽에 뿌려줄때 ajax때문에 더한건데.. 문제생기면 빼라..
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
 	public String main(String cp, String ps, Model model) {
 
@@ -469,7 +471,7 @@ public class DonationController {
 	
 	
 	// 결제 포인트 pay 테이블에 입력 처리
-	@RequestMapping(value = "payInput.bit", method = RequestMethod.GET)
+	@RequestMapping(value = "payInput.bit", method = { RequestMethod.GET, RequestMethod.POST})
 	public String payInput(HttpSession session, Principal principal, HttpServletRequest request, Model model) {
 		Pay pay = new Pay();
 		String pamount = request.getParameter("point");
@@ -491,7 +493,12 @@ public class DonationController {
 		
 		int userPoint = ls.normalLogin(userid).getUserPoint();
 		logger.info("트리거 값을 가져왔는가" + userPoint);
-		session.setAttribute("userPoint", userPoint);
+		User user = (User)session.getAttribute("user");
+		
+		user.setUserPoint(userPoint);
+		session.setAttribute("user", user);
+			
+		logger.info("유저포인트 가져오는지 확인" + user.getUserPoint());
 		
 		if (result == 1) {
 			//성공해서 db에서 온 데이터를 입력해주는 곳이다. -> 경로로 가기전에 여기서 session에 반영한다.		

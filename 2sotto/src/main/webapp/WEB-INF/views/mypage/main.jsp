@@ -125,7 +125,7 @@
 							            </div>
 							            <div class="form-group has-default bmd-form-group">
 							            	<label>잔여포인트</label>
-							                <input type="text" class="form-control" placeholder="잔여포인트" value="${user.point}" disabled>
+							                <input type="text" class="form-control" placeholder="잔여포인트" value="${user.userPoint}" disabled>
 							            </div>
 							            <div class="form-group has-default bmd-form-group">
 							            	<label>지역</label>

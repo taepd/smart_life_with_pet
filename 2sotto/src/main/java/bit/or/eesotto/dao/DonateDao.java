@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Role;
 import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.DonationRecord;
 import bit.or.eesotto.dto.Pay;
+import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.User;
 
 
@@ -85,4 +86,14 @@ public interface DonateDao {
 	@Insert("insert into DonationRecord (dindex, userid, dcoll, dtime)"
 			+ "values (#{param1}, #{param2}, #{param3}, now())")
 	public int donationRecord(int dindex, String userid, int dcoll);
+	
+	// 어드민 > 후원 리스트 조회  ajax
+	@Select("select * from Donation")
+	public List<Donate> getDonationList(); //@Param("userid") String userid
+	
+	// 어드민 > 후원 카운트  ajax
+	/*
+	 * @Select("select count(*) count from donate") public int
+	 * getDonationCount(Donate donate);
+	 */
 }

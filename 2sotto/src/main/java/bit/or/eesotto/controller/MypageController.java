@@ -47,11 +47,14 @@ public class MypageController {
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
 		
+		
+		
 		List<Pet> petList = ms.getPetInfo(userid);
 		model.addAttribute(petList);
 		
 		User user = ms.getUserInfo(userid);
 		model.addAttribute(user);
+		
 		
 		return "mypage/main";
 	}

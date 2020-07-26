@@ -16,7 +16,7 @@
 	<div class="side_overlay">
 		<div class="container">
 
-			<form id="editForm" action="edit.bit" method="post">
+			<form action="edit.bit" method="post">
 				<!-- bindex 가져가기 위해서 -->
 				<input hidden name="bindex" value="${post.bindex}"/>
 				<!-- 내 반려동물 선택 영역 -->
@@ -58,7 +58,7 @@
 				<textarea name="content">${post.content}</textarea>
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
-						<button type="button" onclick="check();" class="btn btn-primary"><b>수정</b></button>
+						<button type="submit" class="btn btn-primary" style="padding: 10px 20px"><b>전송</b></button>
 						<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
 					</div>
 				</div>
@@ -157,33 +157,6 @@ function petSelect(div){
 		$('#petArr').val(petArr);
 		console.log(petArr);
 	}
-}
-
-/**
-* @함수명 : check()
-* @작성일 : 2020. 7. 24.
-* @작성자 : 채현아
-* @설명 : 폼 제출 전 유효성 검사
-**/
-function check() {
-	
-	if( $('#petArr').val() == "" ) {
-		swal('글과 관련있는 반려동물을 선택해주세요!');
-		return false;
-	} 
-	
-	if( $('#title').val() == "") {
-		swal('제목을 입력해주세요.');
-		$('#title').focus();
-		return false;
-	}
-
-	if (CKEDITOR.instances.content.getData() == '' || CKEDITOR.instances.content.getData().length == 0) {
-		swal('내용을 입력해주세요.');
-		return false;
-	}
-
-	$('#editForm').submit();
 }
 
 </script>

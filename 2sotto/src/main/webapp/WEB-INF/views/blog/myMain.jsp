@@ -10,55 +10,52 @@
     <title>슬기로운 반려생활</title>
     
      <%@ include file="/WEB-INF/include/import.jsp"%>
-	 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
-	 <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet"> -->
-
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
+     
+    
     
 </head>
 <body>
     
-	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-	<div class="container">
-		<div class="side_overlay">
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col-11">
-					<h2>사랑을 표현하세요. <br> 우리의 시간은 생각보다 짧으니까요.</h2>
-					<button type="button" class="btn btn-primary" onclick="location.href='write.bit'">블로그 글쓰기</button>
-				</div>
-			</div>
+    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+	<div class="side_overlay">
+		<div class="container">
+			
+			<h3>블로그  페이지</h3>
+			<button type="button" class="btn btn-warning" onclick="location.href='write.bit'">블로그 글쓰기</button>
+			<br>
+			<br>
+			
 			<hr>
+			
 			
 			<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
-					<!-- <div style="margin-left: 30px; margin-right: 30px;"> -->
-					<div class="col-1"></div>
-					
-					<div class="col-7">
-						<!-- 글쓴이 및 관련 반려동물 영역 -->
-						<div class="d-flex whoseStory">  <!--  style="display: inline-block;" -->
-							<span class="align-self-center"><b>${post.nick}</b> 님과 </span>
-							<c:forEach var="myPet" items="${myPetList}">
-							<c:forTokens var="petindex" items="${post.petindex}" delims=",">
-								<c:if test="${petindex eq myPet.petindex}">
-								<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
-									onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
-								<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
-									<div  class="rounded-circle card-modal-profile"
-										style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
-										<div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
-											<img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
-												style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
-										</div>
-									</div>
-									<div class="text-center"> ${myPet.petname} </div>
-								</div>
-								</c:if>
-							</c:forTokens>
-							</c:forEach>
-							<span class="align-self-center">의 이야기</span>   			
-						</div>	
-						<!-- 제목 및 내용 영역 -->
+					<div class="col-9">
+					<!-- 글쓴이 및 관련 반려동물 영역 -->
+					<div class="d-flex">  <!--  style="display: inline-block;" -->
+						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
+						<c:forEach var="myPet" items="${myPetList}">
+	        			<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+	        				<c:if test="${petindex eq myPet.petindex}">
+				        	<div class="follow-img-wrapper d-flex flex-column" value="${petArr.petindex}" style="margin:10px; cursor:pointer;"
+				        		onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${petindex}'">
+				        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+			        			<div  class="rounded-circle card-modal-profile"
+                                    style="float : left; background-color: white; overflow: hidden; height:50px; width:50px;">
+                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+                                            style="width :auto; height: 70px; transform: translate(-50%, -50%); ">
+                                    </div>
+                             	</div>
+                             	<div class="text-center"> ${myPet.petname} </div>
+		        			</div>
+		        			</c:if>
+				        </c:forTokens>
+				        </c:forEach>
+				        <span class="align-self-center">의 이야기</span>   			
+	        		</div>	
+					<!-- 제목 및 내용 영역 -->
 						<div class="contents">
 							<a href="detail.bit?bindex=${post.bindex}">
 								<strong style="font-size:1.5em;">${post.title}</strong>
@@ -81,26 +78,22 @@
 								<span id="rtime${status.index}">${post.rtime}</span>
 							</div>
 						</div>
-					</div>
-					
+					</div>	
 					<!-- 게시글 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
 							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" alt="게시물 이미지">
 						</div>
 					</div>
-					<div class="col-1"></div>
-
-				</div> <!-- /.row -->
-				<hr>
+				</div>
 			</c:forEach>
 
-			<!-- <div>
+			<div>
 			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalpostcount: ${totalPostCount } </h4>
-			</div> -->
+			</div>
 
 			<!-- 페이징 -->
-			<div class="pagination justify-content-center" style="margin-top: 70px;">
+			<div class="pagination justify-content-center">
 			<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
 					<ul class="pagination" id="pagingview">
 						<c:if test="${cpage > 1}">
@@ -141,8 +134,12 @@
 			<!-- </nav> -->
 			</div>
 
-		</div> <!-- /.side_overlay -->
-	</div> <!-- /.container -->
+
+
+
+
+		</div> <!-- /.container  -->
+	</div> <!-- /.side_overlay -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 
@@ -215,25 +212,25 @@ function timeAgo(time){
 
 	  return day_diff == 0 && (
 
-	    diff < 60 && "방금 전" ||
+	    diff < 60 && "방금전" ||
 
-	    diff < 120 && "1분 전" ||
+	    diff < 120 && "1분전" ||
 
-	    diff < 3600 && Math.floor( diff / 60 ) + "분 전" ||
+	    diff < 3600 && Math.floor( diff / 60 ) + " 분전" ||
 
-	    diff < 7200 && "1시간 전" ||
+	    diff < 7200 && "1 시간전" ||
 
-	    diff < 86400 && Math.floor( diff / 3600 ) + "시간 전") ||
+	    diff < 86400 && Math.floor( diff / 3600 ) + " 시간전") ||
 
 	    day_diff == 1 && "어제" ||
 
-	    day_diff < 7 && day_diff + "일 전" ||
+	    day_diff < 7 && day_diff + " 일전" ||
 
-	    day_diff < 31 && Math.floor( day_diff / 7 ) + "주 전" ||
+	    day_diff < 31 && Math.floor( day_diff / 7 ) + " 주전" ||
 
-	    day_diff < 360 && Math.floor( day_diff / 30 ) + "개월 전" ||
+	    day_diff < 360 && Math.floor( day_diff / 30 ) + " 개월 전" ||
 
-	    day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + "년 전"
+	    day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
 
 	 }
 

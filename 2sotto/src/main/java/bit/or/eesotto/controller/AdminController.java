@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.or.eesotto.dto.BlogComment;
+import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.User;
 
 import bit.or.eesotto.service.BlogService;
+import bit.or.eesotto.service.DonationService;
 import bit.or.eesotto.service.PetService;
 import bit.or.eesotto.service.PointService;
 import bit.or.eesotto.service.UserService;
@@ -38,6 +40,9 @@ public class AdminController {
 	
 	@Autowired
 	PointService pointService;
+	
+	@Autowired
+	DonationService donationService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
 
@@ -92,6 +97,15 @@ public class AdminController {
 
 		return "admin/adminPointTable";
 	}
+	
+	// DonationTable 보러가기
+		@RequestMapping(value = "userDonationTable.bit", method = RequestMethod.GET)
+		public String userDonationTable() {
+
+			return "admin/adminDonationTable";
+		}
+	
+	
 	
 	// 유저리스트 조회 Ajax  
 	@ResponseBody
@@ -177,6 +191,27 @@ public class AdminController {
 			}
 			
 			return pointList;
+		}
+		
+		// 후원리스트 조회 Ajax  
+		@ResponseBody
+		@RequestMapping(value = "getDonationList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+		public List<Donate> getDonationList(Donate donate, Principal principal, Model model) throws IOException {
+			
+			String userid = principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+			
+			
+			List<Donate> donationList = donationService.getDonationList();
+			logger.info("너는?: " + userid);
+			logger.info("그리고 넌는?: " + donationList);
+			if(donationList!=null) {
+				logger.info("포인트 "+userid+"유저 조회 완료");
+			}else {
+				logger.info("포인트 "+userid+"유저 조회 실패");
+			}
+			
+			return donationList;
 		}
 
 

@@ -3,11 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- security 적용해 보고 싶어서.... -->
-<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
-<%-- <se:authentication property="name" var="userid" />
-	<c:set var="user" value="${sessionScope.user}" /> --%>
-<!-- security 적용해 보고 싶어서.... 끝 -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,13 +55,11 @@
 										<i class="material-icons">favorite</i>최신순
 									</a>
 								</li> -->
-								<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-								<li class="nav-item">									
+								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
 										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
-								</se:authorize>
 							</ul>
 						</div>
 					</div>
@@ -103,7 +98,7 @@
 
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 												<td class="text-center">${rtime}</td>
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>

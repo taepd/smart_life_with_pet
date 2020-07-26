@@ -47,19 +47,19 @@
               <p>대시보드</p>
             </a>
           </li>
-          <li>
+          <li >
             <a href="userTable.bit">
               <i class="nc-icon nc-single-02"></i>
               <p>유저 리스트</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="userPetTable.bit">
               <i class="nc-icon nc-diamond"></i>
               <p>동물 리스트</p>
             </a>
           </li>
-          <li>
+          <li class="active ">
             <a href="userPointTable.bit">
               <i class="nc-icon nc-diamond"></i>
               <p>포인트 리스트</p>
@@ -82,7 +82,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Pet Table</h4>
+                <h4 class="card-title"> Point Table</h4>
               </div>
               <div class="card-body">
             	<div id="searchResult" class="table-responsive">
@@ -90,14 +90,14 @@
 						<thead class=" text-primary">
 							<tr>
 								
-								
-								<th>이메일</th>
-								<th>이름</th>
-								<th>성별</th>
-								<th>나이</th>
-								<th>크기</th>
-								<th>중성화여부</th>
-								
+								<th>포인트 내역 번호</th>
+								<th>유저명</th>
+								<th>포인트유형</th>
+								<th>변동 포인트</th>
+								<th>사용자 포인트 총량</th>
+								<th>포인트 변동 일시</th>
+								<th>결제 번호</th>
+								<th>기부번호</th>
 								
 							</tr>
 						</thead>
@@ -145,7 +145,7 @@
 		console.log('작동?');
 		$.ajax(
 			{
-				url:"getPetList.bit",
+				url:"getPointList.bit",
 				type:"POST",
 				dataType:"json",
 				//data: "",
@@ -156,7 +156,7 @@
 			   		$('#myTable').dataTable(
 			   	   			{ 
 			   	   				ajax:{
-			   	   					'url':'getPetList.bit', //이건 왜 필요한거지..
+			   	   					'url':'getPointList.bit', //이건 왜 필요한거지..
 			   	   					'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
 			   	   					'dataSrc': {
 			   	   						"data": [responsedata]
@@ -164,14 +164,15 @@
 			   	   				},
 			   	   				columns:[
 			   	   					
+			   	   					{"data": "ptindex"},
 			   	   					{"data": "userid"},
-			   	   					{"data": "petname"},
-			   	   					{"data": "sex"},
-			   	   					{"data": "age"},
-			   	   					{"data": "size"},
-			   	   					{"data": "nstate"}
-			   	   				
-
+			   	   					{"data": "ptype"},
+			   	   					{"data": "pcount"},
+			   	   					{"data": "pamount"},
+			   	   					{"data": "pdate"},
+			   	   					{"data": "pindex"},
+			   	   					{"data": "drindex"}
+			   	   					
 			   	   				]
 			   	   				
 			   	   			}		

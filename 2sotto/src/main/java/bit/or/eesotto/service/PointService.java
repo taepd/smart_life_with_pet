@@ -113,7 +113,7 @@ public class PointService {
 
 			mailSender.send(messagedto);
 
-			return confirmation;
+			return confirmation; 
 		}
 		// ------------이메일 발송 서비스 끝------------
 		

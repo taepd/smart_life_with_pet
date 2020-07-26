@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
 
 <html>
@@ -16,28 +16,22 @@
 <!-- 타임피커 cdn -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<%@ include file="/WEB-INF/include/import.jsp"%>
 
+<%@ include file="/WEB-INF/include/import.jsp"%>
+<!-- 프로그레스 바 부트스트렙 시작 -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<!-- 프로그레스 바 부트스트렙 끝-->
 	<style>
-		#jb {
+	#jb {
 			width: 100%;
 			height: 50px;
 		}
 		
 		
-      p {
-        font-size: 20px;
-      }
-      .a {
-        text-indent: 2em;
-      }
-      .b {
-        text-indent: -2em;
-      }
-      .c {
-        text-indent: -2em;
-        margin-left: 2em;
-      }
+    
+   .align-center { text-align: center; }
       
      /* .recom{position:relative;} */ 
    .reCom:before {
@@ -72,18 +66,19 @@
     
 	</style>
 	<script>
-	window.onload = function() {
+	 window.onload = function() {
 		document.getElementById( 'jb' ).value = '${donate.ccoll/donate.gcoll*100}';
-	}
+	} 
+	
 	</script>
 	
 
-</head>
+</head> 
 
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-
+	
 
 	<div class="side_overlay">
 		<div class="container">
@@ -122,11 +117,7 @@
 										<i class="material-icons"></i>최신순
 									</a>
 								</li> -->
-								<li class="nav-item">
-									<a class="nav-link" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i>글 작성
-									</a>
-								</li>
+								
 							</ul>
 						</div>
 					</div>
@@ -137,71 +128,95 @@
 					<div class="tab-content text-center">
 			
 						<!---------- 디테일------------------>
-						<div class="tab-pane active show" >
+						<div class="table-responsive" ><!-- class="tab-pane active show" -->
 
 							<form action="donatePoint.bit" method="POST">
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">글번호</label> 
-									<input type="text" class="form-control" name="dindex" value="${donate.dindex}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">제목</label> 
-									<input type="text" name="title" class="form-control" value="${donate.title}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">작성자</label> 
-									<input type="text"  class="form-control" placeholder="관리자" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원이 필요한 아이</label> 
-									<input type="text" name="dobject" class="form-control" value="${donate.dobject}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원 등록 시간</label>
+								
+									<!-- <label for="bmd-label-static">글번호</label>  -->
+									<input type="hidden" class="form-control" name="dindex" value="${donate.dindex}" readonly> 										
+									<!-- <label for="bmd-label-static">제목</label>  -->
+									<input type="hidden" name="title" class="form-control" value="${donate.title}" readonly> 														
+									<!-- <label for="bmd-label-static">작성자</label>  -->
+									<input type="hidden"  class="form-control" placeholder="관리자" readonly> 																
+									<!-- <label for="bmd-label-static">후원이 필요한 아이</label>  -->
+									<input type="hidden" name="dobject" class="form-control" value="${donate.dobject}" readonly> 																
+									<!-- <label for="bmd-label-static">후원 등록 시간</label> -->
 									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
-									<input type="text" name="rtime" class="form-control" value="${rtime}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">후원 완료 시간</label> 
+									<input type="hidden" name="rtime" class="form-control" value="${rtime}" readonly> 														
+									<!-- <label for="bmd-label-static">후원 완료 시간</label>  -->
 									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<input type="text" name="ctime" class="form-control" value="${ctime}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">목표모금액</label> 
-									<input type="text" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">현재모금액</label> 
-									<input type="text" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">모금률</label>
+									<input type="hidden" name="ctime" class="form-control" value="${ctime}" readonly> 																						
+									<!-- <label for="bmd-label-static">목표모금액</label>  -->
+									<input type="hidden" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 								
+									<!-- <label for="bmd-label-static">현재모금액</label>  -->
+									<input type="hidden" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
+								
+								<table class="table">
+								<thead class=" text">
+									
+									<tr>
+										<th>글번호</th>
+										<td>${donate.dindex}</td>
+										<th>제목</th>
+										<td>${donate.title}</td>
+									</tr>
+									<tr>
+										<th>작성자</th>
+										<td>관리인</td>
+										<th>후원이 필요한 아이</th>
+										<td>${donate.dobject}</td>
+									</tr>
+									<tr>
+										<th>후원글 등록 시간</th>
+										<td>${rtime}</td>
+										<th>후원 완료시간</th>
+										<td>${ctime}</td>
+									</tr>
+									<tr>
+										<th>목표 모금액</th>
+										<td>${donate.gcoll}</td>
+										<th>현재 모금액</th>
+										<td>${donate.ccoll}</td>
+									</tr>
+									
+								</thead>							
+								</table>
+								<h4 class="align-center">모금률</h4>
+								<div class="form-group bmd-form-group" >
+									<!-- <label class=" text" >모금률</label> --><!-- for="bmd-label-static" -->
 									<progress value="0" max="100" id="jb"></progress>
 									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
-								</div>
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static">기부중</label> 
-									<input type="text" name="dstate" class="form-control" value="${donate.dstate}" readonly> 
-								</div>				
-																								
+								</div>	
+												
+									<!-- <label for="bmd-label-static">기부중</label>  -->
+									<input type="hidden" name="dstate" class="form-control" value="${donate.dstate}" readonly> 																																				
 								<!-- <div id="donateColl"> -->															
-								<input type="text" name="dpoint" placeholder="기부하실 포인트를 직접 입력해 주세요">
-								<button type="submit" class="btn btn-primary">포인트 기부하기</button>
-								</form>
-								</div>							
-								  ${donate.content}							
+								<input type="text" name="dpoint"  placeholder="기부하실 포인트를 직접 입력해 주세요">
+								<button type="submit" id="donatePoint" class="btn btn-primary">포인트 기부하기</button>
+								</form>								
+								
+								</div>	
+								<div>
+								&nbsp;&nbsp;&nbsp;
+								</div><!-- 공백 용 div -->															
+								  ${donate.content}
+								<div>
+								&nbsp;&nbsp;&nbsp;
+								</div><!-- 공백 용 div -->							
 								<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button class="btn btn-primary btn-round" type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>
+										<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+										<button class="btn btn-primary btn-round" type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>										
 										<a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	
+										</se:authorize>
 										<%-- <button type="button" id="delete" onclick="location.href='delete.bit?dindex=${donate.dindex}'" >삭제</button> --%>
 								</div> 
 															 
 								
 								</div>
-
+								
 						</div>
 				
 					</div>
@@ -544,7 +559,7 @@ $(document).on("click","#editcom",function(){
 // 블로그 댓글 삭제 전 확인 창 띄우고 확인 시 삭제
 
 function deleteComment(dcindex) {
-
+	
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
 		return location.href='deleteComment.bit?dcindex='+dcindex+'&dindex=${donate.dindex}';
@@ -631,6 +646,72 @@ $(document).on("click","#writeRecom",function(){
 		
 	});
 
+/* 기부 ajax로 처리하고 싶어서 해보자고*/
+//포인트 프로그레스 바 비동기
+$(document).on("click","#editcom",function(){
+		
+ 		if(!editCommentBox.dccontent.value) {
+			swal('댓글 내용을 입력하세요!');
+			editCommentBox.dccontent.focus();
+			return false;
+		}
+		
+ 		var dcindex = $('#dcindex').val();
+ 		var dccontent = $('#dccontent').val();
+		
+ 		$.ajax ({		
+			url:"editComment.bit",
+			type: "post",
+			datatype:"json",
+			data: { dcindex: $('#dcindex').val(),
+					userid: '${sessionScope.user.userid}',
+					dccontent: $('#dccontent').val()
+				  },	
+			success: function(data) {
+					$('#editCommentBox').remove();
+					$('#commentContent'+dcindex+'').text(dccontent);
+					$('#editCommentBtn'+dcindex+'').attr("onclick", "editComment("+dcindex+"); this.onclick=null;");
+					//기본 댓글 입력창 활성화
+					$('#comment').show();					
+			}
+		}); 
+			
+		return false;		
+});
+
+
+//포인트 기부
+function insertComment() {
+	$('#donatePoint').click(function(){
+		
+		if(!comment.dccontent.value) {
+			swal('댓글 내용을 입력하세요!');
+			comment.dccontent.focus();
+			return false;
+		}
+		
+		$.ajax ({
+			
+			url:"writeComment.bit",
+			type: "post",
+			datatype:"json",
+			data: { dindex:'${donate.dindex}',
+					userid: '${sessionScope.user.userid}',
+					nick: '${sessionScope.user.nick}',
+					dccontent: $('#dccontent').val()
+				  },	
+			success: function(data) {
+					$('#commentBox').empty();
+					$('#dccontent').val("");
+					getCommentList();
+				}
+				
+		});
+		
+		return false;
+		
+	});
+}
 
 
 </script>

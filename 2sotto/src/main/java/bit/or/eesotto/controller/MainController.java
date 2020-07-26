@@ -68,6 +68,7 @@ public class MainController {
 			
 			//후원글 조회
 			HashMap<String, Object> donationList = ds.main(cp, ps);
+			System.out.println("도네이션 리스트: " + donationList);
 			
 			//팔로우(좋아요)한 반려동물 목록 조회
 			List<PetLike> list = ms.getPetLike(userid);
@@ -80,7 +81,7 @@ public class MainController {
 			model.addAttribute("pageCount", map.get("pageCount"));
 			model.addAttribute("totalPostCount", map.get("totalPostCount"));
 			model.addAttribute("petList", petList); 
-			model.addAttribute("donationList", donationList.get("donateList")); 
+			model.addAttribute("donationList", donationList.get("donationList")); 
 			model.addAttribute("petLikeList", list);
 			
 			 return "main";

@@ -10,47 +10,23 @@
 	<%@ include file="/WEB-INF/include/import.jsp"%>
      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<style>
-	
+<style>	
 		#tab-row {
     		margin-bottom: 100px;
     		margin-top: 73px;
     	}
-    	#tab-list {
-    		margin: 0 auto;
-    	}
-    	#mypage-img-wrapper img {
-    		width: 280px;
-    		height: 280px;
-    	}
     	.mypage-card {
     		background-color: #ffffff;
  			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
-			padding: 40 100px;
+		/*  padding: 40 100px; */
+			
 			border-radius: 6px;	
-			/* margin-bottom: 300px; */
-			position: relative;
+			/*margin-top: 100px;*/
+			margin-bottom: 15px;
+			position:relative;;
 			height: 500px;
+			
     	}
-    	#mypage-img-wrapper {
-    		position: absolute;
-    		transform: translate(67%, 33%);
-    	}
-    	#mypage-myinfo-wrapper {
-    		position: absolute;
-    		width: 300px;
-    		transform: translate(200%, 15%);
-    	}
-    	#edit-link {
-    		 position: absolute;
-    		 top: 385px;
-    		 left: 285px;
-    		 font-size: 13px;
-    		 text-align: center;
-    	}
-    	.card-img-top {
-			margin-top: 16px;
-		}
 		.card {
 			margin-left: 10px;
 			margin-right: 10px;
@@ -60,21 +36,7 @@
 			position: absolute;
 			transform: translate(83%, 32%);
 		}
-		#pwdEditBtn {
-			position: absolute;		
-			bottom: 72px;
-			left: 500px;	
-		}
-		#delete {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			margin: 10px;
-			font-size: 13px;
-			color: #9E9E9E;
-			font-weight: bold;
-		}
-	
+		
 	</style>
 
 
@@ -86,9 +48,9 @@
 		<div class="side_overlay">
 			<div class="row" id="tab-row">
 				<div class="col"></div>
-				<div class="col-11">
+				<div class="col-11 ">
 					<!-- 포인트 user point로 업데이트 -->
-					<form action="donation/payInput.bit" method="POST">    
+					<form action="donation/payInput.bit"  style="padding: 10 20 500 10px;"method="POST">    
 					<h2>포인트 게시판</h2> 
 					<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   	
 					<button type="button" id="check_module" class="btn btn-sm btn-primary">포인트 충전하기</button>
@@ -98,7 +60,7 @@
 						<!---------- 포인트 게시판  ------------------>
 					
 						  <div class="mypage-card">
-							<div class="table-responsive ">
+							<div class="table-responsive text-center">
 							<table class="table">
 								<thead>
 									<tr>

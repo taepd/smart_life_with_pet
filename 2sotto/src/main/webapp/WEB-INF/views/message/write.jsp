@@ -143,7 +143,7 @@ function sendQna() {
 				<div class="card-body">
 				
 					<div class="tab-content text-center">
-	
+					<div class="row justify-content-center">
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" >
 
@@ -169,7 +169,7 @@ function sendQna() {
 
 
 						<!-------------- 끝 ---------------->
-
+						</div>
 
 					</div>
 				</div>

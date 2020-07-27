@@ -45,7 +45,7 @@
 		margin-top: 8px;
 	}
 	.sc {
-        overflow: scroll;
+        overflow: auto;
       }
 
 </style>

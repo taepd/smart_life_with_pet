@@ -24,12 +24,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style type="text/css">
-#back-icon {
+		#back-icon {
 			position: absolute;
 			top: 7px;
 			left: 10px;
 			font-size: 34px;
 			color: rgba(156, 39, 176, 0.2);
+		}
+
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+		#petSelection {
+			padding: 30px;
+		}
+		h3 {
+			font-family : 'netmarbleM', sans-serif;
+		}
+		#writeBtnBox {
+			text-align: center;
+			margin-top: 80px;
 		}
 
 </style>
@@ -142,17 +157,20 @@
 									<input type="text"  class="form-control" placeholder="관리자" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">제목</label> 
+									<input type="text" id="title" name="title" class="form-control" placeholder="제목"> 
+								</div>
+								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">후원이 필요한 아이</label> 
-									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
+									<input type="text" id="dobject" name="dobject" class="form-control" placeholder="아이 이름"> 
 								</div>								
 								<div class="form-group bmd-form-group mb-0">								
 									<label for="bmd-label-static">후원 기한</label>
-									<input type="text" class="form-control" name="ctime" 
-									id="ctime" required> 
+									<input type="text"  class="form-control" name="ctime" id="ctime" required> 
 								</div>								 	
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">목표모금액</label> 
-									<input type="text" name="gcoll" class="form-control" > 
+									<input type="text" id="gcoll" name="gcoll" class="form-control" > 
 								</div>	
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static">내용</label>
@@ -166,7 +184,7 @@
 								</div>	 -->
 								<button type="reset" class="btn btn-primary" onclick="location.href='main.bit'">뒤로 가기</button>											
 								<button type="reset" class="btn btn-primary">다시쓰기</button>	
-								<button type="submit" class="btn btn-outline-primary">등록</button>
+								<button type="submit" class="btn btn-outline-primary" onclick="check();">등록</button>
 						</div>
 					</form>
 			</div>
@@ -206,6 +224,28 @@ $(function(){
 	
 });
 
+// 제대로 입력했는지 확인
+function check() {
+		
+		if( $('#dobject').val() == "" ) {
+			swal('도움이 필요한 아이를 입력해 주세요.');
+			return false;
+		}
+		if( $('#gcoll').val() == "" ) {
+			swal('목표 모금액을 입력해 주세요.');
+			return false;
+		} 
+		if( $('#title').val().trim() == "") {
+			swal('제목을 입력해 주세요!');
+			$('#title').focus();
+			return false;
+		}
+		if (CKEDITOR.instances.content.getData().trim() == '' || CKEDITOR.instances.content.getData().length == 0) {
+			swal('내용을 입력해주세요.');
+			return false;
+		}
+		$('#joinForm').submit();
+	}
 
 </script>
 </html>

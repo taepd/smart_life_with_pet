@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
 <!-- security 적용해 보고 싶어서.... -->
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
@@ -13,8 +14,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<!-- 진행바...w3s에서...  -->
+<link rel="stylesheet" href="/lib/w3.css">
 	<title>홈_슬기로운 반려생활</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>	
+	
+	
 	<%@ include file="/WEB-INF/include/import.jsp"%>
 	<style>
 		#donation-jumbotron {
@@ -31,7 +37,26 @@
 			width: 100%;
 			height: 50px;
 		}
+		
+
+		
+		
+		
 	</style>
+	
+	<script>
+	
+	/* window.onload = function() {
+		 	
+		document.getElementByTagName('progress')[0].value = '${donate.ccoll/donate.gcoll*100}';
+	} 
+	 */
+	
+	
+	</script> 
+	
+	
+	
 </head>
 <body>
 
@@ -53,7 +78,7 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div style="width:100%;height:280px;background-color:#999;">
-							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:100%; height:280px;"alt="게시물 이미지">
 						</div>
 					</div>
 					<div class="col">
@@ -63,8 +88,7 @@
 						</h3>
 						<!-- <div class="form-group bmd-form-group"> -->
 							<!-- <label for="bmd-label-static">모금률</label> -->
-							<progress value="0" max="100" id="jb"></progress>
-							<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+											
 						<!-- </div> -->
 						현재 모금액 ${donate.ccoll} <br>
 						목표 모금액 ${donate.gcoll} <br>
@@ -72,7 +96,10 @@
 						<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 						<p>${ctime}까지</p>
+						<progress value="${donate.ccoll/donate.gcoll*100}" max="100" id="jb"></progress>
+						<p><fmt:formatNumber value="${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
 					</div>
+					
 				</div>
 				<hr>
 			</c:forEach>
@@ -204,7 +231,7 @@
 									</ul>
 									</div>
 								</div> 
-								</se:authorize>
+								
 								<%-- <div class="row">
 								<div class="col-sm-12 col-md-5">
 
@@ -252,11 +279,14 @@
 					
 					</div>
 				</div>
+				  </se:authorize>
 			</div>
-                
+              
 		</div>
+		
 		<!-- container end -->
 	</div>
+	
 	<!-- side_overlay end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
@@ -264,7 +294,12 @@
 
 $(function(){
 	replaceImg();
+	move()
+	progressbar()
 });
+
+
+
 
 /* 
 $(function(){
@@ -403,6 +438,16 @@ $(function(){
 * @설명 :이미지 위치 디자인(조정/삭제)을 위한 함수
 * @param void
 **/
+//진행바 시작
+
+function progressbar() {
+
+	document.getElementById('jb').value = '${donate.ccoll/donate.gcoll*100}';
+	
+}
+
+
+//진행바 끝
 
 function replaceImg(){ 
 	for(var i =0; i<${fn:length(donationList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문

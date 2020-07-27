@@ -5,30 +5,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
-
 <html>
 <head>
 
-<title>슬기로운 반려생활</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<title>슬기로운 반려생활</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-<!-- 타임피커 cdn -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- 타임피커 cdn -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
-<!-- 프로그레스 바 부트스트렙 시작 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-<!-- 프로그레스 바 부트스트렙 끝-->
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	<!-- 프로그레스 바 부트스트렙 시작 -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	<!-- 프로그레스 바 부트스트렙 끝-->
 	<style>
 	#jb {
 			width: 100%;
-			height: 30px;
-		}
-		
+
+			height: 40px;
+		}		
+
 	a:visited {
 			color: #000000;
 	}
@@ -70,14 +70,10 @@
 	.container > li {
 		float: right;
 	}
-	
-	
-		
-    
-   .align-center { text-align: center; }
+  .align-center { text-align: center; }
       
      /* .recom{position:relative;} */ 
-   .reCom:before {
+  .reCom:before {
 
      	    content: "";
 		    position: absolute;
@@ -91,8 +87,7 @@
 		    border-radius: 0 0 0 2px;
 
  	}
- 	.writereCom
- 	:before {
+ 	.writereCom:before {
 
      	    content: "";
 		    position: absolute;
@@ -104,8 +99,15 @@
 		    border: 1px solid #ccc;
 		    border-width: 0 0 1px 1px;
 		    border-radius: 0 0 0 2px;
-
- 	}
+	 }
+	 
+	 .main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 100px;
+			border-radius: 6px;
+			position: relative;	
+	}
  	
  	#back-icon {
 			position: absolute;
@@ -113,7 +115,7 @@
 			left: 10px;
 			font-size: 34px;
 			color: rgba(156, 39, 176, 0.2);
-		}
+	}
     
 	</style>
 	<script>
@@ -181,7 +183,6 @@
 							<!-- <label for="bmd-label-static">현재모금액</label>  -->
 							<input type="hidden" name="ccoll" class="form-control" value="${donate.ccoll}" readonly>  --%>
 						<!-- hidden으로 자료 받으려고 끝 -->
-					
 					
 						<div id="joinForm">
 							<div id="joinForm-wrapper" style="width: 85%; margin:0 auto;">
@@ -300,6 +301,7 @@
 	
 	
 		
+
 			<!-- Modal -->
 	
 <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

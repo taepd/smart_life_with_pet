@@ -31,7 +31,12 @@ public class Pet {
 	private String scaname;
 	private String mcaname;
 	
+	//반려동물 주인 닉네임 뽑기 용도
 	private String nick;
+	
+	//추천타입 용도
+	private String recomType;
+	private int relatedPet;
 	
 
 }

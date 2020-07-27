@@ -68,7 +68,7 @@
 				<ul class="nav nav-pills nav-pills-icons" id="tab-list"
 					role="tablist">
 
-					<li class="nav-item"><a class="nav-link" onclick="location.href='msgRePage.bit'" id="rPageTab"
+					<li class="nav-item"><a class="nav-link active show" onclick="location.href='msgRePage.bit'" id="rPageTab"
 						role="tab" data-toggle="tab" aria-selected="false"> <i
 							class="material-icons">email</i> <!-- <span class="material-icons">home</span>  -->
 							받은 쪽지함

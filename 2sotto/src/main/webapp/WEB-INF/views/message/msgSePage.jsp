@@ -75,7 +75,7 @@
 							class="material-icons">email</i> <!-- <span class="material-icons">home</span>  -->
 							받은 쪽지함
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link active show"
 						onclick="location.href='msgSePage.bit'" role="tab" data-toggle="tab" id="sPageTab"
 						aria-selected="false"> <i class="material-icons">email</i>
 							보낸 쪽지함

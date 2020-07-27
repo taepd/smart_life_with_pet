@@ -26,7 +26,7 @@
 	<style>
 	#jb {
 			width: 100%;
-			height: 40px;
+			height: 30px;
 		}
 		
 	a:visited {
@@ -134,161 +134,6 @@
 <div class="side_overlay">
 	<div class="container">
 
-		
-			<!-- 포인트 user point로 업데이트 -->
-			<!-- <div style="padding-bottom: 30px;">
-			<form action="payInput.bit" style="float: right" method="POST">    		
-    		<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   		
-			<button type="button" id="check_module" class="btn btn-primary">포인트 충전하기</button>
-    		</form> 
-    		</div>		
-			
-			<div class="card card-nav-tabs" style="width: 90%; margin:0 auto;">
-				
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <i class="material-icons">face</i>
-										<i class="material-icons"></i>후원글 메인
-									</a>
-								</li>
-								
-								
-							</ul>
-						</div>
-				
-
-				<div class="card-body">
-				
-					<div class="tab-content text-center"> -->
-			
-						<!---------- 디테일------------------>
-						<!-- <div class="table-responsive" > --><!-- class="tab-pane active show" -->
-
-							<%-- <form action="donatePoint.bit" method="POST">
-								
-									<!-- <label for="bmd-label-static">글번호</label>  -->
-									<input type="hidden" class="form-control" name="dindex" value="${donate.dindex}" readonly> 										
-									<!-- <label for="bmd-label-static">제목</label>  -->
-									<input type="hidden" name="title" class="form-control" value="${donate.title}" readonly> 														
-									<!-- <label for="bmd-label-static">작성자</label>  -->
-									<input type="hidden"  class="form-control" placeholder="관리자" readonly> 																
-									<!-- <label for="bmd-label-static">후원이 필요한 아이</label>  -->
-									<input type="hidden" name="dobject" class="form-control" value="${donate.dobject}" readonly> 																
-									<!-- <label for="bmd-label-static">후원 등록 시간</label> -->
-									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
-									<input type="hidden" name="rtime" class="form-control" value="${rtime}" readonly> 														
-									<!-- <label for="bmd-label-static">후원 완료 시간</label>  -->
-									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<input type="hidden" name="ctime" class="form-control" value="${ctime}" readonly> 																						
-									<!-- <label for="bmd-label-static">목표모금액</label>  -->
-									<input type="hidden" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 								
-									<!-- <label for="bmd-label-static">현재모금액</label>  -->
-									<input type="hidden" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
-								 
-								 <table class="table" style="border-top:none; border-bottom:none; border-spacing: 10px; border-collapse: separate;">
-								<thead class=" text">
-									
-									<tr style=" border-spacing: 10px;">
-										<td style="font-weight: bold;">글번호</td>
-										<td>${donate.dindex}</td>
-										<td style="font-weight: bold;">제목</td>
-										<td>${donate.title}</td>										
-									</tr>									
-									<tr>
-										<td style="font-weight: bold;">작성자</td>
-										<td>관리인</td>
-										<td style="font-weight: bold;">후원이 필요한 아이</td>
-										<td>${donate.dobject}</td>
-									</tr>
-									
-									<tr>
-										<td style="font-weight: bold;">후원글 등록 시간</td>
-										<td>${rtime}</td>
-										<td style="font-weight: bold;">후원 완료시간</td>
-										<td>${ctime}</td>
-									</tr>
-									
-									<tr>
-										<td style="font-weight: bold;">목표 모금액</td>
-										<td>${donate.gcoll}</td>
-										<td style="font-weight: bold;">현재 모금액</td>
-										<td>${donate.ccoll}</td>
-									</tr>
-									<tr>
-										<td style="font-weight: bold;">현재 모금 여부</td>
-										<td>${donate.dstate}</td>
-										
-									</tr>
-									
-								</thead>							
-								</table>
-								
-								<div class="form-group bmd-form-group" style="width: 80%; margin:0 auto; ">
-									<!-- <label class=" text" >모금률</label> --><!-- for="bmd-label-static" -->
-									<h4 class="align-center" style="font-weight: bold;">모금률</h4>
-									<progress value="0" max="100" id="jb"></progress>
-									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
-								</div>	
-												
-								<!-- <label for="bmd-label-static">기부중</label>  -->
-								<input type="hidden" name="dstate" class="form-control" value="${donate.dstate}" readonly> 																																				
-								<!-- <div id="donateColl"> -->															
-								<input type="text" name="dpoint"  placeholder="기부하실 포인트를 직접 입력해 주세요">
-								<button type="submit" id="donatePoint" class="btn btn-primary">포인트 기부하기</button>
-								
-								</form>								
-								
-								</div>	
-								
-								<div style="padding-top: 60px; padding-bottom: 60px;">
-								<h4 class="align-center" style="font-weight: bold;">본문 내용</h4>	
-								<div style="padding-top: 20px; padding-bottom: 30px;">${donate.content}</div>	
-								</div>																				  
-														
-								<div class="border-top">
-									<div  style="text-align: center;">
-										<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-										<button class="btn btn-primary btn-round" type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button>										
-										<a href="#" data-toggle="modal" data-target="#deleteModal"class="btn btn-primary btn-round">삭제</a>	
-										</se:authorize>
-										<button type="button" id="delete" onclick="location.href='delete.bit?dindex=${donate.dindex}'" >삭제</button>
-									</div> 
-															 
-								
-								</div>
-								
-								</div>
-
-				
-									
-									<h4 id="reply_h4">댓글</h4>
-									<div style="width: 90%; margin:0 auto;">
-									<div id="commentBox"></div>
-									<!-- 댓글 폼 -->
-									<br>
-									<se:authorize access="hasAnyRole('ROLE_USER')">
-									<form name="comment" id="comment" method="POST">
-											작성자&nbsp;&nbsp;${sessionScope.user.nick}<br>
-											<input type="hidden" name="bindex" id="bindex" value="${post.bindex}">
-											<input type="hidden" name="userid" id="userid" value="${sessionScope.user.userid}">
-											<textarea  rows="3" cols="" id="dccontent" name="dccontent" style="width: 100%"></textarea>
-											<br>
-											<div style="text-align: center;">
-											<input type="button" class="btn btn-primary btn-round" value="댓글 등록" id="writecom">
-											<input type="reset" class="btn btn-primary btn-round" value="다시 쓰기">
-											</div>
-									</form>
-									<!-- 댓글 폼 끝 -->
-									</se:authorize>	
-									<hr>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> --%>
 				<div class="row">
 				
 				<div class="col-2"></div>
@@ -297,15 +142,15 @@
 				
 				<div class="card card-nav-tabs">
 				
-				<div class="card-body">
+				<div class="card-body" style="padding-bottom: 50px;">
 				<a href="main.bit" style="color: #EE82EE;"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 				<br>
 				<div class="col-12 title-area">
 				
-				<h3 style=" text-align: center">후원 글 상세페이지 <i class="fas fa-paw"></i></h3>
+				<h3 style=" text-align: center; padding-bottom: 20px;">후원 글 상세페이지 <i class="fas fa-paw"></i></h3>
 				<!-- 포인트 user point로 업데이트 -->
 				<div style="padding-bottom: 50px;">
-				<form action="payInput.bit" style="padding: 7px 0; float: right;" method="POST">    		
+				<form action="payInput.bit" style="padding: 20px 0; float: right;" method="POST">    		
 	    		<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   		
 				<button type="button" id="check_module" class="btn btn-primary">포인트 충전하기</button>
 	    		</form> 
@@ -339,7 +184,7 @@
 					
 					
 						<div id="joinForm">
-							<div id="joinForm-wrapper" style="">
+							<div id="joinForm-wrapper" style="width: 85%; margin:0 auto;">
 								<div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">글번호</label> 
 									<input type="text" class="form-control"  name="dindex" value="${donate.dindex}" readonly>
@@ -380,19 +225,15 @@
 									<label for="bmd-label-static">현재 모금 여부</label> 
 									<input type="text"  class="form-control"  name="dstate" value="${donate.dstate}" readonly> 	
 								</div>
-		
-								<%-- <div class="form-group bmd-form-group">
-									<label for="bmd-label-static" style="text-align: left;" for="petname">나의 반려동물</label>	
-										<select class="custom-select" name="petindex" disabled> <!-- ex) ?mcategory=dog -->
-											<c:forEach var="petName" items="${petNameList}">
-											<option value="${petName.petindex}">${petName.petname}</option>							
-											</c:forEach>
-										</select>		
-								</div> --%>
-																	
+								<div class="form-group bmd-form-group" style="width: 80%; margin:0 auto; padding-bottom: 25px;">
+									<!-- <label class=" text" >모금률</label> --><!-- for="bmd-label-static" -->
+									<label class="form-group bmd-form-group" style="font-weight: bold; ">모금률</label>
+									<progress value="0" max="100" id="jb"></progress>
+									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+								</div>		
 															
 								<div class="form-group bmd-form-group">
-								<label for="bmd-label-static" style="text-align: left;" >본문 내용</label> 											
+								<label for="bmd-label-static" style="text-align: left; font-weight: bold;" >본문 내용</label> 											
 								<div style="padding-top: 20px; padding-bottom: 30px;">${donate.content}</div>	
 								</div>	
 								</div>
@@ -400,12 +241,7 @@
 								<!-- <div id="donateColl"> -->															
 									
 								
-								<div class="form-group bmd-form-group" style="width: 80%; margin:0 auto; ">
-									<!-- <label class=" text" >모금률</label> --><!-- for="bmd-label-static" -->
-									<h4 class="align-center" style="font-weight: bold;">모금률</h4>
-									<progress value="0" max="100" id="jb"></progress>
-									<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
-								</div>	
+								
 												
 								<!-- <label for="bmd-label-static">기부중</label>  -->
 								<div style="padding-bottom: 30px;">
@@ -542,7 +378,7 @@ html5_inicis':이니시스(웹표준결제)
 'syrup':시럽페이
 'paypal':페이팔
 */
-pay_method: 'card',
+pay_method: 'phone',
 /*
 'samsung':삼성페이,
 'card':신용카드,
@@ -558,15 +394,15 @@ https://docs.iamport.kr/implementation/payment
 참고하세요.
 나중에 포스팅 해볼게요.
 */
-name: '김건휘 일상보고서',
+name: '슬기로운 반려생활 포인트 결제',
 //결제창에서 보여질 이름
 amount: $('#point').val(),
 //가격
-buyer_email: '2sotto@sotto.do',
-buyer_name: '김건휘',
-buyer_tel: '010-1234-5678',
-buyer_addr: '서울특별시 강남구 삼성동',
-buyer_postcode: '123-456',
+buyer_email: '${sessionScope.user.userid}',
+buyer_name: '${sessionScope.user.userid}',
+//buyer_tel: '010-1234-5678',
+//buyer_addr: '서울특별시 강남구 삼성동',
+//buyer_postcode: '123-456',
 m_redirect_url: 'payInput.bit'
 //m_redirect_url: 'http://localhost:8090/payments/complete' 
 /*

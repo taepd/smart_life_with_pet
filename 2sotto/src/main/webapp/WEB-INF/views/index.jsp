@@ -19,12 +19,33 @@
      		font-size: 37px;
      		color: #9A9A9A;
      		line-height: 1.4;
+     		margin-bottom: 70px;
      	}
      	
      	#index-title {
      		margin-bottom: 24px;
-     	}
-     	
+		 }
+		 
+		.grid-item img {
+			display: block;
+			min-width: 100%;
+			max-width: 100%;
+		}
+
+		.grid-sizer, .grid-item {
+			/* width: 200px; */
+			width: 32%;
+		}
+
+		.grid-item {
+			/* margin-bottom: 15px; */
+			overflow: hidden;
+		}
+		
+		.card {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
      	
      	
      	
@@ -48,89 +69,48 @@
 	    	 	</div>
 	    	 	<div class="col"></div>
     	 	</div>
-			<div class="row">
-	        	<div class="section" id="carousel">
-	              <div class="col-md-12 mr-auto ml-auto">
-	                <!-- Carousel Card -->
-	                <div class="card card-raised card-carousel" style="height: 300px;">
-	                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-	                    <ol class="carousel-indicators">
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-	                      <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-	                      <!-- <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li> -->
-	                    </ol>
-	                    <div class="carousel-inner">
-	                      <div class="carousel-item">
-	                        <img class="d-block w-100" src="./assets/img/ca1.png" alt="First slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                          <!-- <h4>
-	                            <i class="material-icons">location_on</i>
-	                            Yellowstone National Park, United States
-	                          </h4> -->
-	                        </div>
-	                      </div>
-	                      <div class="carousel-item active">
-	                        <img class="d-block w-100" src="./assets/img/ca2.png" alt="Second slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                          <!-- <h4>
-	                            <i class="material-icons">location_on</i>
-	                            Somewhere Beyond, United States
-	                          </h4> -->
-	                        </div>
-	                      </div>
-	                      <!--
-	                      <div class="carousel-item">
-	                        <img class="d-block w-100" src="./assets/img/bg.jpg" alt="Third slide">
-	                        <div class="carousel-caption d-none d-md-block">
-	                        </div>
-	                      </div>
-	                        -->
-	                    </div>
-	                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	                      <i class="material-icons">keyboard_arrow_left</i>
-	                      <span class="sr-only">Previous</span>
-	                    </a>
-	                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	                      <i class="material-icons">keyboard_arrow_right</i>
-	                      <span class="sr-only">Next</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <!-- End Carousel Card -->
-	              </div>
-	            </div> <!-- row end -->
-	          </div> <!-- section end  -->
+			
 	          
 	     <!-- 이번 주의 인기글 -->    
-	     <div class="row">
-				<div class="col-lg-12">
-					<div class="main-card">
-			        	<h3 class="h3-korean">이번주의 인기글</h3>
+	     <!-- <div class="row"> -->
+				<!-- <div class="col-lg-12"> -->
+					<!-- <h3 class="h3-korean">이번주의 인기글</h3> -->
+					<div class="grid">
+							<div class="main-card">
+								<div class="grid-sizer"></div>
 							<c:forEach var="post" items="${postList}" varStatus="status">
-								<div class="card col-4">
-					        		<div class="card-body text-center">
+								<div class="grid-item">
+								<!-- <div class="card col-4"> -->
+								<div class="card">
+					        		<div class="card-body" style="padding: 20px;">
 									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-					        		<img class="card-img-top" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-					        					style="width:200px;height:200px" alt="card image">
+										<img class="card-img-top" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+												style="width:200px;height:auto" alt="card image">
 					        					<hr>
-												<strong>${post.title}</strong>
-												<br>
-												<span id="contentp${status.index}">${post.content}</span>
-									</a>
+												<h4 class="text-center">${post.title}</h4>
+												<span id="contentp${status.index}">
+													${post.content}
+												</span>
+											</a>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
+						</div>
 					</div>
-				</div>
-			</div>
+				<!-- </div> -->
+			<!-- </div> -->
 
 	        <!-- 후원글 -->
-	       	<div class="row">
-	       		<div class="col-12">
+	       	<!-- <div class="row">
+	       		<div class="col-12"> -->
+	       		<%-- <div class="grid">
 		       		<div class="main-card">
+		       		<div class="grid-sizer"></div>
 		        		<h3 class="h3-korean">도움이 필요해요</h3>
 						<c:forEach var="donation" items="${donationList}" varStatus="status">
-							<div class="card col-4">
+						<div class="grid-item">
+							<div class="card">
 				        		<div class="card-body text-center">
 									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
 					        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
@@ -142,10 +122,11 @@
 									</a>
 									</div>
 							</div>
+							</div>
 						</c:forEach>
-					</div>
-				</div>
-			</div>
+					</div> --%>
+				<!-- </div>
+			</div> -->
 
       
     	</div> <!-- side_overlay end -->
@@ -160,6 +141,7 @@ $(function () {
 		replaceImg_post('p');
 		replaceImg_donation('d');
 		shortContent();	
+		console.log('test');
 });
 
 /**
@@ -206,6 +188,24 @@ function shortContent(){
 		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
 	}
 }
+
+/**
+* @함수명 : masonry
+* @작성일 : 2020. 7. 27.
+* @작성자 : 채현아
+* @설명 : Masonry 라이브러리 생성 함수
+**/
+var masonry = new Masonry('.grid', {
+	itemSelector: '.grid-item',
+	columnWidth: '.grid-sizer',
+	percentPosition: true,
+	gutter: 10
+});
+
+imagesLoaded( '.grid' ).on( 'progress', function() {
+	masonry.layout();
+});
+
 
 
 

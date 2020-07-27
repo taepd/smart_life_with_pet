@@ -49,9 +49,19 @@
 			letter-spacing: -1.5px;
 		}
 		
-		#result {
+		#result, #result p {
 			/* border: 1px solid #EAEAEA; */
+			font-size: 20px;
 		}
+
+		/* #result > .col {
+			display: flex;
+		}
+
+		#result > .col > .row {
+			align-items: center;
+			margin-bottom: 0;
+		} */
 		
 		.row {
 			margin-bottom: 20px;
@@ -98,14 +108,14 @@
     	<div class="side_overlay"> 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">어서오세요, ${sessionScope.user.nick} 님!
-						<br>오늘도 슬기로운 반려생활 하세요 :)
+					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">
+						어서오세요, ${sessionScope.user.nick} 님!
 					</h3>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="main-card" style="">
+					<div class="main-card">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
 	              		<div id="result" class="row"></div>
               		</div>
@@ -161,15 +171,13 @@
 								<li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
 							  </ol>
 							  <div class="carousel-inner">
-
-
 								<c:forEach var="post" items="${postList}" varStatus="status">
 									<div class="carousel-item">
 										<!-- <div class="card col-4"> -->
 					        			<!-- <div class="card-body text-center"> -->
 										<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-										<img class="d-block w-100" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-													style="width:200px;height:200px" alt="card image">
+										<img class="d-block w-100" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/${post.pimg}" 
+													style="" alt="card image">
 												<div class="carousel-caption d-none d-md-block">
 													<h4>${post.title}</h4>
 													<br>
@@ -240,14 +248,14 @@
 
 			<div class="row">
 				<div class="col-5">
-					<div class=" main-card" style="max-height: 351px; overflow-y: scroll;">
+					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
 		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
 		        		<!-- <div> -->
 							<div  style="overflow: hidden;">
 							<c:set value="${petLikeList}" var="likeList"/>
 							<c:choose>
 								<c:when test="${likeList == null}">
-									팔로우하는 동물이 없어요. 찾으러 가볼까요?						
+										팔로우하는 동물이 없어요. 찾으러 가볼까요?
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${likeList}" var="like">
@@ -411,45 +419,62 @@
 			
 			let Cday = year + '년 ' + month + '월 ' + date + '일';
 
-			var table = "<div class='col-2' style='text-align: center;'>";
+			var table = "<div class='col-lg-2'>";
 					/* 얼굴 아이콘 */
 					table += "<img id='walk' src='' alt='Weather icon' width='100'>";
 				table += "</div>";
-				table += "<div class='col-3'>"
-					table += "<div class='row'>";
-						/* 날짜 */
-						table += Cday;
-						table += "</div>";
+
+
+
+
+				table += "<div class='col-lg-3'>"
 					table += "<div class='row'>";
 						/* 한글 메시지 */
 						table += "<span id='talk'></span>";
 					table += "</div>";
 				table += "</div>";
-				table += "<div class='col-3'>";
-					/* 날짜 */
-					// table += Cday;
-					table += "<div class='row'>";
+
+
+
+
+				table += "<div class='col-lg-3'>";
+					table += "<div class='row'><p>";
+						/* 날짜 */
+						table += Cday;
+						table += "</p><p>";
 					/* 지역 */
 					table += arr[0]+" "+arr[1]+" "+arr[2];
-					table += "</div>";
+					table += "</p></div>";
+				table += "</div>";
+
+
+
+
+				table += "<div class='col-lg-2'>";
 					/* 기상 아이콘 */
 					table += "<div class='row'>";
-					table += "<img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;
-					table += "</div>";
-				table += "</div>";
-				table += "<div class='col'>";
+					table += "<p><img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;
+					table += "</p><p>";
 					/* 풍속 */
 					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s";
+				table += "</p></div>";
 				table += "</div>";
-				table += "<div class='col'>";
-					/* 습도 */
-					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%";
-					/* 기온 */
+
+
+
+
+
+
+				table += "<div class='col-lg-2'>";
 					table += "<div class='row'>"
-					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃";
-					table += "</div>";
+					/* 습도 */
+					table += "<p><img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%";
+					/* 기온 */
+					table += "</p><p><img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃";
+					table += "</p></div>";
 				table += "</div>";
-			table += "</div>";
+
+			// table += "</div>";
 	        $('#result').empty();
 	        $('#result').append(table);
 	        // $('table').addClass('table');

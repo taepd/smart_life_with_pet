@@ -24,6 +24,8 @@
 			text-align: center;
 			margin-top: 25px;
 		}
+		
+		
 	
 	</style>
 	
@@ -39,42 +41,32 @@
 		<div class="container">
 			<div class="side_overlay">
 				<div class="row">
-				<div class="col-12 title-area">
-					<h3 style=" text-align: center">병원이용이력 상세페이지 <i class="fas fa-paw"></i></h3>
-				</div>
+				
 				<div class="col-2"></div>
 				<div class="col-8 area">
-
-<!-- 			<button class="btn btn-primary btn-round"
-				onclick="location.href='main.bit'">후원글</button>
-			<form method="post" action="kakaoPay.bit">
-    		<button class="btn btn-primary btn-round" id="kakaoPay">카카오페이로 결제하기</button>
-    		</form>  -->
-
-
-			
-			<div class="card card-nav-tabs">
-				
-
+		
+				<div class="card card-nav-tabs">
 				<div class="card-body">
-				
-					<div class="tab-content text-center">
+				<br>
+				<div class="col-12 title-area">
+				<h3 style=" text-align: center">병원이용이력 상세페이지 <i class="fas fa-paw"></i></h3>
+				</div>
+				<div class="tab-content text-center">
 			
-						<!---------- 디테일------------------>
-						<!-- <div class="tab-pane active show" > -->
+						
 						<div id="joinForm">
 							<div id="joinForm-wrapper">
 								<div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
-									<input type="text" class="form-control" name="mindex" value="${mrecord.mindex}" readonly> 
+									<input type="text" class="form-control" style="background-color: #e9e9e9;" name="mindex" value="${mrecord.mindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
-									<input type="text" name="petindex" class="form-control" value="${mrecord.petindex}" readonly> 
+									<input type="text" name="petindex" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.petindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
-									<input type="text" name="userid" class="form-control" value="${mrecord.userid}" readonly> 
+									<input type="text" name="userid" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.userid}" readonly> 
 								</div>
 		
 								<div class="form-group bmd-form-group">
@@ -90,17 +82,17 @@
 									<label for="bmd-label-static">병원 방문 시간</label>
 									<fmt:parseDate var="parseTime" value="${mrecord.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/> 
-									<input type="text" name="vdate" class="form-control" value="${vdate}" readonly> 
+									<input type="text" name="vdate" class="form-control" style="background-color: #e9e9e9;" value="${vdate}" readonly> 
 								</div>								
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static" style="text-align: left;" >병원 방문 목적</label> 											
-								<input type="text" name="vreason" class="form-control" value="${mrecord.vreason}" readonly >
+								<input type="text" name="vreason" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.vreason}" readonly >
 								</div>	
 																							
 								<!-- <div id="donateColl"> -->															
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static">방문명원명</label> 
-								<input type="text" name="hname" class="form-control" value="${mrecord.hname}" readonly> 
+								<input type="text" name="hname" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.hname}" readonly> 
 								</div>								
 								<div >
 									<div class="card-body" style="text-align: center;">

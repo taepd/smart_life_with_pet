@@ -102,12 +102,12 @@
 			top: 7px;
 			left: 10px;
 			font-size: 34px;
-			color: rgba(233, 33, 101, 0.2);
+			color: rgba(156, 39, 176, 0.2);
 		}
 		
 		.commentIcons {
 			font-size: 20px;
-			color: rgba(233, 33, 101, 0.2);
+			color: rgba(156, 39, 176, 0.2);
 			padding: 0 2px;
 		}
 

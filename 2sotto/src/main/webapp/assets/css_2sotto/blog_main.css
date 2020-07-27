@@ -1,12 +1,6 @@
 @charset "UTF-8";
 
-@font-face {
-	font-family: 'netmarbleM';
-	src: url('../fonts/netmarbleM.ttf') format('truetype'); 
-}
-
 h1, h2, h3, h4, h5, h6 {
-	/* font-family : 'netmarbleM', sans-serif; */
 	font-family: 'Noto Serif KR', serif;
 }
 
@@ -35,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .row {
-	margin-top: 100px;
+	/* margin-top: 100px; */
 	margin-bottom: 100px;
 }
 
@@ -64,4 +58,8 @@ a:visited, a:link {
 
 .whoseStory {
 	font-size: 12px;
+}
+
+.hr {
+	margin-bottom: 84px;
 }

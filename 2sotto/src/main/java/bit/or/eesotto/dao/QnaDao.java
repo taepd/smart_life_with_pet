@@ -21,7 +21,7 @@ public interface QnaDao {
 			public int writeQna(Qna qna);
 			
 			// Qna > Qna 리스트 조회  
-			public List<Qna> getQnaList(int cpage, int pagesize, String USERID); 
+			public List<Qna> getQnaList(int cpage, int pagesize); 
 
 			
 			// Qna > Qna 개수 조회 //동적쿼리 적용할 것 

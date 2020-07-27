@@ -140,7 +140,7 @@ public class QnaService {
 		int totalQnaCount = qnaDao.getQnaCount(userid);
 
 		//
-		qnaList = qnaDao.getQnaList(cpage, pageSize, userid);
+		qnaList = qnaDao.getQnaList(cpage, pageSize);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totalQnaCount % pageSize == 0) {

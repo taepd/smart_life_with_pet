@@ -1,6 +1,6 @@
 package bit.or.eesotto.dao;
 
-import java.util.List;
+import java.util.*;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -88,6 +88,10 @@ public interface PetDao {
 		public List<Pet> getNearPet(String userid);
 		
 		
+		// 메인> 동물 대분류별 수 조회
+		@Select("select (select count(*) from pet where MCATEGORY = 1) dogCount, (select count(*) from pet where MCATEGORY = 2) catCount from dual")
+		public List<Map<String, Object>> getPetKindCount();
+
 		
 		
 		

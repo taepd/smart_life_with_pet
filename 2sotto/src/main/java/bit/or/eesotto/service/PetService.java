@@ -1,6 +1,6 @@
 package bit.or.eesotto.service;
 
-import java.util.List;
+import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -96,6 +96,22 @@ public class PetService {
 		}
 
 		return petLike;
+	}
+	
+	public List<Map<String, Object>> getPetKindCount() {
+		
+		List<Map<String, Object>> map = null;
+
+		try {
+
+			petDao = sqlsession.getMapper(PetDao.class);
+			map = petDao.getPetKindCount();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return map;
 	}
 	
 	

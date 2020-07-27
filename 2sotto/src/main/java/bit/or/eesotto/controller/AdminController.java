@@ -4,8 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +30,11 @@ import bit.or.eesotto.service.DonationService;
 import bit.or.eesotto.service.PetService;
 import bit.or.eesotto.service.PointService;
 import bit.or.eesotto.service.UserService;
+import bit.or.eesotto.utils.*;
+import net.minidev.json.*;
+
+
+
 
 @Controller
 @RequestMapping("/admin/")
@@ -47,6 +51,8 @@ public class AdminController {
 	
 	@Autowired
 	DonationService donationService;
+	
+	JsonUtil jsonUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
 
@@ -74,13 +80,23 @@ public class AdminController {
 
 	// 대시보드 보러가기
 	@RequestMapping(value = "adminMain.bit", method = RequestMethod.GET)
-	public String adminViewMain() {
+	public String adminViewMain(Model model) {
+		
+		List<Map<String, Object>> list = ps.getPetKindCount();
+		
+		//map을 json형식으로 변환
+		JSONArray jsonArray = JsonUtil.getJsonArrayFromList(list);
+		
+		
+		System.out.println("맵: "+ list);
+		
+		model.addAttribute("getPetKindCount", jsonArray);
 
 		return "admin/adminMain";
 	}
 	
 	
-	// UserTable 보러가기
+	// 유저리스트 Table 보러가기
 	@RequestMapping(value = "userTable.bit", method = RequestMethod.GET)
 	public String userTable() {
 
@@ -88,14 +104,14 @@ public class AdminController {
 	}
 	
 	
-	// UserTable 보러가기
+	// 동물리스트 Table 보러가기
 	@RequestMapping(value = "userPetTable.bit", method = RequestMethod.GET)
 	public String userPetTable() {
 
 		return "admin/adminPetTable";
 	}
 	
-	// UserTable 보러가기
+	// 포인트 내역 Table 보러가기
 	@RequestMapping(value = "userPointTable.bit", method = RequestMethod.GET)
 	public String userPointTable() {
 

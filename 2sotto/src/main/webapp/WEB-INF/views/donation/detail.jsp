@@ -646,72 +646,7 @@ $(document).on("click","#writeRecom",function(){
 		
 	});
 
-/* 기부 ajax로 처리하고 싶어서 해보자고*/
-//포인트 프로그레스 바 비동기
-$(document).on("click","#editcom",function(){
-		
- 		if(!editCommentBox.dccontent.value) {
-			swal('댓글 내용을 입력하세요!');
-			editCommentBox.dccontent.focus();
-			return false;
-		}
-		
- 		var dcindex = $('#dcindex').val();
- 		var dccontent = $('#dccontent').val();
-		
- 		$.ajax ({		
-			url:"editComment.bit",
-			type: "post",
-			datatype:"json",
-			data: { dcindex: $('#dcindex').val(),
-					userid: '${sessionScope.user.userid}',
-					dccontent: $('#dccontent').val()
-				  },	
-			success: function(data) {
-					$('#editCommentBox').remove();
-					$('#commentContent'+dcindex+'').text(dccontent);
-					$('#editCommentBtn'+dcindex+'').attr("onclick", "editComment("+dcindex+"); this.onclick=null;");
-					//기본 댓글 입력창 활성화
-					$('#comment').show();					
-			}
-		}); 
-			
-		return false;		
-});
 
-
-//포인트 기부
-function insertComment() {
-	$('#donatePoint').click(function(){
-		
-		if(!comment.dccontent.value) {
-			swal('댓글 내용을 입력하세요!');
-			comment.dccontent.focus();
-			return false;
-		}
-		
-		$.ajax ({
-			
-			url:"writeComment.bit",
-			type: "post",
-			datatype:"json",
-			data: { dindex:'${donate.dindex}',
-					userid: '${sessionScope.user.userid}',
-					nick: '${sessionScope.user.nick}',
-					dccontent: $('#dccontent').val()
-				  },	
-			success: function(data) {
-					$('#commentBox').empty();
-					$('#dccontent').val("");
-					getCommentList();
-				}
-				
-		});
-		
-		return false;
-		
-	});
-}
 
 
 </script>

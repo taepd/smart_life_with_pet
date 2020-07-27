@@ -108,10 +108,12 @@
 	<div class="container">
 		<div class="side_overlay">
 				<div class="row">
-				<a href="main.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
+				
 				<div class="col-12">
+				
 						<!---------- Point 내용  ------------------>
 							<div class="mypage-card">
+							<a href="main.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 									<div id="mypage-myinfo-wrapper">
 							            <div class="form-group has-default bmd-form-group">
 							            	<label>잔여포인트</label>

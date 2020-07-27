@@ -30,6 +30,8 @@ import bit.or.eesotto.service.DonationService;
 import bit.or.eesotto.service.PetService;
 import bit.or.eesotto.service.PointService;
 import bit.or.eesotto.service.UserService;
+import bit.or.eesotto.utils.*;
+import net.minidev.json.*;
 
 
 
@@ -49,6 +51,8 @@ public class AdminController {
 	
 	@Autowired
 	DonationService donationService;
+	
+	JsonUtil jsonUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class); 
 
@@ -78,14 +82,15 @@ public class AdminController {
 	@RequestMapping(value = "adminMain.bit", method = RequestMethod.GET)
 	public String adminViewMain(Model model) {
 		
-		List<HashMap<String, Object>> list = ps.getPetKindCount();
+		List<Map<String, Object>> list = ps.getPetKindCount();
 		
 		//map을 json형식으로 변환
+		JSONArray jsonArray = JsonUtil.getJsonArrayFromList(list);
 		
 		
 		System.out.println("맵: "+ list);
 		
-		model.addAttribute("getPetKindCount", list);
+		model.addAttribute("getPetKindCount", jsonArray);
 
 		return "admin/adminMain";
 	}

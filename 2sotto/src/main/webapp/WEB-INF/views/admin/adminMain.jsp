@@ -283,11 +283,14 @@ google.setOnLoadCallback(drawChart);
 function drawChart() {
 
 
-	chart_data = '${getPetKindCount}';
+	chart_data = [${getPetKindCount}];
 	console.log('차트데이타: '+ chart_data);
-
-
-
+	var data = google.visualization.arrayToDataTable(chart_data);
+	var options = {
+			title : "동물 종류 비율"
+		};
+	var chart = new google.visualization.PieChart(document.getElementById("employee_piechart"));
+	chart.draw(data, options); 
 
 	
 	/* var data = google.visualization.arrayToDataTable([

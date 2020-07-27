@@ -98,9 +98,9 @@ public class PetService {
 		return petLike;
 	}
 	
-	public List<HashMap<String, Object>> getPetKindCount() {
+	public List<Map<String, Object>> getPetKindCount() {
 		
-		List<HashMap<String, Object>> map = null;
+		List<Map<String, Object>> map = null;
 
 		try {
 

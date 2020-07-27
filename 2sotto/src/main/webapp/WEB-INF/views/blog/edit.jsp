@@ -26,18 +26,18 @@
 		        	<div>
 		        		<h3>포스팅과 관련있는 나의 반려동물을 선택해 주세요^-^</h3>
 		        		<div class="d-flex">  <!--  style="display: inline-block;" -->
-		        			<c:forEach var="myPet" items="${myPetList}">
-					        	<div class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
-					        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
-				        			<div  class="rounded-circle card-modal-profile"
-	                                    style="float : left; background-color: white; overflow: hidden; height:100px; width:100px;">
-	                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
-	                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
-	                                            style="width :auto; height: 130px; transform: translate(-50%, -50%); ">
-	                                    </div>
-	                             	</div>
-	                             	<div class="text-center"> ${myPet.petname} </div>
-			        			</div>
+		        			<c:forEach var="myPet" items="${myPetList}" varStatus="status">
+							        	<div id ="${status.index}" class="follow-img-wrapper d-flex flex-column" onclick='petSelect(this)' flag="0" value="${myPet.petindex}" style="margin:10px;">
+							        	<!-- 이미지 동그랗게 잘라서 크기에 맞게 나오게 하는 코드 -->
+						        			<div  class="rounded-circle card-modal-profile"
+			                                    style="float : left; background-color: white; overflow: hidden; height:100px; width:100px;">
+			                                    <div style="top: 0; left: 0; right: 0; bottom: 0; transform: translate(50%, 50%);">
+			                                        <img  src="${pageContext.request.contextPath}/assets/images/${myPet.petimg}" alt="${myPet.petname}" href="javascript:void(0)"
+			                                            style="width :auto; height: 130px; transform: translate(-50%, -50%); ">
+			                                    </div>
+			                             	</div>
+			                             	<div class="text-center"> ${myPet.petname} </div>
+					        			</div>
 					        </c:forEach>   			
 		        		</div>
 		        	</div>
@@ -59,6 +59,7 @@
 				<div class="border-top">
 					<div class="card-body" style="text-align: center;">
 						<button type="button" onclick="check();" class="btn btn-primary"><b>수정</b></button>
+						<button type="button" onclick="javascript:history.back()" class="btn">뒤로 가기</button>
 						<button type="reset" class="btn" style="padding: 10px 20px">취소</button>
 					</div>
 				</div>
@@ -127,6 +128,15 @@ $(function(){
 		filebrowserUploadUrl: '${pageContext.request.contextPath }/fileupload.bit', //파일업로드
 		uploadUrl:'${pageContext.request.contextPath }/fileupload.bit' //드래그 앤 드롭
 	});
+	//첫 로딩 시 반려동물 선택정보 반영
+	<c:forEach var="myPet" items="${myPetList}" varStatus="status">
+	<c:forTokens var="petindex" items="${post.petindex}" delims=",">
+		<c:if test="${petindex eq myPet.petindex}">
+			$("#${status.index}").trigger("click");
+		</c:if>
+	</c:forTokens>
+	</c:forEach>
+	
 });
 
 /**

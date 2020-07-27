@@ -163,9 +163,10 @@
 						</div>
 						
 						<div class="tab-pane" id="myPage-myPetInfo">
-							<div class="row">
+							<div class="row justify-content-center">
 							<c:forEach items="${petList}" var="pet">
-								<div class="card col-4" style="width: 20rem;">
+								<div class="card col-4" style="width: 20rem; cursor:pointer;"
+								onclick="location.href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${pet.petindex}'">
 								<img class="card-img-top" src="${pageContext.request.contextPath}/assets/images/${pet.petimg}" style="height:250px"rel="nofollow" alt="card image">
 								  <div class="card-body">
 									<h4>${pet.petname}</h4>
@@ -186,10 +187,8 @@
 										<!-- 나중에 아이콘으로 바꾸기~~~ -->
 										
 										<!-- <a><span class="icons"><i class="fas fa-pen"></i></span></a> -->
-								    	<a href="${pageContext.request.contextPath}/management/edit.bit?petindex=${pet.petindex}">수정</a>
+								    	<a href="${pageContext.request.contextPath}/management/edit.bit?petindex=${pet.petindex}">반려동물 정보 수정</a>
 								    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								    	<!-- <span class="icons"><i class="fas fa-times"></i></span> 삭제 아이콘...-->
-								    	<a href="${pageContext.request.contextPath}/management/delete.bit?petindex=${pet.petindex}">삭제</a>
 								    </div>
 								  </div>
 							</div>

@@ -125,14 +125,15 @@
 						<br>
 						
 						<div class="form-group">
-							<label for="age">나이</label>
-							<select class="custom-select" id="age_year" name="age_year">
-							</select>
-							년
-							<select class="custom-select" id="age_month" name="age_month">
-							</select>
-							개월
-						</div>
+				<label for="age">나이</label>
+				<br>
+				<select class="custom-select" style="width:40%;" id="age_year" name="age_year">
+				</select>
+				<span>년</span>
+				<select class="custom-select" style="width:44.2%; margin-left:10px;" id="age_month" name="age_month">
+				</select>
+				<span>개월</span>
+			</div>
 						
 						<div class="form-check">
 							<label for="hlength">털 길이</label>

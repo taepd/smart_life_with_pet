@@ -179,7 +179,7 @@
 				</li>
 			
 			<hr>
-			<div style="margin-top: 50px;">
+			<div style="margin-top: 50px; overflow:scroll;">
 				${post.content}
 			</div>
 			<!-- <c:if test="${sessionScope.user.userid eq post.userid}">
@@ -357,13 +357,15 @@ function getCommentList() {
 				html += "<input type='hidden' name='commentNum' id='commentNum' value='";
 				html += element.bcindex;
 				// html += "'> <input type='button' id='editCommentBtn"+element.bcindex+"' value='수정' class='button small' onclick='editComment("+element.bcindex+"); this.onclick=null;'>";
-				html += "'> <a href='" + "javascript:void(0);' onclick='editComment(" + element.bcindex + ");  this.onclick=null;'; id='editCommentBtn" + element.bcindex + "';><span class='commentIcons'><i class='fas fa-edit'></i></span></a>";
-				
-				//html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
-				// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
-				// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
-				html += "<a href='" + "javascript:void(0);' onclick='deleteComment(" + element.bcindex + ")'; id='deleteCommentBtn'><span class='commentIcons'><i class='fas fa-trash-alt'></i></span></a>";
-				
+				html += "'>";
+				if("${sessionScope.user.userid}" == element.userid){
+					html += "<a href='" + "javascript:void(0);' onclick='editComment(" + element.bcindex + ");  this.onclick=null;'; id='editCommentBtn" + element.bcindex + "';><span class='commentIcons'><i class='fas fa-edit'></i></span></a>";
+					
+					//html += "<input type='submit' value='삭제' class='button small' onclick='deleteReply(this.form)'>";
+					// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+					// html += "<input type='submit' id='deleteCommentBtn' value='삭제' class='button small' onclick='deleteComment("+element.bcindex+"); this.onclick=null;'>";
+					html += "<a href='" + "javascript:void(0);' onclick='deleteComment(" + element.bcindex + ")'; id='deleteCommentBtn'><span class='commentIcons'><i class='fas fa-trash-alt'></i></span></a>";
+				}
 
 
 				

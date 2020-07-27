@@ -103,6 +103,10 @@ public class MainController {
 			//팔로우(좋아요)한 반려동물 목록 조회
 			List<PetLike> list = ms.getPetLike(userid);
 			
+			System.out.println("나의 펫 리스트: "+ petList);
+			//동물 친구 추천 리스트 조회
+			List<Pet> recommendPetList = ms.getRecommendPetList(petList);
+			
 			
 			// view까지 전달 (forward)
 			model.addAttribute("cpage", map.get("cpage"));
@@ -113,6 +117,7 @@ public class MainController {
 			model.addAttribute("petList", petList); 
 			model.addAttribute("donationList", donationList.get("donationList")); 
 			model.addAttribute("petLikeList", list);
+			model.addAttribute("recommendPetList", recommendPetList);
 			
 			 return "main";
 		 }
@@ -175,6 +180,4 @@ public class MainController {
 			return "/alarmTest";
 		}
 		
-		
-
 }

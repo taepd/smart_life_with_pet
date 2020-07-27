@@ -20,10 +20,10 @@
     	}
     	
     	.follow-img-wrapper {
-    		 width: 100px;
-    		 height: 100px;
+    		 width: 85px;
+    		 height: 85px;
     		 float: left;
-			 margin: 10px 10px 11px 10px;
+			 margin: 0px 10px 11px 10px;
     	}
     	
     	#myPetImage {
@@ -125,21 +125,134 @@
     	<div class="side_overlay"> 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">
-						어서오세요, ${sessionScope.user.nick} 님!
+					<h3 style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 40px;">
+						어서오세요, ${sessionScope.user.nick} 님!<br>
+						오늘은 더 사랑하세요. :)
 					</h3>
 							
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-7">
-					<div class="main-card">
+					<div class="main-card" style="height: 312px;">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
 	              		<div id="result" class="row"></div>
               		</div>
 				</div>
 				<div class="col-lg-5">
-					<div class="main-card" style="height: 250px; width: 100%; display: inline-block;">
+					<div class="main-card" style="height: 312px;">
+						<h3 class="h3-korean">나의 반려동물</h3>
+						<c:set value="${petList}" var="pet"/>
+						<c:choose>
+							<c:when test="${empty petList}">
+								나의 반려동물을 등록해보세요.
+							</c:when>
+							<c:otherwise>
+								<div class="row">
+									<div class="col-lg-4">
+										<div id="myPetImage"></div>
+									</div>
+									<div class="col-lg-1"></div>
+									<div class="col">
+										<div id="myPetNameAndSchedule">
+											<select class="custom-select" id="myPetInfo">
+												<!-- <option disabled selected>=====선택=====</option> -->
+												<c:forEach var="pet" items="${pet}" varStatus="status">
+													<c:choose>
+														<c:when test="${status.index eq 0}">
+															<option selected>${pet.petname}</option>
+														</c:when>
+														<c:otherwise>
+															<option>${pet.petname}</option>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</select>
+										<div id="myPetSchedule"></div>
+									</div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>	
+
+					
+
+
+
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-lg-5">
+					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
+		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
+		        		<!-- <div> -->
+							<div  style="overflow: hidden;">
+							<c:set value="${petLikeList}" var="likeList"/>
+							<c:choose>
+								<c:when test="${likeList == null}">
+										팔로우하는 동물이 없어요. 찾으러 가볼까요?
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${likeList}" var="like">
+										
+					        			<div class="follow-img-wrapper">
+						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
+						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
+				 		        					rel="nofollow" alt="${like.petname}" data-toggle="tooltip" data-placement="bottom" data-original-title="${like.petname}">
+				 		        			</a>
+				 		        			<!-- <div class="text-center">${like.petname}</div> -->
+				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+					        			</div>
+					        		</c:forEach>
+								</c:otherwise>
+							</c:choose>	 
+							</div>       			
+		        		<!-- </div> -->
+	        		</div>
+
+
+
+
+					
+
+
+
+
+
+				</div>
+				<div class="col-lg-7">
+					<div class="main-card" style="max-height: 350px; overflow: hidden;">
+						<h3 class="h3-korean">이번주 인기글</h3>
+						<div class="row">
+							<!-- <div class="col-lg"></div> -->
+						<c:forEach var="post" items="${postList}" varStatus="status">
+							<div class="col-lg-6">
+				        		<div class="text-center" style="height: 200px">
+									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+									<img class="d-block w-100" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+													style="border-radius: 6px; width: 100%; height: 100%;" alt="card image">
+												<div>
+													<h4>${post.title}</h4>
+													<br>
+													<span id="contentp${status.index}" style="display: none;">${post.content}</span>
+												</div>
+									</a>
+								</div>
+							</div>
+						</c:forEach>
+						<!-- <div class="col-lg"></div> -->
+						</div>
+					</div>
+				</div> <!-- /.col -->
+			</div> <!-- /.row -->
+
+			<div class="row">
+				<div class="col-5">
+
+
+
+					<div class="main-card" style="height: 350px; width: 100%; display: inline-block;">
 						<h3 class="h3-korean">추천 친구</h3>
 						<div class="row">
 						<div class="col-lg-12">
@@ -173,104 +286,15 @@
 						</div>
 						</div>
 					</div>
-				</div>
-			</div>			
-			<div class="row">
-				<div class="col-lg-5">
-					<div class="main-card" style="height: 350px;">
-						<h3 class="h3-korean">나의 반려동물</h3>
-						<c:set value="${petList}" var="pet"/>
-						<c:choose>
-							<c:when test="${empty petList}">
-								나의 반려동물을 등록해보세요.
-							</c:when>
-							<c:otherwise>
-								<div class="row">
-									<div class="col-lg-4">
-										<div id="myPetImage"></div>
-									</div>
-									<div class="col-lg-1"></div>
-									<div class="col">
-										<div id="myPetNameAndSchedule">
-											<select class="custom-select" id="myPetInfo">
-												<!-- <option disabled selected>=====선택=====</option> -->
-												<c:forEach var="pet" items="${pet}" varStatus="status">
-													<c:choose>
-														<c:when test="${status.index eq 0}">
-															<option selected>${pet.petname}</option>
-														</c:when>
-														<c:otherwise>
-															<option>${pet.petname}</option>
-														</c:otherwise>
-													</c:choose>
-												</c:forEach>
-											</select>
-										<div id="myPetSchedule" class="text-center"></div>
-									</div>
-									</div>
-								</div>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				<div class="col-lg-7">
-					<div class="main-card" style="max-height: 350px; overflow: hidden;">
-						<h3 class="h3-korean">이번주 인기글</h3>
-						<div class="row">
-							<!-- <div class="col-lg"></div> -->
-						<c:forEach var="post" items="${postList}" varStatus="status">
-							<div class="col-lg-6">
-				        		<div class="text-center" style="height: 200px">
-									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-									<img class="d-block w-100" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-													style="border-radius: 6px; width: 100%; height: 100%;" alt="card image">
-												<div>
-													<h4>${post.title}</h4>
-													<br>
-													<span id="contentp${status.index}" style="display: none;">${post.content}</span>
-												</div>
-									</a>
-								</div>
-							</div>
-						</c:forEach>
-						<!-- <div class="col-lg"></div> -->
-						</div>
-					</div>
-				</div> <!-- /.col -->
-			</div> <!-- /.row -->
-
-			<div class="row">
-				<div class="col-5">
-					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
-		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
-		        		<!-- <div> -->
-							<div  style="overflow: hidden;">
-							<c:set value="${petLikeList}" var="likeList"/>
-							<c:choose>
-								<c:when test="${likeList == null}">
-										팔로우하는 동물이 없어요. 찾으러 가볼까요?
-								</c:when>
-								<c:otherwise>
-									<c:forEach items="${likeList}" var="like">
-										
-					        			<div class="follow-img-wrapper">
-						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
-						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
-				 		        					rel="nofollow" alt="${like.petname}">
-				 		        			</a>
-				 		        			<!-- <div class="text-center">${like.petname}</div> -->
-				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-					        			</div>
-					        		</c:forEach>
-								</c:otherwise>
-							</c:choose>	 
-							</div>       			
-		        		<!-- </div> -->
-	        		</div>
+					
+					
+				
+				
+				
 				</div>
 				<div class="col-7">
 					<!-- <div class="main-card"> -->
-						<div class="main-card" style="max-height: 350px;">
+						<div class="main-card" style="height: 350px;">
 						<h3 class="h3-korean">도움이 필요해요</h3>
 						
 						<div class="row">

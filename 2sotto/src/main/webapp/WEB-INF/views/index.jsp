@@ -39,7 +39,7 @@
 
 		.grid-item {
 			/* margin-bottom: 15px; */
-			overflow: hidden;
+			/* overflow: hidden; */
 		}
 		
 		.card {

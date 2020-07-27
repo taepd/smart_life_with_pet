@@ -133,7 +133,7 @@
 	<div class="container">
 		<div class="side_overlay">
 			<div class="main-card">
-				<a href="myMain.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
+				<a href="javascript:history.back()"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 				
 				<!-- 글쓴이 및 관련 반려동물 영역 -->
 				<div class="d-flex">  <!--  style="display: inline-block;" -->

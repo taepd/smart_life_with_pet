@@ -24,7 +24,7 @@
 			padding: 110px 10% 80px 50%;
 			background-image: url('../assets/images/abandoned_dog2_resize.jpg');
 			background-size: cover;
-			background-position: 30% 34%;
+			background-position: 30% 37%;
 			color: #ffffff;
 		}
 		#jb {
@@ -38,7 +38,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
 
-	<div id="donation-jumbotron" class="jumbotron"">
+	<div id="donation-jumbotron" class="jumbotron">
 		<h2 style="font-family: 'Noto Serif KR', serif !important;">
 			당신의 작은 도움이<br>
 			큰 사랑이 됨을 확인하세요.<br>
@@ -77,11 +77,11 @@
 				<hr>
 			</c:forEach>
 			
-			<br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br>
 			
 			
 			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
+				<%-- <div class="card-header card-header-primary">
 				
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation">
@@ -107,9 +107,14 @@
 							</ul>
 						</div>
 					</div>
-				</div>
-
-				<div class="card-body">
+				</div> --%>
+<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+				<div class="card-body" style="padding-top: 50px; padding-bottom: 30px;">
+				
+				<div><a class="btn btn-primary" style="color: #FFFFFF; float: right; padding-bottom: 10px; margin-bottom: 20px;" onclick="location.href='write.bit'" data-toggle="tab">글 쓰기</a></div>
+				
+				<div id="aa" style="padding-top: 40px; width: 90%; margin:0 auto;">
+					<h3 style=" text-align: center; padding-bottom: 40px;">후원글 리스트<i class="fas fa-paw"></i></h3>
 					<div class="tab-content text-center">
 						<div class="tab-pane active show" id="donationlist">
 							<!---------- 후원게시판 ------------------>
@@ -142,11 +147,11 @@
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-												<td class="text-center">${rtime}</td>
+												<td class="text-center"><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">${rtime}</a></td>
 												<!-- timestamp 날짜시간 표시 포맷 변환 -->
 												<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-												<td class="text-center">${ctime}</td>
+												<td class="text-center"><a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">${ctime}</a></td>
 												<td class="text-center">${donate.gcoll}</td>
 												<td class="text-center">${donate.ccoll}</td>
 												<td class="text-center">
@@ -197,8 +202,9 @@
 											</a></li>
 										</c:if>
 									</ul>
-									
+									</div>
 								</div> 
+								</se:authorize>
 								<%-- <div class="row">
 								<div class="col-sm-12 col-md-5">
 
@@ -243,6 +249,7 @@
 						
 
 
+					
 					</div>
 				</div>
 			</div>

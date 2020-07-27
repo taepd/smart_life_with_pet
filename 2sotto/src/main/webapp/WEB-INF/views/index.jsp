@@ -63,7 +63,7 @@
 	    	 	<div class="col-lg-9">
 					<h1 id="index-title">내 반려동물을 더 사랑하는 방법</h1>
 					<p id="index-paragraph">
-		    	 		아아아ㅏ 뭐라고 쓰지<br>
+		    	 		사랑을 기록하세요.<br>
 		    	 		슬기로운 반려생활이 당신을 도울게요.<br>
 					</p>
 	    	 	</div>
@@ -140,7 +140,7 @@ $(function () {
 		//블로그 이미지 위치 조정 함수
 		replaceImg_post('p');
 		replaceImg_donation('d');
-		shortContent();	
+		shortContent('p');	
 		console.log('test');
 });
 
@@ -183,9 +183,9 @@ function replaceImg_donation(list){
 } 
 
 //포스팅 내용의 일부만 노출시키는 함수
-function shortContent(){
+function shortContent(list){
 	for(var i =0; i<${fn:length(postList)}; i++){ 
-		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
+		$('#content'+list+i+'').text($('#content'+list+i+'').text().substring(0,230)+'...');
 	}
 }
 

@@ -117,10 +117,14 @@ function sendQna() {
 
 			<div class="row">
 				<div class="col-12">
-					<div class="tab-content tab-space">
-			
+				<div class="row">
+					
+					<div class="col-3"></div>
+					<div class="card col-6">
+					
 						<!---------- 쪽지쓰기 ------------------>
 						<div class="tab-pane active show" id="write">
+						
 								<!--  <form action="write.bit" method="post"> -->
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
@@ -131,8 +135,8 @@ function sendQna() {
 								
 							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
-										<button type="reset" class="btn btn">취소</button>
-										<button type="submit" id="sendQna" class="btn btn-primary"><b>쪽지보내기</b></button>
+										<button type="reset" class="btn btn-sm btn">취소</button>
+										<button type="submit" id="sendQna" class="btn btn-sm btn-primary"><b>쪽지보내기</b></button>
 										
 								</div>
 							</div>
@@ -145,8 +149,9 @@ function sendQna() {
 			<!-------------- 끝 ---------------->
 						
 						
+						</div>
+						<div class="col-3"></div>
 						
-				
 					</div>
 				</div>
 			</div>

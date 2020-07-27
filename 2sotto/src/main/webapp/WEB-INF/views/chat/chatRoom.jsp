@@ -56,23 +56,22 @@
 			
 	<div class="side_overlay">
 		
-		<div class="container">
+		<div class="container" >
 			<button type="button" id="exitBtn" class="btn btn-sm btn-primary" >나가기</button>
 			<button type="button" id="deleteBtn" class="btn btn-sm btn" >방 삭제</button>
-			<div class="card" style="color:black;">
-			
+			<div class="card" >
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-					<div class="nav-tabs-navigation"style="color:black;">
-						<div class="nav-tabs-wrapper"style="color:black;" >
-							<ul class="nav nav-tabs" data-tabs="tabs"style="color:black;">
-								<li class="nav-item"><a class="nav-link" data-toggle="tab" style="color:black;"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i>채팅방:
+					<div class="nav-tabs-navigation" >
+						<div class="nav-tabs-wrapper" >
+							<ul class="nav nav-tabs" data-tabs="tabs">
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+										<i class="material-icons"></i><span style="color:black;">채팅방:</span>
 										</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons"></i>${chat.room_title} 
+										<i class="material-icons"></i><span style="color:black;">${chat.room_title}</span>
 										</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="count"></i>
+										<span style="color:black;"><i class="count"></i></span>
 										</a></li>
 							</ul>
 						</div>
@@ -88,20 +87,28 @@
 						</div> 
 					</div>
 				</div>	
-				
-					<div class="col chat-content-box m-3 " style="height: 280px; max-height: 100%;">
+				</div>
+					
 					<br>
-					<div class="chat-input-box row">
-						<div class="col-10 pr-0">
-						<input type="text" id="message" class="form-control chat-input input-lg pl-4 pr-4" placeholder="매너채팅 하세요!! :)">
+					
+					
+				<div class="row justify-content-center">
+					<div class="card ">
+							<div class="col3"></div>
+						<div class="col-12">
+						<div class="col-12 form-group d-flex">
+							<input type="text" id="messageSend" class="form-control chat-input"  placeholder="매너채팅 하세요!! :)">
+							<button type="button" id="sendBtn" class="btn btn-sm chat-input " >전송</button>
 						</div>
-						<div class="col pl-1">
-							<button type="button" id="sendBtn" class="btn btn-dark chat-input-btn w-100">전송</button>
 						</div>
+							<div class="col3"></div>
 					</div>
 				</div>
+					
 				
-			</div>
+				
+				
+			
 
 		</div><!-- container -->
 		
@@ -195,7 +202,7 @@
 		 setInterval('getMemberList(room_number)', 1000);  // 1초간격으로 채팅방 인원변경 확인, Ajax통신
 		
 		
-		$('#message').keypress(function(event) {	// 채팅메세지를 엔터를 쳐서 보낼수 있게해주는 것
+		$('#messageSend').keypress(function(event) {	// 채팅메세지를 엔터를 쳐서 보낼수 있게해주는 것
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
 				send();
@@ -252,7 +259,7 @@
 	// 채팅 메세지를 보내는 메서드
 	
 	function send() {				 
-		var text = $("#message").val();
+		var text = $("#messageSend").val();
 		
 		var msg = 
 		{
@@ -266,7 +273,7 @@
 		console.log(msg);
 		webSocket.send(JSON.stringify(msg));
 		
-		$("#message").val("");
+		$("#messageSend").val("");
 	}
 	
 	

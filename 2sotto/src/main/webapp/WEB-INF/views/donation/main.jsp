@@ -20,7 +20,6 @@
 		#donation-jumbotron {
 			margin-top: 76px;
 			height: 420px;
-			/* background-color: #7571f9; */
 			padding: 110px 10% 80px 50%;
 			background-image: url('../assets/images/abandoned_dog2_resize.jpg');
 			background-size: cover;
@@ -52,8 +51,8 @@
 				<span id="content${status.index}" style="display:none;">${donate.content}</span>
 				<div class="row">
 					<div class="col-lg-4">
-						<div style="width:100%;height:280px;background-color:#999;">
-							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+						<div>
+							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:100%; height:260px;"alt="게시물 이미지">
 						</div>
 					</div>
 					<div class="col">
@@ -63,8 +62,8 @@
 						</h3>
 						<!-- <div class="form-group bmd-form-group"> -->
 							<!-- <label for="bmd-label-static">모금률</label> -->
-							<progress value="0" max="100" id="jb"></progress>
 							<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+							<progress value="0" max="100" id="jb"></progress>
 						<!-- </div> -->
 						현재 모금액 ${donate.ccoll} <br>
 						목표 모금액 ${donate.gcoll} <br>

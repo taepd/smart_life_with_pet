@@ -125,8 +125,9 @@
     	<div class="side_overlay"> 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">
-						어서오세요, ${sessionScope.user.nick} 님!
+					<h3 style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 40px;">
+						어서오세요, ${sessionScope.user.nick} 님!<br>
+						오늘은 더 사랑하세요. :)
 					</h3>
 							
 				</div>
@@ -139,7 +140,7 @@
               		</div>
 				</div>
 				<div class="col-lg-5">
-					<div class="main-card" style="height: 250px; width: 100%; display: inline-block;">
+					<div class="main-card" style="height: 262px; width: 100%; display: inline-block;">
 						<h3 class="h3-korean">추천 친구</h3>
 						<div class="row">
 						<div class="col-lg-12">
@@ -256,7 +257,7 @@
 					        			<div class="follow-img-wrapper">
 						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
 						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
-				 		        					rel="nofollow" alt="${like.petname}">
+				 		        					rel="nofollow" alt="${like.petname}" data-toggle="tooltip" data-placement="bottom" data-original-title="${like.petname}">
 				 		        			</a>
 				 		        			<!-- <div class="text-center">${like.petname}</div> -->
 				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->

@@ -7,28 +7,65 @@
 <meta charset="utf-8">
 <title>생활</title>
 <%@ include file="/WEB-INF/include/import.jsp"%>
-</head>
-
 <style>
-.sc {
+	.fc-toolbar-title, a.fc-col-header-cell-cushion, th {
+		color: black;
+	}
+	
+	.icons {
+		font-size: 15px;
+		color: orange;
+	}
+	
+	#wrapper {
+		display: inline-block;
+		/* margin: 0 auto; */
+	}
+	
+	.card-img-top {
+		margin-top: 16px;
+	}
+	
+	.card {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	#tab-list {
+		margin: 0 auto;
+	}
+	
+	#tab-row {
+		margin-bottom: 100px;
+		margin-top: 73px;
+	}
+	
+	.form-check {
+		margin-left: 5px;
+		margin-top: 8px;
+	}
+	.sc {
         overflow: scroll;
       }
+
 </style>
+</head>
+
 
 <body>
 			
 	<div class="side_overlay">
 		
 		<div class="container">
-			<button type="button" id="exitBtn" class="btn btn-primary" >나가기</button>
-			<button type="button" id="deleteBtn" class="btn btn-primary" >방 삭제</button>
-			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
+			<button type="button" id="exitBtn" class="btn btn-sm btn-primary" >나가기</button>
+			<button type="button" id="deleteBtn" class="btn btn-sm btn" >방 삭제</button>
+			<div class="card" style="color:black;">
+			
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-					<div class="nav-tabs-navigation">
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+					<div class="nav-tabs-navigation"style="color:black;">
+						<div class="nav-tabs-wrapper"style="color:black;" >
+							<ul class="nav nav-tabs" data-tabs="tabs"style="color:black;">
+								<li class="nav-item"><a class="nav-link" data-toggle="tab" style="color:black;"> <!-- <i class="material-icons">face</i> -->
 										<i class="material-icons"></i>채팅방:
 										</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
@@ -39,18 +76,19 @@
 										</a></li>
 							</ul>
 						</div>
-					</div>
+					
 				</div>
-
+			
 				<div class="card-body sc" id="chatList" style="height: 390px; max-height: 100%;">
 					<div class="mt-2">
 							<i class="icon-people mt-2"></i>&nbsp;&nbsp;<small text="${chat.room_count}"></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<i class="icon-lock mt-2"></i>&nbsp;&nbsp;<small if="${chat.room_secret.equals('N')}"></small><small if="${chat.room_secret.equals('Y')}">비밀방</small>
+						<!--  <i class="icon-lock mt-2"></i>&nbsp;&nbsp;<small if="${chat.room_secret.equals('N')}"></small><small if="${chat.room_secret.equals('Y')}">비밀방</small> -->
 							<i class="userlist"></i>
 						<div class="chat-content" style="height: 280px; max-height: 100%;">
 						</div> 
 					</div>
 				</div>	
+				
 					<div class="col chat-content-box m-3 " style="height: 280px; max-height: 100%;">
 					<br>
 					<div class="chat-input-box row">
@@ -175,12 +213,9 @@
 	var webSocket;
 	
 	
-	/**
-	* @함수명 : connect()
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 웹소켓 연결하는 메소드
-	**/
+
+	//웹소켓 연결하는 메소드
+
 	function connect() {
 		webSocket = new WebSocket(
 				"ws://" + location.host + "/bit/chat?room_number="+room_number);
@@ -192,13 +227,9 @@
 
 	
 	
-	/**
-	* @함수명 : onMessage(evt)
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 채팅방 접속할때 실행되는 메소드
-	* @param evt - 핸들러에서 받은 파라미터
-	**/
+	
+	//@param evt - 핸들러에서 받은 파라미터
+	
 	function onOpen(evt) {
 				
 		
@@ -217,12 +248,9 @@
 	
 
 	
-	/**
-	* @함수명 : send()
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 채팅 메세지를 보내는 메서드
-	**/
+
+	// 채팅 메세지를 보내는 메서드
+	
 	function send() {				 
 		var text = $("#message").val();
 		
@@ -243,13 +271,10 @@
 	
 	
 	
-	/**
-	* @함수명 : onMessage(evt)
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 채팅메세지를 받는 메소드
-	* @param evt - 핸들러에서 받은 메시지 내용
-	**/
+
+	//@설명 : 채팅메세지를 받는 메소드
+	//@param evt - 핸들러에서 받은 메시지 내용
+
 	function onMessage(evt) {
 	/* 	console.log(evt.data.split("/")[0]);
 		console.log(evt.data.split("/")[1]);
@@ -330,43 +355,19 @@
 	
 	
 	
-	/**
-	* @함수명 : appendMessage(tag)
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 보낸 채팅메세지를 화면에 나타내는 메서드
-	* @param tag- 메시지 내용
-	**/
+
+	//@설명 : 보낸 채팅메세지를 화면에 나타내는 메서드
+	//@param tag- 메시지 내용
+
 	function appendMessage(tag) {
 		$(".chat-content").append(tag);
 		/* $(".chatMessageArea").scrollTop($(".chatMessageArea")[0].scrollHeight);	 */
 	}
 	
-	//채팅방 유저 목록 나타내기
-/* 	function appendUserList(userlist) {
-		$(".userlist").empty();
-		$(".userlist").append(userlist);
-	} */
-	
-	//채팅방 멤버 수 나타내기
-/* 	function appendCount(memberCount) {
-		$(".count").empty();
-		$(".count").append(memberCount);
-	} */
-	
-	
-	
-	
-	
-	
-	
-	/**
-	* @함수명 : getMemberList(room_number)
-	* @작성일 : 2020. 7. 21.
-	* @작성자 : 오주형
-	* @설명 : 현재 채팅방에 접속한 유저를 파악하는 메서드
-	* @param room_number- 방 번호
-	**/
+
+	//@설명 : 현재 채팅방에 접속한 유저를 파악하는 메서드
+	//@param room_number- 방 번호
+
 	 function getMemberList(room_number) {
 		$('.userlist').children().remove();
 		

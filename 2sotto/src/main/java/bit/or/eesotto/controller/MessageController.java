@@ -27,6 +27,92 @@ public class MessageController {
 	
 	@Autowired
 	MessageService ms;
+	//임시 테스트중
+	//받은쪽지 보러가기
+	@RequestMapping(value = "msgRePage.bit", method = RequestMethod.GET)
+	public String msgRePageView(String cp, String ps, Principal principal, Model model) {
+
+		//String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = ms.rPageView(cp, ps, userid);
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("messageList", map.get("messageList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
+
+		return "message/msgRePage";
+		}
+	//받은쪽지 보러가기 끝
+	
+	//쪽지보낸사람 보러가기
+	@RequestMapping(value = "msgSePage.bit", method = RequestMethod.GET)
+	public String msgSePageView(String cp, String ps, Principal principal, Model model) {
+
+		//String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+		
+		HashMap<String, Object> map = ms.sPageView(cp, ps, userid);
+		
+		// view까지 전달 (forward)
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("messageList", map.get("messageList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
+
+		return "message/msgSePage";
+	}
+	//쪽지 보낸사람 보러가기 끝
+	
+	//쪽지 보내기 시작
+	// 쪽지>쪽지 페이지 view
+	// 쪽지>보낸사람 view
+	@RequestMapping(value = "msgWrite.bit", method = RequestMethod.GET)
+	public String msgWrite(String suserid) {
+
+		// 쪽지 할예정
+
+		return "message/msgWrite";
+	}
+	
+	@RequestMapping(value = "msgWrite.bit", method = RequestMethod.POST)
+	public String msgWrite(Message message, Principal principal) {
+		logger.info("값이 들어오니?");
+		//String userid = (String) session.getAttribute("userid");
+		String userid =  principal.getName();
+		logger.info("로그인 유저 아이디: " + userid);
+	
+		// 세션 userid post객체에 입력
+		message.setSuserid(userid);
+
+		// 임시 petindex 입력
+		//message.setMsindex(1);
+
+		int result = ms.writeMessage(message);
+		if (result == 1) {
+			
+			logger.info("쪽지 보내기 성공");
+
+			return "redirect:/message/msgRePage.bit";
+			
+		} else { // 회원가입 실패시 어찌할지 로직구현해야 함
+
+			logger.info("쪽지 보내기 실패");
+
+			return "redirect:/message/msgRePage.bit";
+		}
+
+	}
+	
+	
+	//쪽지보내기 끝
+	//임시 테스트중
 	
 	//받은쪽지 보러가기
 	@RequestMapping(value = "rPage.bit", method = RequestMethod.GET)
@@ -78,13 +164,13 @@ public class MessageController {
 				
 				logger.info("쪽지 보내기 성공");
 
-				return "redirect:/message/rPage.bit";
+				return "redirect:/message/msgRePage.bit";
 				
 			} else { // 회원가입 실패시 어찌할지 로직구현해야 함
 
 				logger.info("쪽지 보내기 실패");
 
-				return "redirect:/message/rPage.bit";
+				return "redirect:/message/msgRePage.bit";
 			}
 
 		}
@@ -166,7 +252,7 @@ public class MessageController {
 		}
 		
 		// Message 상세 페이지 view
-		@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
+		@RequestMapping(value = "msgDetail.bit", method = RequestMethod.GET)
 		public String detail(String msindex, Principal principal, Model model) {
 			
 			String ruserid = principal.getName(); //현재 로그인 유저의 아이디
@@ -175,7 +261,7 @@ public class MessageController {
 			logger.info("내 Message  조회 완료");
 			model.addAttribute("message", message);
 			
-			return "message/detail";
+			return "message/msgDetail";
 		}
 		
 		// message > 글 삭제 처리
@@ -200,7 +286,7 @@ public class MessageController {
 				logger.info("message 글 삭제 완료");
 				//msg = "Qna 글 삭제 완료";
 		        //url = "main.bit";
-				return "redirect:/message/rPage.bit";
+				return "redirect:/message/msgRePage.bit";
 			}else { 
 				
 				logger.info("message 글 삭제 실패");
@@ -239,7 +325,7 @@ public class MessageController {
 						logger.info("message 글 삭제 완료");
 						//msg = "Qna 글 삭제 완료";
 				        //url = "main.bit";
-						return "redirect:/message/rPage.bit";
+						return "redirect:/message/msgRePage.bit";
 					}else { 
 						
 						logger.info("message 글 삭제 실패");

@@ -168,12 +168,12 @@
 							<div class="card col-lg-5">
 				        		<div class="card-body text-center">
 									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-									<img class="d-block w-100" id="list${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+									<img class="d-block w-100" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 													style="" alt="card image">
-												<div class="">
+												<div>
 													<h4>${post.title}</h4>
 													<br>
-													<span id="content${status.index}">${post.content}</span>
+													<span id="contentp${status.index}">${post.content}</span>
 												</div>
 									</a>
 								</div>
@@ -236,11 +236,11 @@
 								<c:forEach var="donation" items="${donationList}" varStatus="status">
 									<div class="carousel-item">
 										<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-											<img class="d-block w-100" id="list${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+											<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 														style="width:200px;height:200px" alt="card image">
 											<div class="carousel-caption d-none d-md-block">
 												<strong>${donation.title}</strong>
-												<span id="content${status.index}">${donation.content}</span>
+												<span id="contentd${status.index}">${donation.content}</span>
 											</div>
 										</a>
 									</div>

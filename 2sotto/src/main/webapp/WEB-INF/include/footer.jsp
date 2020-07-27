@@ -15,6 +15,12 @@
 		font-size: 12px;
 	}
 	
+	.hr {
+    border: 0;
+    height: 2px;
+    background: #FFFFFF;
+  }
+	
 </style>
 
 <footer>
@@ -23,25 +29,29 @@
 	</div>
 
 	<div class="footer-content text-center">
+		
 		<br>
-		당신의 작은 도움이
+		Copyright ⓒ <a style="color:white;" href="${pageContext.request.contextPath}/donation/main.bit"> 2sotto</a>
 		<br>
-		큰 사랑이 됨을 확인하세요
+		This homepage is powered by <a style="color:white;" href="http://tistory.com" onclick="window.open(this.href); return false">2sotto</a>
 		<br>
-		후원하기
-
+		Designed by <a style="color:white;" href="${pageContext.request.contextPath}/main.bit" onclick="window.open(this.href); return false">hyeona</a>
 	</div>
 	
 	<div class="footer-content text-center">
-		이용하기
+		
 		<br>
-		후원하기
+		<a style="color:white;" href="${pageContext.request.contextPath}/join/register.bit">이용하기</a>
 		<br>
-		Q&A
+		<a style="color:white;" href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a>
 		<br>
-		내용 추가하기
+		<a style="color:white;" href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a>
+		<br>
+		<a style="color:white;" href="${pageContext.request.contextPath}/point/main.bit">포인트</a>
+		<br>
 	</div>
 	<div class="footer-content text-center">
+		<br>
 		이용약관
 		<br>
 		슬기로운반려생활 개인정보 처리방침
@@ -52,14 +62,16 @@
 	</div>
 	
 	<div class="footer-content text-center">
-		2sotto Team
 		<br>
-		@ Team 2sotto of Bit155, 2020
+		당신의 작은 도움이
 		<br>
-		Q&A
+		큰 사랑이 됨을 확인하세요
 		<br>
-		내용 추가하기
+		<a style="color:white;" href="${pageContext.request.contextPath}/donation/main.bit">후원하기</a>
+		<br>
+		
 	</div>
-		<div class="footer-content text-center">
+		<div class="footer-content text-center">		
 	</div>
+
 </footer>

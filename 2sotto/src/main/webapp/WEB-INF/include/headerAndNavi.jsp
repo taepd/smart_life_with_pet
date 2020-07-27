@@ -36,7 +36,7 @@
 		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">			
 					
 					<li class="nav-item" id="item03">
-						<a href="${pageContext.request.contextPath}/message/rPage.bit"><span id="message"><i class="far fa-bell"></i></span>
+						<a href="${pageContext.request.contextPath}/message/msgRePage.bit"><span id="message"><i class="far fa-bell"></i></span>
 						<%-- <a href="${pageContext.request.contextPath}/message/main.bit"><span id="message"><i class="far fa-envelope"></i></span> --%>
 							<span class="badge badge-pill badge-warning" id="alarmCount"></span>
 						</a>
@@ -105,7 +105,7 @@
 					<%-- <li><a href="${pageContext.request.contextPath}/mypage/main.bit">마이페이지</a></li> --%>
 					<li><a href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a></li>	
 					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
-					<li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li>
+					<!--  <li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li> -->
 				</se:authorize>
 				
 				<se:authorize access="hasAnyRole('ROLE_ADMIN')"> 
@@ -181,7 +181,7 @@ $(document).ready(function() {
 				if(msg.now == "userid") {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="rPage.bit">'+
+		                         '<a href="msgRePage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -191,7 +191,7 @@ $(document).ready(function() {
 				}else {
 					$("#alarmMessage").html(
 							'<li>'+
-		                         '<a href="rPage.bit">'+
+		                         '<a href="msgRePage.bit">'+
 		                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 		                             '<div class="notification-content">'+
 		                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -202,7 +202,7 @@ $(document).ready(function() {
 			} else if(msg.type == "user") {
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="rPage.bit">'+
+	                         '<a href="msgRePage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+
@@ -212,7 +212,7 @@ $(document).ready(function() {
 			} else if(msg.type == "admin"){
 				$("#alarmMessage").html(
 						'<li>'+
-	                         '<a href="rPage.bit">'+
+	                         '<a href="msgRePage.bit">'+
 	                             '<span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>'+
 	                             '<div class="notification-content">'+
 	                                '<h6 class="notification-heading">'+msg.text+'</h6>'+

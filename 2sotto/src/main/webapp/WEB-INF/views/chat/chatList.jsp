@@ -10,17 +10,110 @@
 <%@ include file="/WEB-INF/include/import.jsp"%>
 	
 	<style>
-		@font-face {
-			font-family: 'netmarbleM';
-			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		a:visited {
+			color: #000000;
+		}
+		
+		ul, li {
+			list-style: none;
 		}
 
-		.area {
-			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+
+		h2 {
+			margin-top: 100px;
 			padding-top: 100px;
-			padding-bottom: 100px;
-			text-align: center;
-			background-color: #fafafa;
+		}
+		
+		hr.dot {
+			border: none;
+			border: 1px dashed #ffffff;
+			opacity: 0.4;
+			margin: 20px 0px; /* 0 > 40px */
+		}
+		
+		#replybox, #reply {
+			margin: 0 40px;
+		}
+		
+		#reply_h4 {
+			margin-left: 50px;
+			margin-bottom: 50px;
+		}
+		
+		#btns_wrapper {
+			text-align: right;
+		}
+		
+		#btns {
+			display: inline-block;
+		}
+		
+		.container > li {
+			float: right;
+		}
+		
+		.reCom:before {
+
+     	    content: "";
+		    position: absolute;
+		    display: inline-block;
+		    top: 10;
+		    left: 30px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+
+ 		}
+ 		.writereCom:before {
+
+     	    content: "";
+		    position: absolute;
+		    display: inline-block;
+		    top: 0;
+		    left: 30px;
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #ccc;
+		    border-width: 0 0 1px 1px;
+		    border-radius: 0 0 0 2px;
+		}
+		 
+		.main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 100px;
+			border-radius: 6px;
+			position: relative;	
+		}
+		
+		#back-icon {
+			position: absolute;
+			top: 7px;
+			left: 10px;
+			font-size: 34px;
+			color: rgba(233, 33, 101, 0.2);
+		}
+		
+		.commentIcons {
+			font-size: 20px;
+			color: rgba(233, 33, 101, 0.2);
+			padding: 0 2px;
+		}
+
+		#commentBox, #comment {
+			margin-left: 50px;
+			margin-right: 50px;
+		}
+
+		.heart-comment-time-area {
+			margin: 5px 10px 50px 3px;
+			color: #838383;
+		}
+
+		.heart-and-comment {
+			margin: 50px 0 30px;
 		}
 	</style>
 
@@ -33,24 +126,8 @@
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomMake">방만들기</button>
 
 			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
-					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-					<div class="nav-tabs-navigation">
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i> 슬기로운 반려생활
-										</a></li>
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">chat</i> -->
-										<i class="material-icons"></i> 
-										</a></li>
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
-										<i class="material-icons"></i> 
-										</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				
+					
 				<!-- Large modal -->
 				<div id="roomMake" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog">
@@ -75,8 +152,8 @@
 									<div class="col secret-input-box"></div>
 								</div>
 										<div class="modal-footer ">
-											<button type="button" class="btn btn-outline-light">취소</button>
-											<button type="submit" class="btn btn-primary">방만들기</button>
+											<button type="button" class="btn btn-sm btn">취소</button>
+											<button type="submit" class="btn btn-sm btn-primary">방만들기</button>
 										</div>
 									</form>
 								</div>
@@ -90,7 +167,7 @@
 						<div class="tab-pane active show" id="">
 							<!---------- 채팅 만들어보자 ------------------>
 
-							<div class="table-responsive">
+							<div class="table-responsive justify-content-center">
 								<!-- 비밀번호 모달 -->
 							<div class="modal fade bd-example-modal-lg" id="pwdmodal" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog">
@@ -103,7 +180,7 @@
 									<div class="modal-body p-4">
 										<label for='secret-input'>비밀번호</label><input class='form-control' id='pwdChk' name='pwdChk' placeholder='네 자리의 숫자를 입력하세요' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
 										<div class="modal-footer">
-												<button type="button" class="btn btn-outline-light">취소</button>
+												<button type="button" class="btn btn">취소</button>
 												<button type="button" onclick="pwdcheck();" class="btn btn-primary" >입장하기</button>
 										</div>
 									</div>
@@ -111,46 +188,7 @@
 								</div>
 							</div>
 							<!-- 비밀번호 모달 끝 -->
-							<!-- 페이징도 해줘야할수도 -->
-							<div class="pagination justify-content-center">
-							<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
-									<ul class="pagination" id="pagingview">
-										<c:if test="${cpage > 1}">
-											<li class="page-item"><a class="page-link"
-												href="main.bit?cp=${cpage-1}&ps=${pageSize}"
-												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> <span
-													aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-										</c:if>
-				
-										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-											<c:choose>
-												<c:when test="${cpage==i }">
-													<li class="page-item active"><a class="page-link"
-														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-														ps="${pageSize}">${i}</a></li>
-												</c:when>
-												<c:otherwise>
-													<li class="page-item"><a class="page-link"
-														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
-														ps="${pageSize}">${i}</a></li>
-												</c:otherwise>
-											</c:choose>
-				
-										</c:forEach>
-				
-										<c:if test="${cpage < pageCount}">
-				
-											<li class="page-item">
-												<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}"
-													cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
-													<span aria-hidden="true">&raquo;</span>
-													<span class="sr-only">Next</span>
-												</a>
-											</li>
-										</c:if>
-									</ul>
-							<!-- </nav> -->
-							</div>
+							
 							<!-- 여기까지 페이징처리 -->
 							</div>
 			
@@ -249,16 +287,16 @@
 	    			
 	    			$.each(data, function(index, obj) {
 	    				var secret = "공개방";
-	    				var	button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-primary btn-lg text-center">입장하기</button>'; 
+	    				var	button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-sm btn-primary btn-lg text-center">입장하기</button>'; 
 	    				
 	    				if(obj.room_secret == 'Y') {
 	    					secret = '비밀방'
-	    					button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#pwdmodal">입장하기</button>';
+	    					button = '<button type="button" onclick="selectChatRoom('+obj.current_count+','+obj.room_count+','+obj.room_number+', '+"'"+''+obj.room_secret+''+"'"+')" class="btn btn-sm btn-primary btn-lg" data-toggle="modal" data-target="#pwdmodal">입장하기</button>';
 	    				}
 	    				
 	    				$('#chatList').append(
 	    				'<div class="col-lg-4">'+
-						'<div class="card border-primary" style="height: 280px;">'+
+						'<div class="card border-primary" style="height: 250px;">'+
 							
 							'<div class="card-body">'+
 								'<div class="chat-title" style="height: 75%;">'+
@@ -282,17 +320,6 @@
 	        });
 		}
 		
-	
-		/**
-		* @함수명 : selectChatRoom(current_count, room_count, room_number, room_secret)
-		* @작성일 : 2020. 7. 21.
-		* @작성자 : 오주형
-		* @설명 : 채팅방 입장하는 메소드
-		* @param current_count - 현재 방 인원수 
-				room_count - 최대 정원수  
-				room_number - 방 번호
-				room_secret - 비밀방 여부
-		**/
 		function selectChatRoom(current_count, room_count, room_number, room_secret) {
 			if(current_count >= room_count) {
 				alret("방이 가득 찼습니다.")
@@ -306,14 +333,7 @@
 			}
 		}
 			
-		
-	
-		/**
-		* @함수명 : pwdcheck()
-		* @작성일 : 2020. 7. 21.
-		* @작성자 : 오주형
-		* @설명 : 비밀방 입장 시 비밀번호 체크
-		**/
+
 		function pwdcheck() {
 			let pwd = /^\d{4}$/;
 			if(!pwd.test($('#pwdChk').val())) {
@@ -337,16 +357,7 @@
 		    });
 		}
 		
-		
-		//숫자만 입력가능
-		
-		/**
-		* @함수명 : onlyNumber(event)
-		* @작성일 : 2020. 7. 21.
-		* @작성자 : 오주형
-		* @설명 : 입력시 숫자만 입력가능하게 하는 메소드
-		* @param event - 파라미터로 받는 이벤트 
-		**/
+
 		function onlyNumber(event){
             event = event || window.event;
             var keyID = (event.which) ? event.which : event.keyCode;
@@ -356,14 +367,7 @@
                 return false;
         }
 	
-		
-		/**
-		* @함수명 : removeChar(event)
-		* @작성일 : 2020. 7. 21.
-		* @작성자 : 오주형
-		* @설명 : 입력시 문자 제거해주는 메소드
-		* @param event - 파라미터로 받는 이벤트 
-		**/
+
         function removeChar(event) {
             event = event || window.event;
             var keyID = (event.which) ? event.which : event.keyCode;

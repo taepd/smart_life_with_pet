@@ -95,7 +95,7 @@ function sendQna() {
 
 	alert("성공!", "등록 되었습니다.", "success");
 	setTimeout(function() {
-		  location.href="rPage.bit";
+		location.href="popmain.bit";
 		}, 1000);
 
 	
@@ -110,32 +110,15 @@ function sendQna() {
 		<div class="container">
 
 
-			<button class="btn btn-primary btn-round"
-				onclick="location.href='popmain.bit'">쪽지</button>
 				
 
 			
 			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
+				<div class="card">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item"><a class="nav-link"
-									href="#C" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons">email</i> 쪽지 쓰기
-										</a></li>
-								<!--  
-								<li class="nav-item"><a class="nav-link " href="#B"
-									data-toggle="tab">  <i class="material-icons">chat</i>
-										<i class="material-icons">email</i> 받은 쪽지함
-										</a></li>
-								<li class="nav-item"><a class="nav-link" href="#C"
-									data-toggle="tab"> <i class="material-icons">build</i>
-										<i class="material-icons">email</i> 보낸 쪽지함
-										</a></li>
-										-->
-							</ul>
+	
 						</div>
 					</div>
 				</div>
@@ -143,33 +126,32 @@ function sendQna() {
 				<div class="card-body">
 					
 					<div class="tab-content text-center">
+					<div class="row justify-content-center">
 						<!---------- 쪽지쓰기 ------------------>
-						<div class="tab-pane active show" id="C">
-
-						<form action="popmain.bit" method="post">
-				
-						
+						<div class="tab-pane active show" id="write">
+							 <form action="popmain.bit" method="post">
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
-									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
+									<input type="text" name="ruserid" id="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)"> 
 								</div>
 								
-									   <textarea name="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
+									   <textarea name="content" id="content" class="form-control"  rows="10" placeholder="여기에 쪽지 내용을 입력합니다"></textarea>
 								
 							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
+										<button type="reset" class="btn btn">취소</button>
 										<button type="submit" id="sendQna" class="btn btn-primary" onclick="javascript:btn()"><b>쪽지보내기</b></button>
-										<button type="reset" class="btn btn-primary">취소</button>
+										
 								</div>
 							</div>
-						 </form> 
-
-
-
+					</form>
+							
+							
+							
+							
 						</div>
-
-
-						<!-------------- 끝 ---------------->
+			<!-------------- 끝 ---------------->
+			</div>
 					</div>
 					
 				</div>

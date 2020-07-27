@@ -20,10 +20,10 @@
     	}
     	
     	.follow-img-wrapper {
-    		 width: 100px;
-    		 height: 100px;
+    		 width: 85px;
+    		 height: 85px;
     		 float: left;
-			 margin: 10px 10px 11px 10px;
+			 margin: 0px 10px 11px 10px;
     	}
     	
     	#myPetImage {
@@ -134,51 +134,13 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-7">
-					<div class="main-card">
+					<div class="main-card" style="height: 312px;">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
 	              		<div id="result" class="row"></div>
               		</div>
 				</div>
 				<div class="col-lg-5">
-					<div class="main-card" style="height: 262px; width: 100%; display: inline-block;">
-						<h3 class="h3-korean">추천 친구</h3>
-						<div class="row">
-						<div class="col-lg-12">
-						<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
-							<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
-							이미지: ${recomPet.petimg} --%>
-							<!-- </div> -->
-							<div class="follow-img-wrapper">
-			        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
-			        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
-	 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
-	 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
-	 		        			</a>
-	 		        			
-	 		        			<!-- <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="" data-container="body" data-original-title="Tooltip on bottom">On bottom<div class="ripple-container"></div></button> -->
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			<h6 class="text-center">${recomPet.petname}</h6>
-	 		        			<!-- <div class="text-center">${like.petname}</div> -->
-	 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-					        </div>
-						</c:forEach>
-						</div>
-						</div>
-					</div>
-				</div>
-			</div>			
-			<div class="row">
-				<div class="col-lg-5">
-					<div class="main-card" style="max-height: 350px;">
+					<div class="main-card" style="height: 312px;">
 						<h3 class="h3-korean">나의 반려동물</h3>
 						<c:set value="${petList}" var="pet"/>
 						<c:choose>
@@ -212,7 +174,52 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
-					</div>
+					</div>	
+
+					
+
+
+
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-lg-5">
+					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
+		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
+		        		<!-- <div> -->
+							<div  style="overflow: hidden;">
+							<c:set value="${petLikeList}" var="likeList"/>
+							<c:choose>
+								<c:when test="${likeList == null}">
+										팔로우하는 동물이 없어요. 찾으러 가볼까요?
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${likeList}" var="like">
+										
+					        			<div class="follow-img-wrapper">
+						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
+						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
+				 		        					rel="nofollow" alt="${like.petname}" data-toggle="tooltip" data-placement="bottom" data-original-title="${like.petname}">
+				 		        			</a>
+				 		        			<!-- <div class="text-center">${like.petname}</div> -->
+				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+					        			</div>
+					        		</c:forEach>
+								</c:otherwise>
+							</c:choose>	 
+							</div>       			
+		        		<!-- </div> -->
+	        		</div>
+
+
+
+
+					
+
+
+
+
+
 				</div>
 				<div class="col-lg-7">
 					<div class="main-card" style="max-height: 350px; overflow: hidden;">
@@ -242,36 +249,52 @@
 
 			<div class="row">
 				<div class="col-5">
-					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
-		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
-		        		<!-- <div> -->
-							<div  style="overflow: hidden;">
-							<c:set value="${petLikeList}" var="likeList"/>
-							<c:choose>
-								<c:when test="${likeList == null}">
-										팔로우하는 동물이 없어요. 찾으러 가볼까요?
-								</c:when>
-								<c:otherwise>
-									<c:forEach items="${likeList}" var="like">
-										
-					        			<div class="follow-img-wrapper">
-						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
-						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
-				 		        					rel="nofollow" alt="${like.petname}" data-toggle="tooltip" data-placement="bottom" data-original-title="${like.petname}">
-				 		        			</a>
-				 		        			<!-- <div class="text-center">${like.petname}</div> -->
-				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-					        			</div>
-					        		</c:forEach>
-								</c:otherwise>
-							</c:choose>	 
-							</div>       			
-		        		<!-- </div> -->
-	        		</div>
+
+
+
+					<div class="main-card" style="height: 350px; width: 100%; display: inline-block;">
+						<h3 class="h3-korean">추천 친구</h3>
+						<div class="row">
+						<div class="col-lg-12">
+						<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
+							<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
+							이미지: ${recomPet.petimg} --%>
+							<!-- </div> -->
+							<div class="follow-img-wrapper">
+			        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
+			        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
+	 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
+	 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
+	 		        			</a>
+	 		        			
+	 		        			<!-- <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="" data-container="body" data-original-title="Tooltip on bottom">On bottom<div class="ripple-container"></div></button> -->
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			<h6 class="text-center">${recomPet.petname}</h6>
+	 		        			<!-- <div class="text-center">${like.petname}</div> -->
+	 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+					        </div>
+						</c:forEach>
+						</div>
+						</div>
+					</div>
+					
+					
+				
+				
+				
 				</div>
 				<div class="col-7">
 					<!-- <div class="main-card"> -->
-						<div class="main-card" style="max-height: 350px;">
+						<div class="main-card" style="height: 350px;">
 						<h3 class="h3-korean">도움이 필요해요</h3>
 						
 						<div class="row">

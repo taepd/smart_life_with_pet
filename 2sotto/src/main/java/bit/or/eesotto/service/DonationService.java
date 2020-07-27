@@ -132,7 +132,7 @@ public class DonationService {
 
 		int totaldonatecount = donateDao.getDonationCount();
 		//
-		donationList = donateDao.main(cpage, pageSize);
+		donationList = donateDao.main(cpage, 2);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totaldonatecount % pageSize == 0) {

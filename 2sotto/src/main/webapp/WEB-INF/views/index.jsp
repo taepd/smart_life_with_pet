@@ -63,7 +63,7 @@
 	    	 	<div class="col-lg-9">
 					<h1 id="index-title">내 반려동물을 더 사랑하는 방법</h1>
 					<p id="index-paragraph">
-		    	 		아아아ㅏ 뭐라고 쓰지<br>
+		    	 		사랑을 기록하세요.<br>
 		    	 		슬기로운 반려생활이 당신을 도울게요.<br>
 					</p>
 	    	 	</div>

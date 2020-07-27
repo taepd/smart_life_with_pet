@@ -55,7 +55,7 @@
 		
 		#result, #result p {
 			/* border: 1px solid #EAEAEA; */
-			font-size: 20px;
+			font-size: 15px;
 		}
 
 		/* #result > .col {
@@ -127,19 +127,52 @@
 				<div class="col-lg-12">
 					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">
 						어서오세요, ${sessionScope.user.nick} 님!
-								<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
-						<div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}</div>
-					</c:forEach>
 					</h3>
 							
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-7">
 					<div class="main-card">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
 	              		<div id="result" class="row"></div>
               		</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="main-card" style="height: 250px; width: 100%; display: inline-block;">
+						<h3 class="h3-korean">추천 친구</h3>
+						<div class="row">
+						<div class="col-lg-12">
+						<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
+							<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
+							이미지: ${recomPet.petimg} --%>
+							<!-- </div> -->
+							<div class="follow-img-wrapper">
+			        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
+			        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
+	 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
+	 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
+	 		        			</a>
+	 		        			
+	 		        			<!-- <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="" data-container="body" data-original-title="Tooltip on bottom">On bottom<div class="ripple-container"></div></button> -->
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			
+	 		        			<h6 class="text-center">${recomPet.petname}</h6>
+	 		        			<!-- <div class="text-center">${like.petname}</div> -->
+	 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+					        </div>
+						</c:forEach>
+						</div>
+						</div>
+					</div>
 				</div>
 			</div>			
 			<div class="row">
@@ -389,7 +422,7 @@
 			
 			let Cday = year + '년 ' + month + '월 ' + date + '일';
 
-			var table = "<div class='col-lg-2'>";
+			var table = "<div class='col-lg-3'>";
 					/* 얼굴 아이콘 */
 					table += "<img id='walk' src='' alt='Weather icon' width='100'>";
 				table += "</div>";
@@ -397,30 +430,33 @@
 
 
 
-				table += "<div class='col-lg-3'>"
-					table += "<div class='row'>";
+				table += "<div class='col-lg-4'>"
+					table += "<div class='row'><p>";
+						/* 지역 */
+						table += arr[0]+" "+arr[1]+" "+arr[2];
+						table += "</p><p>";
 						/* 한글 메시지 */
-						table += "<span id='talk'></span>";
+						table += "<span id='talk'></span></p>";
 					table += "</div>";
 				table += "</div>";
 
 
 
 
-				table += "<div class='col-lg-3'>";
+				/* table += "<div class='col-lg-3'>";
 					table += "<div class='row'><p>";
 						/* 날짜 */
-						table += Cday;
-						table += "</p><p>";
+						/* table += Cday;
+						table += "</p><p>"; */
 					/* 지역 */
-					table += arr[0]+" "+arr[1]+" "+arr[2];
+					/* table += arr[0]+" "+arr[1]+" "+arr[2];
 					table += "</p></div>";
-				table += "</div>";
+				table += "</div>"; */
+ 
 
 
 
-
-				table += "<div class='col-lg-2'>";
+				table += "<div class='col-lg-3'>";
 					/* 기상 아이콘 */
 					table += "<div class='row'>";
 					table += "<p><img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;
@@ -577,15 +613,15 @@
 	        {
 
 	        	case "01d" :
-	        	 $('#talk').html("<p>산책하기 좋아요!<br>오늘을 놓치지 마세요</p>");
+	        	 $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	            break;
 	
 	          	case "02d" :
-	          	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	          	 $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	  		 	    break;
 	
 	          	case "03d" :
-	        	 $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	 $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	 	            break;
 	
 	         	case "04d" :
@@ -593,23 +629,23 @@
 	            break;
 	 
 	            case "01n" :
-	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	  $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	        	break;
 	
 	          	case "02n" :
-	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	  $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	        	break;
 	              
 	          	case "03n" :
-	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	  $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	        	break;
 	              
 	          	case "04n" :
-	        	  $('#talk').html("<p>산책하기 너무 좋은날!</p><p>오늘을 놓치지 마세요</p>");
+	        	  $('#talk').html("산책하기 좋아요!<br>오늘을 놓치지 마세요 :)");
 	             break;
 	
 	          	default :
-	        	  $('#talk').html("오늘은  실내에서 <br> 좋은 시간 보내세요!");
+	        	  $('#talk').html("오늘은 실내에 있는 게 좋겠어요.");
 	        };
   
 			/* 이미지 올려주는 코드

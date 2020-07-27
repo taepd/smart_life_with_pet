@@ -38,31 +38,31 @@
 		<div class="container">
 		<div class="side_overlay">
 			<div class="row">
-				<div class="col-12 title-area">
-					<h3 style=" text-align: center">병원이용이력 수정페이지<i class="fas fa-paw"></i></h3>
-				</div>
+				
 				<div class="col-2"></div>
 				<div class="col-8 area">
-
 			
-					<div class="card card-nav-tabs">
-				
+					<div class="card card-nav-tabs">				
 					<div class="card-body">
-				
+					<br>
+					<div class="col-12 title-area">
+					<h3 style=" text-align: center">병원이용이력 수정페이지<i class="fas fa-paw"></i></h3>
+					</div>
+					<br>
 					<form id="joinForm" action="editMrecord.bit" method="post" enctype="multipart/form-data">
 					<div id="joinForm-wrapper">
 					
 								<div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
-									<input type="text" class="form-control" name="mindex" value="${mrecord.mindex}" readonly> 
+									<input type="text" class="form-control" name="mindex" style="background-color: #e9e9e9;" value="${mrecord.mindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
-									<input type="text" name="petindex" class="form-control" placeholder="${mrecord.petindex}" value="${mrecord.petindex}" readonly> 
+									<input type="text" name="petindex" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.petindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
-									<input type="text" name="userid" class="form-control" value="${mrecord.userid}" readonly> 
+									<input type="text" name="userid" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.userid}" readonly> 
 								</div>
 		
 								<div class="form-group bmd-form-group">
@@ -91,17 +91,15 @@
 								<input type="text" name="hname" class="form-control" placeholder="${mrecord.hname}" value=""> 
 								</div>								
 								
-								<div>
+								
 									<div class="card-body" style="text-align: center;">
 										<button type="submit" class="btn btn-primary"><b>글 수정 완료</b></button>
 										<button type="reset" class="btn btn-outline-primary">글 수정 취소</button>
-								</div>
-								</div>
-							
+									</div>								
+									<br>						
 							</div>
-					</form>
-
-
+						</form>
+						
 
 						</div>
 

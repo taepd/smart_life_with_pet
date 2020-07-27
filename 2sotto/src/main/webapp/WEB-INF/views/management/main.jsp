@@ -489,18 +489,13 @@
 									</thead>
 									<c:forEach var="mrecord" items="${mrecordList}">
 										<tbody>
-											<tr class="text-center">
-												<td style="color: #800080; font-weight: bold;"><a
-													href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
-												<td>${mrecord.userid}</td>
-												<td>${mrecord.petname}</td>
-												<!-- timestamp 날짜시간 표시 포맷 변환 -->
-												<%-- <fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>
-											<td class="text-center">${rtime}</td> --%>
-												<!-- timestamp 날짜시간 표시 포맷 변환 -->
-												<td class="text-center">${mrecord.vdate}</td>
-												<td class="text-center">${mrecord.hname}</td>
+											<tr class="text-center"> 
+											
+												<td style="color: #800080; font-weight: bold;"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
+												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.userid}</a></td>
+												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.petname}</a></td>											
+												<td class="text-center"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.vdate}</a></td>
+												<td class="text-center"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.hname}</a></td>
 											</tr>
 										</tbody>
 									</c:forEach>

@@ -17,13 +17,7 @@
 	
 	<style>
 		
-		.custom-select {
-			width: 200px;
-		}
 		
-		input[type=text] {
-			width: 200px;
-		}
 		
 		#joinForm-wrapper {
 			display: inline-block;
@@ -48,24 +42,26 @@
 	<div class="container">
 		<div class="side_overlay">
 		<div class="row">
-				<div class="col-12 title-area">
+			<div class="col-2"></div>
+			<div class="col-8 area">
+			<div class="card card-nav-tabs">
+			<div class="card-body">
+			<br>
+			<div class="col-12 title-area">
 					<h3 style=" text-align: center">병원이용이력 등록<i class="fas fa-paw"></i></h3>
-				</div>
-					<div class="col-2"></div>
-					<div class="col-8 area">
-			<div class="card card-body">
-			
-			
+					</div>
+					
+					
 				<form id="joinForm" action="medicalRegister.bit" method="post" enctype="multipart/form-data">
 				<div id="joinForm-wrapper">
-					<!-- <div class="form-group has-default bmd-form-group">
+								<div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
-									<input type="text" class="form-control"  value="" readonly> 
+									<input type="text" class="form-control" style="background-color: #e9e9e9;" value="" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
-									<input type="text"  class="form-control"  value="" readonly> 
-								</div> -->
+									<input type="text"  class="form-control" style="background-color: #e9e9e9;" value="" readonly> 
+								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
 									<input type="text" name="userid" class="form-control"  value="${sessionScope.user.userid}" readonly> 
@@ -98,11 +94,12 @@
 								</div>					
 								<button type="submit" class="btn btn-primary">등록</button>
 								<button type="reset" class="btn btn-primary">다시쓰기</button>
-								<button type="reset" class="btn btn-primary" onclick="location.href='#'">취소</button>
+								<button type="reset" class="btn btn-primary" onclick="location.href='getMrecordList.bit'">취소</button>
 						</div>
 					</form>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>
@@ -187,5 +184,6 @@
 		$('#age_month').empty().append(month);
 	}
 
+	
 </script>
 </html>

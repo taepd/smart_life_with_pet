@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM QNA P WHERE USERID = #{param3}) S WHERE ROWNUM 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, Q.* FROM QNA Q) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
 		

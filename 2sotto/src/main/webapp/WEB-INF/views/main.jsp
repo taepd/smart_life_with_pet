@@ -177,7 +177,7 @@
 			</div>			
 			<div class="row">
 				<div class="col-lg-5">
-					<div class="main-card" style="max-height: 350px;">
+					<div class="main-card" style="height: 350px;">
 						<h3 class="h3-korean">나의 반려동물</h3>
 						<c:set value="${petList}" var="pet"/>
 						<c:choose>
@@ -205,7 +205,7 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-										<div id="myPetSchedule"></div>
+										<div id="myPetSchedule" class="text-center"></div>
 									</div>
 									</div>
 								</div>

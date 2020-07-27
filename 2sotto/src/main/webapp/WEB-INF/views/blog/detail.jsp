@@ -168,18 +168,18 @@
 					<span>${rtime}</span>
 				</div>
 			
-				<li class="nav-item dropdown" style="float: right;">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-ellipsis-v"></i></span></a>
-					<c:if test="${sessionScope.user.userid eq post.userid}">
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			            	<a class="dropdown-item" href="edit.bit?bindex=${post.bindex}">수정</a>
-			            	<a class="dropdown-item" href="javascript:;" id="delete">삭제</a>
-					  	</div>
-					</c:if> 
-				</li>
+				<c:if test="${sessionScope.user.userid eq post.userid}">
+					<li class="nav-item dropdown" style="float: right;">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-ellipsis-v"></i></span></a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				            	<a class="dropdown-item" href="edit.bit?bindex=${post.bindex}">수정</a>
+				            	<a class="dropdown-item" href="javascript:;" id="delete">삭제</a>
+						  	</div>
+					</li>	
+				</c:if> 
 			
 			<hr>
-			<div style="margin-top: 50px; overflow:scroll;">
+			<div style="margin-top: 50px; overflow:hidden;">
 				${post.content}
 			</div>
 			<!-- <c:if test="${sessionScope.user.userid eq post.userid}">

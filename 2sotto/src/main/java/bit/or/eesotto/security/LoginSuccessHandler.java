@@ -79,6 +79,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     	   session.setAttribute("user", user);
     	   //로그인 유저 정보 가져와서 세션객체에 저장 끝
     	   
+    	
+    	   
     }
     
     //로그인 성공 후 리다이렉트 경로 지정 메서드   
@@ -86,6 +88,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             Authentication authentication) throws IOException, ServletException {
         
         SavedRequest savedRequest = requestCache.getRequest(request, response);
+        
+        //관리자는 로그인시 바로 관리자 페이지로 진입하도록 설정
+ 	   if(((UserDetails)authentication.getPrincipal()).getUsername().equals("admin")) {
+ 		   setDefaultUrl("/admin/adminMain.bit");
+ 		   System.out.println("디폴트 url: "+ defaultUrl);
+ 	   }
         
         //저장된 리퀘스트 경로가 있는 경우 그쪽으로 이동, 없으면 디폴트 페이지로 이동
         if(savedRequest!=null) {

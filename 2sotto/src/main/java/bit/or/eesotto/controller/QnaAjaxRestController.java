@@ -64,7 +64,7 @@ public class QnaAjaxRestController {
 		List<Qna> qnalist = null;
 
 		QnaDao dao = sqlsession.getMapper(QnaDao.class);
-		qnalist = dao.getQnaList(cpage, pageSize, userid);
+		qnalist = dao.getQnaList(cpage, pageSize);
 		// request.setAttribute("emplist", emplist);
 
 		int totalQnaCount = dao.getQnaCount();

@@ -810,6 +810,7 @@ desc message;
 desc user;
 desc schedule;
 
+
 select * from roles;
 select * from userrole;
 select * from message;
@@ -822,8 +823,8 @@ select * from subcategory;
 select * from donation;
 select * from schedule;
 select * from petlike;
-
-select ctime-rtime from donation where dindex=2;
+select * from blogcomment;
+select * from point;
 
 delimiter $$
 
@@ -857,6 +858,72 @@ MRECORD M join PET P ON M.USERID = P.USERID where m.userid='a';
 
 select * from mrecord;
 select * from pet;
+
+
+-- 두 좌표값(경/위도) 사이의 거리 구하는 함수(mysql 버전)
+DROP FUNCTION IF EXISTS 2sotto.GOOGLE_DISTANCE;
+delimiter $$
+CREATE FUNCTION GOOGLE_DISTANCE (
+  LAT1 FLOAT, 
+  LNG1 FLOAT,
+  LAT2 FLOAT,
+  LNG2 FLOAT 
+)
+
+  RETURNS FLOAT
+ 
+BEGIN
+  DECLARE fEARTH_R FLOAT;
+  DECLARE fPIE FLOAT;
+  DECLARE fRAD FLOAT;
+  DECLARE radLAT1 FLOAT;
+  DECLARE radLAT2 FLOAT;
+  DECLARE radDIST FLOAT;
+  DECLARE fDIST FLOAT;
+  
+  SET fEARTH_R = 6371000.0;
+  SET fPIE= 3.141592653589793;
+  SET fRAD = 0.0;
+  SET radLAT1 = 0.0;
+  SET radLAT2 = 0.0;
+  SET radDIST = 0.0;
+  SET fDIST = 0.0;
+  
+  SET fRAD = fPIE / 180;
+  SET radLAT1 = fRAD * LAT1;
+  SET radLAT2 = fRAD * LAT2;
+  SET radDIST = fRAD * ( LNG1 - LNG2 );
+  SET fDIST = SIN( radLAT1 ) * SIN( radLAT2 );
+  SET fDIST = fDIST + COS( radLAT1 ) * COS( radLAT2 ) * COS( radDIST );
+
+
+  RETURN ((fEARTH_R * ACOS(ROUND(fDIST,10)))/1000);
+
+END$$
+
+delimiter ;
+
+
+-- 같은 품종의 동물 친구 추천
+select * from pet
+where mcategory = 1 and petindex not in (7)
+order by rand() limit 1;
+
+-- 비슷한 나이대의 동물 친구 추천
+select * from pet 
+where (age between 0 and 500) and userid not in('admin')
+order by rand() limit 1;
+
+-- 근처에 사는 동물 친구 추천
+select p.*, round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) dist 
+from pet p join user u on p.userid = u.userid
+where (age between 0 and 500) and p.userid not in('admin')
+order by rand() limit 1;
+
+
+
+
+
 
 select p.*, s.SCANAME as scaname, m.MCANAME as mcaname, u.nick as nick
 from pet p
@@ -934,4 +1001,7 @@ DELIMITER ;
 drop trigger UPDATE_BLIKE_MINUS;
 
 SHOW TRIGGERS;
+
+alter table schedule add groupId varchar(100);
+alter table message modify readtime timestamp null;
 

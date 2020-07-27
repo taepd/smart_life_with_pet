@@ -73,5 +73,10 @@
 
 	}); // /.onload
 
+	function check() {
+		
+		
+		$('#writeForm').submit();
+	}
 </script>
 </html>

@@ -28,9 +28,8 @@
 			width: 100%;
 			height: 50px;
 		}
-		
-		
-    
+
+
    .align-center { text-align: center; }
       
      /* .recom{position:relative;} */ 

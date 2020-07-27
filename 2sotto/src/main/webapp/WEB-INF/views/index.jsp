@@ -140,7 +140,7 @@ $(function () {
 		//블로그 이미지 위치 조정 함수
 		replaceImg_post('p');
 		replaceImg_donation('d');
-		shortContent();	
+		shortContent('p');	
 		console.log('test');
 });
 
@@ -183,9 +183,9 @@ function replaceImg_donation(list){
 } 
 
 //포스팅 내용의 일부만 노출시키는 함수
-function shortContent(){
+function shortContent(list){
 	for(var i =0; i<${fn:length(postList)}; i++){ 
-		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
+		$('#content'+list+i+'').text($('#content'+list+i+'').text().substring(0,230)+'...');
 	}
 }
 

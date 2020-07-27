@@ -54,8 +54,8 @@ public interface PetDao {
 		@Select("select petname from pet where userid = #{userid}")
 		public List<String> getSimplePetInfo(@Param("userid") String userid);
 		
-		// 반려동물 사진만 가져오기
-		@Select("select petindex, petname, petimg from pet where userid = #{userid}")
+		// 반려동물 사진만 가져오기 >> 추천 동물 로직에도 사용하기 위해 전체 정보 가져오는 것으로 임시 변경
+		@Select("select * from pet where userid = #{userid}")
 		public List<Pet> getPetPicture(@Param("userid") String userid);
 
 
@@ -72,5 +72,24 @@ public interface PetDao {
 			    + "left outer join maincategory m on p.MCATEGORY = m.MCATEGORY "
 			    + "where petindex = #{petindex}")
 		public Pet getPet(@Param("petindex") int petindex);
+		
+		// 메인> 추천 반려동물 (품종) 3마리 추천
+		@Select("select * from pet where scategory = #{param2} and userid not in (#{param1})order by rand() limit 3")
+		public List<Pet> getSameCategoryPet(String userid, String scategory);
+		
+		// 메인> 추천 반려동물 (비슷한 나이(개월)) 3마리 추천
+		@Select("select * from pet where (age between #{param2}-12 and #{param2}+12) and userid not in (#{param1})order by rand() limit 3")
+		public List<Pet> getSimilarAgePet(String userid, int age);
+		
+		// 메인> 추천 반려동물 (비슷한 나이(개월)) 3마리 추천
+		@Select("select p.* from pet p join user u on p.userid = u.userid "
+				+ " where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) < 5 "
+				+ " and p.userid not in (#{param1})order by rand() limit 3")
+		public List<Pet> getNearPet(String userid);
+		
+		
+		
+		
+		
 	
 }

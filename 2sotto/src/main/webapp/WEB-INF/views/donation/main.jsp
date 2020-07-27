@@ -24,7 +24,7 @@
 			padding: 110px 10% 80px 50%;
 			background-image: url('../assets/images/abandoned_dog2_resize.jpg');
 			background-size: cover;
-			background-position: 30% 34%;
+			background-position: 30% 37%;
 			color: #ffffff;
 		}
 		#jb {

@@ -5,31 +5,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
-
 <html>
 <head>
 
-<title>슬기로운 반려생활</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<title>슬기로운 반려생활</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-<!-- 타임피커 cdn -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- 타임피커 cdn -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<%@ include file="/WEB-INF/include/import.jsp"%>
-<!-- 프로그레스 바 부트스트렙 시작 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-<!-- 프로그레스 바 부트스트렙 끝-->
+	<%@ include file="/WEB-INF/include/import.jsp"%>
+	<!-- 프로그레스 바 부트스트렙 시작 -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	<!-- 프로그레스 바 부트스트렙 끝-->
 	<style>
 	#jb {
 			width: 100%;
 			height: 50px;
 		}
-		
-		
     
    .align-center { text-align: center; }
       
@@ -62,7 +59,22 @@
 		    border-width: 0 0 1px 1px;
 		    border-radius: 0 0 0 2px;
 
- 	}
+	 }
+	 
+	 .main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 100px;
+			border-radius: 6px;
+			position: relative;	
+	}
+	#back-icon {
+			position: absolute;
+			top: 7px;
+			left: 10px;
+			font-size: 34px;
+			color: rgba(156, 39, 176, 0.2);
+	}
     
 	</style>
 	<script>
@@ -82,14 +94,13 @@
 
 	<div class="side_overlay">
 		<div class="container">
-
-
-			
+			<div class="main-card">
+				<a href="main.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 			<!-- 포인트 user point로 업데이트 -->
-			<form action="payInput.bit" method="POST">    		
+			<!-- <form action="payInput.bit" method="POST">    		
     		<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   		
 			<button type="button" id="check_module" class="btn btn-primary">포인트 충전하기</button>
-    		</form> 
+    		</form>  -->
     		<%-- <form name="myForm" method="post">
 	    		
     			<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">
@@ -100,57 +111,28 @@
     		</form> --%>
 
 
-			
-			<div class="card card-nav-tabs">
-				<div class="card-header card-header-primary">
-					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-					<div class="nav-tabs-navigation">
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs" data-tabs="tabs">
-								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
-										<i class="material-icons"></i>후원글 메인
-									</a>
-								</li>
-								<!-- <li class="nav-item">
-									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <i class="material-icons">chat</i>
-										<i class="material-icons"></i>최신순
-									</a>
-								</li> -->
-								
-							</ul>
-						</div>
-					</div>
-				</div>
+			<!-- <a class="nav-link active show" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+				<!-- <i class="material-icons"></i>후원글 메인
+			</a> -->
 
-				<div class="card-body">
-				
-					<div class="tab-content text-center">
 			
 						<!---------- 디테일------------------>
-						<div class="table-responsive" ><!-- class="tab-pane active show" -->
+						<div class="" ><!-- class="tab-pane active show" -->
 
 							<form action="donatePoint.bit" method="POST">
 								
-									<!-- <label for="bmd-label-static">글번호</label>  -->
+									<!-- 넘겨야 할 데이터 -->
 									<input type="hidden" class="form-control" name="dindex" value="${donate.dindex}" readonly> 										
-									<!-- <label for="bmd-label-static">제목</label>  -->
 									<input type="hidden" name="title" class="form-control" value="${donate.title}" readonly> 														
-									<!-- <label for="bmd-label-static">작성자</label>  -->
 									<input type="hidden"  class="form-control" placeholder="관리자" readonly> 																
-									<!-- <label for="bmd-label-static">후원이 필요한 아이</label>  -->
 									<input type="hidden" name="dobject" class="form-control" value="${donate.dobject}" readonly> 																
-									<!-- <label for="bmd-label-static">후원 등록 시간</label> -->
 									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
 									<input type="hidden" name="rtime" class="form-control" value="${rtime}" readonly> 														
-									<!-- <label for="bmd-label-static">후원 완료 시간</label>  -->
 									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<input type="hidden" name="ctime" class="form-control" value="${ctime}" readonly> 																						
-									<!-- <label for="bmd-label-static">목표모금액</label>  -->
 									<input type="hidden" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 								
-									<!-- <label for="bmd-label-static">현재모금액</label>  -->
 									<input type="hidden" name="ccoll" class="form-control" value="${donate.ccoll}" readonly> 
 								
 								<table class="table">
@@ -242,10 +224,14 @@
 				<!-- 댓글 폼 끝 -->
 					
 				<hr>
-			</div>
+				</div>
+			</div> <!-- /.main-card -->
+		</div> <!-- /.side-overlay -->
+	</div> <!-- /.container -->
 
-		</div>
-		
+
+
+
 			<!-- Modal -->
 	
 <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

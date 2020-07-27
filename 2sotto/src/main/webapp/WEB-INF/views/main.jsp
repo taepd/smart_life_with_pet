@@ -49,6 +49,10 @@
 			letter-spacing: -1.5px;
 		}
 		
+		h4 {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+		
 		#result, #result p {
 			/* border: 1px solid #EAEAEA; */
 			font-size: 20px;
@@ -173,26 +177,26 @@
 					</div>
 				</div>
 				<div class="col-lg-7">
-					<div class="main-card" style="max-height: 350px;">
-						<h3 class="h3-korean">이번주의 인기글</h3>
+					<div class="main-card" style="max-height: 350px; overflow: hidden;">
+						<h3 class="h3-korean">이번주 인기글</h3>
 						<div class="row">
-							<div class="col-lg"></div>
+							<!-- <div class="col-lg"></div> -->
 						<c:forEach var="post" items="${postList}" varStatus="status">
-							<div class="card col-lg-5">
-				        		<div class="card-body text-center">
+							<div class="col-lg-6">
+				        		<div class="text-center" style="height: 200px">
 									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
 									<img class="d-block w-100" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-													style="" alt="card image">
+													style="border-radius: 6px; width: 100%; height: 100%;" alt="card image">
 												<div>
 													<h4>${post.title}</h4>
 													<br>
-													<span id="contentp${status.index}">${post.content}</span>
+													<span id="contentp${status.index}" style="display: none;">${post.content}</span>
 												</div>
 									</a>
 								</div>
 							</div>
 						</c:forEach>
-						<div class="col-lg"></div>
+						<!-- <div class="col-lg"></div> -->
 						</div>
 					</div>
 				</div> <!-- /.col -->
@@ -232,19 +236,33 @@
 						<div class="main-card" style="max-height: 350px;">
 						<h3 class="h3-korean">도움이 필요해요</h3>
 						
-						<div class="card card-raised card-carousel" style="height: 223px;">
-							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-							  <ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
-							  </ol>
-							  <div class="carousel-inner">
-
+						<div class="row">
+							<!-- <div class="col-lg"></div> -->
+							<c:forEach var="donation" items="${donationList}" varStatus="status">
+							<div class="col-lg-6">
+				        		<div class="text-center" style="height: 200px">
+									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+									<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+														style="border-radius: 6px; height: 100%; width: 100%" alt="card image">
+												<div>
+													<h4>${donation.title}</h4>
+													<br>
+													<span id="contentd${status.index}" style="display: none;">${donation.content}</span>
+												</div>
+									</a>
+								</div>
+							</div>
+							</c:forEach>
+							<!-- <div class="col-lg"></div> -->
+						</div>
+						</div>
+						</div>
+						
+		
 								
 
 
-								
+							<%-- 	
 
 								<c:forEach var="donation" items="${donationList}" varStatus="status">
 									<div class="carousel-item">
@@ -258,20 +276,15 @@
 										</a>
 									</div>
 								</c:forEach>
+ --%>
 
 
 
 
 
-
-								  <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Yellowstone National Park, United States
-									</h4>
-								  </div>
-								</div>
+								  <!-- <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide"> -->
+								 
+							<!-- 	</div>
 
 
 
@@ -299,7 +312,7 @@
 
 
 
-							  <!-- 캐러셀 버튼 -->
+							  캐러셀 버튼
 							  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 								<i class="material-icons">keyboard_arrow_left</i>
 								<span class="sr-only">Previous</span>
@@ -314,7 +327,7 @@
 						
 						
 						
-					</div>
+					</div> -->
 						
 						
 						
@@ -345,7 +358,8 @@
 		//블로그 이미지 위치 조정 함수
 		replaceImg_post('p');
 		replaceImg_donation('d');
-		shortContent();	
+		shortContent('p');	
+		shortContent('d');	
 
 		// 날씨 API 시작
 		 
@@ -695,6 +709,7 @@
         							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
 
     				$('#myPetSchedule').html(info);
+    				$('#myPetSchedule p').css('font-size', '16px');
     				$('#myPetImage').empty().append(imageSrc);
     				//console.log("SRC: "+imageSrc);
 
@@ -743,9 +758,9 @@ function replaceImg_donation(list){
 } 
 
 //포스팅 내용의 일부만 노출시키는 함수
-function shortContent(){
+function shortContent(tag){
 	for(var i =0; i<${fn:length(postList)}; i++){ 
-		$('#content'+i+'').text($('#content'+i+'').text().substring(0,30));
+		$('#content'+tag+i+'').text($('#content'+tag+i+'').text().substring(0,30));
 	}
 }
 

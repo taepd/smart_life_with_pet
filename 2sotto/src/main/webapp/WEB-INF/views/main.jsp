@@ -162,86 +162,25 @@
 				<div class="col-lg-7">
 					<div class="main-card" style="max-height: 350px;">
 						<h3 class="h3-korean">이번주의 인기글</h3>
-						
-						<div class="card card-raised card-carousel" style="height: 223px;">
-							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-							  <ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
-							  </ol>
-							  <div class="carousel-inner">
-								<c:forEach var="post" items="${postList}" varStatus="status">
-									<div class="carousel-item">
-										<!-- <div class="card col-4"> -->
-					        			<!-- <div class="card-body text-center"> -->
-										<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-										<img class="d-block w-100" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/${post.pimg}" 
+						<div class="row">
+							<div class="col-lg"></div>
+						<c:forEach var="post" items="${postList}" varStatus="status">
+							<div class="card col-lg-5">
+				        		<div class="card-body text-center">
+									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+									<img class="d-block w-100" id="list${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 													style="" alt="card image">
-												<div class="carousel-caption d-none d-md-block">
+												<div class="">
 													<h4>${post.title}</h4>
 													<br>
 													<span id="content${status.index}">${post.content}</span>
 												</div>
-										</a>
-									<!-- </div> -->
-									</div>
-								</c:forEach>
-
-
-
-
-
-
-								  <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Yellowstone National Park, United States
-									</h4>
-								  </div>
+									</a>
 								</div>
-
-
-
-
-
-								<div class="carousel-item active carousel-item-left">
-								  <img class="d-block w-100" src="./assets/img/bg3.jpg" alt="Second slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Somewhere Beyond, United States
-									</h4>
-								  </div>
-								</div>
-								<div class="carousel-item carousel-item-next carousel-item-left">
-								  <img class="d-block w-100" src="./assets/img/bg.jpg" alt="Third slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Yellowstone National Park, United States
-									</h4>
-								  </div>
-								</div>
-							  </div>
-
-
-
-							  <!-- 캐러셀 버튼 -->
-							  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-								<i class="material-icons">keyboard_arrow_left</i>
-								<span class="sr-only">Previous</span>
-							  </a>
-							  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-								<i class="material-icons">keyboard_arrow_right</i>
-								<span class="sr-only">Next</span>
-							  </a>
 							</div>
+						</c:forEach>
+						<div class="col-lg"></div>
 						</div>
-
-
-							
 					</div>
 				</div> <!-- /.col -->
 			</div> <!-- /.row -->
@@ -297,7 +236,7 @@
 								<c:forEach var="donation" items="${donationList}" varStatus="status">
 									<div class="carousel-item">
 										<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-											<img class="d-block w-100" id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+											<img class="d-block w-100" id="list${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
 														style="width:200px;height:200px" alt="card image">
 											<div class="carousel-caption d-none d-md-block">
 												<strong>${donation.title}</strong>
@@ -470,7 +409,7 @@
 					/* 습도 */
 					table += "<p><img src='${pageContext.request.contextPath}/assets/images/weather/wi-humidity.svg' alt='Weather icon' width='30'>" + resp.main.humidity+ "%";
 					/* 기온 */
-					table += "</p><p><img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃";
+					table += "</p><br><p><img src='${pageContext.request.contextPath}/assets/images/weather/wi-thermometer.svg' alt='Weather icon' width='30'>" + resp.main.temp + "℃";
 					table += "</p></div>";
 				table += "</div>";
 
@@ -786,6 +725,7 @@ function replaceImg_donation(list){
 	    }
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
+		console.log(">>>"+$('#'+list+i+''));
 	}
 } 
 

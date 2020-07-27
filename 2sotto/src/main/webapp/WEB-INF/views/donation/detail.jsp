@@ -25,9 +25,10 @@
 	<style>
 	#jb {
 			width: 100%;
+
 			height: 40px;
-		}
-		
+		}		
+
 	a:visited {
 			color: #000000;
 	}
@@ -70,11 +71,10 @@
 	.container > li {
 		float: right;
 	}
-    
-   .align-center { text-align: center; }
+  .align-center { text-align: center; }
       
      /* .recom{position:relative;} */ 
-   .reCom:before {
+  .reCom:before {
 
      	    content: "";
 		    position: absolute;
@@ -213,6 +213,7 @@
 							<!------------------------------------------------------------------------------------------------------->
 							<!-- admin쪽에 수정 잡히면 이 form 내용 다 수정할 것 -->
 							<!------------------------------------------------------------------------------------------------------->
+
 							<%-- <input type="hidden" class="form-control" name="dindex" value="${donate.dindex}" readonly> 										
 							<input type="hidden" name="title" value="${donate.title}" readonly> 														
 							<input type="hidden"  class="form-control" placeholder="관리자" readonly> 																
@@ -226,6 +227,7 @@
 							<input type="hidden" name="gcoll" class="form-control" value="${donate.gcoll}" readonly> 								
 							<input type="hidden" name="ccoll" class="form-control" value="${donate.ccoll}" readonly>  --%>
 					
+
 									<!-- <div id="joinForm">
 									<div id="joinForm-wrapper" style="">
 										<div class="form-group has-default bmd-form-group">
@@ -369,7 +371,7 @@ html5_inicis':이니시스(웹표준결제)
 'syrup':시럽페이
 'paypal':페이팔
 */
-pay_method: 'card',
+pay_method: 'phone',
 /*
 'samsung':삼성페이,
 'card':신용카드,
@@ -385,15 +387,15 @@ https://docs.iamport.kr/implementation/payment
 참고하세요.
 나중에 포스팅 해볼게요.
 */
-name: '김건휘 일상보고서',
+name: '슬기로운 반려생활 포인트 결제',
 //결제창에서 보여질 이름
 amount: $('#point').val(),
 //가격
-buyer_email: '2sotto@sotto.do',
-buyer_name: '김건휘',
-buyer_tel: '010-1234-5678',
-buyer_addr: '서울특별시 강남구 삼성동',
-buyer_postcode: '123-456',
+buyer_email: '${sessionScope.user.userid}',
+buyer_name: '${sessionScope.user.userid}',
+//buyer_tel: '010-1234-5678',
+//buyer_addr: '서울특별시 강남구 삼성동',
+//buyer_postcode: '123-456',
 m_redirect_url: 'payInput.bit'
 //m_redirect_url: 'http://localhost:8090/payments/complete' 
 /*

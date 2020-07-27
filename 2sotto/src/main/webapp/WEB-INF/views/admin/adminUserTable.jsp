@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -11,65 +10,15 @@
   <title>
   	 슬기로운 반려생활
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="${pageContext.request.contextPath}/assets/admin_assets/demo/demo.css" rel="stylesheet" />
+   <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
+  
+ </head>
 
-  <!-- 데이터테이블 CDN -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" crossorigin="anonymous">
-</head>
-
-<body class="">
+<body>
 <% request.setCharacterEncoding("utf-8"); %>
-  <div class="wrapper ">
-      <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="/" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="/" class="simple-text logo-normal">
-         슬기로운 반려생활
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="adminMain.bit">
-              <i class="nc-icon nc-spaceship"></i>
-              <p>대시보드</p>
-            </a>
-          </li>
-          <li class="active ">
-            <a href="userTable.bit">
-              <i class="nc-icon nc-single-02"></i>
-              <p>유저 리스트</p>
-            </a>
-          </li>
-          <li>
-            <a href="userPetTable.bit">
-              <i class="nc-icon nc-diamond"></i>
-              <p>동물 리스트</p>
-            </a>
-          </li>
-          <li>
-            <a href="userPointTable.bit">
-              <i class="nc-icon nc-diamond"></i>
-              <p>포인트 리스트</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  
     <div class="main-panel">
-      <jsp:include page="/WEB-INF/views/admin/admin_common/adm_nav.jsp"/>
+    
       
       <div class="content">
         <div class="row">

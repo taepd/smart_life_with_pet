@@ -135,6 +135,7 @@
 				
 				<!-- 글쓴이 및 관련 반려동물 영역 -->
 				<div class="d-flex">  <!--  style="display: inline-block;" -->
+				<a href="main.bit"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 					<!-- <span class="align-self-center"><b>${post.nick}</b>님과 </span> -->
 					<h4 class="align-self-center">Q&A</h4>
 					
@@ -410,6 +411,5 @@ $('#delete').click(function(){
 	
 </script>
 	
-		<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>

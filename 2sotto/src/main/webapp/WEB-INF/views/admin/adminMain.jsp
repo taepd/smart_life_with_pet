@@ -9,62 +9,16 @@
   <title>
    	슬기로운 반려생활
   </title>
-  <!--     Fonts and icons     -->
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!--  JQuery 추가 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
+
   <!-- 차트  -->
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- 차트  -->
 </head>
 <body>
-  <div class="wrapper ">
-      <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="/" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="adminMain.bit" class="simple-text logo-normal">
-          슬기로운 반려생활
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active ">
-            <a href="adminMain.bit">
-              <i class="nc-icon nc-spaceship"></i>
-              <p>대시보드</p>
-            </a>
-          </li>
-          <li>
-            <a href="userTable.bit">
-              <i class="nc-icon nc-single-02"></i>
-              <p>유저 리스트</p>
-            </a>
-          </li>
-          <li>
-            <a href="userPetTable.bit">
-              <i class="nc-icon nc-diamond"></i>
-              <p>동물 리스트</p>
-            </a>
-          </li>
-          <li>
-            <a href="userPointTable.bit">
-              <i class="nc-icon nc-diamond"></i>
-              <p>포인트 리스트</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
+  
   <div class="main-panel">
-      <jsp:include page="/WEB-INF/views/admin/admin_common/adm_nav.jsp"/>
+   
       <div class="content">
       <!--  주석부분은 상단 부분입니다.
         <div class="row">

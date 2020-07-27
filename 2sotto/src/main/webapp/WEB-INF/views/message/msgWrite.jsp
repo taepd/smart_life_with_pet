@@ -107,7 +107,7 @@ function sendQna() {
 						aria-selected="false"> <i class="material-icons">email</i>
 							보낸 쪽지함
 					</a></li>
-					<li class="nav-item"><a class="nav-link" onclick="location.href='msgWrite.bit'" id="writeTab"
+					<li class="nav-item"><a class="nav-link active show" onclick="location.href='msgWrite.bit'" id="writeTab"
 						role="tab" data-toggle="tab" aria-selected="true"> <i
 							class="material-icons">email</i> 쪽지 쓰기 
 					</a></li>

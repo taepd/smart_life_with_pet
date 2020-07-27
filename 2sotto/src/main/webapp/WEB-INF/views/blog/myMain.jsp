@@ -87,7 +87,9 @@
 					<!-- 게시글 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
-							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" alt="게시물 이미지">
+							<a href="detail.bit?bindex=${post.bindex}">
+								<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" alt="게시물 이미지">
+							</a>
 						</div>
 					</div>
 					<div class="col-1"></div>

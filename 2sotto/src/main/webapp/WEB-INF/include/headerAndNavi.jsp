@@ -55,7 +55,10 @@
         </li>
 		</se:authorize>
 	</nav>
-	
+	<!-- 스피너 -->
+	<div id="page-loading">
+    	<i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>    
+	</div>
 
 <!-- navi -->
 <div id="wrapSideMenu" class="sidenav">
@@ -129,8 +132,13 @@
 				</th:block> -->
 	<!-- 알람테스트 세션에 저장된 유저 이메일 저장 끝 -->
 <script>
-//알람 테스트 
 $(document).ready(function() {
+
+//스피너	
+	$("#page-loading").fadeOut(500);
+
+	
+//알람 테스트 
 			if($('#userid').val() != null) {
 				connect();	
 			}

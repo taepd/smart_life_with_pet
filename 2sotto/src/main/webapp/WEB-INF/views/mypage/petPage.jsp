@@ -168,7 +168,9 @@
 					<!-- 게시글 오른쪽 이미지 영역 -->
 					<div class="col-3 test">
 						<div class="wrapper">
-							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+							<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+								<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
+							</a>
 						</div>
 					</div>
 				</div>

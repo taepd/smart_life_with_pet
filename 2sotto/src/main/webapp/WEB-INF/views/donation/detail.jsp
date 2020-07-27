@@ -26,8 +26,7 @@
 	#jb {
 			width: 100%;
 			height: 40px;
-		}
-		
+		}		
 	a:visited {
 			color: #000000;
 	}
@@ -69,11 +68,10 @@
 	.container > li {
 		float: right;
 	}
-    
-   .align-center { text-align: center; }
+  .align-center { text-align: center; }
       
      /* .recom{position:relative;} */ 
-   .reCom:before {
+  .reCom:before {
 
      	    content: "";
 		    position: absolute;

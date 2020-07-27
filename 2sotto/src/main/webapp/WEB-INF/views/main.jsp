@@ -78,16 +78,29 @@
 			border-radius: 6px;	
 		}
 		
+		.main-card::-webkit-scrollbar {
+			background-color: #ffffff;
+			border-radius: 6px;	
+		}
+		
+		.main-card::-webkit-scrollbar-thumb {
+			background-color: #f0f0f0;
+			border-radius: 10px;
+			background-clip: padding-box;
+			border: 4px solid transparent;
+			
+		}
+		
 		/* #myPetNameAndSchedule {
 			position: absolute;
 			top: 111px;
 			left: 300px;
 		} */
 		
-		@font-face {
+		/* @font-face {
 			font-family: 'netmarbleM';
 			src: url('./assets/fonts/netmarbleM.ttf') format('truetype'); 
-		}
+		} */
 		
 		#myPetInfo {
 			margin-bottom: 30px;

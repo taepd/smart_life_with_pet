@@ -110,7 +110,11 @@
 				<div class="col-lg-12">
 					<h3 style="font-family: 'Noto Sans KR', sans-serif; margin-left: 30px; margin-bottom: 30px;">
 						어서오세요, ${sessionScope.user.nick} 님!
+								<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
+						<div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}</div>
+					</c:forEach>
 					</h3>
+							
 				</div>
 			</div>
 			<div class="row">

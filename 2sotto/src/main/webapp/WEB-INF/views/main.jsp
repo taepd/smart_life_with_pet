@@ -131,7 +131,7 @@
 						<h3 class="h3-korean">나의 반려동물</h3>
 						<c:set value="${petList}" var="pet"/>
 						<c:choose>
-							<c:when test="${pet == null}">
+							<c:when test="${empty petList}">
 								나의 반려동물을 등록해보세요.
 							</c:when>
 							<c:otherwise>

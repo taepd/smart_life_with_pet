@@ -491,7 +491,11 @@ public class DonationController {
 		
 		int userPoint = ls.normalLogin(userid).getUserPoint();
 		logger.info("트리거 값을 가져왔는가" + userPoint);
-		session.setAttribute("userPoint", userPoint);
+		
+		
+		User user = (User)session.getAttribute("user");
+		user.setUserPoint(userPoint);
+		session.setAttribute("user", user);
 		
 		if (result == 1) {
 			//성공해서 db에서 온 데이터를 입력해주는 곳이다. -> 경로로 가기전에 여기서 session에 반영한다.		

@@ -19,6 +19,8 @@
   <!-- 차트  -->
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- 차트  -->
+  <!-- 구글 차트 -->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
   <div class="wrapper ">
@@ -187,7 +189,7 @@
                 <p class="card-category">차트1-1</p>
               </div>
               <div class="card-body ">
-                <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto">
+                <div id="employee_piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
 				</div>
 			 </div>
               <div class="card-footer ">
@@ -304,6 +306,7 @@
         
       </div>
       <!-- 차트 끝 -->
+
       
     </div>
     <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
@@ -317,18 +320,37 @@
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/bootstrap.min.js"></script>
-
-
-
-	<!-- 차트 추가-->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<!-- 차트끝 추가  -->
 	
 <script type="text/javascript">
+google.load("visualization", "1", {
+	packages : [ "corechart" ]
+});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
 
-var chart_data;
+
+	chart_data = '${getPetKindCount}';
+	console.log('차트데이타: '+ chart_data);
+
+
+
+
+	
+	/* var data = google.visualization.arrayToDataTable([
+			[ "Employee", "Rating" ], [ "Suresh", 25 ], [ "Amit", 56 ],
+			[ "Rahul", 37 ], [ "Lucky", 71 ], [ "Pooja", 11 ],
+			[ "Manoj", 49 ] ]);
+	var options = {
+		title : "Employee Ratings"
+	};
+	var chart = new google.visualization.PieChart(document.getElementById("employee_piechart"));
+	chart.draw(data, options); */
+};
+
+
+
+
+/* var chart_data;
 var startdate = "default";
 var enddate = "default";
 google.load("visualization", "1", {packages:["corechart"]});
@@ -357,7 +379,7 @@ function drawChart(chart_data, chart1_main_title, chart1_vaxis_title) {
 
     var chart1_chart = new google.visualization.BarChart(document.getElementById('chart1_div'));
     chart1_chart.draw(chart1_data, chart1_options);
-}
+} */
 </script>
 
 </html>

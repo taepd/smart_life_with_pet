@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<button class="btn btn-outline-primary" type="button" onclick="location.href='update.bit?dindex=${donate.dindex}'">수정</button><%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
@@ -22,7 +23,16 @@
 <%@ include file="/WEB-INF/include/import.jsp"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style type="text/css">
+#back-icon {
+			position: absolute;
+			top: 7px;
+			left: 10px;
+			font-size: 34px;
+			color: rgba(156, 39, 176, 0.2);
+		}
 
+</style>
 </head>
 
 <body>
@@ -35,24 +45,24 @@
 
 
 	
-			<div class="card card-nav-tabs">
+			<!-- <div class="card card-nav-tabs">
 				<div class="card-header card-header-primary">
-					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+					colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger"
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">
 							<ul class="nav nav-tabs" data-tabs="tabs">
 								<li class="nav-item">
-								<a class="nav-link" onclick="location.href='main.bit'" data-toggle="tab"> <!-- <i class="material-icons">face</i> -->
+								<a class="nav-link" onclick="location.href='main.bit'" data-toggle="tab"> <i class="material-icons">face</i>
 										<i class="material-icons">favorite</i>후원글 메인
 									</a>
 								</li>
-								<!-- <li class="nav-item">
+								<li class="nav-item">
 									<a class="nav-link" onclick="location.href='mainbydate.bit'" data-toggle="tab"> <i class="material-icons">chat</i>
 										<i class="material-icons">favorite</i>최신순
 									</a>
-								</li> -->
+								</li>
 								<li class="nav-item">
-									<a class="nav-link active show" onclick="location.href='write.bit'" data-toggle="tab"> <!-- <i class="material-icons">build</i> -->
+									<a class="nav-link active show" onclick="location.href='write.bit'" data-toggle="tab"> <i class="material-icons">build</i>
 										<i class="material-icons">camera</i>글 작성
 									</a>
 								</li>
@@ -65,7 +75,7 @@
 				
 					<div class="tab-content text-center">
 	
-						<!---------- 쪽지쓰기 ------------------>
+						-------- 쪽지쓰기 ----------------
 						<div class="tab-pane active show" >
 
 							<form action="write.bit" method="post">
@@ -107,13 +117,62 @@
 						</div>
 
 
-						<!-------------- 끝 ---------------->
+						------------ 끝 --------------
 
 
 					</div>
 				</div>
+			</div> -->
+			<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8 area">
+			<div class="card card-nav-tabs">
+			<div class="card-body">
+			<a href="main.bit" style="color: #EE82EE;"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
+			<br>
+			<div class="col-12 title-area">
+					<h3 style=" text-align: center">후원글 등록<i class="fas fa-paw"></i></h3>
+					</div>
+					
+					
+				<form id="joinForm" action="write.bit" method="post" enctype="multipart/form-data">
+				<div id="joinForm-wrapper">
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">작성자</label> 
+									<input type="text"  class="form-control" placeholder="관리자" readonly> 
+								</div>
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">후원이 필요한 아이</label> 
+									<input type="text" name="dobject" class="form-control" placeholder="아이 이름"> 
+								</div>								
+								<div class="form-group bmd-form-group mb-0">								
+									<label for="bmd-label-static">후원 기한</label>
+									<input type="text" class="form-control" name="ctime" 
+									id="ctime" required> 
+								</div>								 	
+								<div class="form-group bmd-form-group">
+									<label for="bmd-label-static">목표모금액</label> 
+									<input type="text" name="gcoll" class="form-control" > 
+								</div>	
+								<div class="form-group bmd-form-group">
+								<label for="bmd-label-static">내용</label>
+								<textarea class="form-control" id="content" name="content"></textarea>
+								</div>
+								<!-- <div class="border-top">
+									<div class="card-body" style="text-align: center;">
+										<button type="submit" class="btn btn-primary btn-round"><b>글 등록</b></button>
+										<button type="reset" class="btn btn-primary btn-round">글 등록 취소</button>
+									</div>
+								</div>	 -->
+								<button type="reset" class="btn btn-primary" onclick="location.href='main.bit'">뒤로 가기</button>											
+								<button type="reset" class="btn btn-primary">다시쓰기</button>	
+								<button type="submit" class="btn btn-outline-primary">등록</button>
+						</div>
+					</form>
 			</div>
-
+		</div>
+	</div>
+	</div>
 		</div>
 		<!-- container end -->
 	</div>

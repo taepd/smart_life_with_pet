@@ -51,8 +51,8 @@
 				<div class="col-11 ">
 					<!-- 포인트 user point로 업데이트 -->
 					<form action="donation/payInput.bit"  style="padding: 10 20 500 10px;"method="POST">    
-					<h2>포인트 게시판</h2> 
-					<input type="text" name="point" id="point" value="" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)">   	
+					<h2>포인트 관리</h2> 
+					<input type="text" name="point" id="point" value="" class="form-control" placeholder="충전할 금액을 입력해 주세요 (100원 = 100point)" style="width: 400px;">   	
 					<button type="button" id="check_module" class="btn btn-sm btn-primary">포인트 충전하기</button>
 					</form>
 				</div>

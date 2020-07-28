@@ -53,9 +53,17 @@
 		margin-left: 5px;
 		margin-top: 8px;
 	}
+	
+	.main-card {
+			background-color: #ffffff;
+ 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+			padding: 30px;
+			border-radius: 6px;	
+	}
+	
 
 </style>
- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css_2sotto/blog_main.css">
 </head>
 <body>
 
@@ -65,16 +73,15 @@
 	<c:set value="${petInfoList}" var="petInfo" />
 
 	<div class="container">
-			<div class="side_overlay">
-			<hr>
-			<div class="row">
+		<div class="side_overlay">
+			<div class="row main-card">
 				<div class="col-3 text-center">
 							<img class="card-img-top rounded-circle img-fluid img" style='width:150px; height:150px'
 								src="${pageContext.request.contextPath}/assets/images/${pet.petimg}"
 								rel="nofollow" alt="card image">
 				</div>
 				<div class="col-9">
-					<h4>${pet.petname}</h4>
+					<h3>${pet.petname}</h3>
 					<p class="card-text" id="petInfo">
 						<fmt:parseNumber var="age" value="${pet.age/12}"
 							integerOnly="true" />
@@ -112,12 +119,10 @@
 			</div>			
 
 			<hr>
-	
-
-	
 				<c:forEach var="post" items="${postList}" varStatus="status">
 				<div class="row">
-					<div class="col-9">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-7">
 					<!-- 글쓴이 및 관련 반려동물 영역 -->
 					<div class="d-flex">  <!--  style="display: inline-block;" -->
 						<span class="align-self-center"><b>${post.nick}</b>님과 </span>
@@ -166,19 +171,20 @@
 						</div>
 					</div>	
 					<!-- 게시글 오른쪽 이미지 영역 -->
-					<div class="col-3 test">
+					<div class="col-lg-3 test">
 						<div class="wrapper">
 							<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
 								<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:180px; height:150px;"alt="게시물 이미지">
 							</a>
 						</div>
 					</div>
+					<div class="col-lg-1"></div>
 				</div>
 			</c:forEach>
 
-			<div>
+			<%-- <div>
 			<h4>cpage: ${cpage }/ pagesize: ${pageSize }/ pagecount: ${pageCount}/ totalPostCount: ${totalPostCount } </h4>
-			</div>
+			</div> --%>
 
 			<!-- 페이징 -->
 			<div class="pagination justify-content-center">

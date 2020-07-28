@@ -12,15 +12,22 @@
   	 슬기로운 반려생활
   </title>
   <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="${pageContext.request.contextPath}/assets/admin_assets/demo/demo.css" rel="stylesheet" />
 
- 
-
+  <!-- 데이터테이블 CDN -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" crossorigin="anonymous">
 </head>
 
-<body class="">
-<% request.setCharacterEncoding("utf-8"); %>
-  
-      
+<body >
+    <div class="main-panel">
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -53,10 +60,9 @@
           
         </div>
       </div>
-      
+      </div>
       <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
-    </div>
-  </div>
+  
  
   <!--   Core JS Files   -->
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/jquery.min.js"></script>

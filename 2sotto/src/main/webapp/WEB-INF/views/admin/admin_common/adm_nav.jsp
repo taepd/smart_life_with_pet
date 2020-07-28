@@ -12,7 +12,7 @@
           <div class="navbar-wrapper">
             <div class="navbar-toggle">
               <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar1">슬기로운 반려생활</span>
                 <span class="navbar-toggler-bar bar2"></span>
                 <span class="navbar-toggler-bar bar3"></span>
               </button>

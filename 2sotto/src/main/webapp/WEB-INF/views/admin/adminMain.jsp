@@ -10,20 +10,23 @@
    	슬기로운 반려생활
   </title>
    <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
-
+  <!--     Fonts and icons     -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/assets/admin_assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!--  JQuery 추가 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- 차트  -->
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- 차트  -->
-  <!-- 구글 차트 -->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
   
   <div class="main-panel">
-   
       <div class="content">      
+        
         <!-- 차트 뿌려질 부분 시작-->
-         
         <div class="row">
  		 <div class="col-lg-12 d-flex">
           <div class="col-lg-4">

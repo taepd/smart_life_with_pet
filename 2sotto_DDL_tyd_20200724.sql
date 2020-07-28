@@ -905,7 +905,7 @@ delimiter ;
 
 
 -- 같은 품종의 동물 친구 추천
-select * from pet
+select * from pet;
 where mcategory = 1 and petindex not in (7)
 order by rand() limit 1;
 
@@ -915,10 +915,10 @@ where (age between 0 and 500) and userid not in('admin')
 order by rand() limit 1;
 
 -- 근처에 사는 동물 친구 추천
-select p.*, round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) dist 
+select p.*
 from pet p join user u on p.userid = u.userid
-where (age between 0 and 500) and p.userid not in('admin')
-order by rand() limit 1;
+where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) < 5 and p.userid not in('a')
+order by rand() limit 3;
 
 
 
@@ -1004,4 +1004,37 @@ SHOW TRIGGERS;
 
 alter table schedule add groupId varchar(100);
 alter table message modify readtime timestamp null;
+
+-- 블로그 글 작성하면 point테이블에 인서트 후에 blog 테이블 blike -1 하는 트리거
+DELIMITER $$
+CREATE TRIGGER UPDATE_BLIKE_MINUS
+BEFORE DELETE ON blike
+FOR EACH ROW
+BEGIN
+UPDATE BLOG
+SET
+BLIKE = BLIKE - 1
+WHERE BINDEX = OLD.BINDEX;
+
+END $$
+DELIMITER ;
+
+
+ select (select count(*) from pet where MCATEGORY = 1) dogCount, (select count(*) from pet where MCATEGORY = 2) catCount from dual;
+
+set @sum :=0;
+select (date_format(p.pdate, '%Y-%m-%d')) date, sum(p.pcount) pcount from point p where ptype = '결제' group by date;
+
+select (date_format(p.pdate, '%Y-%m-%d')) date, sum(p.pcount) pcount from point p where ptype = '결제' group by date;
+
+select * from point where ptype='결제';
+select * from pay;
+
+select (date_format(rtime, '%Y-%m-%d')) 가입일, count(*) '가입자 수' from user group by 가입일 order by 가입일;
+
+select p.petindex, p.userid, p.petname, p.petimg, s.sindex, s.title, s.start
+			from pet p join schedule s
+			on p.USERID = s.USERID and p.PETINDEX = s.PETINDEX
+			where p.userid = 'a' and p.petname = '뚱이' and start>= now()
+			order by start desc limit 4;
 

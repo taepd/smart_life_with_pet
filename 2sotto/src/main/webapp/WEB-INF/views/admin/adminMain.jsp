@@ -18,8 +18,9 @@
   <!--  JQuery 추가 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- 차트  -->
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- 차트  -->
+  
 </head>
 <body>
   
@@ -109,10 +110,6 @@ $(function(){
 	pCountByDay();
 	
 });
-
-
-
-
 
 var getPetKindCount = function(){
 	google.charts.load('current', {'packages':['corechart']});

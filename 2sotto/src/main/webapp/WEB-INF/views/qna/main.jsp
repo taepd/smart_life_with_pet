@@ -21,7 +21,8 @@
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-11">
-					<h2>Q&A 게시판</h2> 
+					<h2>질문과 답변</h2>
+					<h3 style="color: #9a9a9a">질문을 남겨주시면 관리자가 답변해드립니다.</h3> 
 					<button type="button" class="btn btn-primary" onclick="location.href='write.bit'">글쓰기</button>
 				</div>
 			</div>

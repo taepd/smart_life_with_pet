@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>슬기로운생활</title>
+<title>슬기로운 반려생활</title>
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 	
@@ -119,14 +119,9 @@
 
 </head>
 <body>
-
-	<div class="side_overlay">
-		
-		<div class="container">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomMake">방만들기</button>
-
-			<div class="card card-nav-tabs">
-				
+	<div style="margin: 20px;">
+	<!-- <div class="container"> -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomMake">방만들기</button>
 					
 				<!-- Large modal -->
 				<div id="roomMake" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -200,13 +195,10 @@
 
 					</div>
 					
-				</div>
 				
 			</div>
 
-		</div><!-- container -->
-		
-	</div>	<!-- container end -->
+	</div>
 	
 <!-- 기본 폼 완성 -->
 <input type="hidden" id="userid" value="${session.user.userid}">

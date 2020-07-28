@@ -31,26 +31,26 @@
 	<div class="footer-content text-center">
 		
 		<br>
-		Copyright ⓒ <a style="color:white;" href="${pageContext.request.contextPath}/donation/main.bit"> 2sotto</a>
+		Copyright ⓒ 2sotto
 		<br>
-		This homepage is powered by <a style="color:white;" href="http://tistory.com" onclick="window.open(this.href); return false">2sotto</a>
+		This homepage is powered by 2sotto
 		<br>
-		Designed by <a style="color:white;" href="${pageContext.request.contextPath}/main.bit" onclick="window.open(this.href); return false">hyeona</a>
+		Designed by 2sotto
 	</div>
 	
 	<div class="footer-content text-center">
 		
 		<br>
-		<a style="color:white;" href="${pageContext.request.contextPath}/join/register.bit">이용하기</a>
+		<a style="color:white;" href="${pageContext.request.contextPath}/join/register.bit">슬기로운 반려생활 시작하기</a>
 		<br>
 		<a style="color:white;" href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a>
 		<br>
-		<a style="color:white;" href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a>
-		<br>
 		<a style="color:white;" href="${pageContext.request.contextPath}/point/main.bit">포인트</a>
 		<br>
+		<a style="color:white;" href="${pageContext.request.contextPath}/qna/main.bit">질문과 답변</a>
+		<br>
 	</div>
-	<div class="footer-content text-center">
+	<!-- <div class="footer-content text-center">
 		<br>
 		이용약관
 		<br>
@@ -59,15 +59,15 @@
 		청소년 보호정책
 		<br>
 		운영정책
-	</div>
+	</div> -->
 	
 	<div class="footer-content text-center">
 		<br>
-		당신의 작은 도움이
+		모든 생명은 보호받을 권리가 있습니다.
 		<br>
-		큰 사랑이 됨을 확인하세요
+		작은 도움이 모여 큰 사랑이 됨을 확인하세요.
 		<br>
-		<a style="color:white;" href="${pageContext.request.contextPath}/donation/main.bit">후원하기</a>
+		<a style="color:white;" href="${pageContext.request.contextPath}/donation/main.bit"> [후원하기] </a>
 		<br>
 		
 	</div>

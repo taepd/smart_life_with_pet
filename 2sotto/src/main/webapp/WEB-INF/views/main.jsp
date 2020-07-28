@@ -31,15 +31,7 @@
     		height: 130px;
     	}
     	
-    	/* h3 {
-    		margin-bottom: 0;
-    		margin-left: 10px;
-    	} */
-    	
 		.h3-korean {
-			/* font-family: 'Sunflower', sans-serif; */
-			/* font-family: 'Poor Story', cursive; */
-			/* font-family : 'netmarbleM', sans-serif; */
 			font-family: 'Noto Sans KR', sans-serif;
 			margin-left: 0;
 			margin-top: 0;
@@ -57,23 +49,10 @@
 			/* border: 1px solid #EAEAEA; */
 			font-size: 15px;
 		}
-
-		/* #result > .col {
-			display: flex;
-		}
-
-		#result > .col > .row {
-			align-items: center;
-			margin-bottom: 0;
-		} */
 		
 		.row {
 			margin-bottom: 20px;
 		}
-		
-		/* body {
-			background-color: #fafafa;
-		} */
 		
 		.main-card {
 			background-color: #ffffff;
@@ -95,17 +74,6 @@
 			
 		}
 		
-		/* #myPetNameAndSchedule {
-			position: absolute;
-			top: 111px;
-			left: 300px;
-		} */
-		
-		/* @font-face {
-			font-family: 'netmarbleM';
-			src: url('./assets/fonts/netmarbleM.ttf') format('truetype'); 
-		} */
-		
 		#myPetInfo {
 			margin-bottom: 30px;
 		}
@@ -125,9 +93,9 @@
     	<div class="side_overlay"> 
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 40px;">
+					<h3 style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 36px;">
 						어서오세요, ${sessionScope.user.nick} 님!<br>
-						오늘은 더 사랑하세요. :)
+						오늘도 슬기로운 반려생활 하세요.
 					</h3>
 							
 				</div>
@@ -168,7 +136,9 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-										<div id="myPetSchedule"></div>
+										<a href="management/main.bit">
+											<div id="myPetSchedule"></div>
+										</a>
 									</div>
 									</div>
 								</div>
@@ -265,20 +235,8 @@
 			        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
 	 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
 	 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
+		 		        			<%-- <h6 class="text-center">${recomPet.petname}</h6> --%>
 	 		        			</a>
-	 		        			
-	 		        			<!-- <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="" data-container="body" data-original-title="Tooltip on bottom">On bottom<div class="ripple-container"></div></button> -->
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			
-	 		        			<h6 class="text-center">${recomPet.petname}</h6>
 	 		        			<!-- <div class="text-center">${like.petname}</div> -->
 	 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
 					        </div>
@@ -669,7 +627,7 @@
 	             break;
 	
 	          	default :
-	        	  $('#talk').html("오늘은 실내에 있는 게 좋겠어요.");
+	        	  $('#talk').html("오늘은 실내에서<br>시간을 보내요.");
 	        };
   
 			/* 이미지 올려주는 코드

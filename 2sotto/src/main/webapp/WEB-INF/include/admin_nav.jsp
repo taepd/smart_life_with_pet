@@ -24,10 +24,9 @@
 
 
 <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-      <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top">
+     
       
-       <div class="wrapper ">
       <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="/" class="simple-text logo-mini">
@@ -68,7 +67,7 @@
         </ul>
       </div>
     </div>
-  </div>
+
 <!-- 스피너 -->
 <div id="page-loading">
    	<i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>    
@@ -91,7 +90,7 @@
        </ul>
    	</li>
    	</ul>
-   </div>
+
  </nav>
       <!-- End Navbar -->
       
@@ -103,5 +102,3 @@ $(document).ready(function() {
 	$("#page-loading").fadeOut(500);
 		});
 </script>
-</body>
-</html>

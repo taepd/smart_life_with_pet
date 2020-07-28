@@ -21,130 +21,20 @@
   
   <div class="main-panel">
    
-      <div class="content">
-      <!--  주석부분은 상단 부분입니다.
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">동물 DB</p>
-                      <p class="card-title"><a href="SaveDataToDB.book">동물 DB 저장</a><p>
-                    </div>
-                  </div>
-                 
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-success"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">테스트</p>
-                      <p class="card-title">테스트<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar-o"></i>
-                  Last day
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Errors</p>
-                      <p class="card-title">23<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i>
-                  In the last hour
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Followers</p>
-                      <p class="card-title">+45K<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
-        
+      <div class="content">      
         <!-- 차트 뿌려질 부분 시작-->
          
         <div class="row">
-         <!--   <div class="col-md-12"> -->
-          <div class="col-lg-3 col-md-6 col-sm-6">
+ 		 <div class="col-lg-12 d-flex">
+          <div class="col-lg-4">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">차트1-1</h5>
-                <p class="card-category">차트1-1</p>
+                <h5 class="card-title">반려동물 종별 비율 차트</h5>
+              <!--   <p class="card-category">차트1-1</p> -->
               </div>
               <div class="card-body">
-                <div id="petKindCount_piechart" style="width:300px; height: 300px;"></div>
-			 </div>
+                <div id="petKindCount_piechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			  </div>
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
@@ -154,14 +44,14 @@
             </div>
           </div>
           
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="col-lg-4">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">차트1-2</h5>
-                <p class="card-category">차트1-2</p>
+                <h5 class="card-title">일별 가입자 수 현황 차트</h5>
+               <!--  <p class="card-category">차트1-2</p> -->
               </div>
               <div class="card-body ">
-                <div id="signUpCountbyDay_Linechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+               <div id="signUpCountbyDay_Linechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			 </div>
               <div class="card-footer ">
                 <hr>
@@ -171,17 +61,15 @@
               </div>
             </div>
           </div>
-          
-          <div class="col-lg-3 col-md-6 col-sm-6">
+           <div class="col-lg-4">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">차트1-3</h5>
-                <p class="card-category">차트1-3</p>
+                <h5 class="card-title">일별 총 결제액 차트</h5>
+                <!-- <p class="card-category">차트1-2</p> -->
               </div>
               <div class="card-body ">
                 <div id="pCountByDay_ColumnChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			 </div>
-			 </div>
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
@@ -191,80 +79,18 @@
             </div>
           </div>
           
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">차트1-4</h5>
-                <p class="card-category">차트1-4</p>
-              </div>
-              <div class="card-body ">
-                <div id="basicline4" style="min-width: 310px; height: 400px; margin: 0 auto">
-				</div>
-			 </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> 차트는 언제 업데이트 해야할까요?
-                </div>
-              </div>
-            </div>
-          </div>
-          
+
+
+          </div>     
         </div>
        
         <!-- 차트 뿌려질 부분 끝-->
-        
-        <!-- 새로운 차트 시작-->
-        <div class="row">
-          <div class="col-md-6">          
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">차트2-1</h5>
-                <p class="card-category">차트2-1</p>
-                <div id="pie" style="min-width: 310px; height: 400px; margin: 0 auto">
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar"></i> 차트는 언제 업데이트 해야할까요?
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-          
-          <div class="col-md-6">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-title">차트2-2</h5>
-                <p class="card-category">차트2-2</p>
-                <div id="column" style="min-width: 310px; height: 400px; margin: 0 auto">
-              </div>
-              <div class="card-body">
-                <canvas id="speedChart"></canvas>
-              </div>
-              <div class="card-footer">
-                <hr/>
-                <div class="card-stats">
-                  <i class="fa fa-check"></i> 차트는 언제 업데이트 해야할까요?
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <!-- 차트 끝 -->
-
-      
+   
     </div>
     <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
   </div>
   
-  
+   
 
  </body>
   <!--   Core JS Files   -->

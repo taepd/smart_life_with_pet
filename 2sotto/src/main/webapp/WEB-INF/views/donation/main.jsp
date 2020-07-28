@@ -90,11 +90,14 @@
 						<progress value="${donate.ccoll/donate.gcoll*100}" max="100" id="jb"></progress>
 						<p><span style="font-size: 25px;"><fmt:formatNumber value="${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</span></p>
 						<!-- </div> -->
-						현재 모금액 ${donate.ccoll} <br>
-						목표 모금액 ${donate.gcoll} <br>
+						<b>현재 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.ccoll}" pattern="#,###"/>원<br>
+						<b>목표 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.gcoll}" pattern="#,###"/>원<br>
+						<%-- 현재 모금액 ${donate.ccoll} 
+						목표 모금액 ${donate.gcoll}  --%>
 						<!-- timestamp 날짜시간 표시 포맷 변환 -->
 						<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
+						<br>
 						<p>${ctime}까지</p>
 						
 					</div>

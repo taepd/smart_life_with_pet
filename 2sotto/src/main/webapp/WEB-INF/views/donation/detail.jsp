@@ -171,23 +171,27 @@
 								</div>
 								<div class="col" style="border: 1px solid rgba(156, 39, 176, 0.2); padding: 30px;">
 									<div class="row">
-										<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
-										등록일 ${rtime}
+										<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
+										<b>등록일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rtime}
 									</div>
 									<br>
 									<div class="row">
-										<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>	
-										마감일 ${ctime} 
+										<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>	
+										<b>마감일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ctime} 
 									</div>
 									<br>
 									<div class="row">
-										목표 모금액 ${donate.gcoll}원
+										<b>후원 대상</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${donate.dobject}									
 									</div>
 									<br>
 									<div class="row">
-										현재 모금액 ${donate.ccoll}원
+										<b>목표 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.gcoll}" pattern="#,###"/>원
+									</div>
+									<br>
+									<div class="row">
+										<b>현재 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.ccoll}" pattern="#,###"/>원
 									</div>
 									<br>
 									<div class="row">

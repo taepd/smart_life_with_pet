@@ -16,9 +16,18 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<style>
-		
-		
-		
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+
+
+		h1, h2, h3 {
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
+			/* color: #9c27b0; */
+		}
+				
 		#joinForm-wrapper {
 			display: inline-block;
 			width: 428px;
@@ -48,27 +57,28 @@
 			<div class="card-body">
 			<br>
 			<div class="col-12 title-area">
-					<h3 style=" text-align: center">병원이용이력 등록<i class="fas fa-paw"></i></h3>
+					<h3 style=" text-align: center; margin-bottom:70px">병원이용이력 등록<i class="fas fa-paw"></i></h3>
 					</div>
 					
 					
 				<form id="joinForm" action="medicalRegister.bit" method="post" enctype="multipart/form-data">
 				<div id="joinForm-wrapper">
-								<div class="form-group has-default bmd-form-group">
+								<!-- <div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
 									<input type="text" class="form-control" style="background-color: #e9e9e9;" value="" readonly> 
-								</div>
-								<div class="form-group bmd-form-group">
+								</div> -->
+								<!-- <div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
 									<input type="text"  class="form-control" style="background-color: #e9e9e9;" value="" readonly> 
-								</div>
+								</div> -->
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
-									<input type="text" name="userid" class="form-control"  value="${sessionScope.user.userid}" readonly> 
+									<input type="hidden" name="userid" class="form-control"  value="${sessionScope.user.userid}" readonly> 
+									<input type="text" name="nick" class="form-control"  value="${sessionScope.user.nick}" readonly> 
 								</div>
 		
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static" style="text-align: left;" for="petname">나의 반려동물</label>	
+								<div class="form-group bmd-form-group text-left">
+									<label for="bmd-label-static" for="petname" style="margin-bottom:15px">나의 반려동물</label>	
 										<select class="custom-select"  name="petindex"> <!-- ex) ?mcategory=dog -->
 											<c:forEach var="petName" items="${petNameList}">
 											<option  value="${petName.petindex}">${petName.petname}</option>							
@@ -89,12 +99,14 @@
 																							
 								<!-- <div id="donateColl"> -->															
 								<div class="form-group bmd-form-group">
-								<label for="bmd-label-static">방문명원명</label> 
+								<label for="bmd-label-static">방문병원 이름</label> 
 								<input type="text" name="hname" class="form-control" value=""> 
-								</div>					
-								<button type="submit" class="btn btn-primary">등록</button>
-								<button type="reset" class="btn btn-primary">다시쓰기</button>
-								<button type="reset" class="btn btn-primary" onclick="location.href='getMrecordList.bit'">취소</button>
+								</div>
+								<div style="margin:30px 0">					
+									<button type="submit" class="btn btn-primary">등록</button>
+								<!-- 	<button type="reset" class="btn btn-outline-primary">다시쓰기</button> -->
+									<button type="reset" class="btn btn-outline-primary" onclick="location.href='getMrecordList.bit?tab=mrecord'">취소</button>
+								</div>
 						</div>
 					</form>
 			</div>

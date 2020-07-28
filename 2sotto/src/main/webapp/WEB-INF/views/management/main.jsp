@@ -14,6 +14,21 @@
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
 <style>
+	
+	@font-face {
+		font-family: 'netmarbleM';
+		src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+	}
+
+	h1, h2, h3 {
+		/* font-family : 'netmarbleM', sans-serif; */
+		font-family: 'Noto Sans KR', sans-serif;
+		/* color: #9c27b0; */
+	}
+	h3 {
+		margin-bottom:20px;
+	}
+
 	.fc-toolbar-title, a.fc-col-header-cell-cushion, th {
 		color: black;
 	}
@@ -251,12 +266,12 @@
 	<div class="container">
 		<div class="side_overlay">
 			<div class="row">
-				<div class="col-10"></div>
-				<div class="col-2" style="margin: 0 auto;">
-					<button class="btn btn-sm" onclick="location.href='register.bit'"
-						style="display: inline-block;">반려동물 등록</button>
+				<div class="col-9"></div>
+				<div class="col-3	" style="margin: 0 auto;">
+					<button class="btn btn-outline-primary btn-sm" onclick="location.href='register.bit'"
+						style="display: inline-block;">반려동물 등록</button><br>
 					<a href="#" data-toggle="modal" data-target="#mapModal"
-						type="button" class="btn btn-sm">동물병원 보기</a>
+						type="button" class="btn btn-outline-primary btn-sm">동물병원 보기</a>
 				</div>
 			</div>
 			<div class="row" id="tab-row">
@@ -277,7 +292,7 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#mrecord" id="mrecordTab"
 						role="tab" data-toggle="tab" aria-selected="true"> <i
-							class="material-icons">local_hospital</i> 병원/접종기록
+							class="material-icons">local_hospital</i> 병원방문기록
 					</a></li>
 				</ul>
 			</div>
@@ -480,8 +495,9 @@
 								<table class="table">
 									<thead class=" text-primary">
 										<tr class="text-center">
-											<th>병원이용 번호</th>
-											<th>보호자</th>
+											<!-- <th>병원이용 번호</th> -->
+											<!-- <th>보호자</th> -->
+											<th>병원 방문 사유</th>
 											<th>반려동물 이름</th>
 											<th>병원 방문 일시</th>
 											<th>병원명</th>
@@ -490,11 +506,13 @@
 									<c:forEach var="mrecord" items="${mrecordList}">
 										<tbody>
 											<tr class="text-center"> 
-											
-												<td style="color: #800080; font-weight: bold;"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td>
-												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.userid}</a></td>
-												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.petname}</a></td>											
-												<td class="text-center"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.vdate}</a></td>
+												<fmt:parseDate var="parseTime" value="${mrecord.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/>			
+												<%-- <td style="color: #800080; font-weight: bold;"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.mindex}</a></td> --%>
+												<%-- <td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.userid}</a></td> --%>
+												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.petname}</a></td>
+												<td><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.vreason}</a></td>												
+												<td class="text-center"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${rtime}</a></td>
 												<td class="text-center"><a href="getMrecordDetail.bit?mindex=${mrecord.mindex}&cp=${cpage}&ps=${pageSize}">${mrecord.hname}</a></td>
 											</tr>
 										</tbody>
@@ -513,7 +531,7 @@
 										<ul class="pagination" id="pagingview">
 											<c:if test="${cpage > 1}">
 												<li class="page-item"><a class="page-link"
-													href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}"
+													href="getMrecordList.bit?cp=${cpage-1}&ps=${pageSize}&tab=mrecord"
 													cp="${cpage-1}" ps="${pageSize}" aria-label="Previous">
 														<span aria-hidden="true">&laquo;</span><span
 														class="sr-only">Previous</span>
@@ -524,12 +542,12 @@
 												<c:choose>
 													<c:when test="${cpage==i }">
 														<li class="page-item active"><a class="page-link"
-															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}&tab=mrecord"
 															cp="${i}" ps="${pageSize}">${i}</a></li>
 													</c:when>
 													<c:otherwise>
 														<li class="page-item"><a class="page-link"
-															href="getMrecordList.bit?cp=${i}&ps=${pageSize}"
+															href="getMrecordList.bit?cp=${i}&ps=${pageSize}&tab=mrecord"
 															cp="${i}" ps="${pageSize}">${i}</a></li>
 													</c:otherwise>
 												</c:choose>
@@ -539,7 +557,7 @@
 											<c:if test="${cpage < pageCount}">
 
 												<li class="page-item"><a class="page-link"
-													href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}"
+													href="getMrecordList.bit?cp=${cpage+1}&ps=${pageSize}&tab=mrecord"
 													cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> <span
 														aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
 												</a></li>

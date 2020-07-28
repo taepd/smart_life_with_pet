@@ -36,7 +36,7 @@ public class ManagementController {
 	
 	// 반려동물 관리 홈 보여주기
 	@RequestMapping(value = "main.bit", method = RequestMethod.GET)
-	public String mainView(Principal principal, Model model) {
+	public String mainView(String cp, String ps, Principal principal, Model model) {
 		
 		String userid =  principal.getName();
 		logger.info("로그인 유저 아이디: "+userid);
@@ -51,10 +51,15 @@ public class ManagementController {
 			return "redirect:/main.bit";
 		}
 		
-		HashMap<String, Object> map = medicalService.getMrecordList("1", "5", userid); //cp, ps 임시로 박아둠		
+		HashMap<String, Object> map = medicalService.getMrecordList(cp, ps, userid);		
 		logger.info("병원이용 리스트 조회 완료");	
 		
 		model.addAttribute("mrecordList", map.get("mrecordList"));
+		model.addAttribute("cpage", map.get("cpage"));
+		model.addAttribute("pageSize", map.get("pageSize"));
+		model.addAttribute("postList", map.get("postList")); 		
+		model.addAttribute("pageCount", map.get("pageCount"));
+		model.addAttribute("totalPostCount", map.get("totalPostCount"));
 		
 		return "management/main";
 	}

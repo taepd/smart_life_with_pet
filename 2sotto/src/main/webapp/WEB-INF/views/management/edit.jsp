@@ -32,7 +32,7 @@
 			border-radius: 6px;	
 		}
 
-		h1, h3 {
+		h1, h2, h3 {
 			/* font-family : 'netmarbleM', sans-serif; */
 			font-family: 'Noto Sans KR', sans-serif;
 			/* color: #9c27b0; */
@@ -76,7 +76,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 title-area">
-						<h2>반려동물 정보 수정하기 <i class="fas fa-paw"></i></h2>
+						<h2>반려동물 정보 수정하기 <i class="fas fa-paw"></i></h1>
 				</div>
 				<div class="col-2"></div>
 				<div class="col-8 area">
@@ -232,7 +232,7 @@
 									<img id="img" name="img"	src="${pageContext.request.contextPath}/assets/images/${pet.petimg}" 
 									alt="" width="150px" height="150px" style="border-radius: 10px;" /> 
 									<input type="hidden" name="petimg" value="${pet.petimg}">
-									<span id="imgFileName">&nbsp;&nbsp;</span>
+									<!-- <span id="imgFileName">&nbsp;&nbsp;</span> -->
 							</div>	
 						</div>
 					</div>

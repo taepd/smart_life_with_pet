@@ -74,7 +74,7 @@
 
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" placeholder="아이디로 쓸 이메일을 입력하세요." id="userid" name="userid">
-								<button type="button" class="btn btn-sm" id="emailCheck" name="emailCheck" email_chk="fail" style="position: absolute; top: 23px; right: 0;">메일 인증</button>
+								<button type="button" class="btn btn-sm" id="emailCheck" name="emailCheck" check_result="fail" style="position: absolute; top: 23px; right: 0;">메일 인증</button>
 								<!-- 적합하지 않은 이메일 형식입니다. -->
 								<div class="tdemail" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
 							</div>
@@ -93,7 +93,7 @@
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
-								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick">
+								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick" check_result="fail">
 								<button type="button" class="btn btn-sm" id="btn-nickchk" style="position: absolute; top: 23px; right: 0;">중복확인</button>
 								<!-- 닉네임 응원. > ????? -->
 								<div class="col-sm-12 tdnick" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
@@ -102,6 +102,7 @@
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" placeholder="휴대폰 번호를 입력하세요." id="cpnumber" name="cpnumber">
 								<!-- <button type="button" class="btn btn-sm" id="btn-cpnumberchk" style="position: absolute; top: 23px; right: 0;">중복확인</button> -->
+								<div class="col-sm-12 tdcpnumber" style="font-size: 12px; color: #F27D7D; text-align: left; padding-left:0;"></div>
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
@@ -115,7 +116,8 @@
 							</div>
 
 							<div id="layer"
-								style="border-radius: 10px; margin-bottom: 10px; display: none; position: absolute; overflow: hidden; z-index: 1; top: 0px; left: 0px; max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6;">
+								style="margin-bottom: 10px; display: none; position: relative; overflow: hidden; z-index: 1; top: 0px; left: 0px; 
+										max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6; transform:translate(0,-54px);">
 								<img
 									src="//t1.daumcdn.net/postcode/resource/images/close.png"
 									id="btnCloseLayer"
@@ -166,7 +168,7 @@
 												'<b>적합하지 않은 이메일 형식입니다.</b>');
 								validate[0] = false;
 							} else {
-								$('.tdemail').html('<b>적합한 형식입니다.</b>');
+								$('.tdemail').html('<b style="color:green">적합한 형식입니다.</b>');
 								validate[0] = true;
 							}
 							console.log(validate[0]);
@@ -200,7 +202,7 @@
 								$('.tdpw').html('<b>8~20자 사이에 적어도 하나의 영어 대문자,숫자, 특수문자가 포함되어야 합니다.</b>');
 								validate[1] = false;
 							} else {
-								$('.tdpw').html('<b>적합한 비밀번호입니다.</b>');
+								$('.tdpw').html('<b style="color:green">적합한 비밀번호입니다.</b>');
 								validate[1] = true;
 							}
 							//console.log(validate[1]);
@@ -212,11 +214,27 @@
 				$('.tdpwch').html('<b>비밀번호가 다릅니다.</b>');
 				validate[2] = false;
 			} else {
-				$('.tdpwch').html('<b>비밀번호가 일치합니다.</b>');
+				$('.tdpwch').html('<b style="color:green">비밀번호가 일치합니다.</b>');
 				validate[2] = true;
 			}
 			console.log(validate[2]);
 		});
+		//cpnumber check
+		$('#cpnumber')
+		.keyup(
+				function() {
+					let cpnumber = /^\d{3}-\d{3,4}-\d{4}$/;
+					if (!cpnumber.test($('#cpnumber').val())) {
+						$('.tdcpnumber')
+								.html(
+										'<b>올바르지 않은 휴대폰 번호 형식입니다. 예)010-1234-1234</b>');
+						validate[3] = false;
+					} else {
+						$('.tdcpnumber').html('<b style="color:green">올바른 형식입니다.</b>');
+						validate[3] = true;
+					}
+					console.log(validate[3]);
+				});
 
 		//입력 다 했는지 검증
 		$('input:not([type=file])').prop("required", true);
@@ -226,7 +244,7 @@
 		$('button:submit').click(function() {
 			for (let i = 0; i < validate.length; i++) {
 				if (validate[i] == false) {
-					alert("올바르지 않은 입력이 있습니다.");
+					swal("올바르지 않은 입력이 있습니다.");
 					console.log(i);
 					switch (i) {
 					case 0:
@@ -239,21 +257,20 @@
 						$('#pwdCheck').focus();
 						return false;
 					case 3:
-						$('#nick').focus();
+						$('#cpnumber').focus();
 						return false;
 					}
 				}
 			}
-			if ($('#userid').attr("check_result") == "fail") {
-				alert("아이디 중복확인을 해주시기 바랍니다.");
-				$('#userid').focus();
+			if ($('#emailCheck').attr("check_result") == "fail") {
+				swal("이메일 인증을 해주시기 바랍니다.");
 				return false;
 			}
 			if ($('#nick').attr("check_result") == "fail") {
-				alert("닉네임 중복확인을 해주시기 바랍니다.");
+				swal("닉네임 중복확인을 해주시기 바랍니다.");
 				$('#nick').focus();
 				return false;
-			}
+			}		
 		});
 
 
@@ -281,21 +298,24 @@
 						$('#userid').focus();
 						return false;
 					} else {
-						//swal("입력하신 E-mail 주소로 인증번호가 발송됩니다.");
-						$('#emailChecking').empty();
-						$('#emailChecking').addClass('form-group has-default bmd-form-group');
-						$('#emailChecking').append(
-							"<input type='text' class='form-control' placeholder='이메일을 통해 받은 인증번호를 입력하세요' id='confirmNum'>"
-							+ "<button type='button' class='btn btn-outline btn-sm' style='position: absolute; top: 23px; right: 0;' id='confirm'>확인</button>"
-							+ "<input type='hidden' class='form-control' id='confirmVal' required>");
-							/* $('#confirmNum').attr(type,'text');
-							$('#confirm').removeAttr('hidden'); */
+						swal("입력하신 E-mail 주소로 인증번호가 발송됩니다.");
+						
 						$.ajax({
 								type : "post",
 								url : "confirmEmail",
 								data : {"receiveMail" : $('#userid').val()},
 								success : function(data) {
-									//swal("인증 번호가 발송되었습니다. 메일을 확인해주세요~!");
+									//swal("인증 번호가 발송되었습니다. 메일을 확인해주세요.");
+
+									$('#emailChecking').empty();
+									$('#emailChecking').addClass('form-group has-default bmd-form-group');
+									$('#emailChecking').append(
+										"<input type='text' class='form-control' placeholder='이메일을 통해 받은 인증번호를 입력하세요' id='confirmNum'>"
+										+ "<button type='button' class='btn btn-outline btn-sm' style='position: absolute; top: 23px; right: 0;' id='confirm'>확인</button>"
+										+ "<input type='hidden' class='form-control' id='confirmVal' required>");
+										/* $('#confirmNum').attr(type,'text');
+										$('#confirm').removeAttr('hidden'); */
+									
 									$('#confirm').click(function() {
 										// console.log("confirm버튼 눌림")
 										// console.log(data);
@@ -305,7 +325,7 @@
 										} else {
 											swal("인증 완료!")
 											$('#confirmVal').val('1');
-											$('#userid').attr("email_chk", "success");
+											$('#emailCheck').attr("check_result", "success");
 											$('#confirmNum').attr('readonly', true);
 											$('#confirm').attr('disabled', true);
 										}
@@ -506,7 +526,7 @@
 							
 
 							if ($('#nick').val() == '') {
-								alert('닉네임을 입력해주세요.')
+								swal('닉네임을 입력해주세요.')
 								return;
 							}
 
@@ -522,12 +542,12 @@
 								success : function(data) {
 									console.log(data);
 									if (data[0] != null) {
-										alert("이미 존재하는 닉네임 입니다.");
+										swal("이미 존재하는 닉네임 입니다.");
 										$("#nick").val('');
 										$("#nick").focus();
 										return;
 									} else {
-										alert("사용가능한 닉네임 입니다.");
+										swal("사용가능한 닉네임 입니다.");
 										$('#nick').attr("check_result",
 												"success");
 										// $('#id_check_sucess').show();

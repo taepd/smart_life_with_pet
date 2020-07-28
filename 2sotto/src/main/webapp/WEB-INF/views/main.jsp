@@ -114,6 +114,11 @@
 						<c:choose>
 							<c:when test="${empty petList}">
 								나의 반려동물을 등록해보세요.
+								<div class="text-center" style="margin:30px">
+									<button onclick='location.href="${pageContext.request.contextPath}/management/register.bit"' class="btn btn-outline-primary btn-round" >
+					        	  			<i class="material-icons">pets</i> 반려동물 등록하기
+					        		</button>
+								</div>					        		
 							</c:when>
 							<c:otherwise>
 								<div class="row">
@@ -136,9 +141,9 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-										<a href="management/main.bit?tab=schedule">
+										<!-- <a href="management/main.bit?tab=schedule"> -->
 											<div id="myPetSchedule" class="text-center"></div>
-										</a>
+										<!-- </a> -->
 									</div>
 									</div>
 								</div>
@@ -160,7 +165,7 @@
 							<div  style="overflow: hidden;">
 							<c:set value="${petLikeList}" var="likeList"/>
 							<c:choose>
-								<c:when test="${likeList == null}">
+								<c:when test="${empty petLikeList}">
 										팔로우하는 동물이 없어요. 찾으러 가볼까요?
 								</c:when>
 								<c:otherwise>
@@ -728,7 +733,7 @@
 				    	</c:forEach>
 					        info = `<p class="text-center">다가올 일정이 없습니다.</p>
 					        		<button onclick='location.href="${pageContext.request.contextPath}/management/main.bit?tab=schedule"' class="btn btn-outline-primary btn-round" >
-					        	  		<i class="material-icons">favorite</i> 일정 등록하기
+					        	  		<i class="material-icons">calendar_today</i> 일정 등록하기
 					        		</button>`;  
 				    	
 				    }

@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
-
 <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
           <div class="sidebar" data-color="white" data-active-color="danger">
                <div class="logo">
-		        <a href="/" class="simple-text logo-mini">
+		        <a href="adminMain.bit" class="simple-text logo-mini">
 		            <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
 		        </a>
 		        <a href="adminMain.bit" class="simple-text logo-normal">
@@ -43,7 +42,7 @@
 	          <li>
 	            <a href="userDonationTable.bit">
 	              <i class="nc-icon nc-diamond"></i>
-	              <p>후원게시판 보러가기</p>
+	              <p>후원게시판</p>
 	            </a>
 	          </li>
 	          <li>

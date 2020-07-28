@@ -179,8 +179,8 @@
                 <p class="card-category">차트1-3</p>
               </div>
               <div class="card-body ">
-                <div id="basicline3" style="min-width: 310px; height: 400px; margin: 0 auto">
-				</div>
+                <div id="pCountByDay_ColumnChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			 </div>
 			 </div>
               <div class="card-footer ">
                 <hr>
@@ -277,6 +277,7 @@ $(function(){
 	
 	getPetKindCount();
 	signUpCountbyDay();
+	pCountByDay();
 	
 });
 
@@ -338,50 +339,45 @@ var signUpCountbyDay = function(){
 		chart.draw(data, options); 
 	}
 }
-	
-	/* var data = google.visualization.arrayToDataTable([
-			[ "Employee", "Rating" ], [ "Suresh", 25 ], [ "Amit", 56 ],
-			[ "Rahul", 37 ], [ "Lucky", 71 ], [ "Pooja", 11 ],
-			[ "Manoj", 49 ] ]);
-	var options = {
-		title : "Employee Ratings"
-	};
-	var chart = new google.visualization.PieChart(document.getElementById("employee_piechart"));
-	chart.draw(data, options); */
 
 
-
-
-/* var chart_data;
-var startdate = "default";
-var enddate = "default";
-google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(load_page_data);
-
-function load_page_data(){
-    $.ajax({
-        url: 'getUserList.bit',
-        data: {'date':userid,'date':snstype},
-        async: false,
-        success: function(data){
-            if(data){
-                chart_data = $.parseJSON(data);
-                drawChart(chart_data, "My Chart", "Data");
-            }
-        },
-    });
+var pCountByDay = function(){
+	google.charts.load('current', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var chart_data = [["결제 일자", "총 결제액"]];
+		
+		var array = ${pCountByDay};
+		for(var i in array){
+			var arr = [];
+			$.each(array[i], function(key, value){
+				arr.push(value);
+			}); 
+			chart_data.push(arr);			
+			
+		}
+		var data = new google.visualization.arrayToDataTable(chart_data);
+		var options = {
+			 	trendlines: {
+		          0: {type: 'linear', lineWidth: 5, opacity: .3},
+		          1: {type: 'exponential', lineWidth: 10, opacity: .3}
+		        },
+				hAxis: {
+					title:'결제일',
+					logScale: true
+				},
+				vAxis:{
+					title:'총 결제액',
+					logScale: false
+				},
+				colors: ['blue']
+				
+			};
+		var chart = new google.visualization.ColumnChart(document.getElementById("pCountByDay_ColumnChart"));
+		chart.draw(data, options); 
+	}
 }
-
-function drawChart(chart_data, chart1_main_title, chart1_vaxis_title) {
-    var chart1_data = new google.visualization.DataTable(chart_data);
-    var chart1_options = {
-        title: chart1_main_title,
-        vAxis: {title: chart1_vaxis_title,  titleTextStyle: {color: 'red'}}
-    };
-
-    var chart1_chart = new google.visualization.BarChart(document.getElementById('chart1_div'));
-    chart1_chart.draw(chart1_data, chart1_options);
-} */
+	
 </script>
 
 </html>

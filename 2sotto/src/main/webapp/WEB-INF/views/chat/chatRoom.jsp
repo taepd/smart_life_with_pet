@@ -53,13 +53,11 @@
 
 
 <body>
-			
-	<div class="side_overlay">
+	<div style="margin: 20px;">			
 		
-		<div class="container" >
 			<button type="button" id="exitBtn" class="btn btn-sm btn-primary" >나가기</button>
 			<button type="button" id="deleteBtn" class="btn btn-sm btn" >방 삭제</button>
-			<div class="card" >
+			<div class="card col-lg-12">
 					<!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
 					<div class="nav-tabs-navigation" >
 						<div class="nav-tabs-wrapper" >
@@ -88,31 +86,16 @@
 					</div>
 				</div>	
 				</div>
-					
-					<br>
-					
-					
-				<div class="row justify-content-center">
+				<div class="justify-content-center">
 					<div class="card ">
-							<div class="col3"></div>
-						<div class="col-12">
 						<div class="col-12 form-group d-flex">
 							<input type="text" id="messageSend" class="form-control chat-input"  placeholder="매너채팅 하세요!! :)">
 							<button type="button" id="sendBtn" class="btn btn-sm chat-input " >전송</button>
 						</div>
-						</div>
-							<div class="col3"></div>
 					</div>
 				</div>
-					
-				
-				
-				
-			
 
-		</div><!-- container -->
-		
-	</div>	<!-- container end -->
+		</div>
 	
 <!-- 기본 폼 완성 -->
 

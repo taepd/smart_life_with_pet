@@ -146,38 +146,64 @@
 				<div class="col-lg-12">
 					<div class="main-card">
 						<a href="main.bit" style="color: #EE82EE;"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
-						<div class="row">
-							<div class="col-lg-9">
-								<h2 class="mt-0 pt-0" style="font-family: 'Noto Serif KR', serif;">${donate.title}</h2>
-								<hr style="margin-top: 30px; margin-bottom: 40px;">
-								<p>${donate.content}</p>
-							</div>
-							<div class="col" style="border: 1px solid rgba(156, 39, 176, 0.2); padding: 30px;">
-								<div class="row">
-									<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
-									등록일 ${rtime}
+						
+						<form action="donatePoint.bit" method="POST">
+						
+							<input type="hidden" name="dindex" value="${donate.dindex}"> 										
+							<input type="hidden" name="title" value="${donate.title}"> 														
+							<%-- <input type="hidden" name="content" value="${donate.content}"> --%> 														
+							<input type="hidden" name="dobject" value="${donate.dobject}">
+								<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
+							<input type="hidden" name="rtime" value="${rtime}">
+								<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<input type="hidden" name="ctime" value="${ctime}"> 																						
+							<input type="hidden" name="gcoll" value="${donate.gcoll}"> 								
+							<input type="hidden" name="ccoll" value="${donate.ccoll}">
+						
+						
+							<div class="row">
+								<div class="col-lg-9">
+									<h2 class="mt-0 pt-0" style="font-family: 'Noto Serif KR', serif;">${donate.title}</h2>
+									<hr style="margin-top: 30px; margin-bottom: 40px;">
+									<p name="content">${donate.content}</p>
 								</div>
-								<br>
-								<div class="row">
-									<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>	
-									마감일 ${ctime} 
-								</div>
-								<br>
-								<div class="row">
-									모금률&nbsp;
-									<span style="text-align: center; color:rgba(156, 39, 176); font-weight: bold; font-size: 27px;">
-										<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</span>
+								<div class="col" style="border: 1px solid rgba(156, 39, 176, 0.2); padding: 30px;">
+									<div class="row">
+										<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
+										등록일 ${rtime}
+									</div>
 									<br>
-									<progress value="0" max="100" id="jb"></progress>
-								</div>
-								<div class="row" style="margin: 0 auto;">
-									<input type="text" name="dpoint" class="form-control" placeholder="기부할 포인트 액수">
-									<button type="submit" id="donatePoint" class="btn btn-primary btn-sm">기부</button>
+									<div class="row">
+										<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>	
+										마감일 ${ctime} 
+									</div>
+									<br>
+									<div class="row">
+										목표 모금액 ${donate.gcoll}원
+									</div>
+									<br>
+									<div class="row">
+										현재 모금액 ${donate.ccoll}원
+									</div>
+									<br>
+									<div class="row">
+										모금률&nbsp;
+										<span style="text-align: center; color:rgba(156, 39, 176); font-weight: bold; font-size: 27px;">
+											<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</span>
+										<br>
+										<progress value="0" max="100" id="jb"></progress>
+									</div>
+									<div class="row" style="margin: 0 auto;">
+										<input type="text" name="dpoint" class="form-control" placeholder="기부할 포인트 액수">
+										<button type="submit" id="donatePoint" class="btn btn-primary btn-sm">기부</button>
+									</div>
 								</div>
 							</div>
-						</div>
+						</form>
 							
 						<!-- 댓글 시작 -->
 						<div class="row">
@@ -206,8 +232,11 @@
 							</div>
 							<div class="col"></div>
 						</div>
+						
+						
+						
 								
-						<form action="donatePoint.bit" method="POST">
+						
 						
 							<!-- hidden으로 자료 받으려고 시작 -->
 							<!------------------------------------------------------------------------------------------------------->

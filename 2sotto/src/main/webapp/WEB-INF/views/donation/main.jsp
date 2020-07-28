@@ -64,9 +64,9 @@
 
 	<div id="donation-jumbotron" class="jumbotron">
 		<h2 style="font-family: 'Noto Serif KR', serif !important;">
-			당신의 작은 도움이<br>
-			큰 사랑이 됨을 확인하세요.<br>
-			한줄 더 써야되는데
+			모든 생명은 보호받을 권리가 있습니다.<br>
+			작은 도움이 모여<br>
+			큰 사랑이 됨을 확인하세요.
 		</h2>
 	</div>
 	
@@ -87,8 +87,8 @@
 						</h3>
 						<!-- <div class="form-group bmd-form-group"> -->
 							<!-- <label for="bmd-label-static">모금률</label> -->
-							<p><fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
-							<progress value="0" max="100" id="jb"></progress>
+						<progress value="${donate.ccoll/donate.gcoll*100}" max="100" id="jb"></progress>
+						<p><span style="font-size: 25px;"><fmt:formatNumber value="${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</span></p>
 						<!-- </div> -->
 						현재 모금액 ${donate.ccoll} <br>
 						목표 모금액 ${donate.gcoll} <br>
@@ -96,8 +96,7 @@
 						<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>
 						<p>${ctime}까지</p>
-						<progress value="${donate.ccoll/donate.gcoll*100}" max="100" id="jb"></progress>
-						<p><fmt:formatNumber value="${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</p>
+						
 					</div>
 					
 				</div>

@@ -14,41 +14,28 @@
      	h1, h2, h3, h4, h5, h6, #index-paragraph {
      		font-family: 'Noto Serif KR', serif;
      	}
-     	
      	#index-paragraph {
      		font-size: 37px;
      		color: #9A9A9A;
      		line-height: 1.4;
      		margin-bottom: 70px;
      	}
-     	
      	#index-title {
      		margin-bottom: 24px;
-		 }
-		 
+		}
 		.grid-item img {
 			display: block;
 			min-width: 100%;
 			max-width: 100%;
 		}
-
 		.grid-sizer, .grid-item {
-			/* width: 200px; */
 			width: 32%;
 		}
-
-		.grid-item {
-			/* margin-bottom: 15px; */
-			/* overflow: hidden; */
-		}
-		
 		.card {
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
-     	
-     	
-     	
+		
      </style>
     
 </head>
@@ -63,8 +50,8 @@
 	    	 	<div class="col-lg-9">
 					<h1 id="index-title">내 반려동물을 더 사랑하는 방법</h1>
 					<p id="index-paragraph">
-		    	 		사랑을 기록하세요.<br>
-		    	 		슬기로운 반려생활이 당신을 도울게요.<br>
+		    	 		기록하고, 꺼내보세요.<br>
+		    	 		슬기로운 반려생활이 당신과 함께할게요.<br>
 					</p>
 	    	 	</div>
 	    	 	<div class="col"></div>

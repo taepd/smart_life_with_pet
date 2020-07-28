@@ -60,10 +60,9 @@
 								<!-- <a class="nav-item nav-link" onclick="location.href='adminDonationwrite.bit'" data-toggle="tab"> <i class="material-icons">build</i>
 									<i class="material-icons">camera</i>글 작성
 								</a> -->
-								<form action="adminDonationwrite.bit" >
-								<button class="btn" style="float: right" >글 작성</button>
-								</form>
-											
+								<form action="adminDonationwrite.bit" class="text-center" >
+								<button class="btn" >글 작성</button>
+								</form>						
             	</div>
                 </div>
             </div>

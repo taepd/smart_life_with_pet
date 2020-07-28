@@ -89,10 +89,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         
-        //관리자는 로그인시 바로 관리자 페이지로 진입하도록 설정
+       //관리자는 로그인시 바로 관리자 페이지로 진입하도록 설정
  	   if(((UserDetails)authentication.getPrincipal()).getUsername().equals("admin")) {
  		   setDefaultUrl("/admin/adminMain.bit");
  		   System.out.println("디폴트 url: "+ defaultUrl);
+ 	   }else {
+ 		  setDefaultUrl("/main.bit");  //회원, 관리자 오가며 로그인 시 url 다시 설정하도록 함
  	   }
         
         //저장된 리퀘스트 경로가 있는 경우 그쪽으로 이동, 없으면 디폴트 페이지로 이동

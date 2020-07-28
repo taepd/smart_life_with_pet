@@ -8,6 +8,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ import net.minidev.json.*;
 @RequestMapping("/admin/")
 public class AdminController {
 	
+	@Autowired
+	SqlSession sqlsession;
 	@Autowired
 	UserService us;
 	
@@ -222,7 +225,7 @@ public class AdminController {
 			return pointList;
 		}
 		
-		// 포인트리스트 조회 Ajax  
+		// 후원리스트 조회 Ajax  
 		@ResponseBody
 		@RequestMapping(value = "getDonationList.bit", method = { RequestMethod.GET, RequestMethod.POST })
 		public List<Donate> getDonationList(Donate donate, Principal principal, Model model) throws IOException {
@@ -249,6 +252,7 @@ public class AdminController {
 
 			return "admin/adminDonationwrite";
 		}
+		
 		
 		
 		// 후원글 쓰기
@@ -409,5 +413,5 @@ public class AdminController {
 				return "javascript:history.back();";
 			}
 		}
-
+		
 }

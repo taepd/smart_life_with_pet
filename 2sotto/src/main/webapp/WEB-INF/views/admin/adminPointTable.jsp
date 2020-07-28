@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -10,7 +11,7 @@
   <title>
   	 슬기로운 반려생활
   </title>
-   <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
+  <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -25,15 +26,16 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" crossorigin="anonymous">
 </head>
 
-<body>
-
+<body class="">
+<% request.setCharacterEncoding("utf-8"); %>
+  
     <div class="main-panel">
       <div class="content">
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> User Table</h4>
+                <h4 class="card-title"> Point Table</h4>
               </div>
               <div class="card-body">
             	<div id="searchResult" class="table-responsive">
@@ -41,13 +43,14 @@
 						<thead class=" text-primary">
 							<tr>
 								
-								<th>이메일</th>
-								<th>닉네임</th>
-								<th>번호</th>
-								<th>지역</th>
-								<th>포인트</th>
-								<th>가입일시</th>
-								<th>SNS</th>
+								<th>포인트 내역 번호</th>
+								<th>유저명</th>
+								<th>포인트유형</th>
+								<th>변동 포인트</th>
+								<th>사용자 포인트 총량</th>
+								<th>포인트 변동 일시</th>
+								<th>결제 번호</th>
+								<th>기부번호</th>
 								
 							</tr>
 						</thead>
@@ -59,10 +62,11 @@
           
         </div>
       </div>
-     	
+      
       <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
     </div>
-
+  </div>
+ 
   <!--   Core JS Files   -->
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/popper.min.js"></script>
@@ -94,7 +98,7 @@
 		console.log('작동?');
 		$.ajax(
 			{
-				url:"getUserList.bit",
+				url:"getPointList.bit",
 				type:"POST",
 				dataType:"json",
 				//data: "",
@@ -105,7 +109,7 @@
 			   		$('#myTable').dataTable(
 			   	   			{ 
 			   	   				ajax:{
-			   	   					'url':'getUserList.bit', //이건 왜 필요한거지..
+			   	   					'url':'getPointList.bit', //이건 왜 필요한거지..
 			   	   					'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
 			   	   					'dataSrc': {
 			   	   						"data": [responsedata]
@@ -113,13 +117,15 @@
 			   	   				},
 			   	   				columns:[
 			   	   					
+			   	   					{"data": "ptindex"},
 			   	   					{"data": "userid"},
-			   	   					{"data": "nick"},
-			   	   					{"data": "cpnumber"},
-			   	   					{"data": "loc"},
-			   	   					{"data": "userPoint"},
-			   	   					{"data": "rtime"},
-			   	   					{"data": "snstype"}
+			   	   					{"data": "ptype"},
+			   	   					{"data": "pcount"},
+			   	   					{"data": "pamount"},
+			   	   					{"data": "pdate"},
+			   	   					{"data": "pindex"},
+			   	   					{"data": "drindex"}
+			   	   					
 			   	   				]
 			   	   				
 			   	   			}		

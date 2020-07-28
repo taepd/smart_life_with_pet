@@ -225,7 +225,7 @@
 									</label> &nbsp;&nbsp;&nbsp;&nbsp; 
 										<img id="img" name="petimg" src="../assets/images/pet_profile.jpg" alt="" width="150px"
 										height="150px" style="border-radius: 10px;" /> 
-										<span id="imgFileName">&nbsp;&nbsp;</span>
+									<!-- 	<span id="imgFileName">&nbsp;&nbsp;</span> -->
 								</div>	
 							</div>
 						</div>

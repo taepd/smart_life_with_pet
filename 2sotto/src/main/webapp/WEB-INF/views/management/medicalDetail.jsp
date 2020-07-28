@@ -13,6 +13,17 @@
 
 <%@ include file="/WEB-INF/include/import.jsp"%>
 	<style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+
+
+		h1, h2, h3 {
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
+			/* color: #9c27b0; */
+		}
 		
 		#joinForm-wrapper {
 			display: inline-block;
@@ -56,21 +67,21 @@
 						
 						<div id="joinForm">
 							<div id="joinForm-wrapper">
-								<div class="form-group has-default bmd-form-group">
+								<%-- <div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
 									<input type="text" class="form-control" style="background-color: #e9e9e9;" name="mindex" value="${mrecord.mindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
 									<input type="text" name="petindex" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.petindex}" readonly> 
-								</div>
+								</div> --%>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
-									<input type="text" name="userid" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.userid}" readonly> 
+									<input type="text" name="userid" class="form-control" value="${sessionScope.user.nick}" readonly> 
 								</div>
 		
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static" style="text-align: left;" for="petname">나의 반려동물</label>	
+								<div class="form-group bmd-form-group  text-left">
+									<label for="bmd-label-static" for="petname" style="margin-bottom:15px">나의 반려동물</label>	
 										<select class="custom-select" name="petindex" disabled> <!-- ex) ?mcategory=dog -->
 											<c:forEach var="petName" items="${petNameList}">
 											<option value="${petName.petindex}">${petName.petname}</option>							
@@ -81,18 +92,18 @@
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">병원 방문 시간</label>
 									<fmt:parseDate var="parseTime" value="${mrecord.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/> 
-									<input type="text" name="vdate" class="form-control" style="background-color: #e9e9e9;" value="${vdate}" readonly> 
+									<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd HH:mm"/> 
+									<input type="text" name="vdate" class="form-control"  value="${vdate}" readonly> 
 								</div>								
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static" style="text-align: left;" >병원 방문 목적</label> 											
-								<input type="text" name="vreason" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.vreason}" readonly >
+								<input type="text" name="vreason" class="form-control"  value="${mrecord.vreason}" readonly >
 								</div>	
 																							
 								<!-- <div id="donateColl"> -->															
 								<div class="form-group bmd-form-group">
-								<label for="bmd-label-static">방문명원명</label> 
-								<input type="text" name="hname" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.hname}" readonly> 
+								<label for="bmd-label-static">방문병원 이름</label> 
+								<input type="text" name="hname" class="form-control"  value="${mrecord.hname}" readonly> 
 								</div>								
 								<div >
 									<div class="card-body" style="text-align: center;">

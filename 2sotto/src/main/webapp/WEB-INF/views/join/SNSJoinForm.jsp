@@ -79,17 +79,17 @@
 								<input type="text" class="form-control" value="${sns_id}" id="userid" name="userid" readonly>
 							</div>
 
-							<div class="form-group has-default bmd-form-group">
+							<!-- <div class="form-group has-default bmd-form-group">
 								<input type="password" class="form-control" placeholder="비밀번호를 입력하세요." id="pwd" name="pwd">
-								<!-- 8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다. -->
+								8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다.
 								<div class="tdpw" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
 								<input type="password" class="form-control" placeholder="비밀번호를 확인합니다." id="pwdCheck" name="pwdCheck">
-								<!-- 비밀번호가 다릅니다. -->
+								비밀번호가 다릅니다.
 								<div class="tdpwch" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
-							</div>
+							</div> -->
 
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick">
@@ -101,6 +101,7 @@
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" placeholder="휴대폰 번호를 입력하세요." id="cpnumber" name="cpnumber">
 								<!-- <button type="button" class="btn btn-sm" id="btn-cpnumberchk" style="position: absolute; top: 23px; right: 0;">중복확인</button> -->
+								<div class="col-sm-12 tdcpnumber" style="font-size: 12px; color: #F27D7D; text-align: left; padding-left:0;"></div>
 							</div>
 
 							<div class="form-group has-default bmd-form-group">
@@ -114,7 +115,8 @@
 							</div>
 
 							<div id="layer"
-								style="border-radius: 10px; margin-bottom: 10px; display: none; position: absolute; overflow: hidden; z-index: 1; top: 0px; left: 0px; max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6;">
+								style="margin-bottom: 10px; display: none; position: relative; overflow: hidden; z-index: 1; top: 0px; left: 0px; 
+										max-width: 600px; width: 100%; height: 400px; border: 1px solid #e6e6e6; transform:translate(0,-54px);">
 								<img
 									src="//t1.daumcdn.net/postcode/resource/images/close.png"
 									id="btnCloseLayer"
@@ -176,7 +178,7 @@
 						});
 						*/
 
-		//password
+	/* 	//password
 		$('#pwd')
 				.keyup(
 						function() {
@@ -202,7 +204,25 @@
 				validate[1] = true;
 			}
 			console.log(validate[1]);
-		});
+		}); */
+
+		//cpnumber check
+		$('#cpnumber')
+		.keyup(
+				function() {
+					let cpnumber = /^\d{3}-\d{3,4}-\d{4}$/;
+					if (!cpnumber.test($('#cpnumber').val())) {
+						$('.tdcpnumber')
+								.html(
+										'<b>올바르지 않은 휴대폰 번호 형식입니다. 예)010-1234-1234</b>');
+						validate[1] = false;
+					} else {
+						$('.tdcpnumber').html('<b style="color:green">올바른 형식입니다.</b>');
+						validate[1] = true;
+					}
+					console.log(validate[1]);
+				});
+
 
 		//입력 다 했는지 검증
 		$('input:not([type=file])').prop("required", true);
@@ -212,18 +232,21 @@
 		$('button:submit').click(function() {
 			for (let i = 0; i < validate.length; i++) {
 				if (validate[i] == false) {
-					alert("올바르지 않은 입력이 있습니다.");
+					swal("올바르지 않은 입력이 있습니다.");
 					console.log(i);
 					switch (i) {
 					case 0:
-						$('#pwd').focus();
-						return false;
-					case 2:
-						$('#pwdCheck').focus();
-						return false;
-					case 3:
 						$('#nick').focus();
 						return false;
+					case 1:
+						$('#cpnumber').focus();
+						return false;						
+					/* case 2:
+						$('#pwd').focus();
+						return false;
+					case 3:
+						$('#pwdCheck').focus();
+						return false; */
 					}
 				}
 			}
@@ -454,8 +477,8 @@
 		//***********************************//
 		//  휴대폰번호 중복 체크
 		//***********************************//	
-/*
-		$('#btn-cpnumberchk')
+
+/* 		$('#btn-cpnumberchk')
 				.click(
 						 function() {
 							//휴대폰 번호 적합성 체크
@@ -505,10 +528,10 @@
 									}
 								}
 							});
-						});  */
+						});  
 
 		
-
+ */
 		/*colorpicker*/
 		// $('.demo').each(function() {
 			//

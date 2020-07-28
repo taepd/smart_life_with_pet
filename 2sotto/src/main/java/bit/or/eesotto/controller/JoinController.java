@@ -169,7 +169,7 @@ public class JoinController {
 			logger.info(user.getUserid()+"님 회원가입 처리 완료");
 			
 			msg = "회원가입 성공";
-	        url = "../"; 
+	        url = "../main.bit"; 
 	        
 	        //스프링 시큐리티 수동 로그인을 위한 작업//
 			//로그인 세션에 들어갈 권한을 설정

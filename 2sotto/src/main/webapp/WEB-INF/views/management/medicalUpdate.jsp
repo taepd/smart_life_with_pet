@@ -93,8 +93,8 @@
 								
 								
 									<div class="card-body" style="text-align: center;">
-										<button type="submit" class="btn btn-primary"><b>글 수정 완료</b></button>
-										<button type="reset" class="btn btn-outline-primary">글 수정 취소</button>
+										<button type="submit" class="btn btn-primary"><b>수정 완료</b></button>
+										<button type="reset" class="btn btn-outline-primary">취소</button>
 									</div>								
 									<br>						
 							</div>

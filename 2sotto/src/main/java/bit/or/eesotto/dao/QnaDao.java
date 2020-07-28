@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import bit.or.eesotto.dto.Blog;
+import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.User;
 
@@ -66,6 +67,10 @@ public interface QnaDao {
 			//사용자가 답변을 읽었을 경우 상태 업데이트
 			public int updateQnaUserRead(String userid) throws ClassNotFoundException, SQLException;
 			//알람관련 Dao추가
+			
+			// 어드민 > Qna 리스트 조회  ajax
+			@Select("select * from qna")
+			public List<Qna> getAdminQnaList(); 
 			
 			
 	

@@ -24,12 +24,15 @@ import bit.or.eesotto.dto.BlogComment;
 import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Point;
+import bit.or.eesotto.dto.Qna;
+import bit.or.eesotto.dto.QnaComment;
 import bit.or.eesotto.dto.User;
 
 import bit.or.eesotto.service.BlogService;
 import bit.or.eesotto.service.DonationService;
 import bit.or.eesotto.service.PetService;
 import bit.or.eesotto.service.PointService;
+import bit.or.eesotto.service.QnaService;
 import bit.or.eesotto.service.UserService;
 import bit.or.eesotto.utils.*;
 import net.minidev.json.*;
@@ -54,6 +57,9 @@ public class AdminController {
 	
 	@Autowired
 	DonationService donationService;
+	
+	@Autowired
+	QnaService qs;
 	
 	JsonUtil jsonUtil;
 	
@@ -137,6 +143,13 @@ public class AdminController {
 	public String userDonationTable() {
 
 		return "admin/adminDonationTable";
+	}
+	
+	//Qna리스트 Table 보러가기
+	@RequestMapping(value = "userQnaTable.bit", method = RequestMethod.GET)
+	public String userQnaTable() {
+
+		return "admin/adminQnaTable";
 	}
 	
 	// 유저리스트 조회 Ajax  
@@ -414,4 +427,315 @@ public class AdminController {
 			}
 		}
 		
+		///Qna 목록 불러오기
+		@ResponseBody
+		@RequestMapping(value = "adminQnaList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+		public List<Qna> getQnaList(Qna qna, Principal principal, Model model) throws IOException {
+			
+			String userid = principal.getName();
+			logger.info("로그인 유저 아이디: " + userid);
+			logger.info("로그인 유저 아이디: " + userid);
+			List<Qna> userList = qs.getQnaList();
+			logger.info("너는?: " + userid);
+			logger.info("그리고 넌는?: " + userList);
+			if(userList!=null) {
+				logger.info("유저 "+userid+"유저 조회 완료");
+			}else {
+				logger.info("유저 "+userid+"유저 조회 실패");
+			}
+			
+			return userList;
+		}
+		
+		
+		// QNA 상세 페이지 view
+		@RequestMapping(value = "adminQnaDetail.bit", method = RequestMethod.GET)
+		public String qnaDetail(String qaindex, Model model) {
+
+			Qna qna = qs.getPost(qaindex);
+			logger.info("내 Qna 글 조회 완료");
+			model.addAttribute("qna", qna);
+			
+			return "admin/adminQnaDetail";
+		}
+		
+		// Qna > Qna글 수정 view
+			@RequestMapping(value = "adminQnaEdit.bit", method = RequestMethod.GET)
+			public String qnaUpdate(String qaindex, Model model) {
+				
+				Qna qna = qs.getPost(qaindex);
+				logger.info("내 QNA 글 조회 완료");
+				model.addAttribute("qna", qna);
+				
+				return "admin/adminQnaEdit";	
+			}
+			// Qna > Qna글 답글작성 view
+		
+			@RequestMapping(value = "adminQnaReply.bit", method = RequestMethod.GET)
+			public String qnaRreplyUpdate(String qaindex, Model model) {
+				
+				Qna qna = qs.getPost(qaindex);
+				logger.info("답글 작성 뷰 완료");
+				model.addAttribute("qna", qna);
+				
+				return "admin/adminQnaReply";	
+			}
+			
+			
+			// Qna > 글 수정 처리
+			@RequestMapping(value = "adminQnaEdit.bit", method = RequestMethod.POST)
+			public String qnaUpdate(Qna qna, Model model) {
+													
+				String msg = null;
+				String url = null;
+					
+				int result = qs.editPost(qna);
+			
+				if(result==1) {
+					
+					logger.info("Qna 글 수정 완료");
+					msg = "Qna 글 수정 완료";
+			        url = "userQnaTable.bit";	//userQnaTable.bit adminQnaList.bit
+				}else { 
+					
+					logger.info("Qna 글 수정 실패");
+					msg = "Qna 글 수정 실패";
+			        url = "javascript:history.back();";
+				}
+				
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				
+				return "redirect";	
+				
+			}
+			
+
+			// Qna > 관리자 답글 처리
+			
+			@RequestMapping(value = "adminQnaReply.bit", method = RequestMethod.POST)
+			public String qnaReplyUpdate(Qna qna, Model model) {
+													
+				String msg = null;
+				String url = null;
+					
+			int result = qs.editReplyPost(qna);
+			
+				if(result==1) {
+					
+					logger.info("관리자 답글 작성 완료");
+					msg = "관리자 답글 작성 완료";
+			        url = "userQnaTable.bit"; //userQnaTable.bit adminQnaList.bit
+					
+				}else { 
+					
+					logger.info("관리자 답글 작성 실패");
+					msg = "관리자 답글 작성 실패";
+			        url = "javascript:history.back();";
+
+				}
+				
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				
+				return "redirect";	
+				
+			}	
+			
+				
+			// Qna > 글 댓글 처리
+			/*
+			@RequestMapping(value = "reply.bit", method = RequestMethod.POST)
+			public String insertReply(Qna qna, Model model) {
+															
+				//String msg = null;
+				//String url = null;
+							
+				int result = qnas.editPost(qna);
+					
+				if(result==1) {
+							
+					logger.info("Qna 글 답글 완료");
+				//	msg = "Qna 글 답글 완료";
+				//	url = "main.bit";
+					return "redirect:/qna/main.bit";
+				}else { 
+							
+					logger.info("Qna 글 답글 실패");
+				//	msg = "Qna 글 답글 실패";
+				//	url = "javascript:history.back();";
+					return "redirect:/qna/main.bit";
+				}
+						
+			//	model.addAttribute("msg", msg);
+			//	model.addAttribute("url", url);
+						
+			//	return "redirect";	
+						
+			}
+			*/
+
+			// Qna > 글 삭제 처리
+			@RequestMapping(value = "adminQnaDelete.bit", method = {RequestMethod.GET, RequestMethod.POST})
+			public String qnaDelete(Qna post, Model model) {
+													
+				//String msg = null;
+				//String url = null;
+					
+				int result = qs.deletePost(post);
+			
+				if(result==1) {
+					
+					logger.info("Qna 글 삭제 완료");
+					//msg = "Qna 글 삭제 완료";
+			        //url = "main.bit";
+					return "redirect:/admin/userQnaTable.bit";//userQnaTable.bit adminQnaList.bit
+				}else { 
+					
+					logger.info("Qna 글 삭제 실패");
+					//msg = "Qna 글 삭제 실패";
+			        //url = "javascript:history.back();";
+					return "javascript:history.back()";
+				}
+				
+				//model.addAttribute("msg", msg);
+				//model.addAttribute("url", url);
+				
+				//return "redirect";	
+				
+			}
+		
+
+		// Qna write보러가기
+		@RequestMapping(value = "adminQnaWrite.bit", method = RequestMethod.GET)
+		public String qnaWrite() {
+		
+			return "admin/adminQnaWrite";
+		}
+
+		// Qna>글쓰기 페이지 view
+				@RequestMapping(value = "adminQnaWrite.bit", method = RequestMethod.POST)
+				public String qnaWrite(Qna qna, Principal principal) {
+
+					//String userid = (String) session.getAttribute("userid");
+					String userid =  principal.getName();
+					logger.info("로그인 유저 아이디: " + userid);
+				
+					// 세션 userid post객체에 입력
+					qna.setUserid(userid);
+
+					// 임시 petindex 입력
+					//message.setMsindex(1);
+
+					int result = qs.writeQna(qna);
+					if (result == 1) {
+						
+						logger.info("Qna 글작성  성공");
+
+						return "redirect:/admin/userQnaTable.bit";//userQnaTable.bit adminQnaList.bit
+						
+					} else { // 회원가입 실패시 어찌할지 로직구현해야 함
+
+						logger.info("Qna 글작성 실패");
+
+						return "redirect:/admin/adminQnaList.bit";
+					}
+		
+
+				}
+				
+				
+			// Qna 댓글 입력 Ajax 처리  
+			@ResponseBody
+			@RequestMapping(value = "adminQnaWriteComment.bit", method = { RequestMethod.POST })
+			public int qnaWriteComment(QnaComment qnaComment, HttpServletRequest request, Model model) throws IOException {
+				
+				//비밀글 체크 여부 
+				if(qnaComment.getScstate() == null) {
+
+					qnaComment.setScstate("N");
+				}
+				
+				int result = qs.writeCommnet(qnaComment);
+				
+				if(result==1) {
+					logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 입력 처리 완료");
+				}else {
+					logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 입력 처리 실패");
+				}
+				
+				return result;
+			}
+			
+			// Qna 댓글 수정 Ajax 처리  
+			@ResponseBody
+			@RequestMapping(value = "adminQnaEditComment.bit", method = { RequestMethod.POST })
+			public int qnaEditComment(QnaComment qnaComment, HttpServletRequest request, Model model) throws IOException {
+				
+				//비밀글 체크 여부 
+				if(qnaComment.getScstate() == null) {
+
+					qnaComment.setScstate("N");
+				}
+				
+				int result = qs.editComment(qnaComment);
+				
+				if(result==1) {
+					logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 수정 처리 완료");
+				}else {
+					logger.info("Qna"+qnaComment.getQaindex()+"번글 댓글 수정 처리 실패");
+				}
+				
+				return result;
+			}
+			
+			// Qna 댓글 조회 Ajax  
+			@ResponseBody
+			@RequestMapping(value = "adminQnaGetCommentList.bit", method = { RequestMethod.GET })
+			public List<QnaComment> qnaGetCommentList(HttpServletRequest request, Model model) throws IOException {
+				
+				String qaindex = request.getParameter("qaindex");
+				
+				List<QnaComment> commentList = qs.getCommentList(qaindex);
+				
+				if(commentList!=null) {
+					logger.info("Qna"+qaindex+"번글 댓글내역 조회 완료");
+				}else {
+					logger.info("Qna"+qaindex+"번글 댓글입력 조회 실패");
+				}
+				
+				return commentList;
+			}
+			
+				
+			// QNA > 댓글 삭제 처리
+			@RequestMapping(value = "adminQnaDeleteComment.bit", method = {RequestMethod.GET, RequestMethod.POST})
+			public String qnaDeleteComment(QnaComment comment, Model model) {
+
+//				String msg = null;
+//				String url = null;
+
+				int result = qs.deleteComment(comment);
+				int qaindex = comment.getQaindex();
+				if(result==1) {
+
+					logger.info("QNA 댓글 삭제 완료");
+//					msg = "블로그 댓글 삭제 완료";
+//			        url = "main.bit";
+					return "redirect:/admin/adminQnaDetail.bit?qaindex="+qaindex+"";
+					
+				}else { 
+
+					logger.info("QNA 댓글 삭제 실패");
+//					msg = "블로그 댓글 삭제 실패";
+//			        url = "javascript:history.back();";
+			        return "javascript:history.back()";
+				}
+
+//				model.addAttribute("msg", msg);
+//				model.addAttribute("url", url);
+
+				//return "redirect";	
+
+			}
 }

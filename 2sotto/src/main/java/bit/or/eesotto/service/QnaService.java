@@ -17,11 +17,13 @@ import bit.or.eesotto.dao.MessageDao;
 import bit.or.eesotto.dao.QnaCommentDao;
 import bit.or.eesotto.dao.BlogCommentDao;
 import bit.or.eesotto.dao.BlogDao;
+import bit.or.eesotto.dao.DonateDao;
 import bit.or.eesotto.dao.QnaDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.Message;
 import bit.or.eesotto.dto.Blog;
 import bit.or.eesotto.dto.BlogComment;
+import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.QnaComment;
 import bit.or.eesotto.dto.User;
@@ -276,5 +278,20 @@ public class QnaService {
 			return qnaCommentDao.deleteComment(comment);
 		}
 	
-	
+		//어드민 > Qna 리스트 조회
+		public List<Qna> getQnaList() {
+			System.out.println("건휘야");
+			List<Qna> qnaList = null;
+			System.out.println("집에가자");
+			try {
+
+				qnaDao = sqlsession.getMapper(QnaDao.class);
+				qnaList = qnaDao.getAdminQnaList();
+				System.out.println(qnaList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return qnaList;
+		}
 }

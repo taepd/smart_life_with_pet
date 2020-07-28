@@ -91,9 +91,16 @@ public class AdminController {
 		JSONArray jsonArray2 = JsonUtil.getJsonArrayFromList(list2);
 		System.out.println("json: "+ jsonArray2);
 		
+		//회원가입 추세 차트
+		List<Map<String, Object>> list3 = pointService.pCountByDay();
+		JSONArray jsonArray3 = JsonUtil.getJsonArrayFromList(list3);
+		System.out.println("json: "+ jsonArray3);
+		
+		
+		
 		model.addAttribute("getPetKindCount", jsonArray);
 		model.addAttribute("signUpCountbyDay", jsonArray2);
-		
+		model.addAttribute("pCountByDay", jsonArray3);
 		
 
 		return "admin/adminMain";

@@ -10,7 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUserPointList" resultType="bit.or.eesotto.dto.Point">
 		
 	SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM POINT P WHERE USERID = #{param3}) S WHERE ROWNUM 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM POINT P, (SELECT @ROWNUM := 0) TMP
+		 WHERE USERID = #{param3}
+		 order by p.ptindex desc) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
 		

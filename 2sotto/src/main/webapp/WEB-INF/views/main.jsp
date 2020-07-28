@@ -137,7 +137,7 @@
 												</c:forEach>
 											</select>
 										<a href="management/main.bit">
-											<div id="myPetSchedule"></div>
+											<div id="myPetSchedule" class="text-center"></div>
 										</a>
 									</div>
 									</div>
@@ -226,21 +226,28 @@
 						<h3 class="h3-korean">추천 친구</h3>
 						<div class="row">
 						<div class="col-lg-12">
-						<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
-							<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
-							이미지: ${recomPet.petimg} --%>
-							<!-- </div> -->
-							<div class="follow-img-wrapper">
-			        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
-			        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
-	 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
-	 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
-		 		        			<%-- <h6 class="text-center">${recomPet.petname}</h6> --%>
-	 		        			</a>
-	 		        			<!-- <div class="text-center">${like.petname}</div> -->
-	 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-					        </div>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${empty petList}">
+								나의 반려동물을 등록하시면 동물 친구를 추천해 드려요.
+							</c:when>
+							<c:otherwise>
+							<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
+								<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
+								이미지: ${recomPet.petimg} --%>
+								<!-- </div> -->
+								<div class="follow-img-wrapper">
+				        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
+				        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
+		 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
+		 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
+			 		        			<%-- <h6 class="text-center">${recomPet.petname}</h6> --%>
+		 		        			</a>
+		 		        			<!-- <div class="text-center">${like.petname}</div> -->
+		 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+						        </div>
+							</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						</div>
 						</div>
 					</div>

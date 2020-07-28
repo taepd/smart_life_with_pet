@@ -2,9 +2,7 @@ package bit.or.eesotto.service;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -182,7 +180,22 @@ public class PointService {
 		}
 		// ------------이메일 발송 서비스 끝------------
 		
-	
+		//일자 별 결제액 
+		public List<Map<String, Object>> pCountByDay() {
+			
+			List<Map<String, Object>> map = null;
+
+			try {
+
+				pointDao = sqlsession.getMapper(PointDao.class);
+				map = pointDao.pCountByDay();
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return map;
+		}
 
 		
 }

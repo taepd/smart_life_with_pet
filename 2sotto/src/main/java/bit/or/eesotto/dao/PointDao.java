@@ -1,6 +1,6 @@
 package bit.or.eesotto.dao;
 
-import java.util.List;
+import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -38,5 +38,12 @@ public interface PointDao {
 		// Point > 내 글 상세 조회
 		@Select("select * from point where ptindex = #{ptindex}")
 		public Point getPointDetail(@Param("ptindex") String ptindex);
+		
+		// 어드민 > 일자별 결제액 차트 조회
+		@Select("select (date_format(p.pdate, '%Y-%m-%d')) date, sum(p.pcount) pcount "
+				+ "from point p where ptype = '결제' group by date")
+		public List<Map<String, Object>> pCountByDay();
+		
+		
 
 }

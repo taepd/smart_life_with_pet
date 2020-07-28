@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 
 <!-- Navbar -->
-
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
@@ -60,6 +59,7 @@
                   <p>
                     <span class="d-lg-none d-md-block">Profile</span>
                   </p>
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a>

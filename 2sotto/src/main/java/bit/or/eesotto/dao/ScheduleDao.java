@@ -46,8 +46,9 @@ public interface ScheduleDao {
 	@Select("select p.petindex, p.userid, p.petname, p.petimg, s.sindex, s.title, s.start " + 
 			"from pet p join schedule s " + 
 			"on p.USERID = s.USERID and p.PETINDEX = s.PETINDEX " + 
-			"where p.userid = #{userid} and p.petname = #{petname} " + 
-			"order by start")
+			"where p.userid = #{userid} and p.petname = #{petname} " +
+		    "and start>= SUBTIME( NOW(), TIMEDIFF( NOW(), CAST(DATE(NOW()) AS DATETIME))) " + 
+			"order by start desc limit 3")
 	public List<Schedule> getMyPetSchedule(@Param("userid") String userid, @Param("petname") String petname);
 	
 }

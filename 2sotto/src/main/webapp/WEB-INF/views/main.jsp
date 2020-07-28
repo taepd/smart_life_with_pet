@@ -136,7 +136,7 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-										<a href="management/main.bit">
+										<a href="management/main.bit?tab=schedule">
 											<div id="myPetSchedule" class="text-center"></div>
 										</a>
 									</div>
@@ -713,7 +713,7 @@
 	    				//참고: https://stackoverrun.com/ko/q/9770534
 	    				
 	    				$.each(response, function(index, element) {
-	    					info += "<p>" + element.title + " (" + moment(moment(element.start)).from(now) + ")</p>";
+	    					info += "<p>" + element.title + " (" + moment(moment(element.start)).format('MM월 DD일') + ")</p>";
 	    					image = element.petimg;
 	    					petindex = element.petindex;
 	    					

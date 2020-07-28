@@ -107,7 +107,7 @@
 					<%-- <li><a href="${pageContext.request.contextPath}/blog/favorite.bit">즐겨찾기한 글</a></li> 블로그 안쪽으로 들어가야 할듯... 아님 마이페이지 라든지--%>
 					<%-- <li><a href="${pageContext.request.contextPath}/mypage/main.bit">마이페이지</a></li> --%>
 					<li><a href="${pageContext.request.contextPath}/blog/main.bit">모두의 블로그</a></li>	
-					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원게시판</a></li>
+					<li><a href="${pageContext.request.contextPath}/donation/main.bit">후원하기</a></li>
 					<!--  <li><a href="${pageContext.request.contextPath}/qna/main.bit">Q&A</a></li> -->
 				</se:authorize>
 				

@@ -82,15 +82,19 @@ public class AdminController {
 	@RequestMapping(value = "adminMain.bit", method = RequestMethod.GET)
 	public String adminViewMain(Model model) {
 		
+		//동물 종류에 따른 비율 차트 
 		List<Map<String, Object>> list = ps.getPetKindCount();
-		
-		//map을 json형식으로 변환
 		JSONArray jsonArray = JsonUtil.getJsonArrayFromList(list);
 		
-		
-		System.out.println("맵: "+ list);
+		//회원가입 추세 차트
+		List<Map<String, Object>> list2 = us.signUpCountbyDay();
+		JSONArray jsonArray2 = JsonUtil.getJsonArrayFromList(list2);
+		System.out.println("json: "+ jsonArray2);
 		
 		model.addAttribute("getPetKindCount", jsonArray);
+		model.addAttribute("signUpCountbyDay", jsonArray2);
+		
+		
 
 		return "admin/adminMain";
 	}

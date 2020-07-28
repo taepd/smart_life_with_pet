@@ -3,6 +3,7 @@ package bit.or.eesotto.service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -114,6 +115,22 @@ public class UserService {
 		}
 		// ------------이메일 발송 서비스 끝------------
 		
+		//일자 별 가입자 수 
+		public List<Map<String, Object>> signUpCountbyDay() {
+			
+			List<Map<String, Object>> map = null;
+
+			try {
+
+				userDao = sqlsession.getMapper(UserDao.class);
+				map = userDao.signUpCountbyDay();
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+			return map;
+		}
 	
 
 		

@@ -89,7 +89,7 @@ public interface PetDao {
 		
 		
 		// 메인> 동물 대분류별 수 조회
-		@Select("select (select count(*) from pet where MCATEGORY = 1) dogCount, (select count(*) from pet where MCATEGORY = 2) catCount from dual")
+		@Select("select (select count(*) from pet where MCATEGORY = 1) 개, (select count(*) from pet where MCATEGORY = 2) 고양이 from dual")
 		public List<Map<String, Object>> getPetKindCount();
 
 		

@@ -11,12 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
 			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
-		FROM blog b
+		FROM blog b, (SELECT @ROWNUM := 0) TMP
 		<where>
 				<if test="param3 != null">
 					${param4} not in (#{param3}) 
 				</if>
-		</where>		
+		</where> 
+		order by b.bindex desc			
 		) S WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 		

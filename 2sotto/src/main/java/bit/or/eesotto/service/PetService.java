@@ -98,6 +98,7 @@ public class PetService {
 		return petLike;
 	}
 	
+	//동물 품종에 따른 마리수 차트 조회
 	public List<Map<String, Object>> getPetKindCount() {
 		
 		List<Map<String, Object>> map = null;

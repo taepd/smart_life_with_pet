@@ -142,9 +142,8 @@
                 <h5 class="card-title">차트1-1</h5>
                 <p class="card-category">차트1-1</p>
               </div>
-              <div class="card-body ">
-                <div id="employee_piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
-				</div>
+              <div class="card-body">
+                <div id="petKindCount_piechart" style="width:300px; height: 300px;"></div>
 			 </div>
               <div class="card-footer ">
                 <hr>
@@ -162,8 +161,7 @@
                 <p class="card-category">차트1-2</p>
               </div>
               <div class="card-body ">
-                <div id="chart2" style="min-width: 310px; height: 400px; margin: 0 auto">
-				</div>
+                <div id="signUpCountbyDay_Linechart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			 </div>
               <div class="card-footer ">
                 <hr>
@@ -266,7 +264,6 @@
     <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
   </div>
   
- </div>
   
 
  </body>
@@ -276,22 +273,71 @@
   <script src="${pageContext.request.contextPath}/assets/admin_assets/js/core/bootstrap.min.js"></script>
 	
 <script type="text/javascript">
-google.load("visualization", "1", {
-	packages : [ "corechart" ]
+$(function(){
+	
+	getPetKindCount();
+	signUpCountbyDay();
+	
 });
-google.setOnLoadCallback(drawChart);
-function drawChart() {
 
 
-	chart_data = [${getPetKindCount}];
-	console.log('차트데이타: '+ chart_data);
-	var data = google.visualization.arrayToDataTable(chart_data);
-	var options = {
-			title : "동물 종류 비율"
-		};
-	var chart = new google.visualization.PieChart(document.getElementById("employee_piechart"));
-	chart.draw(data, options); 
 
+
+
+var getPetKindCount = function(){
+	google.charts.load('current', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+	
+		
+		var chart_data = [["동물 대분류", "비율"]];
+		$.each(${getPetKindCount}[0], function(key, value){
+			var arr=[key, value];
+			chart_data.push(arr);
+			 
+		}); 
+		var data = new google.visualization.arrayToDataTable(chart_data);
+		var options = {
+				title : "동물 종류 비율",
+		        pieHole: 0.4,
+			};
+		var chart = new google.visualization.PieChart(document.getElementById("petKindCount_piechart"));
+		chart.draw(data, options); 
+	}
+}
+	
+var signUpCountbyDay = function(){
+	google.charts.load('current', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var chart_data = [["가입 일자", "가입자 "]];
+		
+		var array = ${signUpCountbyDay};
+		for(var i in array){
+			var arr = [];
+			$.each(array[i], function(key, value){
+				arr.push(value);
+			}); 
+			chart_data.push(arr);			
+			
+		}
+		var data = new google.visualization.arrayToDataTable(chart_data);
+		var options = {
+				hAxis: {
+					title:'가입일',
+					logScale: true
+				},
+				vAxis:{
+					title:'가입자 수',
+					logScale: false
+				},
+				colors: ['blue']
+				
+			};
+		var chart = new google.visualization.LineChart(document.getElementById("signUpCountbyDay_Linechart"));
+		chart.draw(data, options); 
+	}
+}
 	
 	/* var data = google.visualization.arrayToDataTable([
 			[ "Employee", "Rating" ], [ "Suresh", 25 ], [ "Amit", 56 ],
@@ -302,7 +348,6 @@ function drawChart() {
 	};
 	var chart = new google.visualization.PieChart(document.getElementById("employee_piechart"));
 	chart.draw(data, options); */
-};
 
 
 

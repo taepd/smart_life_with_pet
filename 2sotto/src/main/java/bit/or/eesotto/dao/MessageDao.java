@@ -45,7 +45,7 @@ public interface MessageDao {
 		
 		
 		//사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트
-		public int getCountNotRead()throws ClassNotFoundException, SQLException;	
+		public int getCountNotRead(String ruserid)throws ClassNotFoundException, SQLException;	
 		
 		//사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트
 		public int getCountUserNotRead()throws ClassNotFoundException, SQLException;

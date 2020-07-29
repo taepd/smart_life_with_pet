@@ -152,7 +152,7 @@ $(document).ready(function() {
 					"ws://" + location.host + "/bit/alarm");
 			wsocket.onopen = onOpen;
 			wsocket.onmessage = onMessage;
-			wsocket.onclose = onClose;
+			//wsocket.onclose = onClose;
 		}
 		function disconnect() {
 			wsocket.close();

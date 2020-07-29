@@ -125,7 +125,9 @@
 							            </div>
 							            <div class="form-group has-default bmd-form-group">
 							            	<label>잔여포인트</label>
-							                <input type="text" class="form-control" placeholder="잔여포인트" value="${user.userPoint}" disabled>
+							            	<a href="${pageContext.request.contextPath}/point/main.bit">
+							                	<input type="text" class="form-control" style="cursor:pointer" placeholder="잔여포인트" value="${user.userPoint}" disabled>
+							                </a>
 							            </div>
 							            <div class="form-group has-default bmd-form-group">
 							            	<label>지역</label>

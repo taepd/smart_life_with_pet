@@ -36,7 +36,7 @@
 			font-family: 'Noto Sans KR', sans-serif;
 			margin-left: 0;
 			margin-top: 0;
-			margin-bottom: 30px;
+			margin-bottom: 45px;
 			color: #9c27b0;
 			font-size: 1.8rem;
 			letter-spacing: -1.5px;
@@ -105,7 +105,7 @@
 				<div class="col-lg-7">
 					<div class="main-card" style="height: 312px;">
 		        		<h3 class="h3-korean">오늘의 산책지수</h3>
-	              		<div id="result" class="row"></div>
+	              		<div id="result" class="row align-self-center"></div>
               		</div>
 				</div>
 				<div class="col-lg-5">
@@ -417,7 +417,7 @@
 			
 			let Cday = year + '년 ' + month + '월 ' + date + '일';
 
-			var table = "<div class='col-lg-3'>";
+			var table = "<div class='col-lg-3 text-center'>";
 					/* 얼굴 아이콘 */
 					table += "<img id='walk' src='' alt='Weather icon' width='100'>";
 				table += "</div>";
@@ -426,7 +426,7 @@
 
 
 				table += "<div class='col-lg-4'>"
-					table += "<div class='row'><p>";
+					table += "<div class='row' style='margin-left:5px'><p>";
 						/* 지역 */
 						table += arr[0]+" "+arr[1]+" "+arr[2];
 						table += "</p><p>";

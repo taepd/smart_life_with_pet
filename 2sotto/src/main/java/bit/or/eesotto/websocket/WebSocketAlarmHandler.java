@@ -91,12 +91,10 @@ public class WebSocketAlarmHandler extends TextWebSocketHandler{
 			int count = 0;
 			System.out.println("views"+ userid);
 			System.out.println("users"+users);
-			System.out.println("users.get"+users.containsKey(userid));
-			//나중에 어드민으로 정한 이메일 또는 role이 어드민일 경우로 바꾸자
-			if(users.containsKey(userid) && userid.equals(userid)) {
+			if(users.containsKey(userid) && userid.equals(userid)) { //연언의 후건은 불필요하지만 남겨둠
 	
 				System.out.println("타니?지금 여기는 안타고있네?");
-				count = messageDao.getCountNotRead();
+				count = messageDao.getCountNotRead(userid);
 				System.out.println(count);
 				System.out.println("타니?지금 여기는 안타고있네?");
 				if(count > 0) {
@@ -119,27 +117,27 @@ public class WebSocketAlarmHandler extends TextWebSocketHandler{
 		
 	
 			
-			else if(users.containsKey(userid) && !userid.equals(userid)) {
-				System.out.println("유저 카운트 : " +count);
-				count = messageDao.getCountUserNotRead();
-				System.out.println("유저 카운트 : " +count);
-				if(count > 0) {
-					obj.put("text", "새로운 쪽지가 도착했습니다.");
-				} else {
-					obj.put("text", "새로운 쪽지가 없습니다.");
-				}
-				
-				obj.put("count", count);
-				System.out.println("userid가 뭐야?"+ userid);
-				obj.put("now", "userid");
-				System.out.println("userid가 뭐야?"+ userid);
-				System.out.println(obj.toJSONString());
-				TextMessage msg = new TextMessage(obj.toJSONString());
-				 users.get(userid).sendMessage(msg);
-				 log(userid + " / " + message.getPayload()); //받은사람한테 보낼 내용?
-				 log(userid + " / " + msg.getPayload());
-				// log(userid + " / " + message.getPayload() + " / " + msg.getPayload());
-			}
+//			else if(users.containsKey(userid) && !userid.equals(userid)) {
+//				System.out.println("유저 카운트 : " +count);
+//				count = messageDao.getCountUserNotRead();
+//				System.out.println("유저 카운트 : " +count);
+//				if(count > 0) {
+//					obj.put("text", "새로운 쪽지가 도착했습니다.");
+//				} else {
+//					obj.put("text", "새로운 쪽지가 없습니다.");
+//				}
+//				
+//				obj.put("count", count);
+//				System.out.println("userid가 뭐야?"+ userid);
+//				obj.put("now", "userid");
+//				System.out.println("userid가 뭐야?"+ userid);
+//				System.out.println(obj.toJSONString());
+//				TextMessage msg = new TextMessage(obj.toJSONString());
+//				 users.get(userid).sendMessage(msg);
+//				 log(userid + " / " + message.getPayload()); //받은사람한테 보낼 내용?
+//				 log(userid + " / " + msg.getPayload());
+//				// log(userid + " / " + message.getPayload() + " / " + msg.getPayload());
+//			}
 			
 			
 		} 
@@ -164,15 +162,15 @@ public class WebSocketAlarmHandler extends TextWebSocketHandler{
 			
 			//qnadao.writeQna(qna);
 			//qna.setReplyContent(Integer.parse(qna.getQaindex());
-			//qnadao.editPost(qna);ㅉ
+			//qnadao.editPost(qna);
 			
 			int count = 0;
-			count = messageDao.getCountNotRead();
+			count = messageDao.getCountNotRead(ruserid);
 			
 			obj.put("count", count);
 			System.out.println(obj.toJSONString());
 			TextMessage msg = new TextMessage(obj.toJSONString());
-			users.get("userid").sendMessage(msg);
+			users.get(ruserid).sendMessage(msg); // 메시지 전달 핵심 코드
 			log("userid" + " / " + message.getPayload());
 			log("userid" + " / " + msg.getPayload());
 			//log("userid" + " / " + message.getPayload() + " / " + msg.getPayload());

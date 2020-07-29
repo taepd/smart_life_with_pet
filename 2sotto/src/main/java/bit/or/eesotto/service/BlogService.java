@@ -153,7 +153,7 @@ public class BlogService {
 		
 		return map;
 	}
-	// 블로그 > 모두의 포스팅 리스트 조회
+	// 블로그 > 인기 포스팅 리스트 조회
 	public HashMap<String, Object> popularPostList(String cp, String ps, String userid) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

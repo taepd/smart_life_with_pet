@@ -279,9 +279,12 @@ public class MypageController {
 	// 반려동물의 마이페이지 view
 	@RequestMapping(value = "petPage.bit", method = RequestMethod.GET)
 	public String petPage(String cp, String ps, HttpServletRequest request, Model model) {
-		
+		String userid = null;
 		//request객체로 세션 접근해서 userid 빼기
-		String userid = ((User)request.getSession().getAttribute("user")).getUserid();
+		User user = (User)request.getSession().getAttribute("user");
+		if(user !=null) {
+			userid = user.getUserid();
+		}
 		String petindex = request.getParameter("petindex");
 		
 		//반려동물 정보 가져오기
@@ -311,10 +314,11 @@ public class MypageController {
 		for(String pindex: pindexSet) {
 			pArr.add(managementService.editPetInfo(Integer.parseInt(pindex))); 
 		}
-		
+		PetLike petLike = null;
 		//유저가 팔로우한 반려동물인지 확인
-		PetLike petLike = petService.isFollowPet(petindex, userid);		 
-		
+		if(user !=null) {
+			petLike = petService.isFollowPet(petindex, userid);		 
+		}
 		model.addAttribute(pet);
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));

@@ -22,23 +22,6 @@ ALTER TABLE USER
 			USERID -- USERID
 		);
 
--- 질의응답댓글
-CREATE TABLE QNAREPLY (
-	TITLE   VARCHAR(100) NOT NULL, -- 제목
-	ID      VARCHAR(20)  NOT NULL, -- ID
-	QAINDEX INT          NOT NULL, -- 글번호
-	CONTENT VARCHAR(500) NOT NULL, -- 내용
-	QARTIME TIMESTAMP  NOT NULL  -- 등록시간
-);
-
--- 질의응답댓글
-ALTER TABLE QNAREPLY
-	ADD
-		CONSTRAINT PK_QNAREPLY -- 질의응답댓글 기본키
-		PRIMARY KEY (
-			TITLE -- 제목
-		);
-
 -- 반려동물
 CREATE TABLE PET (
 	PETINDEX  INT  PRIMARY KEY AUTO_INCREMENT, -- 동물식별번호
@@ -57,7 +40,6 @@ CREATE TABLE PET (
 );
 
 
-
 -- 동물카테고리/대분류
 CREATE TABLE MAINCATEGORY (
 	MCATEGORY VARCHAR(20) NOT NULL, -- 대분류코드
@@ -72,19 +54,6 @@ ALTER TABLE MAINCATEGORY
 			MCATEGORY -- 대분류코드
 		);
 
--- 접종/검사 
-CREATE TABLE INSPECTION (
-	IINDEX   INT          PRIMARY KEY AUTO_INCREMENT, -- 글번호
-	PETINDEX INT          NOT NULL, -- 동물식별번호
-	USERID   VARCHAR(40)  NOT NULL, -- USERID
-	LIST     VARCHAR(100) NOT NULL, -- 항목
-	VDATE    TIMESTAMP    NULL,     -- 접종예정일
-	VSTATE   VARCHAR(4)   NULL,     -- 접종여부
-	VCOUNT   INT          NULL      -- 잔여접종횟수
-);
-
-
-
 -- 동물 병원 이용 기록
 CREATE TABLE MRECORD (
 	MINDEX   INT         PRIMARY KEY AUTO_INCREMENT, -- 글번호
@@ -94,7 +63,6 @@ CREATE TABLE MRECORD (
 	VREASON  VARCHAR(60) NOT NULL, -- 방문 사유
 	HNAME    VARCHAR(20) NOT NULL  -- 병원명
 );
-
 
 
 -- 게시글
@@ -119,8 +87,8 @@ CREATE TABLE BLOGCOMMENT (
 	BCINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	BINDEX  INT          NOT NULL, -- 글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
-	NICK VARCHAR(20) NOT NULL,
-	BCLIKE  INT          NULL,     -- 추천수(보류)
+	NICK VARCHAR(20) 	 NOT NULL,
+	BCLIKE  INT          NULL,     -- 추천수
 	CONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
 	RTIME   TIMESTAMP    NOT NULL, -- 등록시간
@@ -156,20 +124,10 @@ CREATE TABLE SCHEDULE (
 	END    TIMESTAMP    NULL,     -- 마감날짜
 	ALLDAY TINYINT DEFAULT 0, -- 하루종일 여부
 	DAYSOFWEEK VARCHAR(40) NULL, -- 반복주기
-	ADNCDNOTI   VARCHAR(40)  NULL      -- 미리알림
+	ADNCDNOTI   VARCHAR(40)  NULL,   -- 미리알림
+    COLOR VARCHAR(20) NULL,
+    GROUPID VARCHAR(100) NULL
 );
-
-
-
--- 추천
-CREATE TABLE RECOM (
-	LIKEINDEX INT         PRIMARY KEY AUTO_INCREMENT, -- 구분번호
-	USERID    VARCHAR(40) NOT NULL, -- USERID
-	BINDEX    INT         NOT NULL, -- 글번호
-	BCINDEX   INT         NOT NULL  -- 댓글번호
-);
-
-
 
 -- 질의응답
 CREATE TABLE QNA (
@@ -181,8 +139,8 @@ CREATE TABLE QNA (
    SCSTATE  VARCHAR(4)   NOT NULL, -- 비밀유무
    CONTENT  VARCHAR(500) NOT NULL, -- 내용
    FILENAME VARCHAR(100) NULL,     -- 첨부파일
-   AWSTATE  VARCHAR(4)   NOT NULL,  -- 답변완료여부
-    REPLYCONTEN VARCHAR(500) NOT NULL -- 관리자 답글내용
+   AWSTATE  VARCHAR(20)  NULL,  -- 답변완료여부
+   REPLYCONTENT VARCHAR(500) NOT NULL -- 관리자 답글내용
     
 );
 
@@ -230,7 +188,7 @@ CREATE TABLE DONATION (
 	CTIME   TIMESTAMP     NULL,
 	GCOLL   INT           NOT NULL, -- 목표기부금
 	CCOLL   INT           NOT NULL, -- 현재기부금
-	DSTATE VARCHAR(4) NOT NULL, -- 기부완료여부
+	DSTATE VARCHAR(4) 	  NOT NULL, -- 기부완료여부
 	DIMG    VARCHAR(500)  NULL
 		
 );
@@ -243,7 +201,11 @@ CREATE TABLE DONATIONCOMMENT (
 	RPLIKE  INT          NULL,     -- 추천수(보류)
 	CONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
-	RTIME   TIMESTAMP    NOT NULL -- 등록시간
+	RTIME   TIMESTAMP    NOT NULL, -- 등록시간
+    NICK VARCHAR(20) NOT NULL, -- 닉네임
+    REFER INT NOT NULL,
+    DEPTH INT NOT NULL,
+    STEP INT NOT NULL
 	
 );
 
@@ -252,7 +214,7 @@ CREATE TABLE DONATIONRECORD (
 	DRINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 기부번호
 	DINDEX  INT          NOT NULL, -- 기부글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID, 기부자
-	DCOLL INT   NOT NULL, -- 기부금액
+	DCOLL 	INT   		 NOT NULL, -- 기부금액
 	DTIME   TIMESTAMP    NOT NULL -- 기부시간
 	
 );
@@ -261,12 +223,10 @@ CREATE TABLE DONATIONRECORD (
 CREATE TABLE PAY (
 	PINDEX  INT   PRIMARY KEY AUTO_INCREMENT, -- 결제번호
 	USERID  VARCHAR(40) NOT NULL, -- USERID
-	DINDEX  INT         NOT NULL, -- 기부글번호
 	PAMOUNT INT         NULL,     -- 결제금액
 	PTIME   DATE        NULL,     -- 결제일시
 	PTYPE   VARCHAR(20) NULL      -- 결제유형
 );
-
 
 
 -- 즐겨찾기/게시글
@@ -291,7 +251,7 @@ CREATE TABLE PETLIKE (
 CREATE TABLE SUBCATEGORY (
 	SCATEGORY VARCHAR(20) NOT NULL, -- 소분류코드
 	MCATEGORY VARCHAR(20) NOT NULL, -- 대분류코드
-	SCANAME   VARCHAR(10) NULL      -- 소분류명
+	SCANAME   VARCHAR(40) NULL      -- 소분류명
 );
 
 -- 동물카테고리/소분류
@@ -309,25 +269,11 @@ CREATE TABLE POINT (
 	PTYPE   VARCHAR(4)  NULL,     -- 포인트 유형
 	PCOUNT  INT         NULL,     -- 포인트 수량
 	PAMOUNT INT         NULL,     -- 포인트 총량
-	PDATE  TIMESTAMP    NULL      -- 포인트 일시
+	PDATE  TIMESTAMP    NULL,      -- 포인트 일시
+    PINDEX INT 			NULL,	  -- 결제 번호	
+    DRINDEX INT			NULL	  -- 기부 번호
 );
 
-
-
-
-
-
--- 질의응답댓글
-ALTER TABLE QNAREPLY
-	ADD
-		CONSTRAINT FK_QNA_TO_QNAREPLY -- 질의응답 -> 질의응답댓글2
-		FOREIGN KEY (
-			QAINDEX -- 글번호
-		)
-		REFERENCES QNA ( -- 질의응답
-			QAINDEX -- 글번호
-		)
-		ON DELETE CASCADE;
 
 -- 반려동물
 ALTER TABLE PET
@@ -374,30 +320,6 @@ ALTER TABLE SUBCATEGORY
 		)
 		REFERENCES MAINCATEGORY ( -- 대분류
 			MCATEGORY -- 대분류코드
-		)
-		ON DELETE CASCADE;
-
--- 접종/검사 
-ALTER TABLE INSPECTION
-	ADD
-		CONSTRAINT FK_PET_TO_INSPECTION -- 반려동물 -> 접종/검사 
-		FOREIGN KEY (
-			PETINDEX -- 동물식별번호
-		)
-		REFERENCES PET ( -- 반려동물
-			PETINDEX -- 동물식별번호
-		)
-		ON DELETE CASCADE;
-
--- 접종/검사 
-ALTER TABLE INSPECTION
-	ADD
-		CONSTRAINT FK_USER_TO_INSPECTION -- 회원 -> 접종/검사 
-		FOREIGN KEY (
-			USERID -- USERID
-		)
-		REFERENCES USER ( -- 회원
-			USERID -- USERID
 		)
 		ON DELETE CASCADE;
 
@@ -810,7 +732,7 @@ desc message;
 desc user;
 desc schedule;
 desc qna;
-
+alter table user modify lon varchar(200) null;
 
 select * from roles;
 select * from userrole;
@@ -926,6 +848,8 @@ select p.*
 from pet p join user u on p.userid = u.userid
 where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) < 5 and p.userid not in('a')
 order by rand() limit 3;
+
+select * from user;
 
 
 

@@ -313,6 +313,11 @@ function replaceImg(){
 //반려동물 팔로우 
 $('#followBtn').click(function() {
 
+	//비로그인으로 접근 시
+	if(${empty sessionScope.user}){
+		swal('회원가입을 하고 ${pet.petname}의 친구가 되어 보세요^^');
+	}
+
 	$.ajax({
 		type : "POST",
 		url : 'followPet.bit',
@@ -368,16 +373,22 @@ $('#unFollowBtn').click(function() {
 });
 
 function popupMessage(ruserid){
+
+	//비로그인으로 접근 시
+	if(${empty sessionScope.user}){
+		swal('회원가입을 하고 ${pet.nick}에게 쪽지를 보내 보세요^^');
+	}else{
 	
-	var popupX = (document.body.offsetWidth / 2) - (580 / 2);
-	//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-	var popupY= (window.screen.height / 2) - (700 / 2);
-	//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-
-	//window.open('${pageContext.request.contextPath}/message/write.bit','_blank',
-	window.open('${pageContext.request.contextPath}/message/popmain.bit?ruserid='+ruserid+'&nick=${pet.nick}','_blank',
-'width=580, height=700, left='+ popupX + ', top='+ popupY);
+		var popupX = (document.body.offsetWidth / 2) - (580 / 2);
+		//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	
+		var popupY= (window.screen.height / 2) - (700 / 2);
+		//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	
+		//window.open('${pageContext.request.contextPath}/message/write.bit','_blank',
+		window.open('${pageContext.request.contextPath}/message/popmain.bit?ruserid='+ruserid+'&nick=${pet.nick}','_blank',
+		'width=580, height=700, left='+ popupX + ', top='+ popupY);
+	}
 	
 }
 

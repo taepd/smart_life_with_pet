@@ -48,7 +48,7 @@ public class MainController {
 				userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);
 			}
-			HashMap<String, Object> map = bs.popularPostList(cp, ps, userid);
+			HashMap<String, Object> map = bs.mainView(cp, "30", userid);
 			logger.info("블로그 인기글 리스트 조회 완료");
 			
 //			//반려동물 정보 조회

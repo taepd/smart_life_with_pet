@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+   
 	<div class="side_overlay">
 		<div class="container">
 
@@ -40,7 +40,7 @@
 			
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/include/footer.jsp"%>
+
 </body>
 	<!-- 글쓰기 등록 -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->

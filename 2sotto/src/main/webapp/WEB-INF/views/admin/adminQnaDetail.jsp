@@ -127,7 +127,7 @@
 	
 	</style>
 </head>
-<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+
 	<div class="container">
 		<div class="side_overlay">
 			<div class="main-card">
@@ -204,8 +204,7 @@
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 	
-	
-	<%@ include file="/WEB-INF/include/footer.jsp"%>	
+
 </body>
 
 

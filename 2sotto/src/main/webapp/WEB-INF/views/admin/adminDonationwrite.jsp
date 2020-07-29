@@ -183,9 +183,9 @@
 								</div>	 -->
 						<div class="border-top">
 						<div class="card-body" style="text-align: center;">
-								<button type="reset" class="btn btn-primary" onclick="location.href='adminMain.bit'">뒤로 가기</button>											
-								<button type="reset" class="btn btn-primary">다시쓰기</button>	
-								<button type="submit" class="btn btn-outline-primary" onclick="check();">등록</button>
+								<button type="reset" class="btn btn-outline-primary" onclick="location.href='adminMain.bit'">뒤로 가기</button>											
+								<button type="reset" class="btn btn-outline-primary">다시쓰기</button>	
+								<button type="submit" class="btn btn-primary" onclick="check();">등록</button>
 						</div>
 					</div>
 					</div>

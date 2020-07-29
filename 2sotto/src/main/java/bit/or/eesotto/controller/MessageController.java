@@ -131,7 +131,7 @@ public class MessageController {
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totalMsgCount", map.get("totalMsgCount"));
 
-		return "message/rPage";
+		return "message/msgSePage";
 		}
 	// 쪽지>보낸사람 view
 		@RequestMapping(value = "write.bit", method = RequestMethod.GET)

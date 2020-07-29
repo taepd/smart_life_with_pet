@@ -100,7 +100,7 @@
 								        </tr>
 								        <tr>
 								   	 		<th class="text-center">체크박스</th>
-											<th class="text-center">쪽지번호</th>
+											<!-- <th class="text-center">쪽지번호</th> -->
 											<th class="text-center">보낸사람</th>
 											<th class="text-center">내용</th>
 											<th class="text-center">받은 날짜</th>
@@ -112,7 +112,7 @@
 								    <tbody>
 								        
 								       <tr data-tr_value="${message.msindex}"> 
-								            <td><input type="checkbox" name="msindexes" value="${message.msindex}"></td>
+								          <%--   <td><input type="checkbox" name="msindexes" value="${message.msindex}"></td> --%>
 								            <td class="text-center">${message.msindex}</td>
 											<td class="text-center">${message.suserid}</td>
 											  <td class="text-center" style="cursor:pointer" onclick="location.href='msgDetail.bit?msindex=${message.msindex}'">${message.content}</td> 

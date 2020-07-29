@@ -271,19 +271,21 @@
 						<div class="row">
 							<!-- <div class="col-lg"></div> -->
 							<c:forEach var="donation" items="${donationList}" varStatus="status">
-							<div class="col-lg-6">
-				        		<div class="text-center" style="height: 200px">
-									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-									<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-														style="border-radius: 6px; height: 100%; width: 100%" alt="card image">
-												<div>
-													<h4>${donation.title}</h4>
-													<br>
-													<span id="contentd${status.index}" style="display: none;">${donation.content}</span>
-												</div>
-									</a>
-								</div>
-							</div>
+								<c:if test="${status.index lt 2}">
+									<div class="col-lg-6">
+						        		<div class="text-center" style="height: 200px">
+											<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+											<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
+																style="border-radius: 6px; height: 100%; width: 100%" alt="card image">
+														<div>
+															<h4>${donation.title}</h4>
+															<br>
+															<span id="contentd${status.index}" style="display: none;">${donation.content}</span>
+														</div>
+											</a>
+										</div>
+									</div>
+								</c:if>	
 							</c:forEach>
 							<!-- <div class="col-lg"></div> -->
 						</div>
@@ -451,7 +453,7 @@
 
 
 
-				table += "<div class='col-lg-3'>";
+				table += "<div class='col-lg-2'>";
 					/* 기상 아이콘 */
 					table += "<div class='row'>";
 					table += "<p><img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;

@@ -138,8 +138,8 @@
 							</div>
 							<div class="form-group has-default bmd-form-group" style="margin-bottom: 0;">
 								<div>
-									<button type="submit" class="btn btn-primary">전송</button>
 									<button type="reset" class="btn">취소</button>
+									<button type="submit" class="btn btn-primary">전송</button>
 								</div>
 							</div>
 						</div> <!-- /.wrapper -->

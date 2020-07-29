@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT USERID, PWD FROM ADMINLIST WHERE USERID=#{userid}
 	</select> -->
 
-	<!-- 블로그 리스트 조회 -->
+	<!-- 후원글 리스트 조회 -->
 	<select id="main" resultType="bit.or.eesotto.dto.Donate">
 		<!-- SET @ROWNUM:= 0;
 		SELECT E.*
@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D) S WHERE ROWNUM 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D, (SELECT @ROWNUM := 0) TMP 
+		order by dindex desc) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
 		
@@ -42,9 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from donation where dindex=#{dindex}
 	</delete>
 
-	<!-- // 사원 상세정보 보기 public Donate getDetail(int empno) -->
+	<!-- 후원글 상세정보 보기 public Donate getDetail(int empno) -->
 	<select id="detail" resultType="bit.or.eesotto.dto.Donate">
-		select * from donation where dindex=#{dindex}
+		select * from donation where dindex=#{dindex} order by dindex desc
 	</select>
 
 	<!-- 후원글 정보 수정 public int updateEmp(Emp emp); -->

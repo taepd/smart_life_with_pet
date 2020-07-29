@@ -88,7 +88,7 @@ public interface DonateDao {
 	public int donationRecord(int dindex, String userid, int dcoll);
 	
 	// 어드민 > 후원 리스트 조회  ajax
-	@Select("select * from donation")
+	@Select("select * from donation order by dindex desc")
 	public List<Donate> getDonationList(); 
 	
 	// 어드민 > 포인트 카운트  ajax

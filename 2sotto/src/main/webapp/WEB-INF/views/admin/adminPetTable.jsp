@@ -71,7 +71,7 @@
 	          <li>
 	            <a href="userQnaTable.bit">
 	              <i class="nc-icon nc-diamond"></i>
-	              <p>Qna게시판 보러가기</p>
+	              <p>Qna게시판</p>
 	            </a>
 	          </li>
 	        </ul>

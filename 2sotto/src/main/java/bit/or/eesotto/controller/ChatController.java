@@ -37,12 +37,12 @@ private ChatService chatservice;
 	
 	
 	
-	  //채팅방 리스트 들어가기
-	  
-	  @RequestMapping("/chatList.bit") 
-	  public String chatList(Model model) throws ClassNotFoundException, SQLException { 
-		  return "chat/chatList"; 
-	  }
+	//채팅방 리스트 들어가기
+  
+	@RequestMapping("/chatList.bit") 
+	public String chatList(Model model) throws ClassNotFoundException, SQLException { 
+		return "chat/chatList"; 
+	}
 	 
 	
 	@ResponseBody

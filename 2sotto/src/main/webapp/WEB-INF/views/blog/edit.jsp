@@ -64,49 +64,6 @@
 					</div>
 				</div>
 			</form>									
-
-			<!-- <div class="card  card-nav-tabs ">
-	
-
-				colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger"
-	
-					<div class="tab-content text-center">
-
-						-------- 글쓰기  ----------------
-
-						<div class="table-responsive">
-							<table class="table">
-								<thead class=" text-primary">
-									<tr>
-										<td>
-											<div style="margin-bottom: 8px;">
-												
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-
-										<td></td>
-									</tr>
-									<tr>
-
-										<td><input name="file" type="file" /><br></td>
-									</tr>
-									<tr>
-										<td align="center">
-										</td>
-									</tr>
-							</table>
-
-						</div>
-
-					</div>
-
-			</div> -->
-			
-			
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>

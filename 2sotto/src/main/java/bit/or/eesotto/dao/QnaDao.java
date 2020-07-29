@@ -42,12 +42,16 @@ public interface QnaDao {
 			public int editPost(Qna post);
 			
 			// Qna > 글답글 수정 
-			@Update("update QNA set title=#{title}, replyContent=#{replyContent} where qaindex=#{qaindex}")
+			@Update("update QNA set title=#{title}, replyContent=#{replyContent}, awstate='답변완료' where qaindex=#{qaindex}")
 			public int editReplyPost(Qna post);
 			
 			// Qna > 글 삭제
 			@Update("delete from QNA where qaindex=#{qaindex}")
 			public int deletePost(Qna post);
+			
+			// Qna> 글 조회수 증가 
+			@Update("update qna set count= count+1 where qaindex=${qaindex}")
+			public int updateQnaCount(@Param("qaindex") String qaindex);
 			
 			//알람관련 Dao추가
 			//////알림 관련 dao/////////////////////////////////////////////////////////////////////////

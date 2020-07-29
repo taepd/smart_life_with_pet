@@ -809,6 +809,7 @@ desc maincategory;
 desc message;
 desc user;
 desc schedule;
+desc qna;
 
 
 select * from roles;
@@ -825,6 +826,11 @@ select * from schedule;
 select * from petlike;
 select * from blogcomment;
 select * from point;
+select * from mrecord;
+select * from qna;
+select * from qnacomment;
+desc qna;
+alter table qna modify awstate varchar(20) null;
 
 delimiter $$
 
@@ -858,6 +864,7 @@ MRECORD M join PET P ON M.USERID = P.USERID where m.userid='a';
 
 select * from mrecord;
 select * from pet;
+select * from user;
 
 
 -- 두 좌표값(경/위도) 사이의 거리 구하는 함수(mysql 버전)
@@ -998,27 +1005,13 @@ WHERE BINDEX = OLD.BINDEX;
 END $$
 DELIMITER ;
 
+
 drop trigger UPDATE_BLIKE_MINUS;
 
 SHOW TRIGGERS;
 
 alter table schedule add groupId varchar(100);
 alter table message modify readtime timestamp null;
-
--- 블로그 글 작성하면 point테이블에 인서트 후에 blog 테이블 blike -1 하는 트리거
-DELIMITER $$
-CREATE TRIGGER UPDATE_BLIKE_MINUS
-BEFORE DELETE ON blike
-FOR EACH ROW
-BEGIN
-UPDATE BLOG
-SET
-BLIKE = BLIKE - 1
-WHERE BINDEX = OLD.BINDEX;
-
-END $$
-DELIMITER ;
-
 
  select (select count(*) from pet where MCATEGORY = 1) dogCount, (select count(*) from pet where MCATEGORY = 2) catCount from dual;
 
@@ -1035,6 +1028,14 @@ select (date_format(rtime, '%Y-%m-%d')) 가입일, count(*) '가입자 수' from
 select p.petindex, p.userid, p.petname, p.petimg, s.sindex, s.title, s.start
 			from pet p join schedule s
 			on p.USERID = s.USERID and p.PETINDEX = s.PETINDEX
-			where p.userid = 'a' and p.petname = '뚱이' and start>= now()
+			where p.userid = 'a' and p.petname = '유키' and start>= SUBTIME( NOW(), TIMEDIFF( NOW(), CAST(DATE(NOW()) AS DATETIME))) 
 			order by start desc limit 4;
+show triggers;
 
+select * from donation order by dindex desc;
+
+
+	SET @ROWNUM:= 0;
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D, (SELECT @ROWNUM := 0) TMP 
+		order by dindex desc) S WHERE ROWNUM 
+		BETWEEN 1 and 5;

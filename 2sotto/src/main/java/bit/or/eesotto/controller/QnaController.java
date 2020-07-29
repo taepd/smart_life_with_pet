@@ -63,6 +63,19 @@ public class QnaController {
 
 		Qna qna = qnas.getPost(qaindex);
 		logger.info("내 Qna 글 조회 완료");
+		
+		int result = 0;
+		
+		//자신의 글이 아니면 조회수 증가
+		if(!qna.getUserid().equals(qaindex)) {
+			result = qnas.updateQnaCount(qaindex);  
+		}
+		
+		if (result == 1) {
+			logger.info(qaindex+"번 블로그 글 조회수 업데이트 성공");
+		}
+		
+		
 		model.addAttribute("qna", qna);
 		
 		return "qna/detail";

@@ -72,7 +72,7 @@
 	          <li>
 	            <a href="userQnaTable.bit">
 	              <i class="nc-icon nc-diamond"></i>
-	              <p>Qna게시판 보러가기</p>
+	              <p>Qna게시판</p>
 	            </a>
 	          </li>
 	        </ul>
@@ -151,7 +151,7 @@
  
   <!-- 비동기 -->
   <script type="text/javascript">
-//댓글 목록 가져오기
+
  $(function(){		
 		var data = "";
 		console.log('작동?');
@@ -167,6 +167,7 @@
 					
 			   		$('#myTable').dataTable(
 			   	   			{ 
+			   	   				order:[[0,'desc']], //최신순 정렬		
 			   	   				ajax:{
 			   	   					'url':'getDonationList.bit', //이건 왜 필요한거지..
 			   	   					'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -195,7 +196,8 @@
 			   	   					
 			   	   				]
 			   	   				
-			   	   			}		
+			   	   			},
+			   	   			
 			   	   		);
 					
 					

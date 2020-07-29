@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
 <!-- security 적용해 보고 싶어서.... -->
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
@@ -77,7 +76,9 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div>
-							<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:100%; height:260px;"alt="게시물 이미지">
+							<a href="detail.bit?dindex=${donate.dindex}&cp=${cpage}&ps=${pageSize}">
+								<img id="${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" style="width:100%; height:260px;"alt="게시물 이미지">
+							</a>
 						</div>
 					</div>
 					<div class="col">
@@ -105,6 +106,45 @@
 				</div>
 				<hr>
 			</c:forEach>
+			 <!-- 페이징  -->
+								<div class="pagination justify-content-center">
+									<!-- <nav aria-label="Page navigation example" style="display: none;" id="pagingNav"> -->
+									<ul class="pagination" id="pagingview">
+										<c:if test="${cpage > 1}">
+											<li class="page-item"><a class="page-link"
+												href="main.bit?cp=${cpage-1}&ps=${pageSize}" 
+												cp="${cpage-1}" ps="${pageSize}" aria-label="Previous"> 
+												<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+										</c:if>
+
+										<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+											<c:choose>
+												<c:when test="${cpage==i }">
+													<li class="page-item active"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:when>
+												<c:otherwise>
+													<li class="page-item"><a class="page-link"
+														href="main.bit?cp=${i}&ps=${pageSize}" cp="${i}"
+														ps="${pageSize}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+
+										<c:if test="${cpage < pageCount}">
+
+											<li class="page-item">
+											<a class="page-link" href="main.bit?cp=${cpage+1}&ps=${pageSize}" 
+												cp="${cpage+1}" ps="${pageSize}" aria-label="Next"> 
+												<span aria-hidden="true">&raquo;</span> 
+												<span class="sr-only">Next</span>
+											</a></li>
+										</c:if>
+									</ul>
+									</div>
+								</div> 
 			
 			<br><br><br><br><br><br>
 			
@@ -296,7 +336,6 @@
 
 $(function(){
 	replaceImg();
-	move()
 	progressbar()
 });
 

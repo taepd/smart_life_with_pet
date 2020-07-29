@@ -106,7 +106,7 @@ public class UserService {
 
 			messageHelper.setFrom("2sotto.bit155@gmail.com"); // 보내는 메일주소는 수정하자 dispatcher-servlet이랑 맞춰주자.
 			messageHelper.setTo(email.getReceiveMail());
-			messageHelper.setSubject("2sotto 회원가입을 위해 요청하신 인증번호입니다.");
+			messageHelper.setSubject("슬기로운 반려생활 회원가입을 위해 요청하신 인증번호입니다.");
 			messageHelper.setText("요청하신 인증번호는 " + confirmation + "입니다.");
 
 			mailSender.send(messagedto);

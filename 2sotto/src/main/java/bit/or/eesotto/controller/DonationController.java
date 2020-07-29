@@ -164,7 +164,7 @@ public class DonationController {
 		model.addAttribute("donationList", map.get("donationList"));
 		model.addAttribute("pageCount", map.get("pageCount"));
 		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
-
+		System.out.println("//////이거 나옵니까//////: "+ map.get("cpage"));
 		return "donation/main";
 
 	}

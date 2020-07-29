@@ -149,8 +149,8 @@
 					
 						<!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> -->
 			            	<a class="btn btn-sm" style="color: #ffffff;" href="adminQnaEdit.bit?qaindex=${qna.qaindex}">수정</a>
-			            	<a class="btn btn-sm" style="color: #ffffff;" href="adminQnaReply.bit?qaindex=${qna.qaindex}">관리자 답글</a>
 			            	<a class="btn btn-sm" style="color: #ffffff;" href="javascript:;" id="delete">삭제</a>
+			            	<a class="btn btn-sm btn-primary" style="color: #ffffff;" href="adminQnaReply.bit?qaindex=${qna.qaindex}">관리자 답글</a>
 					  	<!-- </div> -->
 					 
 				

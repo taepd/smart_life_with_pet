@@ -132,7 +132,7 @@ public class DonationService {
 
 		int totaldonatecount = donateDao.getDonationCount();
 		//
-		donationList = donateDao.main(cpage, 2);
+		donationList = donateDao.main(cpage, pageSize);
 
 		// 페이지 크기에 맞춰 페이지 수 구하기
 		if (totaldonatecount % pageSize == 0) {
@@ -430,9 +430,7 @@ public class DonationService {
 	
 	//어드민 > 후원 리스트 조회
 		public List<Donate> getDonationList() {
-			System.out.println("건휘야");
 			List<Donate> donationList = null;
-			System.out.println("집에가자");
 			try {
 
 				donatedao = sqlsession.getMapper(DonateDao.class);

@@ -1,125 +1,126 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
-<head>	
+<head>
 
-    <title>홈_슬기로운 반려생활</title>
-    
-    <%@ include file="/WEB-INF/include/import.jsp"%>
-    
-    <style type="text/css">
-    
-    	* {
-    		box-sizing: border-box;
-    	}
-    	.img {
-    		height: 100%;
-    		width: 100%;
-    	}
-    	
-    	.follow-img-wrapper {
-    		 width: 85px;
-    		 height: 85px;
-    		 float: left;
-			 margin: 0px 10px 11px 10px;
-    	}
-    	
-    	#myPetImage {
-    		width: 130px;
-    		height: 130px;
-    	}
-    	
-		.h3-korean {
-			font-family: 'Noto Sans KR', sans-serif;
-			margin-left: 0;
-			margin-top: 0;
-			margin-bottom: 45px;
-			color: #9c27b0;
-			font-size: 1.8rem;
-			letter-spacing: -1.5px;
-		}
-		
-		h4 {
-			font-family: 'Noto Sans KR', sans-serif;
-		}
-		
-		#result, #result p {
-			/* border: 1px solid #EAEAEA; */
-			font-size: 15px;
-		}
-		
-		.row {
-			margin-bottom: 20px;
-		}
-		
-		.main-card {
-			background-color: #ffffff;
- 			box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
-			padding: 30px;
-			border-radius: 6px;	
-		}
-		
-		.main-card::-webkit-scrollbar {
-			background-color: #ffffff;
-			border-radius: 6px;	
-		}
-		
-		.main-card::-webkit-scrollbar-thumb {
-			background-color: #f0f0f0;
-			border-radius: 10px;
-			background-clip: padding-box;
-			border: 4px solid transparent;
-			
-		}
-		
-		#myPetInfo {
-			margin-bottom: 30px;
-		}
-		
-		.main-card card {
-			float: left;
-		}
-    	
-    </style>
+<title>홈_슬기로운 반려생활</title>
+
+<%@ include file="/WEB-INF/include/import.jsp"%>
+
+<style type="text/css">
+	* {
+		box-sizing: border-box;
+	}
+	
+	.img {
+		height: 100%;
+		width: 100%;
+	}
+	
+	.follow-img-wrapper {
+		width: 85px;
+		height: 85px;
+		float: left;
+		margin: 0px 10px 11px 10px;
+	}
+	
+	#myPetImage {
+		width: 130px;
+		height: 130px;
+	}
+	
+	.h3-korean {
+		font-family: 'Noto Sans KR', sans-serif;
+		margin-left: 0;
+		margin-top: 0;
+		margin-bottom: 25px;
+		color: #9c27b0;
+		font-size: 1.8rem;
+		letter-spacing: -1.5px;
+	}
+	
+	h4 {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	#result, #result p {
+		/* border: 1px solid #EAEAEA; */
+		font-size: 15px;
+	}
+	
+	.row {
+		margin-bottom: 20px;
+	}
+	
+	.main-card {
+		background-color: #ffffff;
+		box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 40px 0px;
+		padding: 30px;
+		border-radius: 6px;
+	}
+	
+	.main-card::-webkit-scrollbar {
+		background-color: #ffffff;
+		border-radius: 6px;
+	}
+	
+	.main-card::-webkit-scrollbar-thumb {
+		background-color: #f0f0f0;
+		border-radius: 10px;
+		background-clip: padding-box;
+		border: 4px solid transparent;
+	}
+	
+	#myPetInfo {
+		margin-bottom: 30px;
+	}
+	
+	.main-card card {
+		float: left;
+	}
+</style>
 </head>
 
 <body>
 
-    <%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
-     
-    <div class="container">
-    	<div class="side_overlay"> 
+	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
+
+	<div class="container">
+		<div class="side_overlay">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 36px;">
-						어서오세요, ${sessionScope.user.nick} 님!<br>
-						오늘도 슬기로운 반려생활 하세요.
+					<h3
+						style="font-family: 'Noto Serif KR', serif; margin-left: 30px; margin-bottom: 30px; font-size: 36px;">
+						어서오세요, ${sessionScope.user.nick} 님!<br> 오늘도 슬기로운 반려생활 하세요.
 					</h3>
-							
+
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-7">
 					<div class="main-card" style="height: 312px;">
-		        		<h3 class="h3-korean">오늘의 산책지수</h3>
-	              		<div id="result" class="row align-self-center"></div>
-              		</div>
+						<h3 class="h3-korean" style="margin-bottom: 45px;">오늘의 산책지수</h3>
+						<div id="result" class="row align-self-center"></div>
+					</div>
 				</div>
 				<div class="col-lg-5">
 					<div class="main-card" style="height: 312px;">
 						<h3 class="h3-korean">나의 반려동물</h3>
-						<c:set value="${petList}" var="pet"/>
+						<c:set value="${petList}" var="pet" />
 						<c:choose>
 							<c:when test="${empty petList}">
 								나의 반려동물을 등록해보세요.
-								<div class="text-center" style="margin:30px">
-									<button onclick='location.href="${pageContext.request.contextPath}/management/register.bit"' class="btn btn-outline-primary btn-round" >
-					        	  			<i class="material-icons">pets</i> 반려동물 등록하기
-					        		</button>
-								</div>					        		
+								<div class="text-center" style="margin: 30px">
+									<button
+										onclick='location.href="${pageContext.request.contextPath}/management/register.bit"'
+										class="btn btn-outline-primary btn-round">
+										<i class="material-icons">pets</i> 반려동물 등록하기
+									</button>
+								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="row">
@@ -142,248 +143,179 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-										<!-- <a href="management/main.bit?tab=schedule"> -->
+											<!-- <a href="management/main.bit?tab=schedule"> -->
 											<div id="myPetSchedule" class="text-center"></div>
-										<!-- </a> -->
-									</div>
+											<!-- </a> -->
+										</div>
 									</div>
 								</div>
 							</c:otherwise>
 						</c:choose>
-					</div>	
-
-					
-
+					</div>
 
 
 				</div>
-			</div>			
+			</div>
 			<div class="row">
 				<div class="col-lg-5">
 					<div class=" main-card" style="height: 351px; overflow-y: scroll;">
-		        		<h3 class="h3-korean">관심 있는 동물 친구</h3>
-		        		<!-- <div> -->
-							<div  style="overflow: hidden;">
-							<c:set value="${petLikeList}" var="likeList"/>
+						<h3 class="h3-korean">관심 있는 동물 친구</h3>
+						<!-- <div> -->
+						<div style="overflow: hidden;">
+							<c:set value="${petLikeList}" var="likeList" />
 							<c:choose>
 								<c:when test="${empty petLikeList}">
 										팔로우하는 동물이 없어요. 찾으러 가볼까요?
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${likeList}" var="like">
-										
-					        			<div class="follow-img-wrapper">
-						        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
-						        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${like.petimg}" 
-				 		        					rel="nofollow" alt="${like.petname}" data-toggle="tooltip" data-placement="bottom" data-original-title="${like.petname}">
-				 		        			</a>
-				 		        			<!-- <div class="text-center">${like.petname}</div> -->
-				 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-					        			</div>
-					        		</c:forEach>
+
+										<div class="follow-img-wrapper">
+											<a
+												href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${like.petindex}">
+												<img class="rounded-circle img-fluid img"
+												src="${pageContext.request.contextPath}/assets/images/${like.petimg}"
+												rel="nofollow" alt="${like.petname}" data-toggle="tooltip"
+												data-placement="bottom"
+												data-original-title="${like.petname}">
+											</a>
+											<!-- <div class="text-center">${like.petname}</div> -->
+											<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+										</div>
+									</c:forEach>
 								</c:otherwise>
-							</c:choose>	 
-							</div>       			
-		        		<!-- </div> -->
-	        		</div>
-
-
-
-
-					
-
-
-
-
+							</c:choose>
+						</div>
+						<!-- </div> -->
+					</div>
 
 				</div>
 				<div class="col-lg-7">
-					<div class="main-card" style="max-height: 350px; overflow: hidden;">
+					<div class="main-card" style="height: 351px; overflow: hidden;">
 						<h3 class="h3-korean">이번주 인기글</h3>
 						<div class="row">
 							<!-- <div class="col-lg"></div> -->
-						<c:forEach var="post" items="${postList}" varStatus="status">
-							<div class="col-lg-6">
-				        		<div class="text-center" style="height: 200px">
-									<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
-									<img class="d-block w-100" id="p${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-													style="border-radius: 6px; width: 100%; height: 100%;" alt="card image">
-												<div>
-													<h4>${post.title}</h4>
-													<br>
-													<span id="contentp${status.index}" style="display: none;">${post.content}</span>
-												</div>
-									</a>
+							<c:forEach var="post" items="${postList}" varStatus="status">
+								<div class="col-lg-6">
+									<div class="text-center" style="height: 200px">
+										<a
+											href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+											<img class="d-block w-100" id="p${status.index}"
+											src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg"
+											style="border-radius: 6px; width: 100%; height: 100%;"
+											alt="card image">
+											<div>
+												<h4>${post.title}</h4>
+												<br> <span id="contentp${status.index}"
+													style="display: none;">${post.content}</span>
+											</div>
+										</a>
+									</div>
 								</div>
-							</div>
-						</c:forEach>
-						<!-- <div class="col-lg"></div> -->
+							</c:forEach>
+							<!-- <div class="col-lg"></div> -->
 						</div>
 					</div>
-				</div> <!-- /.col -->
-			</div> <!-- /.row -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
 
 			<div class="row">
 				<div class="col-5">
 
 
 
-					<div class="main-card" style="height: 350px; width: 100%; display: inline-block;">
+					<div class="main-card"
+						style="height: 350px; width: 100%; display: inline-block;">
 						<h3 class="h3-korean">추천 친구</h3>
 						<div class="row">
-						<div class="col-lg-12">
-						<c:choose>
-							<c:when test="${empty petList}">
+							<div class="col-lg-12">
+								<c:choose>
+									<c:when test="${empty petList}">
 								나의 반려동물을 등록하시면 동물 친구를 추천해 드려요.
 							</c:when>
-							<c:otherwise>
-							<c:forEach var="recomPet" items="${recommendPetList}" varStatus="status">
-								<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
+									<c:otherwise>
+										<c:forEach var="recomPet" items="${recommendPetList}"
+											varStatus="status">
+											<%-- <div>추천 동물: ${recomPet.petname}/ 추천 유형: ${recomPet.recomType}/ 관련 내 반려동물 petindex: ${recomPet.relatedPet}
 								이미지: ${recomPet.petimg} --%>
-								<!-- </div> -->
-								<div class="follow-img-wrapper">
-				        			<a href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
-				        				<img class="rounded-circle img-fluid img" src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}" 
-		 		        					rel="nofollow" alt="${recomPet.petname}" data-toggle="tooltip" data-placement="bottom" 
-		 		        					data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
-			 		        			<%-- <h6 class="text-center">${recomPet.petname}</h6> --%>
-		 		        			</a>
-		 		        			<!-- <div class="text-center">${like.petname}</div> -->
-		 		        			<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
-						        </div>
-							</c:forEach>
-							</c:otherwise>
-						</c:choose>
-						</div>
+											<!-- </div> -->
+											<div class="follow-img-wrapper">
+												<a
+													href="${pageContext.request.contextPath}/mypage/petPage.bit?petindex=${recomPet.petindex}">
+													<img class="rounded-circle img-fluid img"
+													src="${pageContext.request.contextPath}/assets/images/${recomPet.petimg}"
+													rel="nofollow" alt="${recomPet.petname}"
+													data-toggle="tooltip" data-placement="bottom"
+													data-original-title="${recomPet.recomType == 'dist' ? '근처에 사는 친구예요!' : recomPet.recomType == 'kind' ? '같은 종이에요!' : '나이가 비슷하네요!' }">
+													<%-- <h6 class="text-center">${recomPet.petname}</h6> --%>
+												</a>
+												<!-- <div class="text-center">${like.petname}</div> -->
+												<!-- <h6 style="text-align: center;">${like.petname}</h6> -->
+											</div>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
-					
-					
-				
-				
-				
+
+
+
+
+
 				</div>
 				<div class="col-7">
 					<!-- <div class="main-card"> -->
-						<div class="main-card" style="height: 350px;">
+					<div class="main-card" style="height: 350px;">
 						<h3 class="h3-korean">도움이 필요해요</h3>
-						
+
 						<div class="row">
 							<!-- <div class="col-lg"></div> -->
-							<c:forEach var="donation" items="${donationList}" varStatus="status">
+							<c:forEach var="donation" items="${donationList}"
+								varStatus="status">
 								<c:if test="${status.index lt 2}">
 									<div class="col-lg-6">
-						        		<div class="text-center" style="height: 200px">
-											<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-											<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-																style="border-radius: 6px; height: 100%; width: 100%" alt="card image">
-														<div>
-															<h4>${donation.title}</h4>
-															<br>
-															<span id="contentd${status.index}" style="display: none;">${donation.content}</span>
-														</div>
+										<div class="text-center" style="height: 200px">
+											<a
+												href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
+												<img class="d-block w-100" id="d${status.index}"
+												src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg"
+												style="border-radius: 6px; height: 100%; width: 100%"
+												alt="card image">
+												<div>
+													<h4>${donation.title}</h4>
+													<br> <span id="contentd${status.index}"
+														style="display: none;">${donation.content}</span>
+												</div>
 											</a>
 										</div>
 									</div>
-								</c:if>	
+								</c:if>
 							</c:forEach>
-							<!-- <div class="col-lg"></div> -->
+
 						</div>
-						</div>
-						</div>
-						
-		
-								
-
-
-							<%-- 	
-
-								<c:forEach var="donation" items="${donationList}" varStatus="status">
-									<div class="carousel-item">
-										<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-											<img class="d-block w-100" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-														style="width:200px;height:200px" alt="card image">
-											<div class="carousel-caption d-none d-md-block">
-												<strong>${donation.title}</strong>
-												<span id="contentd${status.index}">${donation.content}</span>
-											</div>
-										</a>
-									</div>
-								</c:forEach>
- --%>
-
-
-
-
-
-								  <!-- <img class="d-block w-100" src="./assets/img/bg2.jpg" alt="First slide"> -->
-								 
-							<!-- 	</div>
-
-
-
-
-
-								<div class="carousel-item active carousel-item-left">
-								  <img class="d-block w-100" src="./assets/img/bg3.jpg" alt="Second slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Somewhere Beyond, United States
-									</h4>
-								  </div>
-								</div>
-								<div class="carousel-item carousel-item-next carousel-item-left">
-								  <img class="d-block w-100" src="./assets/img/bg.jpg" alt="Third slide">
-								  <div class="carousel-caption d-none d-md-block">
-									<h4>
-									  <i class="material-icons">location_on</i>
-									  Yellowstone National Park, United States
-									</h4>
-								  </div>
-								</div>
-							  </div>
-
-
-
-							  캐러셀 버튼
-							  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-								<i class="material-icons">keyboard_arrow_left</i>
-								<span class="sr-only">Previous</span>
-							  </a>
-							  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-								<i class="material-icons">keyboard_arrow_right</i>
-								<span class="sr-only">Next</span>
-							  </a>
-							</div>
-						</div>
-						
-						
-						
-						
-					</div> -->
-						
-						
-						
-						
-						
-						
-						
-						
-					<!-- </div> -->
+					</div>
 				</div>
-			</div>
 
-		</div> <!-- /.side_overlay -->
-	</div> <!-- /.container --> 	            
-     
+			</div>
+		</div>
+
+	</div>
+	<!-- /.side_overlay -->
+	</div>
+	<!-- /.container -->
+
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 
 </body>
 
 <!-- moment.js -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
+<script
+	src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ko.min.js"></script>
 
 <script type="text/javascript">
 
@@ -453,7 +385,7 @@
 
 
 
-				table += "<div class='col-lg-2'>";
+				table += "<div class='col-lg-3' style='padding-right:30px'>";
 					/* 기상 아이콘 */
 					table += "<div class='row'>";
 					table += "<p><img id='wicon' src='' alt='Weather icon'width='30'>" + resp.weather[0].main;
@@ -802,5 +734,5 @@ function shortContent(tag){
 }
 
 
-</script>	  
+</script>
 </html>

@@ -45,9 +45,6 @@
 	<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 	<script src="${pageContext.request.contextPath}/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 
-	<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
-	
-
 	<!-- jQuery -->
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 	

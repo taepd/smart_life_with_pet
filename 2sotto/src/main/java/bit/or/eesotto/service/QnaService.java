@@ -161,7 +161,7 @@ public class QnaService {
 	}
 
 	
-	//글 상세보기 
+		//글 상세보기 
 		public Qna getPost(String qaindex) {
 					
 			Qna qna = null;
@@ -170,6 +170,17 @@ public class QnaService {
 			qna = qnaDao.getPost(qaindex);
 								
 			return qna;
+		}
+		
+		//글 조회수 증가
+		public int updateQnaCount(String qaindex) {
+			
+			int result = 0;
+			
+			qnaDao = sqlsession.getMapper(QnaDao.class);
+			result = qnaDao.updateQnaCount(qaindex);
+			
+			return result;
 		}
 		
 		//글 상세보기  서비스 다시
@@ -294,4 +305,6 @@ public class QnaService {
 
 			return qnaList;
 		}
+		
+		
 }

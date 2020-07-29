@@ -56,12 +56,6 @@
 	    	 	</div>
 	    	 	<div class="col"></div>
     	 	</div>
-			
-	          
-	     <!-- 이번 주의 인기글 -->    
-	     <!-- <div class="row"> -->
-				<!-- <div class="col-lg-12"> -->
-					<!-- <h3 class="h3-korean">이번주의 인기글</h3> -->
 					<div class="grid">
 							<div class="main-card">
 								<div class="grid-sizer"></div>
@@ -85,37 +79,6 @@
 							</c:forEach>
 						</div>
 					</div>
-				<!-- </div> -->
-			<!-- </div> -->
-
-	        <!-- 후원글 -->
-	       	<!-- <div class="row">
-	       		<div class="col-12"> -->
-	       		<%-- <div class="grid">
-		       		<div class="main-card">
-		       		<div class="grid-sizer"></div>
-		        		<h3 class="h3-korean">도움이 필요해요</h3>
-						<c:forEach var="donation" items="${donationList}" varStatus="status">
-						<div class="grid-item">
-							<div class="card">
-				        		<div class="card-body text-center">
-									<a href="${pageContext.request.contextPath}/donation/detail.bit?dindex=${donation.dindex}">
-					        		<img class="card-img-top" id="d${status.index}" src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg" 
-					        					style="width:200px;height:200px" alt="card image">
-					        					<hr>
-												<strong>${donation.title}</strong>
-												<br>
-												<span id="contentd${status.index}">${donation.content}</span>
-									</a>
-									</div>
-							</div>
-							</div>
-						</c:forEach>
-					</div> --%>
-				<!-- </div>
-			</div> -->
-
-      
     	</div> <!-- side_overlay end -->
     </div> <!-- container end -->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>

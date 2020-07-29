@@ -344,7 +344,7 @@ function getCommentList() {
 				html += element.nick;
 				//댓글인 경우
 				if(element.depth ==0){
-					html += "</b></div><div><se:authorize access='hasAnyRole(\'ROLE_USER\')'><button onclick='openReComment("+element.bcindex+",\""+element.userid+"\",\""+element.refer+"\"); this.onclick=null;' class='btn btn-sm'>대댓글</button></se:authorize></div></div>";
+					html += "</b></div><div><se:authorize access='hasAnyRole(\'ROLE_USER\')'><button onclick='openReComment("+element.bcindex+",\""+element.nick+"\",\""+element.refer+"\"); this.onclick=null;' class='btn btn-sm'>대댓글</button></se:authorize></div></div>";
 				}else{
 					html += "</b></div></div>";
 				};
@@ -488,7 +488,7 @@ function deleteComment(bcindex) {
 }
 
 //대댓글 창 열기 
-function openReComment(bcindex, userid, refer) {
+function openReComment(bcindex, nick, refer) {
 
 		
 	
@@ -503,8 +503,8 @@ function openReComment(bcindex, userid, refer) {
 		
 		//로그인 유저 본인의 댓글이 아닐 때 해당 댓글쓴 아이디값을 '@아이디'형태로 인풋창에 불러옴
 		if(userid!='${sessionScope.user.userid}'){
-			content='@'+userid+' '; 
-			console.log('우와와');
+			content='@'+nick+' '; 
+			
 		} 
 		html += '<div class="writereCom" style="position:relative; top:10px; padding-left:45px">';
 		html += '<form name="reCommentBox" id ="reCommentBox" method="POST">';

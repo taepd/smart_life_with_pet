@@ -81,10 +81,13 @@ public interface PetDao {
 		@Select("select * from pet where (age between #{param2}-12 and #{param2}+12) and userid not in (#{param1})order by rand() limit 3")
 		public List<Pet> getSimilarAgePet(String userid, int age);
 		
-		// 메인> 추천 반려동물 (비슷한 나이(개월)) 3마리 추천
-		@Select("select p.* from pet p join user u on p.userid = u.userid "
-				+ " where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) < 5 "
-				+ " and p.userid not in (#{param1})order by rand() limit 3")
+		// 메인> 추천 반려동물 (가까운 거리) 3마리 추천
+		@Select("select * from pet where userid not in (#{param1})order by rand() limit 3")
+		/*
+		 * @Select("select p.* from pet p join user u on p.userid = u.userid " +
+		 * " where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0) < 5 "
+		 * + " and p.userid not in (#{userid})order by rand() limit 3")
+		 */
 		public List<Pet> getNearPet(String userid);
 		
 		

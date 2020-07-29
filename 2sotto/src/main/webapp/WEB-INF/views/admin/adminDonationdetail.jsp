@@ -144,7 +144,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="main-card">
-						<a href="adminMain.bit" style="color: #EE82EE;"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
+						<a href="userDonationTable.bit" style="color: #EE82EE;"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 						<div class="row">
 							<div class="col-lg-9">
 								<h2 class="mt-0 pt-0" style="font-family: 'Noto Serif KR', serif;">${donate.title}</h2>

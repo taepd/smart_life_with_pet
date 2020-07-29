@@ -6,7 +6,7 @@
   <title>
   	 슬기로운 반려생활
   </title>
-  <%@ include file="/WEB-INF/include/admin_nav.jsp"%>
+
    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -26,7 +26,59 @@
 </head>
 
 <body >
+<div class="wrapper">
+          <div class="sidebar" data-color="white" data-active-color="danger">
+               <div class="logo">
+		        <a href="adminMain.bit" class="simple-text logo-mini">
+		            <img src="${pageContext.request.contextPath}/assets/admin_assets/img/logo-small.png">
+		        </a>
+		        <a href="adminMain.bit" class="simple-text logo-normal">
+		          슬기로운 반려생활
+		        </a>
+		      </div>
+          <div class="sidebar-wrapper">
+        	<ul class="nav">
+	          <li>
+	            <a href="adminMain.bit">
+	              <i class="nc-icon nc-spaceship"></i>
+	              <p>대시보드</p>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="userTable.bit">
+	              <i class="nc-icon nc-single-02"></i>
+	              <p>유저 리스트</p>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="userPetTable.bit">
+	              <i class="nc-icon nc-diamond"></i>
+	              <p>동물 리스트</p>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="userPointTable.bit">
+	              <i class="nc-icon nc-diamond"></i>
+	              <p>포인트 리스트</p>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="userDonationTable.bit">
+	              <i class="nc-icon nc-diamond"></i>
+	              <p>후원게시판</p>
+	            </a>
+	          </li>
+	          <li>
+	            <a href="userQnaTable.bit">
+	              <i class="nc-icon nc-diamond"></i>
+	              <p>Qna게시판 보러가기</p>
+	            </a>
+	          </li>
+	        </ul>
+          </div>
+        	</div>	
     <div class="main-panel">
+    <jsp:include page="/WEB-INF/views/admin/admin_common/adm_nav.jsp"/>
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -61,6 +113,7 @@
       </div>
       </div>
       <jsp:include page="/WEB-INF/views/admin/admin_common/adm_footer.jsp"/>
+  </div>
   
  
   <!--   Core JS Files   -->

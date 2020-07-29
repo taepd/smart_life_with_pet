@@ -16,6 +16,17 @@
 
 </head>
 <style>
+		@font-face {
+			font-family: 'netmarbleM';
+			src: url('../assets/fonts/netmarbleM.ttf') format('truetype'); 
+		}
+
+
+		h1, h2, h3 {
+			/* font-family : 'netmarbleM', sans-serif; */
+			font-family: 'Noto Sans KR', sans-serif;
+			/* color: #9c27b0; */
+		}
 		
 		#joinForm-wrapper {
 			display: inline-block;
@@ -52,24 +63,31 @@
 					<form id="joinForm" action="editMrecord.bit" method="post" enctype="multipart/form-data">
 					<div id="joinForm-wrapper">
 					
-								<div class="form-group has-default bmd-form-group">
+								<!-- <div class="form-group has-default bmd-form-group">
 									<label for="bmd-label-static">병원이용 기록 등록번호</label> 
-									<input type="text" class="form-control" name="mindex" style="background-color: #e9e9e9;" value="${mrecord.mindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">반려동물식별번호</label> 
-									<input type="text" name="petindex" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.petindex}" readonly> 
 								</div>
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">보호자</label> 
-									<input type="text" name="userid" class="form-control" style="background-color: #e9e9e9;" value="${mrecord.userid}" readonly> 
-								</div>
+								</div> -->
+									<input type="hidden" class="form-control" name="mindex" value="${mrecord.mindex}" readonly> 
+									<%-- <input type="hidden" name="petindex" class="form-control" value="${mrecord.petindex}" readonly> --%> 
+									<input type="hidden" name="userid" class="form-control" value="${mrecord.userid}" readonly> 
 		
-								<div class="form-group bmd-form-group">
-									<label for="bmd-label-static" style="text-align: left;" for="petname">나의 반려동물</label>	
+								<div class="form-group bmd-form-group text-left">
+									<label for="bmd-label-static" style="margin-bottom:15px" for="petname">나의 반려동물</label>	
 										<select class="custom-select" name="petindex"> <!-- ex) ?mcategory=dog -->
 											<c:forEach var="petName" items="${petNameList}">
-											<option  value="${petName.petindex}">${petName.petname}</option>							
+												<c:choose>
+													<c:when test="${mrecord.petname == petName.petname}">
+														<option  value="${petName.petindex}" selected>${petName.petname}</option>							
+													</c:when>
+													<c:otherwise>
+													<option  value="${petName.petindex}">${petName.petname}</option>
+													</c:otherwise>	
+												</c:choose>
 											</c:forEach>
 										</select>		
 								</div>
@@ -78,17 +96,17 @@
 									<label for="bmd-label-static">병원 방문 시간</label>
 									<fmt:parseDate var="parseTime" value="${mrecord.vdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate var="vdate" value="${parseTime}" pattern="yyyy-MM-dd"/> 
-									<input type="text" id="vdate" name="vdate" class="form-control" placeholder="${vdate}" value=""> 
+									<input type="text" id="vdate" name="vdate" class="form-control" value="${vdate}"> 
 								</div>								
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static" style="text-align: left;" >병원 방문 목적</label> 											
-								<input type="text" name="vreason" class="form-control" placeholder="${mrecord.vreason}" value="">
+								<input type="text" name="vreason" class="form-control" value="${mrecord.vreason}">
 								</div>	
 																							
 								<!-- <div id="donateColl"> -->															
 								<div class="form-group bmd-form-group">
 								<label for="bmd-label-static">방문명원명</label> 
-								<input type="text" name="hname" class="form-control" placeholder="${mrecord.hname}" value=""> 
+								<input type="text" name="hname" class="form-control" value="${mrecord.hname}"> 
 								</div>								
 								
 								

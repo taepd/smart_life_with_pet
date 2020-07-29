@@ -139,7 +139,7 @@ public class MedicalController {
 			
 			model.addAttribute("mrecord", mrecord);
 			model.addAttribute("petNameList", map.get("petNameList"));
-			
+			System.out.println("mrecord: "+ mrecord);
 			return "management/medicalDetail";	
 		}
 		

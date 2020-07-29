@@ -186,7 +186,7 @@ https://docs.iamport.kr/implementation/payment
 참고하세요.
 나중에 포스팅 해볼게요.
 */
-name: '김건휘 일상보고서',
+name: '슬기로운 반려생활 포인트 충전',
 //결제창에서 보여질 이름
 amount: $('#point').val(),
 //가격

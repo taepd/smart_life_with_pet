@@ -12,10 +12,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <%@ include file="/WEB-INF/include/import.jsp"%>
 
-
-
-
-</head>
 <script type="text/javascript">
 //받은쪽지 시작
 $(document).ready(function(){
@@ -27,6 +23,13 @@ $(document).ready(function(){
             $("input[type=checkbox]").prop("checked",false); 
         }
     });
+    
+     //웹소켓 쪽지 연결 	
+     connect();
+	 //console.log(wsocket);
+	 $('#sendQna').click(function() { 
+		 
+		 sendQna(); });
 });	
 
 $('#delete').click(function(){
@@ -39,20 +42,48 @@ $('#delete').click(function(){
 	}
 });
 //받은쪽지 끝
-//쪽지 보내기 시작
- $(function() {
 
-		CKEDITOR.replace( 'content' );
 
-		
-	}) 
- $(function() {
-	 console.log(wsocket);
-	 $('#sendQna').click(function() { 
-		 
-		 sendQna(); });
- })
+//웹소켓 쪽지 알람 보내기
+var wsocket;
+
+function connect() {
+	wsocket = new WebSocket("ws://" + location.host + "/bit/message");
+	wsocket.onopen = onOpen;
+	wsocket.onmessage = onMessage;
+	wsocket.onclose = onClose;
+}
+function disconnect() {
+	wsocket.close();
+}
+
+function onOpen(evt) {
+	console.log("onOpen(evt)");
+}
+
+function onMessage(evt) {
+	console.log("evt :" + evt);
+	var data = evt.data;
+	appendMessage(data);
+}
+
+function onClose(evt) {
+}
+
+function send() {
+	
+	
+	wsocket.send("login");
+	
+}
+
+function appendMessage(msg) {
+	console.log(msg);
+	alert("msg : " + msg);
+}
  
+
+
 function sendQna() {
 	/* let qna_brd_title = $('#qna_brd_title').val();
 	let qna_brd_content = $('#qna_brd_content').val();
@@ -64,7 +95,7 @@ function sendQna() {
 				"content" : $('#content').val(),
 				"text" : text
 				};
-	console.log('여기타니니니니니니닝');
+	
 	/* 
 	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
 	wsocket.send(JSON.stringify(msg));
@@ -81,8 +112,10 @@ function sendQna() {
 }
 
 
- 
 </script>
+
+
+</head>
 <body>
 
 	<%@ include file="/WEB-INF/include/headerAndNavi.jsp"%>
@@ -167,7 +200,5 @@ function sendQna() {
 
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
-
-
 
 </html>

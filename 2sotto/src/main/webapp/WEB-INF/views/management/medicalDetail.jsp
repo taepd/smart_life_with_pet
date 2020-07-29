@@ -35,6 +35,13 @@
 			text-align: center;
 			margin-top: 25px;
 		}
+		#back-icon {
+			position: absolute;
+			top: 7px;
+			left: 10px;
+			font-size: 34px;
+			color: rgba(156, 39, 176, 0.2);
+		}
 		
 		
 	
@@ -58,6 +65,7 @@
 		
 				<div class="card card-nav-tabs">
 				<div class="card-body">
+				<a href="main.bit?tab=mrecord"><span id="back-icon"><i class="fas fa-angle-double-left"></i></span></a>
 				<br>
 				<div class="col-12 title-area">
 				<h3 style=" text-align: center">병원이용이력 상세페이지 <i class="fas fa-paw"></i></h3>
@@ -82,11 +90,12 @@
 		
 								<div class="form-group bmd-form-group  text-left">
 									<label for="bmd-label-static" for="petname" style="margin-bottom:15px">나의 반려동물</label>	
-										<select class="custom-select" name="petindex" disabled> <!-- ex) ?mcategory=dog -->
+										<%-- <select class="custom-select" name="petindex" disabled> <!-- ex) ?mcategory=dog -->
 											<c:forEach var="petName" items="${petNameList}">
 											<option value="${petName.petindex}">${petName.petname}</option>							
 											</c:forEach>
-										</select>		
+										</select>	 --%>	
+										<input type="text" name="petname" class="form-control" value="${mrecord.petname}" readonly>
 								</div>
 																	
 								<div class="form-group bmd-form-group">
@@ -152,7 +161,7 @@ $('#delete').click(function(){
 	}
 });
 	
-}
+
 
 
 </script>

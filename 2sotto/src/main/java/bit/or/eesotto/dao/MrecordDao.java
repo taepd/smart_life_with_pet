@@ -47,11 +47,11 @@ public interface MrecordDao {
 			public int getMrecordCount(@Param("userid") String userid);//
 			
 			// 병원진료  상세 조회
-			@Select("select * from mrecord where mindex = #{mindex}")
+			@Select("select *, p.petname from mrecord m join pet p on m.petindex=p.petindex where mindex = #{mindex}")
 			public Mrecord getMrecordDetail(@Param("mindex") String mindex);
 			
 			// 병원진료  수정 
-			@Update("update mrecord set hname=#{hname}, vdate=#{vdate}, vreason=#{vreason} where mindex=#{mindex}")
+			@Update("update mrecord set petindex=#{petindex}, hname=#{hname}, vdate=#{vdate}, vreason=#{vreason} where mindex=#{mindex}")
 			public int editMrecord(Mrecord mrecord);
 			
 			// 병원진료 글 삭제

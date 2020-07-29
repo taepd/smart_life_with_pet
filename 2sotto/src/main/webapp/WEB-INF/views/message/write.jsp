@@ -13,18 +13,21 @@
 
 </head>
 <script type="text/javascript">
-/* $(document).ready(function() {
+ $(document).ready(function() {
 	connect();
-	/* $('#sendQna').click(function() { send(); }); */
-/* })
+	 //console.log(wsocket);
+	 $('#sendQna').click(function() { 
+		 
+		 sendQna(); });
+ })
 
 var wsocket;
 
 function connect() {
-	wsocket = new WebSocket("ws://" + location.host + "/bodiary/alarm");
+	wsocket = new WebSocket("ws://" + location.host + "/bit/message");
 	wsocket.onopen = onOpen;
 	wsocket.onmessage = onMessage;
-	wsocket.onclose = onClose;
+	//wsocket.onclose = onClose;
 }
 function disconnect() {
 	wsocket.close();
@@ -54,25 +57,8 @@ function appendMessage(msg) {
 	console.log(msg);
 	alert("msg : " + msg);
 }
- */
- $(function() {
+ 
 
-		CKEDITOR.replace( 'content' );
-
-		
-	}) 
- $(function() {
-	 console.log(wsocket);
-	 $('#sendQna').click(function() { 
-		 
-		 sendQna(); });
-	/*  function send() {
-		
-		alert("갑니다")
-		wsocket.send("Qna"); 
-		form.submit();
-	} */
-})
 
 function sendQna() {
 	/* let qna_brd_title = $('#qna_brd_title').val();
@@ -85,7 +71,7 @@ function sendQna() {
 				"content" : $('#content').val(),
 				"text" : text
 				};
-	console.log('여기타니니니니니니닝');
+	
 	/* 
 	wsocket.send(qna_brd_title + "," + qna_brd_content + "," + user); */
 	wsocket.send(JSON.stringify(msg));

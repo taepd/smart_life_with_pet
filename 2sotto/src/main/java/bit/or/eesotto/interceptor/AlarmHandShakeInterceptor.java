@@ -25,8 +25,9 @@ public class AlarmHandShakeInterceptor extends HttpSessionHandshakeInterceptor{
     	System.out.println("여기까지 오는거 확인 완료.");
     	
         // 파라미터로 입력된 attributes에 put을 하면 WebSocketSession에서 접근가능
-    	
-    	attributes.put("userid", user.getUserid());
+    	if(user !=null) {
+    		attributes.put("userid", user.getUserid());
+    	}
     	System.out.println("여기까지 오는거 확인 완료.");
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }

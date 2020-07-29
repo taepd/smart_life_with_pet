@@ -133,7 +133,8 @@ function sendQna() {
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
 
-									<input type="text" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${ruserid }"> 
+									<input type="hidden" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${param.ruserid }"> 
+									<input type="text" name="nick" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${param.nick }"> 
 
 								</div>
 								
@@ -142,7 +143,7 @@ function sendQna() {
 							<div class="border-top">
 									<div class="card-body" style="text-align: center;">
 										<button type="reset" class="btn btn">취소</button>
-										<button type="submit" id="sendQna" class="btn btn-primary" onclick="javascript:btn()"><b>쪽지보내기</b></button>
+										<button type="submit" id="sendQna" class="btn btn-primary" onclick="btn()"><b>쪽지보내기</b></button>
 										
 								</div>
 							</div>
@@ -193,9 +194,11 @@ function sendQna() {
 </div>
 -->
 <!-- Modal -->
-<script> function btn(){ 
+<script> 
+function btn(){ 
 	alert('쪽지를 보냈습니다.'); 
-	} 
+	window.close();
+} 
 </script>
 
 </body>

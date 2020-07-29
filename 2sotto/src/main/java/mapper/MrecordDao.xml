@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.*, p.petname FROM MRECORD M 
-		JOIN PET P ON M.PETINDEX = P.PETINDEX, (SELECT @ROWNUM:=0) r where m.userid=#{param3}) 
+		JOIN PET P ON M.PETINDEX = P.PETINDEX, (SELECT @ROWNUM:=0) r where m.userid=#{param3} order by mindex desc) 
 		S WHERE ROWNUM BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 	</select>
 	

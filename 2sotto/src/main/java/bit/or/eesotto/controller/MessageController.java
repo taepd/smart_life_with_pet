@@ -101,7 +101,7 @@ public class MessageController {
 
 			return "redirect:/message/msgRePage.bit";
 			
-		} else { // 회원가입 실패시 어찌할지 로직구현해야 함
+		} else { 
 
 			logger.info("쪽지 보내기 실패");
 

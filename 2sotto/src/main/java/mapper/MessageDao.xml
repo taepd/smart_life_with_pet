@@ -51,13 +51,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!--  사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트 시작 -->
 	<select id="getCountNotRead" resultType="Integer">
-		select count(*) from MESSAGE where ISNULL(READTIME)
+		select count(*) from MESSAGE where ISNULL(READTIME) and ruserid=#{ruserid}
 	</select>
 	<!--  사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트 끝 -->
 		<!--  사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트 시작1 -->
 	 
 	<select id="getCountUserNotRead" resultType="Integer">
-   		select count(*) from MESSAGE where ISNULL(READTIME)
+   		select count(*) from MESSAGE where ISNULL(READTIME) 
 	</select>
 	
 	<!--  사용자가 사용자에게 쪽지를 보냈으나 아직 읽지 않은 모든 쪽지 카운트 끝1 -->

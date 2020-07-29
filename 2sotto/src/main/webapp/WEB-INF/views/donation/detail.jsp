@@ -202,8 +202,9 @@
 										<progress value="0" max="100" id="jb"></progress>
 									</div>
 									<div class="row" style="margin: 0 auto;">
-										<input type="text" name="dpoint" class="form-control" placeholder="기부할 포인트 액수">
-										<button type="submit" id="donatePoint" class="btn btn-primary btn-sm">기부</button>
+										<input type="text" name="dpoint" class="form-control" placeholder="기부할 포인트 액수" required>
+										<button type="submit" id="donatePoint" class="btn btn-primary btn-sm" style="width:115.31px">기부하기</button>
+										<button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${pageContext.request.contextPath}/point/main.bit'">포인트 충전하기</button>
 									</div>
 								</div>
 							</div>
@@ -331,7 +332,7 @@
 										</div>	 -->
 														
 										<!-- <label for="bmd-label-static">기부중</label>  -->
-						</form>	
+						<!-- </form>	 -->
 					</div> <!-- /.main-card -->
 				</div> <!-- /.col-lg-12 -->				
 			</div> <!-- /.row -->

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 import bit.or.eesotto.dao.PetDao;
 import bit.or.eesotto.dao.PetLikeDao;
-import bit.or.eesotto.dto.Pet;
-import bit.or.eesotto.dto.PetLike;
+import bit.or.eesotto.dto.*;
 
 @Service
 public class MainService {
@@ -43,7 +42,7 @@ public class MainService {
 	}
 	
 	//동물 친구 추천 리스트 조회
-	public List<Pet>getRecommendPetList(List<Pet> petList){
+	public List<Pet>getRecommendPetList(List<Pet> petList, User user){
 		List<Pet> list = new ArrayList<Pet>();
 		for(Pet pet: petList) {
 			// 같은 품종의 동물 친구			
@@ -66,6 +65,9 @@ public class MainService {
 				System.out.println("추천 리스트" + list);
 			}
 			// 가까운 거리에 사는 동물 친구
+			// 유저의 위치 정보
+//			Double lat = Double.parseDouble(user.getLat());
+//			Double lon = Double.parseDouble(user.getLon());
 			List<Pet> tmpList3 = petDao.getNearPet(pet.getUserid());
 			for(Pet recomPet: tmpList3) {
 				recomPet.setRelatedPet(pet.getPetindex()); //어떤 반려동물과 관련되어 있는지 추가

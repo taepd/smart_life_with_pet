@@ -798,9 +798,7 @@ CREATE FUNCTION GOOGLE_DISTANCE (
   LAT2 FLOAT,
   LNG2 FLOAT 
 )
-
   RETURNS FLOAT
- 
 BEGIN
   DECLARE fEARTH_R FLOAT;
   DECLARE fPIE FLOAT;
@@ -834,8 +832,8 @@ delimiter ;
 
 
 -- 같은 품종의 동물 친구 추천
-select * from pet;
-where mcategory = 1 and petindex not in (7)
+select * from pet
+where mcategory = 1 and userid not in ('admin')
 order by rand() limit 1;
 
 -- 비슷한 나이대의 동물 친구 추천
@@ -850,10 +848,6 @@ where round((google_distance(u.lat,u.lon, 37.4992037464339, 127.06309937724)),0)
 order by rand() limit 3;
 
 select * from user;
-
-
-
-
 
 
 select p.*, s.SCANAME as scaname, m.MCANAME as mcaname, u.nick as nick
@@ -963,3 +957,9 @@ select * from donation order by dindex desc;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D, (SELECT @ROWNUM := 0) TMP 
 		order by dindex desc) S WHERE ROWNUM 
 		BETWEEN 1 and 5;
+
+
+select * from subcategory order by SCATEGORY;
+select * from user;
+select * from pet;
+select * from blogcomment ORDER BY REFER, STEP;

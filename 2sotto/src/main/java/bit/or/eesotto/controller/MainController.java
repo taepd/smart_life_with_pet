@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import bit.or.eesotto.dao.PetDao;
-import bit.or.eesotto.dto.Pet;
-import bit.or.eesotto.dto.PetLike;
+import bit.or.eesotto.dto.*;
 import bit.or.eesotto.service.*;
 
 @Controller
@@ -81,15 +80,19 @@ public class MainController {
 		public String nomalLogin(String userid, String pwd, HttpSession session, Model model) {
 			return "redirect:/";
 		}*/
-		public String main(String cp, String ps, Principal principal, Model model) {
+		public String main(String cp, String ps, HttpSession session, Principal principal, Model model) {
 			
 			String userid=null;
 			
-			//블로그 인기글 조회
 			if(principal!=null) {
 				userid =  principal.getName();
 				logger.info("로그인 유저 아이디: " + userid);
 			}
+			
+			User user = (User)session.getAttribute(userid);
+			System.out.println("유저 객체체체체체체체 " + user);
+			
+			//블로그 인기글 조회
 			HashMap<String, Object> map = bs.popularPostList(cp, ps, userid);
 			logger.info("블로그 인기글 리스트 조회 완료");
 			
@@ -105,7 +108,7 @@ public class MainController {
 			
 			System.out.println("나의 펫 리스트: "+ petList);
 			//동물 친구 추천 리스트 조회
-			List<Pet> recommendPetList = ms.getRecommendPetList(petList);
+			List<Pet> recommendPetList = ms.getRecommendPetList(petList, user);
 			
 			
 			// view까지 전달 (forward)

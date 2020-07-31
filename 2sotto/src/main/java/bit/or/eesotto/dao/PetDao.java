@@ -74,7 +74,7 @@ public interface PetDao {
 		public Pet getPet(@Param("petindex") int petindex);
 		
 		// 메인> 추천 반려동물 (품종) 3마리 추천
-		@Select("select * from pet where scategory = #{param2} and userid not in (#{param1})order by rand() limit 3")
+		@Select("select * from pet where scategory = #{param2} and userid not in (#{param1}) order by rand() limit 3")
 		public List<Pet> getSameCategoryPet(String userid, String scategory);
 		
 		// 메인> 추천 반려동물 (비슷한 나이(개월)) 3마리 추천

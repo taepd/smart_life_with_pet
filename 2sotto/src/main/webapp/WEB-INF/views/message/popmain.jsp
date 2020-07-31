@@ -14,15 +14,17 @@
 <script type="text/javascript">
 
 
-/* $(document).ready(function() {
+ $(document).ready(function() {
 	connect();
-	/* $('#sendQna').click(function() { send(); }); */
-/* })
-
+	$('#sendQna').click(function() { 
+		 
+		 sendQna(); });
+	 console.log('알유저아이디: '+$('#ruserid').val());
+ });
 var wsocket;
 
 function connect() {
-	wsocket = new WebSocket("ws://" + location.host + "/bodiary/alarm");
+	wsocket = new WebSocket("ws://" + location.host + "/bit/message");
 	wsocket.onopen = onOpen;
 	wsocket.onmessage = onMessage;
 	wsocket.onclose = onClose;
@@ -55,25 +57,7 @@ function appendMessage(msg) {
 	console.log(msg);
 	alert("msg : " + msg);
 }
- */
- $(function() {
 
-		CKEDITOR.replace( 'content' );
-
-		
-	}) 
- $(function() {
-	 console.log(wsocket);
-	 $('#sendQna').click(function() { 
-		 
-		 sendQna(); });
-	/*  function send() {
-		
-		alert("갑니다")
-		wsocket.send("Qna"); 
-		form.submit();
-	} */
-})
 
 function sendQna() {
 	/* let qna_brd_title = $('#qna_brd_title').val();
@@ -102,8 +86,8 @@ function sendQna() {
 	
 }
  </script>
+ 
 <body>
-
 
 
 	<div class="side_overlay">
@@ -133,7 +117,7 @@ function sendQna() {
 								<div class="form-group bmd-form-group">
 									<label for="bmd-label-static">받는 사람</label> 
 
-									<input type="hidden" name="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${param.ruserid }"> 
+									<input type="hidden" name="ruserid" id="ruserid" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${param.ruserid }"> 
 									<input type="text" name="nick" class="form-control" placeholder="받는사람 닉네임(아이디)" value="${param.nick }"> 
 
 								</div>
@@ -202,5 +186,6 @@ function btn(){
 </script>
 
 </body>
+<script src="${pageContext.request.contextPath}/assets/js_2sotto/headerAndNavi.js"></script>
 </html>
 

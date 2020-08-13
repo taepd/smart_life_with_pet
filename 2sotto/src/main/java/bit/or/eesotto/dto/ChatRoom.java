@@ -19,7 +19,6 @@ public class ChatRoom {
 	//join
 	private String user_nickname;
 	private String user_img;
-	
-	
+		
 	private int current_count;
 }

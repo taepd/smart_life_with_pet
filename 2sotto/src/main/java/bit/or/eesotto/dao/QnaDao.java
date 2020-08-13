@@ -8,10 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import bit.or.eesotto.dto.Blog;
-import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Qna;
-import bit.or.eesotto.dto.User;
 
 
 public interface QnaDao {

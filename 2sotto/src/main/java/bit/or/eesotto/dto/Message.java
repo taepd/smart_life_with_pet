@@ -17,5 +17,4 @@ public class Message {
 	private String readtime; //읽은일시
 	private String readstate; //읽음여부 
 	
-
 }

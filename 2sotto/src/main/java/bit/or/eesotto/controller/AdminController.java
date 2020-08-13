@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.Donation;
 import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.Qna;
@@ -241,13 +241,13 @@ public class AdminController {
 		// 후원리스트 조회 Ajax  
 		@ResponseBody
 		@RequestMapping(value = "getDonationList.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public List<Donate> getDonationList(Donate donate, Principal principal, Model model) throws IOException {
+		public List<Donation> getDonationList(Donation Donation, Principal principal, Model model) throws IOException {
 			
 			String userid = principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 			
 			
-			List<Donate> donationList = donationService.getDonationList();
+			List<Donation> donationList = donationService.getDonationList();
 			logger.info("너는?: " + userid);
 			logger.info("그리고 넌는?: " + donationList);
 			if(donationList!=null) {
@@ -270,12 +270,12 @@ public class AdminController {
 		
 		// 후원글 쓰기
 		@RequestMapping(value = "adminDonationwrite.bit", method = RequestMethod.POST)
-		public String write(Donate donate, HttpServletRequest request, Principal principal, Model model)
+		public String write(Donation Donation, HttpServletRequest request, Principal principal, Model model)
 				throws IOException, ClassNotFoundException, SQLException {
 			logger.info("글작성 ");
 
 			// 파일에 대한 처리부분
-			List<CommonsMultipartFile> files = donate.getFiles();
+			List<CommonsMultipartFile> files = Donation.getFiles();
 			List<String> filenames = new ArrayList<String>();
 			if (files != null && files.size() > 0) { // 최소 1개의 업로드가 있다면
 				for (CommonsMultipartFile multifile : files) {
@@ -294,19 +294,19 @@ public class AdminController {
 
 			}
 
-			/* donate.setWriter (principal.getName()); */
+			/* Donation.setWriter (principal.getName()); */
 
 			// DB 파일명 저장
 
 			if (!filenames.isEmpty()) {
-				donate.setDimg(filenames.get(0));
+				Donation.setDimg(filenames.get(0));
 
 			}
 
 			logger.info("파일 업로드 완료 ");
-			// int result = ds.donationWrite(donate, request, principal);
+			// int result = ds.donationWrite(Donation, request, principal);
 
-			int result = donationService.write(donate, request, principal);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동
+			int result = donationService.write(Donation, request, principal);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동
 																// 된다고...
 			if (result == 1) {
 
@@ -321,7 +321,7 @@ public class AdminController {
 				return "redirect:adminDonationwrite.bit";
 			}
 			/*
-			 * if(result==1) { ("donate", donate.getTitle()); logger.info("글입력 처리 완료");
+			 * if(result==1) { ("Donation", Donation.getTitle()); logger.info("글입력 처리 완료");
 			 * 
 			 * return "redirect:/";
 			 * 
@@ -341,8 +341,8 @@ public class AdminController {
 		@RequestMapping(value = "adminDonationdetail.bit", method = RequestMethod.GET)
 		public String detail(String dindex, Model model) {
 
-			Donate donate = donationService.detail(dindex);// ds
-			model.addAttribute("donate", donate);
+			Donation Donation = donationService.detail(dindex);// ds
+			model.addAttribute("Donation", Donation);
 
 			return "admin/adminDonationdetail"; // "noticeDetail.jsp";
 		}
@@ -351,21 +351,21 @@ public class AdminController {
 		@RequestMapping(value = "adminDonationupdate.bit", method = RequestMethod.GET)
 		public String update(String dindex, Model model) {
 
-			Donate donate = donationService.detail(dindex);
+			Donation Donation = donationService.detail(dindex);
 			logger.info("내 블로그 글 조회 완료");
-			model.addAttribute("donate", donate);
+			model.addAttribute("Donation", Donation);
 
 			return "admin/adminDonationupdate";
 		}
 
 		// 글 수정 처리
 		@RequestMapping(value = "adminDonationupdate.bit", method = RequestMethod.POST)
-		public String update(Donate donate, HttpServletRequest request, Model model)
+		public String update(Donation Donation, HttpServletRequest request, Model model)
 				throws IOException, ClassNotFoundException, SQLException {
 			String msg = null;
 			String url = null;
 
-			List<CommonsMultipartFile> files = donate.getFiles();
+			List<CommonsMultipartFile> files = Donation.getFiles();
 			List<String> filenames = new ArrayList<String>(); // 파일명관리
 
 			if (files != null && files.size() > 0) { // 최소 1개의 업로드가 있다면
@@ -387,18 +387,18 @@ public class AdminController {
 
 			// DB 파일명 저장
 			if (!filenames.isEmpty()) {
-				donate.setDimg(filenames.get(0));
+				Donation.setDimg(filenames.get(0));
 
 			}
 
 			logger.info("파일 수정 완료 ");
-			// int result = ds.donationWrite(donate, request, principal);
+			// int result = ds.donationWrite(Donation, request, principal);
 
-			int result = donationService.update(donate);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
+			int result = donationService.update(Donation);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
 			if (result == 1) {
 				logger.info("result입력 성공 :  " + result);
 				msg = "후원글 수정 완료";
-				url = "adminDonationdetail.bit?dindex=" + donate.getDindex();
+				url = "adminDonationdetail.bit?dindex=" + Donation.getDindex();
 
 			} else {
 
@@ -413,9 +413,9 @@ public class AdminController {
 
 		// 글 삭제 처리
 		@RequestMapping(value = "adminDonationdelete.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public String delete(Donate donate) throws ClassNotFoundException, SQLException {
+		public String delete(Donation Donation) throws ClassNotFoundException, SQLException {
 
-			int result = donationService.delete(donate);
+			int result = donationService.delete(Donation);
 
 			if (result == 1) {
 

@@ -3,30 +3,16 @@ package bit.or.eesotto.service;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import bit.or.eesotto.controller.BlogController;
-import bit.or.eesotto.dao.MessageDao;
 import bit.or.eesotto.dao.QnaCommentDao;
-import bit.or.eesotto.dao.BlogCommentDao;
-import bit.or.eesotto.dao.BlogDao;
-import bit.or.eesotto.dao.DonateDao;
 import bit.or.eesotto.dao.QnaDao;
-import bit.or.eesotto.dao.UserDao;
-import bit.or.eesotto.dto.Message;
-import bit.or.eesotto.dto.Blog;
-import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.Donate;
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.QnaComment;
-import bit.or.eesotto.dto.User;
 
 @Service
 public class QnaService {

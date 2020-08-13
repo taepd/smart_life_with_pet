@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bit.or.eesotto.dao.DonateDao">
+<mapper namespace="bit.or.eesotto.dao.DonationDao">
 
 
 
@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 
 	<!-- 후원글 리스트 조회 -->
-	<select id="main" resultType="bit.or.eesotto.dto.Donate">
+	<select id="main" resultType="bit.or.eesotto.dto.Donation">
 		<!-- SET @ROWNUM:= 0;
 		SELECT E.*
 		FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, E.* FROM EMP E WHERE
@@ -44,12 +44,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<!-- 후원글 상세정보 보기 public Donate getDetail(int empno) -->
-	<select id="detail" resultType="bit.or.eesotto.dto.Donate">
+	<select id="detail" resultType="bit.or.eesotto.dto.Donation">
 		select * from donation where dindex=#{dindex} order by dindex desc
 	</select>
 
 	<!-- 후원글 정보 수정 public int updateEmp(Emp emp); -->
-	<update id="update" parameterType="bit.or.eesotto.dto.Donate">
+	<update id="update" parameterType="bit.or.eesotto.dto.Donation">
 		update donation
 		set title=#{title}, dobject=#{dobject}, gcoll=#{gcoll},
 		content=#{content}
@@ -112,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	
 	<!-- 게시날짜(최신) 순으로 정렬 -->
-	<select id="mainbydate" resultType="bit.or.eesotto.dto.Donate">
+	<select id="mainbydate" resultType="bit.or.eesotto.dto.Donation">
 				
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D) S WHERE ROWNUM 

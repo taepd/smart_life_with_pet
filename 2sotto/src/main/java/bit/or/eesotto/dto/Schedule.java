@@ -27,5 +27,4 @@ public class Schedule {
 	private String petname;
 	private String petimg;
 	
-
 }

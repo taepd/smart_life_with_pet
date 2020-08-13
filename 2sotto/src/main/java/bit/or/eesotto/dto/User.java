@@ -21,6 +21,5 @@ public class User {
 	private String lon;
 	private String snstype;
 	private int userPoint;
-	
-	
+		
 }

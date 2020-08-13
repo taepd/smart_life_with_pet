@@ -18,5 +18,4 @@ public class Point {
 	private int pindex;
 	private int drindex;
 	
-
 }

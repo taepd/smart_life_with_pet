@@ -4,13 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bit.or.eesotto.dao.DonationDao">
 
-
-
-	<!-- public Admin getAdmin(String id); -->
-<!-- 	<select id="getAdmin" resultType="dto.Admin">
-		SELECT USERID, PWD FROM ADMINLIST WHERE USERID=#{userid}
-	</select> -->
-
 	<!-- 후원글 리스트 조회 -->
 	<select id="main" resultType="bit.or.eesotto.dto.Donation">
 		<!-- SET @ROWNUM:= 0;
@@ -24,13 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D, (SELECT @ROWNUM := 0) TMP 
 		order by dindex desc) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
-		
-		
+				
 		<!-- SELECT * FROM ( SELECT ROWNUM NUM, E.* FROM EMP E ) WHERE NUM BETWEEN 
 			${param1}*${param2}-(${param2}-1) AND ${param1}*${param2} -->
 	</select>
-	
-	<!-- 게시 일자 내림차순(먼저 게시한 글 순으로...) -->
 	
 	<!-- 블로그 포스팅 수 조회 -->
 	<select id="getDonationCount" resultType="int">
@@ -56,68 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where dindex=#{dindex}
 	</update>
 
-	<!-- 
-	// 사원 상세정보 보기 public Emp getDetail(int empno)
-	<select id="getDetail" resultType="dto.Emp">
-		select * from emp where empno=#{empno}
-	</select>
-
-	// 사원 등록 public int insertEmp(Emp emp);
-	<insert id="insertEmp" parameterType="dto.Emp">
-		insert into Emp(empno, ename, job, mgr, hiredate, sal, comm, deptno, img)
-		values(#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno},#{img})
-	</insert>
-
-	// 사원 정보 수정 public int updateEmp(Emp emp);
-	<update id="updateEmp" parameterType="dto.Emp">
-		update emp
-		set ename=#{ename}, job=#{job}, mgr=#{mgr},
-		sal=#{sal}, comm=#{comm}, deptno=#{deptno},
-		img=#{img}
-		where empno=#{empno}
-	</update>
-
-	// 후원 글 삭제 삭제 public int deleteEmp(int empno)
-	<delete id="deleteEmp">
-		delete from emp where empno=#{empno}
-	</delete>
-
-	//ajax 직종 불러오기 public List<String> getEmpJob();
-	<select id="getEmpJob" resultType="String">
-		select distinct job from emp order by job
-	</select>
-
-	//ajax 부서번호 불러오기 public List<Integer> getDeptno();
-	<select id="getDeptno" resultType="Integer">
-		select distinct deptno from emp order by deptno
-	</select>
-
-	사번으로 검색
-	<select id="getEmpListByEmpno" resultType="dto.Emp">
-		SELECT * FROM
-		(SELECT ROWNUM NUM, E.* FROM
-		(SELECT * FROM EMP WHERE EMPNO LIKE '%' || ${param3} || '%' ) E
-		) WHERE NUM BETWEEN ${param1}*${param2}-(${param2}-1) AND
-		${param1}*${param2}
-	</select>
-
-	부서번호 선택
-	<select id="getEmpListByDeptno" resultType="dto.Emp">
-		SELECT * FROM
-		(SELECT ROWNUM NUM, E.* FROM
-		(SELECT * FROM EMP WHERE DEPTNO=${param3}) E
-		) WHERE NUM BETWEEN ${param1}*${param2}-(${param2}-1) AND
-		${param1}*${param2}
-
-	</select> -->
-	
 	<!-- 게시날짜(최신) 순으로 정렬 -->
 	<select id="mainbydate" resultType="bit.or.eesotto.dto.Donation">
-				
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, D.* FROM DONATION D) S WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2} ORDER BY RTIME DESC
-				
 	</select>
 
 	<!-- 유저 포인트 차감-->
@@ -130,7 +63,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update donation set ccoll=ccoll+#{param2} where dindex=#{param1}
 	</update>
 	
-	
 	<!-- 기부 완료(ccoll = gcoll) -->
 	<!-- <select id="completeDonationByColl">
 		select ccoll, gcoll from donate where dindex=#{param1}
@@ -141,9 +73,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update donation set dstate='N', ctime=now()  where dindex=#{param1}
 	</update>
 	
-
-	
-
 </mapper>
 
 

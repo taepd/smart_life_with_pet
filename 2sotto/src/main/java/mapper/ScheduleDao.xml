@@ -8,9 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into schedule (petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color, groupId) 
 			values(#{petindex}, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, 
 			#{allDay}, #{daysofweek}, #{adncdnoti}, #{color}, #{groupId})
-
 	</insert>
-
 
 </mapper>
 

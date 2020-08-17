@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="bit.or.eesotto.dao.ChatDao">
 	<!-- 채팅방 만들기 -->
   	<insert id="createChatRoom" parameterType="bit.or.eesotto.dto.ChatRoom" useGeneratedKeys="true" keyProperty="room_number">
-  		insert into chatroom (room_title, room_count, user_email, user_nickname, room_secret, room_pwd)
+  		insert into CHATROOM (room_title, room_count, user_email, user_nickname, room_secret, room_pwd)
   		values (#{room_title}, #{room_count}, #{user_email}, #{user_nickname}, #{room_secret} , #{room_pwd}) 
  	</insert>
     
@@ -14,55 +14,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 채팅방 리스트 가져오기 -->
     <select id="getChatList" resultType="bit.or.eesotto.dto.ChatRoom">
 	   	select c.room_number, c.room_title, c.user_email, c.room_secret, c.room_pwd, c.room_count, u.uimg, u.nick,  
-	   	(SELECT COUNT(user_email) FROM chatmember WHERE room_number = c.room_number) AS current_count 
-	   	from chatroom c 
-	   	JOIN user u 
+	   	(SELECT COUNT(user_email) FROM CHATMEMBER WHERE room_number = c.room_number) AS current_count 
+	   	from CHATROOM c 
+	   	JOIN USER u 
 	   	ON c.user_email = u.userid
     </select>
    
    <!-- 채팅방 들어가기 -->
    <select id="selectChatRoomByRn" resultType="bit.or.eesotto.dto.ChatRoom" parameterType="Integer">
 	   	select c.room_number, c.room_title, c.user_email, c.room_secret, c.room_pwd, c.room_count, u.nick 
-	   	from chatroom c 
-	   	JOIN user u 
+	   	from CHATROOM c 
+	   	JOIN USER u 
 	   	ON c.user_email = u.userid where c.room_number=#{room_number}
    </select>
    
    	<!-- 채팅방 삭제하기 -->
    <delete id="deleteChatRoom">
-   		delete from chatroom where room_number = #{room_number}
+   		delete from CHATROOM where room_number = #{room_number}
    </delete>
    
    <!-- 채팅방 비밀번호 불러오기 -->
    <select id="getRoomPwd" resultType="Integer" parameterType="Integer">
-   		select room_pwd from chatroom where room_number=#{room_number}
+   		select room_pwd from CHATROOM where room_number=#{room_number}
    </select>
    
    <!-- 채팅방 멤버 추가하기 -->
    <insert id="addMember">
-	   	insert into chatmember (mem_number, room_number, user_email)
-		values ((select ifnull(max(mem_number),0) from chatmember c)+1 ,#{param1}, #{param2});
+	   	insert into CHATMEMBER (mem_number, room_number, user_email)
+		values ((select ifnull(max(mem_number),0) from CHATMEMBER c)+1 ,#{param1}, #{param2});
    </insert>
    
    <!-- 채팅방 멤버 카운트 -->
    <select id="getMemberCount" resultType="int" parameterType="Integer">
-		SELECT count(user_email) FROM chatmember WHERE room_number = #{room_number}
+		SELECT count(user_email) FROM CHATMEMBER WHERE room_number = #{room_number}
    </select>
 	
 	<!-- 채팅방 멤버 리스트 불러오기 -->
 	<select id="getMemberList" resultType="bit.or.eesotto.dto.ChatMember">
-		SELECT u.nick from user u Join chatmember c 
+		SELECT u.nick from USER u Join CHATMEMBER c 
 		ON u.userid = c.user_email where c.room_number = #{room_number}
 	</select>
 	
 	<!-- 채팅방 멤버 나가기 (방 나가면 무조건 삭제니까 방 번호가 필요가 없음) -->
 	<delete id="removeMember">
-		delete from chatmember where user_email = #{param1} and room_number = #{param2}
+		delete from CHATMEMBER where user_email = #{param1} and room_number = #{param2}
 	</delete>
 	
 	<!-- 채팅방에 현재 접속할 유저가 존재하는지 판별 -->
 	<select id="countUserInRoom" resultType="Integer">
-		select count(*) from chatmember where room_number = #{param1} and user_email = #{param2}
+		select count(*) from CHATMEMBER where room_number = #{param1} and user_email = #{param2}
 	</select>
 
    

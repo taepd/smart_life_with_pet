@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 블로그 포스팅 수 조회 -->
 	
 	<select id="getMrecordCount" resultType="int">
-		select count(*) from mrecord
+		select count(*) from MRECORD
 		<if test="#{userid} != null">
 			where userid = #{userid}
 		</if>
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- PETNAME만 가져오기... -->
 	<select id="getPetname" resultType="bit.or.eesotto.dto.Mrecord">
-		select petname, petindex from pet where userid = #{userid}
+		select petname, petindex from PET where userid = #{userid}
 	</select> 
 
 </mapper>

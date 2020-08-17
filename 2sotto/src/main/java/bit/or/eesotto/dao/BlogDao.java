@@ -15,7 +15,7 @@ import bit.or.eesotto.dto.User;
 public interface BlogDao {
 
 	// 블로그 > 글쓰기   //date_format(now(),'%Y-%m-%d %H:%i')
-	@Insert("insert into blog (petindex, userid, blike, title, content, rtime, delstate, count, pimg, nick)"
+	@Insert("insert into BLOG (petindex, userid, blike, title, content, rtime, delstate, count, pimg, nick)"
 			+ " values (#{petindex}, #{userid}, 0, #{title}, #{content}, now(), 0, 0,  #{pimg}, #{nick})")
 	public int writePost(Blog blog);
 	
@@ -34,19 +34,19 @@ public interface BlogDao {
 	public int getPostCount(String column, int search);
 	
 	// 블로그 > 글 상세 조회
-	@Select("select b.*, (SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount from blog b where bindex = #{bindex}")
+	@Select("select b.*, (SELECT count(*) FROM BLOGCOMMENT c WHERE c.bindex = b.bindex ) bcCount from blog b where bindex = #{bindex}")
 	public Blog getPost(@Param("bindex") String bindex);
 	
 	// 블로그> 글 조회수 증가 
-	@Update("update blog set count= count+1 where bindex=${bindex}")
+	@Update("update BLOG set count= count+1 where bindex=${bindex}")
 	public int updateCount(@Param("bindex") String bindex);
 	
 	// 블로그 > 글 수정 
-	@Update("update blog set petindex=#{petindex}, title=#{title}, content=#{content} where bindex=#{bindex}")
+	@Update("update BLOG set petindex=#{petindex}, title=#{title}, content=#{content} where bindex=#{bindex}")
 	public int editPost(Blog post);
 	
 	// 블로그 > 글 삭제
-	@Update("delete from blog where bindex=#{bindex}")
+	@Update("delete from BLOG where bindex=#{bindex}")
 	public int deletePost(Blog post);
 	
 	

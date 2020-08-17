@@ -15,7 +15,7 @@ public interface DonationDao {
 
 	//후원글 입력
 	
-	@Insert("insert into donation (title,dobject,content,rtime,gcoll,ccoll,ctime, dstate)" +
+	@Insert("insert into DONATION (title,dobject,content,rtime,gcoll,ccoll,ctime, dstate)" +
     "values(#{title},#{dobject},#{content},now(),#{gcoll},0,#{ctime},'Y')")
 	public int write(Donation Donation);
 	
@@ -76,12 +76,12 @@ public interface DonationDao {
 	public int completeDonationByColl(int dindex);
 	
 	//기부테이블에 입력하기
-	@Insert("insert into DonationRecord (dindex, userid, dcoll, dtime)"
+	@Insert("insert into DONATIONRECORD (dindex, userid, dcoll, dtime)"
 			+ "values (#{param1}, #{param2}, #{param3}, now())")
 	public int donationRecord(int dindex, String userid, int dcoll);
 	
 	// 어드민 > 후원 리스트 조회  ajax
-	@Select("select * from donation order by dindex desc")
+	@Select("select * from DONATION order by dindex desc")
 	public List<Donation> getDonationList(); 
 	
 	// 어드민 > 포인트 카운트  ajax

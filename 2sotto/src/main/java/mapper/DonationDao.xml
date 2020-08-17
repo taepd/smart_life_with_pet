@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 블로그 포스팅 수 조회 -->
 	<select id="getDonationCount" resultType="int">
-		select count(*) from donation
+		select count(*) from DONATION
 	</select>
 	
 	

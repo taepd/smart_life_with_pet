@@ -12,7 +12,7 @@ import bit.or.eesotto.dto.User;
 
 public interface MainCategoryDao {
 
-	@Select("select * from maincategory")
+	@Select("select * from MAINCATEGORY")
 	public List<MainCategory> getMainCategory();
 	
 }

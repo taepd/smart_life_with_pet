@@ -22,12 +22,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
 	<!-- 사용자가 어드민한테 문의했으나 아직 읽지 않은 모든 글 카운트 -->
 	<select id="getCountAdminNotRead" resultType="Integer">
-    	select count(*) from Qna where awstate = '1'
+    	select count(*) from QNA where awstate = '1'
 	</select>
 	
 	<!-- 어드민이 알림을 읽으면 개수 줄어들게 하기 위해 업데이트  -->
 	<update id="updateAdminRead">
-		update qna set awstate = '2' where awstate = '1' and qaindex = #{qaindex}
+		update QNA set awstate = '2' where awstate = '1' and qaindex = #{qaindex}
 	</update>
 	
 	 <!-- 어드민이 답변을 했을 경우 사용자에게 알림이 가기 위해 상태 업데이트
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 사용자 입장에서 답변이 왔지만 읽지 않은 문의글 개수 카운트 -->
 	 <select id="getCountUserNotRead" resultType="Integer">
-		select count(*) from Qna where awstate = '3' and userid = #{userid}
+		select count(*) from QNA where awstate = '3' and userid = #{userid}
 	</select>
 	
 	<!-- 사용자가 답변을 읽었을 경우 상태 업데이트 -->

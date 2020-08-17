@@ -109,9 +109,9 @@ error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실
 		<security:authentication-provider>
 			<security:jdbc-user-service 
 			data-source-ref="driverManagerDataSource"
-			users-by-username-query="select userid as username, pwd as password, enabled from user where userid=?"
+			users-by-username-query="select userid as username, pwd as password, enabled from USER where userid=?"
 			authorities-by-username-query="select u.userid as username, r.rolename
-										   from userrole u join roles r 
+										   from USERROLE u join ROLES r 
 										   on u.roleid = r.roleid 
 										   where u.userid=?"	
 			 />

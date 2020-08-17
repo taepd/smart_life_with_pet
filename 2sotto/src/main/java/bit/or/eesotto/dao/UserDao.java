@@ -16,20 +16,20 @@ public interface UserDao {
 
 	
 	// 일반 로그인
-	@Select("select * from user where userid = #{userid}")
+	@Select("select * from USER where userid = #{userid}")
 	public User getUser(@Param("userid") String userid);
 
 	// 보통 회원가입
-	@Insert("insert into user (userid, pwd, nick, loc, cpnumber, enabled, rtime, uimg, lat, lon, snstype, userPoint)"
+	@Insert("insert into USER (userid, pwd, nick, loc, cpnumber, enabled, rtime, uimg, lat, lon, snstype, userPoint)"
 			+ " values (#{userid}, #{pwd}, #{nick}, #{loc}, #{cpnumber}, 1, now(), #{uimg}, #{lat}, #{lon}, #{snstype}, 0)")
 	public int normalJoin(User user);
 
 	// 회원가입 > 아이디 중복체크 ajax
-	@Select("select userid from user where userid = #{userid}")
+	@Select("select userid from USER where userid = #{userid}")
 	public String getUserId(@Param("userid") String userid);
 
 	// 회원가입 > 닉네임 중복체크 ajax
-	@Select("select nick from user where nick = #{nick}")
+	@Select("select nick from USER where nick = #{nick}")
 	public List<String> getNick(@Param("nick") String nick);
 
 	// 회원가입 > 휴대폰 번호 중복체크 ajax
@@ -37,28 +37,28 @@ public interface UserDao {
 	//public List<String> getCpnumber(@Param("cpnumber") String cpnumber);
 
 	// 마이페이지 > 회원정보 수정
-	@Update("update user set cpnumber=#{cpnumber}, nick=#{nick}, loc=#{loc}, uimg=#{uimg} where userid=#{userid}")
+	@Update("update USER set cpnumber=#{cpnumber}, nick=#{nick}, loc=#{loc}, uimg=#{uimg} where userid=#{userid}")
 	public int editUser(User user);
 
 	// 마이페이지 > 회원정보 삭제
-	@Update("delete from user where userid=#{userid}")
+	@Update("delete from USER where userid=#{userid}")
 	public int deleteUser(String userid);
 
 	// 마이페이지 > 비밀번호 수정
-	@Update("update user set pwd=#{pwd}	where userid = #{userid}")
+	@Update("update USER set pwd=#{pwd}	where userid = #{userid}")
 	public int editPwd(@Param("pwd") String pwd, @Param("userid") String userid);
 
 	// 어드민 > 유저 리스트 조회  ajax
-	@Select("select * from user")
+	@Select("select * from USER")
 	public List<User> getUserList(@Param("userid") String userid); 
 	
 	// 어드민 > 유저 카운트  ajax
-	@Select("select count(*) count from user")
+	@Select("select count(*) count from USER")
 	public int getUserCount(User user);
 	
 	// 어드민 > 일자별 가입자수 차트 조회
 	@Select("select (date_format(rtime, '%Y-%m-%d')) 가입일, count(*) '가입자 수' " + 
-			"from user group by 가입일 order by 가입일")
+			"from USER group by 가입일 order by 가입일")
 	public List<Map<String, Object>> signUpCountbyDay();
 		
 	

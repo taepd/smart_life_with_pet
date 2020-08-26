@@ -1,5 +1,8 @@
 package bit.or.eesotto.dto;
 
+import lombok.Getter;
+
+@Getter
 public class FacebookInfo {
 
     private String id;
@@ -15,20 +18,6 @@ public class FacebookInfo {
         this.id = id;
         this.email = email;
         this.name = name;
-    }
- 
- 
-    public String getId() {
-        return id;
-    }
- 
- 
-    public String getEmail() {
-        return email;
-    }
-   
-    public String getName() {
-        return name;
     }
  
 }

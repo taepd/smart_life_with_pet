@@ -127,7 +127,7 @@
 	</style>
 	<script>
 	 window.onload = function() {
-		document.getElementById( 'jb' ).value = '${donate.ccoll/donate.gcoll*100}';
+		document.getElementById( 'jb' ).value = '${donation.ccoll/donation.gcoll*100}';
 	} 
 	
 	</script>
@@ -149,55 +149,55 @@
 						
 						<form action="donatePoint.bit" method="POST">
 						
-							<input type="hidden" name="dindex" value="${donate.dindex}"> 										
-							<input type="hidden" name="title" value="${donate.title}"> 														
+							<input type="hidden" name="dindex" value="${donation.dindex}"> 										
+							<input type="hidden" name="title" value="${donation.title}"> 														
 							<%-- <input type="hidden" name="content" value="${donate.content}"> --%> 														
-							<input type="hidden" name="dobject" value="${donate.dobject}">
-								<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<input type="hidden" name="dobject" value="${donation.dobject}">
+								<fmt:parseDate var="parseTime" value="${donation.rtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 								<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/> 
 							<input type="hidden" name="rtime" value="${rtime}">
-								<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:parseDate var="parseTime" value="${donation.ctime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 								<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<input type="hidden" name="ctime" value="${ctime}"> 																						
-							<input type="hidden" name="gcoll" value="${donate.gcoll}"> 								
-							<input type="hidden" name="ccoll" value="${donate.ccoll}">
+							<input type="hidden" name="gcoll" value="${donation.gcoll}"> 								
+							<input type="hidden" name="ccoll" value="${donation.ccoll}">
 						
 						
 							<div class="row">
 								<div class="col-lg-9">
-									<h2 class="mt-0 pt-0" style="font-family: 'Noto Serif KR', serif;">${donate.title}</h2>
+									<h2 class="mt-0 pt-0" style="font-family: 'Noto Serif KR', serif;">${donation.title}</h2>
 									<hr style="margin-top: 30px; margin-bottom: 40px;">
-									<p name="content">${donate.content}</p>
+									<p name="content">${donation.content}</p>
 								</div>
 								<div class="col" style="border: 1px solid rgba(156, 39, 176, 0.2); padding: 30px;">
 									<div class="row">
-										<fmt:parseDate var="parseTime" value="${donate.rtime}" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate var="parseTime" value="${donation.rtime}" pattern="yyyy-MM-dd"/>
 										<fmt:formatDate var="rtime" value="${parseTime}" pattern="yyyy-MM-dd"/> 
 										<b>등록일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${rtime}
 									</div>
 									<br>
 									<div class="row">
-										<fmt:parseDate var="parseTime" value="${donate.ctime}" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate var="parseTime" value="${donation.ctime}" pattern="yyyy-MM-dd"/>
 										<fmt:formatDate var="ctime" value="${parseTime}" pattern="yyyy-MM-dd"/>	
 										<b>마감일</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ctime} 
 									</div>
 									<br>
 									<div class="row">
-										<b>후원 대상</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${donate.dobject}									
+										<b>후원 대상</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${donation.dobject}									
 									</div>
 									<br>
 									<div class="row">
-										<b>목표 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.gcoll}" pattern="#,###"/>원
+										<b>목표 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donation.gcoll}" pattern="#,###"/>원
 									</div>
 									<br>
 									<div class="row">
-										<b>현재 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donate.ccoll}" pattern="#,###"/>원
+										<b>현재 모금액</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value= "${donation.ccoll}" pattern="#,###"/>원
 									</div>
 									<br>
 									<div class="row">
 										모금률&nbsp;
 										<span style="text-align: center; color:rgba(156, 39, 176); font-weight: bold; font-size: 27px;">
-											<fmt:formatNumber value= "${donate.ccoll/donate.gcoll*100}" pattern="#,###"/>%</span>
+											<fmt:formatNumber value= "${donation.ccoll/donation.gcoll*100}" pattern="#,###"/>%</span>
 										<br>
 										<progress value="0" max="100" id="jb"></progress>
 									</div>
@@ -373,7 +373,7 @@
 
 
 function Delete() {
-    location.replace("delete.bit?dindex=${donate.dindex}"); 
+    location.replace("delete.bit?dindex=${donation.dindex}"); 
   }
 
 function Pay() {
@@ -470,7 +470,7 @@ alert(msg);
 /* $('#delete').click(function(){
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
-		return location.href='delete.bit?dindex=${donate.dindex}';
+		return location.href='delete.bit?dindex=${donation.dindex}';
 	}else{
 		return;
 	}
@@ -495,7 +495,7 @@ function getCommentList() {
 		url:"getCommentList.bit",
 
 		datatype: "json",
-		data: { dindex:'${donate.dindex}'},
+		data: { dindex:'${donation.dindex}'},
 		success: function(data) {
 			
 			var html = "";
@@ -570,7 +570,7 @@ function insertComment() {
 			url:"writeComment.bit",
 			type: "post",
 			datatype:"json",
-			data: { dindex:'${donate.dindex}',
+			data: { dindex:'${donation.dindex}',
 					userid: '${sessionScope.user.userid}',
 					nick: '${sessionScope.user.nick}',
 					dccontent: $('#dccontent').val()
@@ -653,7 +653,7 @@ function deleteComment(dcindex) {
 	
 	let con = confirm("정말로 삭제하시겠습니까?");
 	if(con){
-		return location.href='deleteComment.bit?dcindex='+dcindex+'&dindex=${donate.dindex}';
+		return location.href='deleteComment.bit?dcindex='+dcindex+'&dindex=${donation.dindex}';
 	}else{
 
 		return;
@@ -713,7 +713,7 @@ $(document).on("click","#writeRecom",function(){
 			url:"writeRecomment.bit",
 			type: "post",
 			datatype:"json",
-			data: { dindex:'${donate.dindex}',
+			data: { dindex:'${donation.dindex}',
 					dcindex: $('#dcindex').val(),
 					userid: '${sessionScope.user.userid}',
 					nick: '${sessionScope.user.nick}',
@@ -742,5 +742,3 @@ $(document).on("click","#writeRecom",function(){
 
 </script>
 </html>
-
-

@@ -13,17 +13,14 @@ import bit.or.eesotto.dto.User;
 
 
 public interface PointDao {
-		//뜨쉬
+	
 		// 어드민 > 포인트 리스트 조회  ajax
-		@Select("select * from point")
+		@Select("select * from POINT")
 		public List<Point> getPointList(); 
 		
 		// 어드민 > 포인트 카운트  ajax
-		@Select("select count(*) count from point")
+		@Select("select count(*) count from POINT")
 		public int getPointCount(Point Point);
-		//뜨쉬
-		
-		
 		
 		// pont > point 리스트 조회 추가
 		public List<Point> getUserPointList(int cpage, int pagesize, String USERID);
@@ -36,12 +33,12 @@ public interface PointDao {
 		public int getUserPointCount(String column, int search);
 		
 		// Point > 내 글 상세 조회
-		@Select("select * from point where ptindex = #{ptindex}")
+		@Select("select * from POINT where ptindex = #{ptindex}")
 		public Point getPointDetail(@Param("ptindex") String ptindex);
 		
 		// 어드민 > 일자별 결제액 차트 조회
 		@Select("select (date_format(p.pdate, '%Y-%m-%d')) date, sum(p.pcount) pcount "
-				+ "from point p where ptype = '결제' group by date")
+				+ "from POINT p where ptype = '결제' group by date")
 		public List<Map<String, Object>> pCountByDay();
 		
 		

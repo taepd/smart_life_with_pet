@@ -15,10 +15,10 @@ public interface SubCategoryDao {
 	//하나로 합치려면.. 동적 쿼리?
 	//추후 리팩토링
 	
-	@Select("select * from subcategory where mcategory = '1' order by scaname asc")
+	@Select("select * from SUBCATEGORY where mcategory = '1' order by scaname asc")
 	public List<SubCategory> getSubCategory_dog();
 
-	@Select("select * from subcategory where mcategory = '2' order by scaname asc")
+	@Select("select * from SUBCATEGORY where mcategory = '2' order by scaname asc")
 	public List<SubCategory> getSubCategory_cat();
 
 }

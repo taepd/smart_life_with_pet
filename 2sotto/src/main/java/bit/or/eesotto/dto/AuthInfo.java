@@ -1,5 +1,8 @@
 package bit.or.eesotto.dto;
 
+import lombok.Getter;
+
+@Getter
 public class AuthInfo {
 
 	private String clientId;
@@ -10,18 +13,7 @@ public class AuthInfo {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
- 
- 
-    public String getClientId() {
-        return clientId;
-    }
- 
- 
-    public String getClientSecret() {
-        return clientSecret;
-    }
     
- 
 }
 
 

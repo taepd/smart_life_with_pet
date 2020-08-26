@@ -5,12 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="bit.or.eesotto.dao.ScheduleDao">
 
 	<insert id="newSchedule" useGeneratedKeys="true" keyProperty="sindex" parameterType="bit.or.eesotto.dto.Schedule">
-		insert into schedule (petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color, groupId) 
+		insert into SCHEDULE (petindex, userid, title, content, is_complete, start, end, allDay, daysofweek, adncdnoti, color, groupId) 
 			values(#{petindex}, #{userid}, #{title}, #{content}, #{is_complete}, #{start}, #{end}, 
 			#{allDay}, #{daysofweek}, #{adncdnoti}, #{color}, #{groupId})
-
 	</insert>
-
 
 </mapper>
 

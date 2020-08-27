@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 병원기록 리스트 조회 -->
 	<select id="getMrecordList" resultType="bit.or.eesotto.dto.Mrecord">
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, M.*, p.petname FROM MRECORD m 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, m.*, p.petname FROM MRECORD m 
 		JOIN PET p ON m.PETINDEX = p.PETINDEX, (SELECT @ROWNUM:=0) r where m.userid=#{param3} order by mindex desc) 
 		S WHERE ROWNUM BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2}
 	</select>

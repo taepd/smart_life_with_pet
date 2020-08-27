@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM MESSAGE P, (SELECT @ROWNUM := 0) TMP 
-						WHERE SUSERID = #{param3} order by p.msindex desc) S 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, m.* FROM MESSAGE m, (SELECT @ROWNUM := 0) tmp 
+						WHERE suserid = #{param3} order by m.msindex desc) s 
 		WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}${param2}; -->
 		
 		SET @ROWNUM:= 0;
-		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, P.* FROM MESSAGE P, (SELECT @ROWNUM := 0) TMP  
-						WHERE RUSERID = #{param3} order by p.msindex desc ) S 
+		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, m.* FROM MESSAGE m, (SELECT @ROWNUM := 0) tmp  
+						WHERE RUSERID = #{param3} order by m.msindex desc ) s 
 		WHERE ROWNUM 
 		BETWEEN ${param1}*${param2}-(${param2}-1) AND ${param1}*${param2}
 		
@@ -60,17 +60,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

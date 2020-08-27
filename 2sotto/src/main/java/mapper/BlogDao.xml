@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 		</choose>	
 		order by b.bindex desc	
-		) S WHERE ROWNUM 
+		) s WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2} 
 		order by s.rownum
 		

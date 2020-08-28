@@ -78,8 +78,8 @@ CREATE TABLE INSPECTION (
 	PETINDEX INT          NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)  NOT NULL, -- USERID
 	LIST     VARCHAR(100) NOT NULL, -- 항목
-	VADATE    TIMESTAMP   NULL,  -- 접종일
-	EVDATE    TIMESTAMP    NULL,     -- 접종예정일(Estimated Vadate)
+	VADATE   TIMESTAMP   NULL,  -- 접종일
+	EVDATE   TIMESTAMP    NULL,     -- 접종예정일(Estimated Vadate)
 	VSTATE   VARCHAR(4)   NULL,     -- 접종여부
 	VCOUNT   INT          NULL      -- 잔여접종횟수
 );
@@ -103,7 +103,7 @@ CREATE TABLE BLOG (
 	BINDEX  INT            PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX VARCHAR(200)  NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)   NOT NULL, -- USERID
-	NICK VARCHAR(20)       NOT NULL,
+	NICK     VARCHAR(20)       NOT NULL,
 	BLIKE    INT           NULL,     -- 추천수(보류)
 	TITLE    VARCHAR(100)  NOT NULL, -- 제목
 	CONTENT  VARCHAR(4000) NOT NULL, -- 내용
@@ -120,7 +120,7 @@ CREATE TABLE BLOGCOMMENT (
 	BCINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	BINDEX  INT          NOT NULL, -- 글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
-	NICK VARCHAR(20) NOT NULL,
+	NICK    VARCHAR(20) NOT NULL,
 	BCLIKE  INT          NULL,     -- 추천수(보류)
 	CONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
@@ -191,7 +191,7 @@ CREATE TABLE QNA (
 );
 
 -- QNA 댓글
-CREATE TABLE QnaCOMMENT (
+CREATE TABLE QNACOMMENT (
    QNAINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
    QAINDEX  INT          NOT NULL, -- 글번호
    USERID  VARCHAR(40)  NOT NULL, -- USERID
@@ -323,17 +323,16 @@ CREATE TABLE POINT (
     
 );
 -- 채팅 참여멤버
-CREATE TABLE ChatMember (
+CREATE TABLE CHATMEMBER(
 	MEM_NUMBER   VARCHAR(40)  NOT NULL, -- 번호
 	ROOM_NUMBER     VARCHAR(20)  NOT NULL, -- 번호
 	USER_EMAIL      VARCHAR(5000) NULL,     -- 이메일
 	USER_NICKNAME      VARCHAR(300) NULL -- 닉네임
 	  
 );
-drop table ChatMember;
 
 -- 채팅방
-CREATE TABLE ChatRoom (
+CREATE TABLE CHATROOM (
 	ROOM_NUMBER   INT  PRIMARY KEY AUTO_INCREMENT,  -- 번호
 	ROOM_TITLE     VARCHAR(20)  NOT NULL, -- 제목
 	USER_EMAIL      VARCHAR(5000) NOT NULL,     -- 이메일
@@ -779,17 +778,17 @@ drop trigger insert_userrole;
 delimiter $$
 
 create trigger insert_userrole
-after insert on user
+after insert on USER
 for each row
 BEGIN
     IF(NEW.userid = 'admin') THEN  
-        insert into userrole 
+        insert into USERROLE 
         values
         (NEW.userid ,'1'),
         (NEW.userid ,'2');
 
     ELSE
-        insert into userrole 
+        insert into USERROLE 
         values
         (NEW.userid ,'2');
     END IF;
@@ -1014,14 +1013,4 @@ delimiter ;
 
 show triggers;
 
-select * from point;
-
-select * from pay;
-
-select * from user;
-
-select * from donationrecord;
-
-select * from donation;
-
-select * from user;
+show variables like 'c%';

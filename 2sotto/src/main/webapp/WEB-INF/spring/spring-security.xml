@@ -11,10 +11,8 @@
 1단계
 인증과 권한 기본설정(in-memory)방식으로 사용자 만들고 권한 설정하기
 auto-config="true" 당신이 제공 하는 설정(화면 (로그인) 과 Controller 사용) 
-
 -> 3.x.x => access => ROLE_USER
 -> 4.x.x => access => hasRole("ROLE_USER")
-
 	<security:http auto-config="true">
 		<security:csrf disabled="true" />
 		<security:intercept-url pattern="/customer/noticeDetail.htm" access="hasRole('ROLE_USER')" />
@@ -33,11 +31,8 @@ auto-config="true" 당신이 제공 하는 설정(화면 (로그인) 과 Control
 2단계
 1단계 >> 로그인 자동화 처리 >> /login    >> (controller > id, pwd > 인증 , 권한 확인  > session ...)
                      >> /logout   >> 직접처리                   
-
 http://localhost:8090/SpringMVC_Basic03_Sts_Mybatis_Security/login?error
-
 >>form-login 속성 정의하기
-
 login-page : login form 페이지 URL
 username-parameter : form id의 name 속성값  (email >> id)
 password-parameter : form pw의 name 속성값
@@ -50,21 +45,16 @@ authentication-success-handler-ref : 로그인 성공 시 프로세스 정의, b
 만약 최종 로그인일시를 DB에 기록해야한다면 handler로 처리하는게 좋겠다.
 res.sendRedirect 등으로 처리
 authentication-failure-handler-ref : 로그인 실패 시 프로세스 정의, bean id 입력
-
-
 >> security:logout
 logout-url : 로그아웃 처리할 URL (security가 알아서 만들기 때문에, 이 경로로 요청만 하면된다)
 logout-success-url : 로그아웃 성공 시 이동 URL
 success-handler-ref : 로그아웃 성공 시 프로세스 정의, bean id 입력
 invalidate-session : 로그아웃 시 세션 삭제여부
-
 >>session-management
 invalid-session-url : invalid session(세션 타임아웃 등) 일 때 이동 URL
 max-sessions : 최대 허용 가능한 세션 수
 expired-url : 중복 로그인 발생시 이동 URL (처음 접속한 세션이 invalidate가 되고 다음 요청시 invalid-session-url로 이동)
 error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실패처리할지 여부 (expired-url와 얘중에 하나만 쓰면 될듯)
-
-
 	<security:http>
 		<security:csrf disabled="true" />
 		<security:form-login login-page="/joinus/login.htm"

@@ -42,13 +42,17 @@ public class DonationService {
 	 */
 
 	// 후원게시판 글쓰기
+
 	public int write(Donation Donation, HttpServletRequest request, Principal principal)
+
 			throws IOException, ClassNotFoundException, SQLException {
 
 		int result = 0;
 		try {
+
 			Donationdao = sqlsession.getMapper(DonationDao.class);
 			result = Donationdao.write(Donation);
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -63,6 +67,7 @@ public class DonationService {
 		try {
 			Donationdao = sqlsession.getMapper(DonationDao.class);
 			Donation = Donationdao.detail(dindex);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -120,6 +125,7 @@ public class DonationService {
 		List<Donation> donationList = null;
 
 		// mapper 를 통한 인터페이스 연결
+
 		DonationDao DonationDao = sqlsession.getMapper(DonationDao.class);
 
 		int totalDonationcount = DonationDao.getDonationCount();
@@ -205,6 +211,7 @@ public class DonationService {
 		// mapper 를 통한 인터페이스 연결
 		DonationDao DonationDao = sqlsession.getMapper(DonationDao.class);
 
+
 		int totalDonationcount = DonationDao.getDonationCount();
 		//
 		DonationList = DonationDao.mainbydate(cpage, pageSize);
@@ -261,6 +268,7 @@ public class DonationService {
 		int result = 0;
 
 		try {
+      
 			DonationDao Donationdao = sqlsession.getMapper(DonationDao.class);
 			
 			int dindex = Donation.getDindex();
@@ -316,6 +324,7 @@ public class DonationService {
 		int result = 0;
 
 		try {
+
 			DonationDao Donationdao = sqlsession.getMapper(DonationDao.class);
 			result = Donationdao.completeDonationByColl(Integer.parseInt(dindex));
 
@@ -427,6 +436,7 @@ public class DonationService {
 
 				Donationdao = sqlsession.getMapper(DonationDao.class);
 				donationList = Donationdao.getDonationList();
+
 				System.out.println(donationList);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

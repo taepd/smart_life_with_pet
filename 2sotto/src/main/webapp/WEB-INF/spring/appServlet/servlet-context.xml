@@ -62,7 +62,7 @@
 		 
 		 <!-- <beans:property name="scope" value="https://www.googleapis.com/auth/plus.login" /> -->
 		<beans:property name="scope" value="email" />
-		 <beans:property name="redirectUri" value="http://localhost:8090/bit/login/oauth2callback.bit" />  <!-- callback을 동일하게 해준다. -->
+		 <beans:property name="redirectUri" value="http://localhost:8080/bit/login/oauth2callback.bit" />  <!-- callback을 동일하게 해준다. -->
 	    <!-- 서비스계정을 추가해준다. -->
 	     <!--  <beans:property name="redirectUri" value="http://localhost:8090/login_project2/oauth2callback" /> -->
 	</beans:bean>
@@ -83,7 +83,7 @@
     <beans:bean id="oAuth2Parameters"
         class="org.springframework.social.oauth2.OAuth2Parameters">
         <beans:property name="scope" value="email" />
-        <beans:property name="redirectUri" value="http://localhost:8090/bit/login/facebookSignInCallback.bit" />
+        <beans:property name="redirectUri" value="http://localhost:8080/bit/login/facebookSignInCallback.bit" />
     </beans:bean>
 
     <!-- 페이스북 소셜 로그인 연결 설정 시작 -->

@@ -30,17 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 후원 글 삭제 삭제 public int deleteEmp(int empno) -->
 	<delete id="delete">
-		delete from donation where dindex=#{dindex}
+		delete from DONATION where dindex=#{dindex}
 	</delete>
 
 	<!-- 후원글 상세정보 보기 public Donate getDetail(int empno) -->
 	<select id="detail" resultType="bit.or.eesotto.dto.Donation">
-		select * from donation where dindex=#{dindex} order by dindex desc
+		select * from DONATION where dindex=#{dindex} order by dindex desc
 	</select>
 
 	<!-- 후원글 정보 수정 public int updateEmp(Emp emp); -->
 	<update id="update" parameterType="bit.or.eesotto.dto.Donation">
-		update donation
+		update DONATION
 		set title=#{title}, dobject=#{dobject}, gcoll=#{gcoll},
 		content=#{content}
 		where dindex=#{dindex}
@@ -55,12 +55,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 유저 포인트 차감-->
 	<update id="minusUserPoint">
-		update user set userPoint= (userPoint-${param1}) where userid=#{param2}
+		update USER set userPoint= (userPoint-${param1}) where userid=#{param2}
 	</update>
 	
 	<!-- 현재포인트 증가-->
 	<update id="plusCcollPoint">
-		update donation set ccoll=ccoll+#{param2} where dindex=#{param1}
+		update DONATION set ccoll=ccoll+#{param2} where dindex=#{param1}
 	</update>
 	
 	<!-- 기부 완료(ccoll = gcoll) -->
@@ -70,21 +70,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- ccoll = gcoll 일 경우 dstate를 N로 변환해 주는 쿼리 -->
 	<update id="completeDonationByColl">
-		update donation set dstate='N', ctime=now()  where dindex=#{param1}
+		update DONATION set dstate='N', ctime=now()  where dindex=#{param1}
 	</update>
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
 

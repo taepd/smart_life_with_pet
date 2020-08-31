@@ -67,7 +67,9 @@ public class DonationController {
 
 	// 후원글 쓰기
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
+
 	public String write(Donation Donation, HttpServletRequest request, Principal principal, Model model)
+
 			throws IOException, ClassNotFoundException, SQLException {
 		logger.info("글작성 ");
 
@@ -191,6 +193,7 @@ public class DonationController {
 		Donation donation = ds.detail(dindex);
 		model.addAttribute("donation", donation);
 
+
 		return "donation/detail"; // "noticeDetail.jsp";
 	}
 
@@ -199,6 +202,7 @@ public class DonationController {
 	public String update(String dindex, Model model) {
 
 		Donation donation = ds.detail(dindex);
+
 		logger.info("내 블로그 글 조회 완료");
 		model.addAttribute("donation", donation);
 
@@ -207,7 +211,9 @@ public class DonationController {
 
 	// 글 수정 처리
 	@RequestMapping(value = "update.bit", method = RequestMethod.POST)
+
 	public String update(Donation donation, HttpServletRequest request, Model model)
+
 			throws IOException, ClassNotFoundException, SQLException {
 		String msg = null;
 		String url = null;
@@ -260,6 +266,7 @@ public class DonationController {
 
 	// 글 삭제 처리
 	@RequestMapping(value = "delete.bit", method = { RequestMethod.GET, RequestMethod.POST })
+
 	public String delete(Donation donation) throws ClassNotFoundException, SQLException {
 
 		int result = ds.delete(donation);
@@ -275,6 +282,7 @@ public class DonationController {
 	}
 	
 	//유저 포인트 차감 및 현재 모금 포인트 증가 + 기부테이블에 입력
+
 	@RequestMapping(value = "DonationPoint.bit", method = RequestMethod.POST)
 	public String DonationPoint(Donation donation, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
 

@@ -10,15 +10,15 @@ import org.apache.ibatis.annotations.Select;
 import bit.or.eesotto.dto.Donation;
 
 
-
 public interface DonationDao {
 
 	//후원글 입력
 	
 	@Insert("insert into DONATION (title,dobject,content,rtime,gcoll,ccoll,ctime, dstate)" +
     "values(#{title},#{dobject},#{content},now(),#{gcoll},0,#{ctime},'Y')")
+
 	public int write(Donation Donation);
-	
+
 	//게시물 개수
 	public int getDonationCount();
 	
@@ -31,7 +31,7 @@ public interface DonationDao {
 	 
 	
 	/*
-	 * @Select("SELECT * FROM Donation WHERE DEL_CHK='N' ORDER BY IDX DESC LIMIT #{pageStart},#{perPageNum}"
+	 * @Select("SELECT * FROM Donation WHERE DEL_CHK='N' ORDER BY IDX DESC LIMIT #{pageStart},#{perPageNum}
 	 * )
 	 */
 	/*
@@ -52,11 +52,12 @@ public interface DonationDao {
     public List<Donation> mainbydate(int cpage, int pagesize);
 	
 	//게시물 삭제
+
 	public int delete(Donation Donation);
 		
 	//게시물 수정
 	public int update(Donation Donation) throws ClassNotFoundException, SQLException;
-		
+
 	//게시물 상세
 	
 	/*
@@ -76,12 +77,14 @@ public interface DonationDao {
 	public int completeDonationByColl(int dindex);
 	
 	//기부테이블에 입력하기
+
 	@Insert("insert into DONATIONRECORD (dindex, userid, dcoll, dtime)"
 			+ "values (#{param1}, #{param2}, #{param3}, now())")
 	public int donationRecord(int dindex, String userid, int dcoll);
 	
 	// 어드민 > 후원 리스트 조회  ajax
 	@Select("select * from DONATION order by dindex desc")
+
 	public List<Donation> getDonationList(); 
 	
 	// 어드민 > 포인트 카운트  ajax

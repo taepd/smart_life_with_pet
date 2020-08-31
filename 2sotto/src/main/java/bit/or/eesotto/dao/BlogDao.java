@@ -34,7 +34,9 @@ public interface BlogDao {
 	public int getPostCount(String column, int search);
 	
 	// 블로그 > 글 상세 조회
+
 	@Select("select b.*, (SELECT count(*) FROM BLOGCOMMENT c WHERE c.bindex = b.bindex ) bcCount from BLOG b where bindex = #{bindex}")
+
 	public Blog getPost(@Param("bindex") String bindex);
 	
 	// 블로그> 글 조회수 증가 

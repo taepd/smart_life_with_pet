@@ -10,7 +10,7 @@ import lombok.ToString;
 public class DonationComment {
 	
 	private int dcindex;
-	private int dindex;
+	private int dindex; //후원글 index FK
 	private String userid;
 	private String nick;
 	private int rplike;

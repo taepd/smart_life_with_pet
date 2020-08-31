@@ -1,6 +1,6 @@
 -- 회원
 CREATE TABLE USER (
-	USERID   VARCHAR(40)  NOT NULL, -- USERID
+	USERID   VARCHAR(100)  NOT NULL, -- USERID
 	NICK     VARCHAR(20)  NOT NULL, -- 닉네임
 	PWD      VARCHAR(5000) NULL,     -- 비밀번호
 	LOC      VARCHAR(300) NOT NULL, -- 위치정보
@@ -9,8 +9,9 @@ CREATE TABLE USER (
 	UIMG     VARCHAR(500) NULL,     -- 프로필 사진
 	RTIME    TIMESTAMP    NOT NULL, -- 가입일시
 	LAT      VARCHAR(40)  NULL,     -- 위도
-	LOT      VARCHAR(40)  NULL,     -- 경도
-	POINT    INT          NULL      -- 포인트
+	LON      VARCHAR(40)  NULL,     -- 경도
+	USERPOINT INT         default 0, -- 포인트
+	SNSTYPE VARCHAR(50)  NULL     
 );
 
 -- 회원
@@ -77,7 +78,8 @@ CREATE TABLE INSPECTION (
 	PETINDEX INT          NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)  NOT NULL, -- USERID
 	LIST     VARCHAR(100) NOT NULL, -- 항목
-	VDATE    TIMESTAMP    NULL,     -- 접종예정일
+	VADATE   TIMESTAMP   NULL,  -- 접종일
+	EVDATE   TIMESTAMP    NULL,     -- 접종예정일(Estimated Vadate)
 	VSTATE   VARCHAR(4)   NULL,     -- 접종여부
 	VCOUNT   INT          NULL      -- 잔여접종횟수
 );
@@ -99,15 +101,16 @@ CREATE TABLE MRECORD (
 -- 게시글
 CREATE TABLE BLOG (
 	BINDEX  INT            PRIMARY KEY AUTO_INCREMENT, -- 글번호
-	PETINDEX INT           NOT NULL, -- 동물식별번호
+	PETINDEX VARCHAR(200)  NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)   NOT NULL, -- USERID
+	NICK     VARCHAR(20)       NOT NULL,
 	BLIKE    INT           NULL,     -- 추천수(보류)
 	TITLE    VARCHAR(100)  NOT NULL, -- 제목
 	CONTENT  VARCHAR(4000) NOT NULL, -- 내용
 	RTIME    TIMESTAMP     NOT NULL, -- 등록시간
 	DELSTATE VARCHAR(4)    NOT NULL, -- 삭제유무
 	COUNT    INT           NOT NULL, -- 조회수
-	PIMG     VARCHAR(500) NULL       -- 이미지
+	PIMG     VARCHAR(500)  NULL       -- 이미지
 );
 
 
@@ -117,6 +120,7 @@ CREATE TABLE BLOGCOMMENT (
 	BCINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	BINDEX  INT          NOT NULL, -- 글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
+	NICK    VARCHAR(20) NOT NULL,
 	BCLIKE  INT          NULL,     -- 추천수(보류)
 	CONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
@@ -149,10 +153,14 @@ CREATE TABLE SCHEDULE (
 	TITLE       VARCHAR(60)  NOT NULL, -- 제목
 	CONTENT     VARCHAR(400) NOT NULL, -- 내용
 	IS_COMPLETE VARCHAR(4)   NULL,     -- 완료여부
-	BEGIN_DATE  TIMESTAMP    NOT NULL, -- 시작날짜
-	END_DATE    TIMESTAMP    NULL,     -- 마감날짜
-	CYCLE       TIME         NOT NULL, -- 주기
-	ADNCDNOTI   VARCHAR(40)  NULL      -- 미리알림
+	START       TIMESTAMP    NOT NULL, -- 시작날짜
+	END         TIMESTAMP    NULL,     -- 마감날짜
+	ALLDAY      VARCHAR(10)  NULL, -- 하루종일 여부
+	DAYSOFWEEK  VARCHAR(40)  NULL, -- 반복주기
+	ADNCDNOTI   VARCHAR(40)  NULL, -- 미리알림
+	COLOR       VARCHAR(20)  NULL, -- 색깔
+	GROUPID     VARCHAR(100) NULL -- 같은 주기의 일정 그룹ID
+	
 );
 
 
@@ -169,18 +177,32 @@ CREATE TABLE RECOM (
 
 -- 질의응답
 CREATE TABLE QNA (
-	QAINDEX  INT          PRIMARY KEY AUTO_INCREMENT, -- 글번호
-	USERID   VARCHAR(40)  NULL,     -- USERID
-	TITLE    VARCHAR(100) NOT NULL, -- 제목
-	QATIME   VARCHAR(40)  NOT NULL, -- 등록시간
-	COUNT    INT          NOT NULL, -- 조회수
-	SCSTATE  VARCHAR(4)   NOT NULL, -- 비밀유무
-	CONTENT  VARCHAR(500) NOT NULL, -- 내용
-	FILENAME VARCHAR(100) NULL,     -- 첨부파일
-	AWSTATE  VARCHAR(4)   NOT NULL  -- 답변완료여부
+   QAINDEX  INT          PRIMARY KEY AUTO_INCREMENT, -- 글번호
+   USERID   VARCHAR(40)  NULL,     -- USERID
+   TITLE    VARCHAR(100) NOT NULL, -- 제목
+   QATIME   VARCHAR(40)  NOT NULL, -- 등록시간
+   COUNT    INT          NOT NULL, -- 조회수
+   SCSTATE  VARCHAR(4)   NOT NULL, -- 비밀유무
+   CONTENT  VARCHAR(500) NOT NULL, -- 내용
+   FILENAME VARCHAR(100) NULL,     -- 첨부파일
+   AWSTATE  VARCHAR(20)   NOT NULL,  -- 답변완료여부
+   REPLYCONTENT VARCHAR(500) NOT NULL -- 관리자 답글내용
+    
 );
 
-
+-- QNA 댓글
+CREATE TABLE QNACOMMENT (
+   QNAINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
+   QAINDEX  INT          NOT NULL, -- 글번호
+   USERID  VARCHAR(40)  NOT NULL, -- USERID
+   QNALIKE  INT          NULL,     -- 추천수(보류)
+   CONTENT VARCHAR(400) NOT NULL, -- 내용
+   SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
+   RTIME   TIMESTAMP    NOT NULL, -- 등록시간
+   REFER   INT          NOT NULL, -- refer
+   DEPTH   INT          NOT NULL, -- depth
+   STEP    INT          NOT NULL  -- step
+);
 
 -- user_role
 CREATE TABLE USERROLE (
@@ -203,7 +225,7 @@ ALTER TABLE ROLES
 		);
 
 -- 기부게시판
-CREATE TABLE DONATE (
+CREATE TABLE DONATION (
 	DINDEX  INT  PRIMARY KEY AUTO_INCREMENT, -- 기부글번호
 	TITLE   VARCHAR(120)  NOT NULL, -- 제목
 	CONTENT VARCHAR(4000) NOT NULL, -- 내용
@@ -212,28 +234,41 @@ CREATE TABLE DONATE (
 	CTIME   TIMESTAMP     NULL,
 	GCOLL   INT           NOT NULL, -- 목표기부금
 	CCOLL   INT           NOT NULL, -- 현재기부금
+	DSTATE VARCHAR(4) NOT NULL, -- 기부완료여부
 	DIMG    VARCHAR(500)  NULL
 		
 );
 
 -- 기부댓글
-CREATE TABLE DONATECOMMENT (
+CREATE TABLE DONATIONCOMMENT (
 	DCINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	DINDEX  INT          NOT NULL, -- 기부글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
+	NICK     VARCHAR(20)  NOT NULL,
 	RPLIKE  INT          NULL,     -- 추천수(보류)
-	CONTENT VARCHAR(400) NOT NULL, -- 내용
+	DCCONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
-	RTIME   TIMESTAMP    NOT NULL -- 등록시간
+	RTIME   TIMESTAMP    NOT NULL, -- 등록시간
+	REFER   INT     NOT NULL, --
+  	DEPTH  INT     NOT NULL,
+ 	STEP     INT     NOT NULL
 	
 );
 
+
+CREATE TABLE DONATIONRECORD (
+	DRINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 기부번호
+	DINDEX  INT          NOT NULL, -- 기부글번호
+	USERID  VARCHAR(40)  NOT NULL, -- USERID, 기부자
+	DCOLL INT   NOT NULL, -- 기부금액
+	DTIME   TIMESTAMP    NOT NULL -- 기부시간
+	
+);
 
 -- 결제(돈내고 한 것만)
 CREATE TABLE PAY (
 	PINDEX  INT   PRIMARY KEY AUTO_INCREMENT, -- 결제번호
 	USERID  VARCHAR(40) NOT NULL, -- USERID
-	DINDEX  INT         NOT NULL, -- 기부글번호
 	PAMOUNT INT         NULL,     -- 결제금액
 	PTIME   DATE        NULL,     -- 결제일시
 	PTYPE   VARCHAR(20) NULL      -- 결제유형
@@ -274,19 +309,41 @@ ALTER TABLE SUBCATEGORY
 			SCATEGORY -- 소분류코드
 		);
 
--- 포인트내역
+-- 포인트내역 (컬럼 정리 필요함)
 CREATE TABLE POINT (
 	PTINDEX  INT    PRIMARY KEY AUTO_INCREMENT, -- 포인트내역번호
-	USERID  VARCHAR(40) NULL,     -- USERID
-	PTYPE   VARCHAR(4)  NULL,     -- 포인트 유형
-	PCOUNT  INT         NULL,     -- 포인트 수량
-	PAMOUNT INT         NULL,     -- 포인트 총량
-	PDATE  TIMESTAMP    NULL      -- 포인트 일시
+	USERID   VARCHAR(40) NULL,     -- USERID
+	PTYPE    VARCHAR(4)  NULL,     -- 포인트 유형
+	PCOUNT   INT         NULL,     -- 포인트 수량
+	PAMOUNT  INT         NULL,     -- 포인트 총량
+	PDATE    TIMESTAMP   NULL,     -- 포인트 일시
+    PINDEX   INT         NULL, -- 결제 번호
+	DINDEX   INT         NULL, -- 기부글 번호
+    DRINDEX	 INT         NULL  -- 기부내역 번호
+    
+);
+-- 채팅 참여멤버
+CREATE TABLE CHATMEMBER(
+	MEM_NUMBER   VARCHAR(40)  NOT NULL, -- 번호
+	ROOM_NUMBER     VARCHAR(20)  NOT NULL, -- 번호
+	USER_EMAIL      VARCHAR(5000) NULL,     -- 이메일
+	USER_NICKNAME      VARCHAR(300) NULL -- 닉네임
+	  
 );
 
-
-
-
+-- 채팅방
+CREATE TABLE CHATROOM (
+	ROOM_NUMBER   INT  PRIMARY KEY AUTO_INCREMENT,  -- 번호
+	ROOM_TITLE     VARCHAR(20)  NOT NULL, -- 제목
+	USER_EMAIL      VARCHAR(5000) NOT NULL,     -- 이메일
+	ROOM_COUNT      VARCHAR(300) NOT NULL, -- 카운트
+	ROOM_SECRET VARCHAR(40)  NOT NULL, -- 찾기
+	ROOM_PWD  VARCHAR(4)   NULL, -- 비번
+	USER_NICKNAME VARCHAR(500) NOT NULL,     -- 닉네임
+	USER_IMG    TIMESTAMP    NULL, -- 이미지
+	CURRENT_COUNT      VARCHAR(40)  NULL     -- 현재카운트
+	
+);
 
 
 -- 질의응답댓글
@@ -397,17 +454,7 @@ ALTER TABLE MRECORD
 		)
 		ON DELETE CASCADE;
 
--- 게시글
-ALTER TABLE BLOG
-	ADD
-		CONSTRAINT FK_PET_TO_BLOG -- 반려동물 -> 게시글
-		FOREIGN KEY (
-			PETINDEX -- 동물식별번호
-		)
-		REFERENCES PET ( -- 반려동물
-			PETINDEX -- 동물식별번호
-		)
-		ON DELETE CASCADE;
+
 
 -- 게시글
 ALTER TABLE BLOG
@@ -433,7 +480,7 @@ ALTER TABLE BLOGCOMMENT
 		)
 		ON DELETE CASCADE;
 
--- 댓글
+-- 블로그댓글
 ALTER TABLE BLOGCOMMENT
 	ADD
 		CONSTRAINT FK_BLOG_TO_BLOGCOMMENT -- 게시글 -> 댓글2
@@ -444,6 +491,32 @@ ALTER TABLE BLOGCOMMENT
 			BINDEX -- 글번호
 		)
 		ON DELETE CASCADE;
+
+
+-- QNA댓글 USER FK
+ALTER TABLE QNACOMMENT
+   ADD
+      CONSTRAINT FK_USER_TO_QNACOMMENT -- 회원 -> 댓글2
+      FOREIGN KEY (
+         USERID -- USERID
+      )
+      REFERENCES USER ( -- 회원
+         USERID -- USERID
+      )
+      ON DELETE CASCADE;
+
+-- QA댓글 QNA FK
+ALTER TABLE QNACOMMENT
+   ADD
+      CONSTRAINT FK_QNA_TO_QNACOMMENT -- 게시글 -> 댓글2
+      FOREIGN KEY (
+         QAINDEX -- 글번호
+      )
+      REFERENCES QNA ( -- 게시글
+         QAINDEX -- 글번호
+      )
+      ON DELETE CASCADE;
+
 
 -- 쪽지
 ALTER TABLE MESSAGE
@@ -577,19 +650,8 @@ ALTER TABLE PAY
 		)
 		ON DELETE CASCADE;
 
--- 결제(돈내고 한 것만)
-ALTER TABLE PAY
-	ADD
-		CONSTRAINT FK_DONATE_TO_PAY -- 기부게시판 -> 결제(돈내고 한 것만)
-		FOREIGN KEY (
-			DINDEX -- 기부글번호
-		)
-		REFERENCES DONATE ( -- 기부게시판
-			DINDEX -- 기부글번호
-		)
-		ON DELETE CASCADE;
 
--- 즐겨찾기/게시글
+-- 즐겨찾기(좋아요)/게시글
 ALTER TABLE BLIKE
 	ADD
 		CONSTRAINT FK_USER_TO_BLIKE -- 회원 -> 즐겨찾기/게시글
@@ -601,7 +663,7 @@ ALTER TABLE BLIKE
 		)
 		ON DELETE CASCADE;
 
--- 즐겨찾기/게시글
+-- 즐겨찾기(좋아요)/게시글
 ALTER TABLE BLIKE
 	ADD
 		CONSTRAINT FK_BLOG_TO_BLIKE -- 게시글 -> 즐겨찾기/게시글
@@ -613,7 +675,7 @@ ALTER TABLE BLIKE
 		)
 		ON DELETE CASCADE;
 
--- 즐겨찾기/반려동물
+-- 즐겨찾기(팔로우)/반려동물
 ALTER TABLE PETLIKE
 	ADD
 		CONSTRAINT FK_PET_TO_PETLIKE -- 반려동물 -> 즐겨찾기/반려동물
@@ -625,7 +687,7 @@ ALTER TABLE PETLIKE
 		)
 		ON DELETE CASCADE;
 
--- 즐겨찾기/반려동물
+-- 즐겨찾기(팔로우)/반려동물
 ALTER TABLE PETLIKE
 	ADD
 		CONSTRAINT FK_USER_TO_PETLIKE -- 회원 -> 즐겨찾기/반려동물
@@ -649,11 +711,23 @@ ALTER TABLE POINT
 		)
 		ON DELETE CASCADE;
 
+-- 포인트내역
+ALTER TABLE POINT
+	ADD
+		CONSTRAINT FK_DONATION_TO_POINT -- 기부글 -> 포인트내역
+		FOREIGN KEY (
+			DINDEX -- DINDEX
+		)
+		REFERENCES DONATION ( -- 회원
+			DINDEX -- DINDEX
+		)
+		ON DELETE CASCADE;
+
 
 -- 기부댓글/유저
-ALTER TABLE DONATECOMMENT
+ALTER TABLE DONATIONCOMMENT
 	ADD
-		CONSTRAINT FK_USER_TO_DONATECOMMENT -- 회원 -> 즐겨찾기/게시글
+		CONSTRAINT FK_USER_TO_DONATIONCOMMENT -- 회원 -> 즐겨찾기/게시글
 		FOREIGN KEY (
 			USERID -- USERID
 		)
@@ -663,18 +737,40 @@ ALTER TABLE DONATECOMMENT
 		ON DELETE CASCADE;
 
 -- 기부댓글 후원글번호
-ALTER TABLE DONATECOMMENT
+ALTER TABLE DONATIONCOMMENT
 	ADD
-		CONSTRAINT FK_DONATE_TO_DONATECOMMENT -- 
+		CONSTRAINT FK_DONATION_TO_DONATIONCOMMENT -- 
 		FOREIGN KEY (
 			DINDEX -- 글번호
 		)
-		REFERENCES DONATE ( -- 게시글
+		REFERENCES DONATION ( -- 게시글
 			DINDEX -- 글번호
 		)
 		ON DELETE CASCADE;
         
+-- 기부내역 USER에서 USERID -> donation에서 userid 받아와야 트리거 오류 발생 xx -> 제거할것!!
+ALTER TABLE DONATIONRECORD
+	ADD
+		CONSTRAINT FK_USER_TO_DONATIONRECORD -- 
+		FOREIGN KEY (
+			USERID -- 기부자
+		)
+		REFERENCES USER ( -- 게시글
+			USERID -- 글번호
+		)
+		ON DELETE CASCADE;
 
+-- 기부내역 DONATION에서 DINDEX
+ALTER TABLE DONATIONRECORD
+	ADD
+		CONSTRAINT FK_DONATION_TO_DONATIONRECORD -- 
+		FOREIGN KEY (
+			DINDEX -- 기부자
+		)
+		REFERENCES DONATION ( -- 게시글
+			DINDEX -- 글번호
+		)
+		ON DELETE CASCADE;
 
 drop trigger insert_userrole;
 
@@ -682,17 +778,17 @@ drop trigger insert_userrole;
 delimiter $$
 
 create trigger insert_userrole
-after insert on user
+after insert on USER
 for each row
 BEGIN
     IF(NEW.userid = 'admin') THEN  
-        insert into userrole 
+        insert into USERROLE 
         values
         (NEW.userid ,'1'),
         (NEW.userid ,'2');
 
     ELSE
-        insert into userrole 
+        insert into USERROLE 
         values
         (NEW.userid ,'2');
     END IF;
@@ -743,15 +839,178 @@ desc maincategory;
 desc message;
 desc user;
 
-select * from user;
-select * from pet;
 select * from roles;
 select * from userrole;
 select * from message;
+select * from user;
 select * from blog;
+select * from pet;
 select * from maincategory;
 select * from subcategory; 
-select * from blogcomment;
+
+-- 기부 매 1시간마다 시간체크해서 DSTATE값을 N으로 변경
+
+CREATE EVENT IF NOT EXISTS DONATE_TIME
+    ON SCHEDULE
+           EVERY 1 HOUR
+    ON COMPLETION PRESERVE
+    ENABLE
+    COMMENT '기부기한에 도달하였습니다.'
+    DO 
+    UPDATE DONATION SET DSTATE ='N' WHERE now() > RTIME;
+    
+DROP EVENT DONATE_TIME;
+
+-- 결제시 PAY테이블에서 POINT테이블로 쏴주기(USER의 총 포인트는 안된다.)
+DELIMITER $$
+CREATE TRIGGER INSERT_POINT_FROM_PAY
+AFTER INSERT ON PAY
+FOR EACH ROW
+BEGIN
+INSERT INTO POINT
+SET
+PINDEX = NEW.PINDEX,
+USERID = NEW.USERID,
+PTYPE = '결제',
+PCOUNT = NEW.PAMOUNT,
+PDATE = NEW.PTIME;
 
 
+END $$
+DELIMITER ;
 
+DROP TRIGGER INSERT_POINT_FROM_PAY;
+
+select * from point;
+
+-- pay테이블에 값 입력되면 바로 userpoint 업데이트
+DELIMITER $$
+CREATE TRIGGER UPDATE_USERPOINT
+AFTER INSERT ON pay
+FOR EACH ROW
+BEGIN
+UPDATE user
+SET
+userPoint = (userPoint + new.PAMOUNT)
+where userid = new.userid;
+END $$
+DELIMITER ;
+
+-- userpoint를 point 테이블로 쏴준다. 
+DELIMITER $$
+CREATE TRIGGER UPDATE_POINT_PAMOUNT
+AFTER insert on pay
+FOR EACH ROW
+BEGIN
+UPDATE POINT
+SET
+PAMOUNT = (SELECT userpoint FROM USER WHERE USERID = NEW.USERID)
+where userid = new.userid AND pindex = new.pindex;
+END $$
+DELIMITER ;
+
+-- 기부시 DONATIONRECORD테이블에서 POINT테이블로 쏴주기(USER의 총 포인트는 안된다.)
+DELIMITER $$
+CREATE TRIGGER INSERT_POINT_FROM_DONATIONRECORD
+AFTER INSERT ON donationrecord
+FOR EACH ROW
+BEGIN
+INSERT INTO POINT
+SET
+DRINDEX = NEW.DRINDEX,
+USERID = NEW.USERID,
+PTYPE = '기부',
+PCOUNT = NEW.dcoll,
+PDATE = NEW.dtime;
+
+
+END $$
+DELIMITER ;
+
+-- donationrecord사용해서 userpoint를 point 테이블로 쏴준다. 
+DELIMITER $$
+CREATE TRIGGER UPDATE_POINT_PAMOUNT_FROM_DONATIONRECORD
+AFTER insert on donationrecord
+FOR EACH ROW
+BEGIN
+UPDATE POINT
+SET
+PAMOUNT = (SELECT userpoint FROM USER WHERE USERID = NEW.USERID)
+where userid = new.userid AND drindex = new.drindex;
+END $$
+DELIMITER ;
+
+-- 블로그 글 좋아요하면 blike테이블에 인서트 후에 blog 테이블 blike +1 하는 트리거
+DELIMITER $$
+CREATE TRIGGER UPDATE_BLIKE_PLUS
+AFTER INSERT ON blike
+FOR EACH ROW
+BEGIN
+UPDATE BLOG
+SET
+BLIKE = BLIKE + 1
+WHERE BINDEX = NEW.BINDEX;
+
+END $$
+DELIMITER ;
+
+-- 블로그 글 좋아요 취소하면 blike테이블에 인서트 후에 blog 테이블 blike -1 하는 트리거
+DELIMITER $$
+CREATE TRIGGER UPDATE_BLIKE_MINUS
+BEFORE DELETE ON blike
+FOR EACH ROW
+BEGIN
+UPDATE BLOG
+SET
+BLIKE = BLIKE - 1
+WHERE BINDEX = OLD.BINDEX;
+
+END $$
+DELIMITER ;
+
+-- 두 좌표값(경/위도) 사이의 거리 구하는 함수(mysql 버전)
+DROP FUNCTION IF EXISTS 2sotto.GOOGLE_DISTANCE;
+delimiter $$
+CREATE FUNCTION GOOGLE_DISTANCE (
+  LAT1 FLOAT, 
+  LNG1 FLOAT,
+  LAT2 FLOAT,
+  LNG2 FLOAT 
+)
+
+  RETURNS FLOAT
+ 
+BEGIN
+  DECLARE fEARTH_R FLOAT;
+  DECLARE fPIE FLOAT;
+  DECLARE fRAD FLOAT;
+  DECLARE radLAT1 FLOAT;
+  DECLARE radLAT2 FLOAT;
+  DECLARE radDIST FLOAT;
+  DECLARE fDIST FLOAT;
+  
+  SET fEARTH_R = 6371000.0;
+  SET fPIE= 3.141592653589793;
+  SET fRAD = 0.0;
+  SET radLAT1 = 0.0;
+  SET radLAT2 = 0.0;
+  SET radDIST = 0.0;
+  SET fDIST = 0.0;
+  
+  SET fRAD = fPIE / 180;
+  SET radLAT1 = fRAD * LAT1;
+  SET radLAT2 = fRAD * LAT2;
+  SET radDIST = fRAD * ( LNG1 - LNG2 );
+  SET fDIST = SIN( radLAT1 ) * SIN( radLAT2 );
+  SET fDIST = fDIST + COS( radLAT1 ) * COS( radLAT2 ) * COS( radDIST );
+
+
+  RETURN ((fEARTH_R * ACOS(ROUND(fDIST,10)))/1000);
+
+END$$
+
+delimiter ;
+
+show triggers;
+
+show variables like 'c%';

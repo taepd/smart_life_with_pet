@@ -19,5 +19,4 @@ public class PetLike {
 	private String petname;
 	private String petimg;
 	
-
 }

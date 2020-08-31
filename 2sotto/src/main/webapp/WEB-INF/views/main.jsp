@@ -198,8 +198,7 @@
 							<c:forEach var="post" items="${postList}" varStatus="status">
 								<div class="col-lg-6">
 									<div class="text-center" style="height: 200px">
-										<a
-											href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
+										<a href="${pageContext.request.contextPath}/blog/detail.bit?bindex=${post.bindex}">
 											<img class="d-block w-100" id="p${status.index}"
 											src="${pageContext.request.contextPath}/assets/images/pet_profile.jpg"
 											style="border-radius: 6px; width: 100%; height: 100%;"
@@ -355,10 +354,6 @@
 					/* 얼굴 아이콘 */
 					table += "<img id='walk' src='' alt='Weather icon' width='100'>";
 				table += "</div>";
-
-
-
-
 				table += "<div class='col-lg-4'>"
 					table += "<div class='row' style='margin-left:5px'><p>";
 						/* 지역 */
@@ -368,10 +363,6 @@
 						table += "<span id='talk'></span></p>";
 					table += "</div>";
 				table += "</div>";
-
-
-
-
 				/* table += "<div class='col-lg-3'>";
 					table += "<div class='row'><p>";
 						/* 날짜 */
@@ -381,10 +372,6 @@
 					/* table += arr[0]+" "+arr[1]+" "+arr[2];
 					table += "</p></div>";
 				table += "</div>"; */
- 
-
-
-
 				table += "<div class='col-lg-3' style='padding-right:30px'>";
 					/* 기상 아이콘 */
 					table += "<div class='row'>";
@@ -394,12 +381,6 @@
 					table += "<img src='${pageContext.request.contextPath}/assets/images/weather/wi-strong-wind.svg' alt='Weather icon' width='30'>" +resp.wind.speed + "m/s";
 				table += "</p></div>";
 				table += "</div>";
-
-
-
-
-
-
 				table += "<div class='col-lg-2'>";
 					table += "<div class='row'>"
 					/* 습도 */
@@ -607,12 +588,11 @@
 	});
 	
     console.log("로그인한 유저 아이디: "+'${sessionScope.user.userid}');
- }); 
+  
+});  // onload 함수 끝
 
  
- 
-
- 	///////////////////////////////////////////////////////////이하 함수 영역///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////이하 함수 영역///////////////////////////////////////////////////////////////////
 
      // 나의 반려동물 이름 가져오기
      // 동기화로 전환해서 사용 안함
@@ -659,7 +639,7 @@
 	    					
 	        			});
 				    }else{ //일정이 하나도 없다면
-				    	//console.log('${petList[0]}');
+				    	//등록된 스케쥴이 없다면 response가 null이기 때문에 반려동물 리스트를 따로 호출해야 한다
 				    	<c:forEach items="${petList}" var="pet">  
 				    		if(whichOne =='${pet.petname}'){
 						    	image = '${pet.petimg}';
@@ -669,8 +649,7 @@
 					        info = `<p class="text-center">다가올 일정이 없습니다.</p>
 					        		<button onclick='location.href="${pageContext.request.contextPath}/management/main.bit?tab=schedule"' class="btn btn-outline-primary btn-round" >
 					        	  		<i class="material-icons">calendar_today</i> 일정 등록하기
-					        		</button>`;  
-				    	
+					        		</button>`;   
 				    }
 					//(추가)반려동물 마이페이지 링크 래핑함
     				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+ petindex + "'>" +
@@ -695,6 +674,7 @@
 * @param void
 **/
 
+//인기 포스트 이미지 정보 추출
 function replaceImg_post(list){ 
 	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
 	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
@@ -703,22 +683,20 @@ function replaceImg_post(list){
 	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
 			console.log(imgs[j]);    
 			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
-			  
 	    }
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
 	}
 } 
-
+//후원글 포스트 이미지 정보 추출
 function replaceImg_donation(list){ 
-	for(var i =0; i<${fn:length(postList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
+	for(var i =0; i<${fn:length(donationList)}; i++){ //현재 페이지 포스팅 갯수만큼 for문
 	    var imgs = $('#content'+list+i+' img'); //포스팅 내용 중 img 태그를 찾아서 배열로 저장
 	    var imgSrcs = [];
 	    for (var j = 0; j < imgs.length; j++) { //img 개수만큼 for문
 	        imgSrcs.push(imgs[j].src); //src값 즉, 이미지 경로를 imgSrcs배열에 저장
 			console.log(imgs[j]);    
 			imgs[j].parentNode.removeChild(imgs[j]);//기존 내용 중 img태그들은 미리보기시 지저분하므로 삭제
-			  
 	    }
 		console.log("imgSrcs: "+ imgSrcs[0]);
 		$('#'+list+i+'').attr("src", imgSrcs[0]); //블로그 리스트 오른쪽 썸네일 영역에 올린 이미지 중 첫 번째 사진 표시
@@ -732,7 +710,5 @@ function shortContent(tag){
 		$('#content'+tag+i+'').text($('#content'+tag+i+'').text().substring(0,30));
 	}
 }
-
-
 </script>
 </html>

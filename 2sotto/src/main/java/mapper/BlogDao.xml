@@ -72,69 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>	
 
-</mapper>
-	
-	
-	
-
-	
-
-	<!-- 
-	// 사원 상세정보 보기 public Emp getDetail(int empno)
-	<select id="getDetail" resultType="dto.Emp">
-		select * from emp where empno=#{empno}
-	</select>
-
-	// 사원 등록 public int insertEmp(Emp emp);
-	<insert id="insertEmp" parameterType="dto.Emp">
-		insert into Emp(empno, ename, job, mgr, hiredate, sal, comm, deptno, img)
-		values(#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno},#{img})
-	</insert>
-
-	// 사원 정보 수정 public int updateEmp(Emp emp);
-	<update id="updateEmp" parameterType="dto.Emp">
-		update emp
-		set ename=#{ename}, job=#{job}, mgr=#{mgr},
-		sal=#{sal}, comm=#{comm}, deptno=#{deptno},
-		img=#{img}
-		where empno=#{empno}
-	</update>
-
-	// 사원 정보 삭제 public int deleteEmp(int empno)
-	<delete id="deleteEmp">
-		delete from emp where empno=#{empno}
-	</delete>
-
-	//ajax 직종 불러오기 public List<String> getEmpJob();
-	<select id="getEmpJob" resultType="String">
-		select distinct job from emp order by job
-	</select>
-
-	//ajax 부서번호 불러오기 public List<Integer> getDeptno();
-	<select id="getDeptno" resultType="Integer">
-		select distinct deptno from emp order by deptno
-	</select>
-
-	사번으로 검색
-	<select id="getEmpListByEmpno" resultType="dto.Emp">
-		SELECT * FROM
-		(SELECT ROWNUM NUM, E.* FROM
-		(SELECT * FROM EMP WHERE EMPNO LIKE '%' || ${param3} || '%' ) E
-		) WHERE NUM BETWEEN ${param1}*${param2}-(${param2}-1) AND
-		${param1}*${param2}
-	</select>
-
-	부서번호 선택
-	<select id="getEmpListByDeptno" resultType="dto.Emp">
-		SELECT * FROM
-		(SELECT ROWNUM NUM, E.* FROM
-		(SELECT * FROM EMP WHERE DEPTNO=${param3}) E
-		) WHERE NUM BETWEEN ${param1}*${param2}-(${param2}-1) AND
-		${param1}*${param2}
-
-	</select> -->
-
-
 
 
 

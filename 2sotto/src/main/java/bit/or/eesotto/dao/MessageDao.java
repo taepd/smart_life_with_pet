@@ -16,7 +16,7 @@ import bit.or.eesotto.dto.User;
 public interface MessageDao {
 	
 		// 쪽지 > 쪽지보내기  
-		@Insert("insert into message (ruserid, suserid, content, sendtime, readstate)"
+		@Insert("insert into MESSAGE (ruserid, suserid, content, sendtime, readstate)"
 				+ " values ( #{ruserid}, #{suserid}, #{content}, now(), 0)" )
 		public int writeMessage(Message message);
 		
@@ -27,15 +27,15 @@ public interface MessageDao {
 		public List<Message> getMessageSendList(int cpage, int pagesize, String RUSERID);
 		
 		// 쪽지 > 쪽지 상세 조회
-		@Select("select * from message where msindex = #{msindex}")
+		@Select("select * from MESSAGE where msindex = #{msindex}")
 		public Message getMessage(@Param("msindex") String msindex);
 		
 		// 쪽지 > 쪽지 삭제
-		@Update("delete from message where msindex=#{msindex}")
+		@Update("delete from MESSAGE where msindex=#{msindex}")
 		public int deleteMessage(Message msindex);
 		
 		// 쪽지 > 읽은 상태로 변경
-		@Update("update message set readtime = now() where msindex = #{msindex}")
+		@Update("update MESSAGE set readtime = now() where msindex = #{msindex}")
 		public int updateReadState(String msindex);
 		
 		// 쪽지 > 쪽지 개수 조회 //동적쿼리 적용할 것 

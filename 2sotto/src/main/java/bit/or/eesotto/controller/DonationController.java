@@ -4,7 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.*; 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,16 +13,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import bit.or.eesotto.dao.DonationDao;
-import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.*;
 import bit.or.eesotto.service.*;
 
@@ -71,12 +67,14 @@ public class DonationController {
 
 	// 후원글 쓰기
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Donation donate, HttpServletRequest request, Principal principal, Model model)
+
+	public String write(Donation Donation, HttpServletRequest request, Principal principal, Model model)
+
 			throws IOException, ClassNotFoundException, SQLException {
 		logger.info("글작성 ");
 
 		// 파일에 대한 처리부분
-		List<CommonsMultipartFile> files = donate.getFiles();
+		List<CommonsMultipartFile> files = Donation.getFiles();
 		List<String> filenames = new ArrayList<String>();
 		if (files != null && files.size() > 0) { // 최소 1개의 업로드가 있다면
 			for (CommonsMultipartFile multifile : files) {
@@ -95,19 +93,19 @@ public class DonationController {
 
 		}
 
-		/* donate.setWriter (principal.getName()); */
+		/* Donation.setWriter (principal.getName()); */
 
 		// DB 파일명 저장
 
 		if (!filenames.isEmpty()) {
-			donate.setDimg(filenames.get(0));
+			Donation.setDimg(filenames.get(0));
 
 		}
 
 		logger.info("파일 업로드 완료 ");
-		// int result = ds.donationWrite(donate, request, principal);
+		// int result = ds.donationWrite(Donation, request, principal);
 
-		int result = ds.write(donate, request, principal);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동
+		int result = ds.write(Donation, request, principal);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동
 															// 된다고...
 		if (result == 1) {
 
@@ -122,7 +120,7 @@ public class DonationController {
 			return "redirect:write.bit";
 		}
 		/*
-		 * if(result==1) { ("donate", donate.getTitle()); logger.info("글입력 처리 완료");
+		 * if(result==1) { ("Donation", Donation.getTitle()); logger.info("글입력 처리 완료");
 		 * 
 		 * return "redirect:/";
 		 * 
@@ -144,7 +142,7 @@ public class DonationController {
 	 * f , String q , Model model) throws ClassNotFoundException, SQLException{
 	 * 
 	 * 
-	 * List<Donate> list = ds.getDonationList(pg, f, q); model.addAttribute("list",
+	 * List<Donation> list = ds.getDonationList(pg, f, q); model.addAttribute("list",
 	 * list);
 	 * 
 	 * 
@@ -163,7 +161,7 @@ public class DonationController {
 		model.addAttribute("pageSize", map.get("pageSize"));
 		model.addAttribute("donationList", map.get("donationList"));
 		model.addAttribute("pageCount", map.get("pageCount"));
-		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
+		model.addAttribute("totalDonationcount", map.get("totalDonationcount"));
 		System.out.println("//////이거 나옵니까//////: "+ map.get("cpage"));
 		return "donation/main";
 
@@ -181,9 +179,9 @@ public class DonationController {
 		// view까지 전달 (forward)
 		model.addAttribute("cpage", map.get("cpage"));
 		model.addAttribute("pageSize", map.get("pageSize"));
-		model.addAttribute("donateList", map.get("donateList"));
+		model.addAttribute("donationList", map.get("donationList"));
 		model.addAttribute("pageCount", map.get("pageCount"));
-		model.addAttribute("totaldonatecount", map.get("totaldonatecount"));
+		model.addAttribute("totalDonationcount", map.get("totalDonationcount"));
 
 		return "donation/mainbydate";
 	}
@@ -192,8 +190,9 @@ public class DonationController {
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
 	public String detail(String dindex, Model model) {
 
-		Donation donate = ds.detail(dindex);// ds
-		model.addAttribute("donate", donate);
+		Donation donation = ds.detail(dindex);
+		model.addAttribute("donation", donation);
+
 
 		return "donation/detail"; // "noticeDetail.jsp";
 	}
@@ -202,21 +201,24 @@ public class DonationController {
 	@RequestMapping(value = "update.bit", method = RequestMethod.GET)
 	public String update(String dindex, Model model) {
 
-		Donation donate = ds.detail(dindex);
+		Donation donation = ds.detail(dindex);
+
 		logger.info("내 블로그 글 조회 완료");
-		model.addAttribute("donate", donate);
+		model.addAttribute("donation", donation);
 
 		return "donation/update";
 	}
 
 	// 글 수정 처리
 	@RequestMapping(value = "update.bit", method = RequestMethod.POST)
-	public String update(Donation donate, HttpServletRequest request, Model model)
+
+	public String update(Donation donation, HttpServletRequest request, Model model)
+
 			throws IOException, ClassNotFoundException, SQLException {
 		String msg = null;
 		String url = null;
 
-		List<CommonsMultipartFile> files = donate.getFiles();
+		List<CommonsMultipartFile> files = donation.getFiles();
 		List<String> filenames = new ArrayList<String>(); // 파일명관리
 
 		if (files != null && files.size() > 0) { // 최소 1개의 업로드가 있다면
@@ -238,18 +240,18 @@ public class DonationController {
 
 		// DB 파일명 저장
 		if (!filenames.isEmpty()) {
-			donate.setDimg(filenames.get(0));
+			donation.setDimg(filenames.get(0));
 
 		}
 
 		logger.info("파일 수정 완료 ");
-		// int result = ds.donationWrite(donate, request, principal);
+		// int result = ds.donationWrite(Donation, request, principal);
 
-		int result = ds.update(donate);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
+		int result = ds.update(donation);// 이 result값이 service로, service에서 mapper(dao)로 가서 db하고 연동 된다고...
 		if (result == 1) {
 			logger.info("result입력 성공 :  " + result);
 			msg = "후원글 수정 완료";
-			url = "detail.bit?dindex=" + donate.getDindex();
+			url = "detail.bit?dindex=" + donation.getDindex();
 
 		} else {
 
@@ -264,9 +266,10 @@ public class DonationController {
 
 	// 글 삭제 처리
 	@RequestMapping(value = "delete.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public String delete(Donation donate) throws ClassNotFoundException, SQLException {
 
-		int result = ds.delete(donate);
+	public String delete(Donation donation) throws ClassNotFoundException, SQLException {
+
+		int result = ds.delete(donation);
 
 		if (result == 1) {
 
@@ -279,8 +282,9 @@ public class DonationController {
 	}
 	
 	//유저 포인트 차감 및 현재 모금 포인트 증가 + 기부테이블에 입력
-	@RequestMapping(value = "donatePoint.bit", method = RequestMethod.POST)
-	public String donatePoint(Donation donate, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
+
+	@RequestMapping(value = "DonationPoint.bit", method = RequestMethod.POST)
+	public String DonationPoint(Donation donation, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
 
 		String dUserid = principal.getName();
 		logger.info("기부 유저 아이디: " + dUserid);
@@ -290,7 +294,7 @@ public class DonationController {
 		
 		String msg = null;
 		String url = null;
-		logger.info("dindex: " + donate.getDindex());
+		logger.info("dindex: " + donation.getDindex());
 
 		User user = (User) session.getAttribute("user");
 		logger.info("유저포인트 가져오는지 확인" + user.getUserPoint());
@@ -310,27 +314,27 @@ public class DonationController {
 			
 			logger.info("ccoll값 줭" + ccoll);
 			logger.info("gcoll값 줭" + gcoll);			
-			msg = "목표모금액을 초과합니다." + (donate.getGcoll() - donate.getCcoll()) + "보다 작거나 같은 포인트롤 기부해 주세요";
-			url = "detail.bit?dindex=" + donate.getDindex();
+			msg = "목표모금액을 초과합니다." + (donation.getGcoll() - donation.getCcoll()) + "보다 작거나 같은 포인트롤 기부해 주세요";
+			url = "detail.bit?dindex=" + donation.getDindex();
 		
 		}else if((ccoll + dpoint) == gcoll) {
 			
-			result = ds.donatePoint(donate, dpoint, dUserid);		
-			result2  =  ds.completeDonationByColl(String.valueOf(donate.getDindex()));
+			result = ds.DonationPoint(donation, dpoint, dUserid);		
+			result2  =  ds.completeDonationByColl(String.valueOf(donation.getDindex()));
 						
 			user.setUserPoint(user.getUserPoint() - dpoint);
 			session.setAttribute("user", user);
 			msg = "포인트 기부 완료";
-			url = "detail.bit?dindex=" + donate.getDindex();
+			url = "detail.bit?dindex=" + donation.getDindex();
 		
 		// 목표모금액 보다 적을 경우 처리
 		}else {
 			if (user.getUserPoint() < dpoint) {
 				logger.info("User 포인트 부족");
 				msg = "보유 포인트가 부족합니다.";
-				url = "detail.bit?dindex=" + donate.getDindex();
+				url = "detail.bit?dindex=" + donation.getDindex();
 			} else {
-				result = ds.donatePoint(donate, dpoint, dUserid);
+				result = ds.DonationPoint(donation, dpoint, dUserid);
 				
 			}
 
@@ -341,7 +345,7 @@ public class DonationController {
 				session.setAttribute("user", user);
 				logger.info("포인트 기부 완료");
 				msg = "포인트 기부 완료";
-				url = "detail.bit?dindex=" + donate.getDindex();
+				url = "detail.bit?dindex=" + donation.getDindex();
 
 			} else {
 
@@ -360,14 +364,14 @@ public class DonationController {
 		// else문을 넣어줘야 햄
 		/*
 		 * if (user.getPoint() < dpoint) { logger.info("User 포인트 부족"); msg =
-		 * "보유 포인트가 부족합니다."; url = "detail.bit?dindex=" + donate.getDindex(); } else {
-		 * result = ds.donatePoint(donate, dpoint, dUserid); }
+		 * "보유 포인트가 부족합니다."; url = "detail.bit?dindex=" + Donation.getDindex(); } else {
+		 * result = ds.DonationPoint(Donation, dpoint, dUserid); }
 		 * 
 		 * if (result == 1) { // transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
 		 * 
 		 * user.setPoint(user.getPoint() - dpoint); session.setAttribute("user", user);
 		 * logger.info("포인트 기부 완료"); msg = "포인트 기부 완료"; url = "detail.bit?dindex=" +
-		 * donate.getDindex();
+		 * Donation.getDindex();
 		 * 
 		 * } else {
 		 * 
@@ -384,8 +388,8 @@ public class DonationController {
 	
 	// 유저 포인트 차감 및 현재 모금 포인트 증가
 	/*
-	  @RequestMapping(value = "donatePoint.bit", method = RequestMethod.POST)
-	  public String donatePoint(Donate donate, HttpSession session,
+	  @RequestMapping(value = "DonationPoint.bit", method = RequestMethod.POST)
+	  public String DonationPoint(Donation Donation, HttpSession session,
 	  HttpServletRequest request, Principal principal, Model model) {
 	  
 	  String dUserid = principal.getName(); logger.info("기부 유저 아이디: " + dUserid);
@@ -396,7 +400,7 @@ public class DonationController {
 	  
 	  
 	  String msg = null; String url = null; logger.info("dindex: " +
-	  donate.getDindex());
+	  Donation.getDindex());
 	  
 	  User user = (User) session.getAttribute("user"); logger.info("유저포인트 가져오는지 확인"
 	  + user.getUserPoint());
@@ -409,21 +413,21 @@ public class DonationController {
 	  //모금목표액보다 초과하거나 같을 경우의 처리. if ((ccoll + dpoint) > gcoll) {
 	  
 	  logger.info("ccoll값 줭" + ccoll); logger.info("gcoll값 줭" + gcoll); msg =
-	  "목표모금액을 초과합니다." + (donate.getGcoll() - donate.getCcoll()) +
-	  "보다 작거나 같은 포인트롤 기부해 주세요"; url = "detail.bit?dindex=" + donate.getDindex();
+	  "목표모금액을 초과합니다." + (Donation.getGcoll() - Donation.getCcoll()) +
+	  "보다 작거나 같은 포인트롤 기부해 주세요"; url = "detail.bit?dindex=" + Donation.getDindex();
 	  
 	  }else if((ccoll + dpoint) == gcoll) {
 	  
-	  result = ds.donatePoint(donate, dpoint, dUserid); result2 =
-	  ds.completeDonationByColl(String.valueOf(donate.getDindex()));
+	  result = ds.DonationPoint(Donation, dpoint, dUserid); result2 =
+	  ds.completeDonationByColl(String.valueOf(Donation.getDindex()));
 	  logger.info("됐냐 이거?" + result); user.setUserPoint(user.getUserPoint() -
 	  dpoint); session.setAttribute("user", user); msg = "포인트 기부 완료"; url =
-	  "detail.bit?dindex=" + donate.getDindex();
+	  "detail.bit?dindex=" + Donation.getDindex();
 	  
 	  // 목표모금액 보다 적을 경우 처리 }else { if (user.getUserPoint() < dpoint) {
 	  logger.info("User 포인트 부족"); msg = "보유 포인트가 부족합니다."; url =
-	  "detail.bit?dindex=" + donate.getDindex(); } else { result =
-	  ds.donatePoint(donate, dpoint, dUserid);
+	  "detail.bit?dindex=" + Donation.getDindex(); } else { result =
+	  ds.DonationPoint(Donation, dpoint, dUserid);
 	  
 	  }
 	  
@@ -431,7 +435,7 @@ public class DonationController {
 	  
 	  user.setUserPoint(user.getUserPoint() - dpoint); session.setAttribute("user",
 	  user); logger.info("포인트 기부 완료"); msg = "포인트 기부 완료"; url =
-	  "detail.bit?dindex=" + donate.getDindex();
+	  "detail.bit?dindex=" + Donation.getDindex();
 	  
 	  } else {
 	  
@@ -445,14 +449,14 @@ public class DonationController {
 	  return "redirect"; // 포인트 부족시 빠꾸 // else문을 넣어줘야 햄
 	  
 	  if (user.getPoint() < dpoint) { logger.info("User 포인트 부족"); msg =
-	  "보유 포인트가 부족합니다."; url = "detail.bit?dindex=" + donate.getDindex(); } else {
-	  result = ds.donatePoint(donate, dpoint, dUserid); }
+	  "보유 포인트가 부족합니다."; url = "detail.bit?dindex=" + Donation.getDindex(); } else {
+	  result = ds.DonationPoint(Donation, dpoint, dUserid); }
 	  
 	  if (result == 1) { // transaction 성공시 session에 point값 반영(navi '내정보'갱신을 위함)
 	  
 	  user.setPoint(user.getPoint() - dpoint); session.setAttribute("user", user);
 	  logger.info("포인트 기부 완료"); msg = "포인트 기부 완료"; url = "detail.bit?dindex=" +
-	  donate.getDindex();
+	  Donation.getDindex();
 	  
 	  } else {
 	  
@@ -551,9 +555,9 @@ public class DonationController {
 	 * dindex, HttpRequest request, int ccoll) { String msg = null; String url =
 	 * null;
 	 * 
-	 * //DonateDao donatedao; //donatedao = sqlsession.getMapper(DonateDao.class);
+	 * //DonationDao Donationdao; //Donationdao = sqlsession.getMapper(DonationDao.class);
 	 * 
-	 * int result = donatedao.completeDonationByColl(Integer.parseInt(dindex)); int
+	 * int result = Donationdao.completeDonationByColl(Integer.parseInt(dindex)); int
 	 * result = ds.completeDonationByColl(dindex, ccoll);
 	 * 
 	 * 

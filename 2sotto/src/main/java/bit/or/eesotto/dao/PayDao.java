@@ -16,7 +16,7 @@ public interface PayDao {
 		 * @Insert("insert into user (userid, point)" + " values (#{userid}, #{point})")
 		 */
 		/* @Update("update user set point=#{point} where userid=#{userid}") */
-		@Insert("insert into pay(userid, pamount, ptime, ptype)"
+		@Insert("insert into PAY(userid, pamount, ptime, ptype)"
 				+ "values(#{userid}, #{pamount}, now(), '결제')")
 		public int payInput(Pay pay);
 	

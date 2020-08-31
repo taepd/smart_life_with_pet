@@ -5,10 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="bit.or.eesotto.dao.PetDaoooo">
 
 	<update id="editPet" parameterType="bit.or.eesotto.dto.Pet">
-		update pet set   scategory = #{scategory}, age = #{age}, size = #{size},
-				weight = #{weight}, nstate = #{nstate}, petimg = #{petimg}, memo = #{memo}
-				where userid=#{userid}
-  </update>
+		update PET set   scategory = #{scategory}, age = #{age}, size = #{size},
+						 weight = #{weight}, nstate = #{nstate}, petimg = #{petimg}, memo = #{memo}
+		where userid=#{userid}
+    </update>
   
 </mapper>
-

@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Donate {
+public class Donation {
 	
 	private int dindex;
 	private String title;

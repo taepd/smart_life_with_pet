@@ -39,7 +39,7 @@ public class DonationService {
 	}
 
 	@Autowired
-	DonateDao donatedao;
+	DonationDao donatedao;
 
 	@Autowired
 	UserDao userdao;
@@ -50,12 +50,12 @@ public class DonationService {
 	 */
 
 	// 후원게시판 글쓰기
-	public int write(Donate donate, HttpServletRequest request, Principal principal)
+	public int write(Donation donate, HttpServletRequest request, Principal principal)
 			throws IOException, ClassNotFoundException, SQLException {
 
 		int result = 0;
 		try {
-			donatedao = sqlsession.getMapper(DonateDao.class);
+			donatedao = sqlsession.getMapper(DonationDao.class);
 			result = donatedao.write(donate);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -65,11 +65,11 @@ public class DonationService {
 	}
 
 	// 글 상세보기
-	public Donate detail(String dindex) {
+	public Donation detail(String dindex) {
 
-		Donate donate = null;
+		Donation donate = null;
 		try {
-			donatedao = sqlsession.getMapper(DonateDao.class);
+			donatedao = sqlsession.getMapper(DonationDao.class);
 			donate = donatedao.detail(dindex);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -125,10 +125,10 @@ public class DonationService {
 		 */
 
 		// DAO 데이터 받아오기
-		List<Donate> donationList = null;
+		List<Donation> donationList = null;
 
 		// mapper 를 통한 인터페이스 연결
-		DonateDao donateDao = sqlsession.getMapper(DonateDao.class);
+		DonationDao donateDao = sqlsession.getMapper(DonationDao.class);
 
 		int totaldonatecount = donateDao.getDonationCount();
 		//
@@ -208,10 +208,10 @@ public class DonationService {
 		 */
 
 		// DAO 데이터 받아오기
-		List<Donate> donateList = null;
+		List<Donation> donateList = null;
 
 		// mapper 를 통한 인터페이스 연결
-		DonateDao donateDao = sqlsession.getMapper(DonateDao.class);
+		DonationDao donateDao = sqlsession.getMapper(DonationDao.class);
 
 		int totaldonatecount = donateDao.getDonationCount();
 		//
@@ -234,11 +234,11 @@ public class DonationService {
 	}
 
 	// 글 수정
-	public int update(Donate donate) {
+	public int update(Donation donate) {
 		System.out.println("글 수정 여기까지는 온다...");
 		int result = 0;
 		try {
-			DonateDao donatedao = sqlsession.getMapper(DonateDao.class);
+			DonationDao donatedao = sqlsession.getMapper(DonationDao.class);
 			result = donatedao.update(donate);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -249,10 +249,10 @@ public class DonationService {
 	}
 
 	// 글 삭제하기
-	public int delete(Donate donate) throws ClassNotFoundException, SQLException {
+	public int delete(Donation donate) throws ClassNotFoundException, SQLException {
 		int result = 0;
 		try {
-			DonateDao donatedao = sqlsession.getMapper(DonateDao.class);
+			DonationDao donatedao = sqlsession.getMapper(DonationDao.class);
 			result = donatedao.delete(donate);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -264,12 +264,12 @@ public class DonationService {
 
 	// 포인트 기부
 	@Transactional
-	public int donatePoint(Donate donate, int dpoint, String dUserid) {
+	public int donatePoint(Donation donate, int dpoint, String dUserid) {
 
 		int result = 0;
 
 		try {
-			DonateDao donatedao = sqlsession.getMapper(DonateDao.class);
+			DonationDao donatedao = sqlsession.getMapper(DonationDao.class);
 			
 			int dindex = donate.getDindex();
 			String userid = dUserid;
@@ -324,7 +324,7 @@ public class DonationService {
 		int result = 0;
 
 		try {
-			DonateDao donatedao = sqlsession.getMapper(DonateDao.class);
+			DonationDao donatedao = sqlsession.getMapper(DonationDao.class);
 			result = donatedao.completeDonationByColl(Integer.parseInt(dindex));
 
 		} catch (Exception e) {
@@ -429,11 +429,11 @@ public class DonationService {
 	}
 	
 	//어드민 > 후원 리스트 조회
-		public List<Donate> getDonationList() {
-			List<Donate> donationList = null;
+		public List<Donation> getDonationList() {
+			List<Donation> donationList = null;
 			try {
 
-				donatedao = sqlsession.getMapper(DonateDao.class);
+				donatedao = sqlsession.getMapper(DonationDao.class);
 				donationList = donatedao.getDonationList();
 				System.out.println(donationList);
 			} catch (Exception e) {

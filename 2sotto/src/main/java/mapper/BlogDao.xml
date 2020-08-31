@@ -4,14 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bit.or.eesotto.dao.BlogDao">
 
-
 	<!-- 모두의 블로그 리스트 조회 -->
 	<select id="getPostList" resultType="bit.or.eesotto.dto.Blog">
 		
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
-			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
-		FROM blog b, (SELECT @ROWNUM := 0) TMP
+			(SELECT count(*) FROM BLOGCOMMENT c WHERE c.bindex = b.bindex ) bcCount
+		FROM BLOG b, (SELECT @ROWNUM := 0) TMP
 		<where>
 				<if test="param3 != null">
 					${param4} not in (#{param3}) 
@@ -29,8 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPopularPostList" resultType="bit.or.eesotto.dto.Blog">
 		SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
-			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
-		FROM blog b
+			(SELECT count(*) FROM BLOGCOMMENT c WHERE c.bindex = b.bindex ) bcCount
+		FROM BLOG b
 		<where>
 				<if test="param3 != null">
 					${param4} not in (#{param3}) 
@@ -45,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 블로그 포스팅 수 조회 -->
 	
 	<select id="getPostCount" resultType="int">
-		select count(*) from blog
+		select count(*) from BLOG
 		<if test="param1 != null">
 			where ${param2} = #{param1}
 		</if>
@@ -56,8 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	    SET @ROWNUM:= 0;
 		SELECT * FROM (SELECT @ROWNUM := @ROWNUM +1 ROWNUM, b.*, 
-			(SELECT count(*) FROM blogcomment c WHERE c.bindex = b.bindex ) bcCount
-		FROM blog b, (SELECT @ROWNUM := 0) TMP
+			(SELECT count(*) FROM BLOGCOMMENT c WHERE c.bindex = b.bindex ) bcCount
+		FROM BLOG b, (SELECT @ROWNUM := 0) TMP
 		<choose>
 			<when test='param4 == "userid"'>
 				WHERE ${param4}=#{param3}
@@ -67,11 +66,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 		</choose>	
 		order by b.bindex desc	
-		) S WHERE ROWNUM 
+		) s WHERE ROWNUM 
 		BETWEEN #{param1}*#{param2}-(#{param2}-1) AND #{param1}*#{param2} 
 		order by s.rownum
 		
 	</select>	
+
+</mapper>
 	
 	
 	
@@ -132,15 +133,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${param1}*${param2}
 
 	</select> -->
-
-
-
-</mapper>
-
-
-
-
-
 
 
 

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import bit.or.eesotto.dto.BlogComment;
-import bit.or.eesotto.dto.Donate;
+import bit.or.eesotto.dto.Donation;
 import bit.or.eesotto.dto.Pet;
 import bit.or.eesotto.dto.Point;
 import bit.or.eesotto.dto.Qna;
@@ -241,13 +241,13 @@ public class AdminController {
 		// 후원리스트 조회 Ajax  
 		@ResponseBody
 		@RequestMapping(value = "getDonationList.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public List<Donate> getDonationList(Donate donate, Principal principal, Model model) throws IOException {
+		public List<Donation> getDonationList(Donation donate, Principal principal, Model model) throws IOException {
 			
 			String userid = principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 			
 			
-			List<Donate> donationList = donationService.getDonationList();
+			List<Donation> donationList = donationService.getDonationList();
 			logger.info("너는?: " + userid);
 			logger.info("그리고 넌는?: " + donationList);
 			if(donationList!=null) {
@@ -270,7 +270,7 @@ public class AdminController {
 		
 		// 후원글 쓰기
 		@RequestMapping(value = "adminDonationwrite.bit", method = RequestMethod.POST)
-		public String write(Donate donate, HttpServletRequest request, Principal principal, Model model)
+		public String write(Donation donate, HttpServletRequest request, Principal principal, Model model)
 				throws IOException, ClassNotFoundException, SQLException {
 			logger.info("글작성 ");
 
@@ -341,7 +341,7 @@ public class AdminController {
 		@RequestMapping(value = "adminDonationdetail.bit", method = RequestMethod.GET)
 		public String detail(String dindex, Model model) {
 
-			Donate donate = donationService.detail(dindex);// ds
+			Donation donate = donationService.detail(dindex);// ds
 			model.addAttribute("donate", donate);
 
 			return "admin/adminDonationdetail"; // "noticeDetail.jsp";
@@ -351,7 +351,7 @@ public class AdminController {
 		@RequestMapping(value = "adminDonationupdate.bit", method = RequestMethod.GET)
 		public String update(String dindex, Model model) {
 
-			Donate donate = donationService.detail(dindex);
+			Donation donate = donationService.detail(dindex);
 			logger.info("내 블로그 글 조회 완료");
 			model.addAttribute("donate", donate);
 
@@ -360,7 +360,7 @@ public class AdminController {
 
 		// 글 수정 처리
 		@RequestMapping(value = "adminDonationupdate.bit", method = RequestMethod.POST)
-		public String update(Donate donate, HttpServletRequest request, Model model)
+		public String update(Donation donate, HttpServletRequest request, Model model)
 				throws IOException, ClassNotFoundException, SQLException {
 			String msg = null;
 			String url = null;
@@ -413,7 +413,7 @@ public class AdminController {
 
 		// 글 삭제 처리
 		@RequestMapping(value = "adminDonationdelete.bit", method = { RequestMethod.GET, RequestMethod.POST })
-		public String delete(Donate donate) throws ClassNotFoundException, SQLException {
+		public String delete(Donation donate) throws ClassNotFoundException, SQLException {
 
 			int result = donationService.delete(donate);
 

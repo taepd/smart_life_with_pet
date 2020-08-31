@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import bit.or.eesotto.dao.DonateDao;
+import bit.or.eesotto.dao.DonationDao;
 import bit.or.eesotto.dao.UserDao;
 import bit.or.eesotto.dto.*;
 import bit.or.eesotto.service.*;
@@ -71,7 +71,7 @@ public class DonationController {
 
 	// 후원글 쓰기
 	@RequestMapping(value = "write.bit", method = RequestMethod.POST)
-	public String write(Donate donate, HttpServletRequest request, Principal principal, Model model)
+	public String write(Donation donate, HttpServletRequest request, Principal principal, Model model)
 			throws IOException, ClassNotFoundException, SQLException {
 		logger.info("글작성 ");
 
@@ -192,7 +192,7 @@ public class DonationController {
 	@RequestMapping(value = "detail.bit", method = RequestMethod.GET)
 	public String detail(String dindex, Model model) {
 
-		Donate donate = ds.detail(dindex);// ds
+		Donation donate = ds.detail(dindex);// ds
 		model.addAttribute("donate", donate);
 
 		return "donation/detail"; // "noticeDetail.jsp";
@@ -202,7 +202,7 @@ public class DonationController {
 	@RequestMapping(value = "update.bit", method = RequestMethod.GET)
 	public String update(String dindex, Model model) {
 
-		Donate donate = ds.detail(dindex);
+		Donation donate = ds.detail(dindex);
 		logger.info("내 블로그 글 조회 완료");
 		model.addAttribute("donate", donate);
 
@@ -211,7 +211,7 @@ public class DonationController {
 
 	// 글 수정 처리
 	@RequestMapping(value = "update.bit", method = RequestMethod.POST)
-	public String update(Donate donate, HttpServletRequest request, Model model)
+	public String update(Donation donate, HttpServletRequest request, Model model)
 			throws IOException, ClassNotFoundException, SQLException {
 		String msg = null;
 		String url = null;
@@ -264,7 +264,7 @@ public class DonationController {
 
 	// 글 삭제 처리
 	@RequestMapping(value = "delete.bit", method = { RequestMethod.GET, RequestMethod.POST })
-	public String delete(Donate donate) throws ClassNotFoundException, SQLException {
+	public String delete(Donation donate) throws ClassNotFoundException, SQLException {
 
 		int result = ds.delete(donate);
 
@@ -280,7 +280,7 @@ public class DonationController {
 	
 	//유저 포인트 차감 및 현재 모금 포인트 증가 + 기부테이블에 입력
 	@RequestMapping(value = "donatePoint.bit", method = RequestMethod.POST)
-	public String donatePoint(Donate donate, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
+	public String donatePoint(Donation donate, HttpSession session, HttpServletRequest request, Principal principal, Model model) {
 
 		String dUserid = principal.getName();
 		logger.info("기부 유저 아이디: " + dUserid);
@@ -597,9 +597,9 @@ public class DonationController {
 		int cpage = Integer.parseInt(cp);
 		int pagecount = 0;
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Donate> donationList = null;
+		List<Donation> donationList = null;
 		try {
-			DonateDao dao = sqlsession.getMapper(DonateDao.class);
+			DonationDao dao = sqlsession.getMapper(DonationDao.class);
 			donationList = dao.main(cpage, pagesize);
 			// request.setAttribute("emplist", emplist);
 

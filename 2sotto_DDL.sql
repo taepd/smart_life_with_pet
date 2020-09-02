@@ -801,9 +801,9 @@ SET Global log_bin_trust_function_creators='ON';
 
 -- DB 리셋 후 입력할 기본 데이터
 # roles테이블 권한 추가
-insert into roles values ('1', 'ROLE_ADMIN'),
+insert into ROLES values ('1', 'ROLE_ADMIN'),
 				         ('2', 'ROLE_USER');
-commit;
+commit; 
 
 # admin계정 추가(비번 1004)
 INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
@@ -815,11 +815,11 @@ VALUES ('a', 'a', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO'
 commit;
 
 # 동물 대분류 카테고리 추가
-INSERT INTO `2sotto`.`maincategory` (`MCATEGORY`, `MCANAME`) VALUES ('1', '개'), ('2', '고양이');
+INSERT INTO `2sotto`.`MAINCATEGORY` (`MCATEGORY`, `MCANAME`) VALUES ('1', '개'), ('2', '고양이');
 commit;
 
 # 동물 소분류 카테고리 추가
-INSERT INTO `2sotto`.`subcategory` (`SCATEGORY`, `MCATEGORY`, `SCANAME`) 
+INSERT INTO `2sotto`.`SUBCATEGORY` (`SCATEGORY`, `MCATEGORY`, `SCANAME`) 
 VALUES ('1', '1', '시츄'),('2', '1', '포메라니안'),('3', '1', '진돗개'),
        ('4', '1', '치와와'), ('5', '2', '페르시안'),('6', '2', '러시안블루'),
 	   ('7', '2', '코리안숏헤어');
@@ -886,7 +886,7 @@ select * from point;
 -- pay테이블에 값 입력되면 바로 userpoint 업데이트
 DELIMITER $$
 CREATE TRIGGER UPDATE_USERPOINT
-AFTER INSERT ON pay
+AFTER INSERT ON PAY
 FOR EACH ROW
 BEGIN
 UPDATE user
@@ -899,7 +899,7 @@ DELIMITER ;
 -- userpoint를 point 테이블로 쏴준다. 
 DELIMITER $$
 CREATE TRIGGER UPDATE_POINT_PAMOUNT
-AFTER insert on pay
+AFTER insert on PAY
 FOR EACH ROW
 BEGIN
 UPDATE POINT
@@ -912,7 +912,7 @@ DELIMITER ;
 -- 기부시 DONATIONRECORD테이블에서 POINT테이블로 쏴주기(USER의 총 포인트는 안된다.)
 DELIMITER $$
 CREATE TRIGGER INSERT_POINT_FROM_DONATIONRECORD
-AFTER INSERT ON donationrecord
+AFTER INSERT ON DONATIONRECORD
 FOR EACH ROW
 BEGIN
 INSERT INTO POINT
@@ -930,7 +930,7 @@ DELIMITER ;
 -- donationrecord사용해서 userpoint를 point 테이블로 쏴준다. 
 DELIMITER $$
 CREATE TRIGGER UPDATE_POINT_PAMOUNT_FROM_DONATIONRECORD
-AFTER insert on donationrecord
+AFTER insert on DONATIONRECORD
 FOR EACH ROW
 BEGIN
 UPDATE POINT
@@ -943,7 +943,7 @@ DELIMITER ;
 -- 블로그 글 좋아요하면 blike테이블에 인서트 후에 blog 테이블 blike +1 하는 트리거
 DELIMITER $$
 CREATE TRIGGER UPDATE_BLIKE_PLUS
-AFTER INSERT ON blike
+AFTER INSERT ON BLIKE
 FOR EACH ROW
 BEGIN
 UPDATE BLOG
@@ -957,7 +957,7 @@ DELIMITER ;
 -- 블로그 글 좋아요 취소하면 blike테이블에 인서트 후에 blog 테이블 blike -1 하는 트리거
 DELIMITER $$
 CREATE TRIGGER UPDATE_BLIKE_MINUS
-BEFORE DELETE ON blike
+BEFORE DELETE ON BLIKE
 FOR EACH ROW
 BEGIN
 UPDATE BLOG

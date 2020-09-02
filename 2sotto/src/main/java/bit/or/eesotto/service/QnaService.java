@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bit.or.eesotto.dao.QnaCommentDao;
+
 import bit.or.eesotto.dao.QnaDao;
+
 import bit.or.eesotto.dto.Qna;
 import bit.or.eesotto.dto.QnaComment;
 

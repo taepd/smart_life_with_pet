@@ -228,8 +228,9 @@ public class AdminController {
 		// 후원리스트 조회 Ajax  
 		@ResponseBody
 		@RequestMapping(value = "getDonationList.bit", method = { RequestMethod.GET, RequestMethod.POST })
+  
 		public List<Donation> getDonationList(Donation Donation, Principal principal, Model model) throws IOException {
-			
+      
 			String userid = principal.getName();
 			logger.info("로그인 유저 아이디: " + userid);
 			
@@ -255,7 +256,9 @@ public class AdminController {
 		
 		// 후원글 쓰기
 		@RequestMapping(value = "adminDonationwrite.bit", method = RequestMethod.POST)
+
 		public String write(Donation Donation, HttpServletRequest request, Principal principal, Model model)
+
 				throws IOException, ClassNotFoundException, SQLException {
 			logger.info("글작성 ");
 
@@ -334,6 +337,7 @@ public class AdminController {
 		public String update(String dindex, Model model) {
 
 			Donation Donation = donationService.detail(dindex);
+
 			logger.info("내 블로그 글 조회 완료");
 			model.addAttribute("Donation", Donation);
 
@@ -342,7 +346,9 @@ public class AdminController {
 
 		// 글 수정 처리
 		@RequestMapping(value = "adminDonationupdate.bit", method = RequestMethod.POST)
+
 		public String update(Donation Donation, HttpServletRequest request, Model model)
+
 				throws IOException, ClassNotFoundException, SQLException {
 			String msg = null;
 			String url = null;
@@ -395,6 +401,7 @@ public class AdminController {
 
 		// 글 삭제 처리
 		@RequestMapping(value = "adminDonationdelete.bit", method = { RequestMethod.GET, RequestMethod.POST })
+
 		public String delete(Donation Donation) throws ClassNotFoundException, SQLException {
 
 			int result = donationService.delete(Donation);

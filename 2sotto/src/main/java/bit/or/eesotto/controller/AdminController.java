@@ -176,7 +176,7 @@ public class AdminController {
 		String userid = principal.getName();
 		logger.info("로그인 유저 아이디: " + userid);
 		
-		int result = us.getUserCount(user);
+		int result = us.getUserCount();
 		
 		if(result==1) {
 			logger.info("유저 "+result+"유저 조회 완료");

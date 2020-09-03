@@ -236,8 +236,8 @@ public class JoinController {
 	//------------- 이메일 인증번호 전송 시작-------------
 	@ResponseBody
 	@RequestMapping("/confirmEmail")
-	public int sendConfirmEmail(Email emaildto) throws Exception {
-        return UserService.sendConfirmEmail(emaildto);
+	public int sendConfirmEmail(Email email) throws Exception {
+        return UserService.sendConfirmEmail(email);
     }
 	//------------- 이메일 인증번호 전송 끝-------------
 

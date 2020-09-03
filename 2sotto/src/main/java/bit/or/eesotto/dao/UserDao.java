@@ -54,7 +54,7 @@ public interface UserDao {
 	
 	// 어드민 > 유저 카운트  ajax
 	@Select("select count(*) count from USER")
-	public int getUserCount(User user);
+	public int getUserCount();
 	
 	// 어드민 > 일자별 가입자수 차트 조회
 	@Select("select (date_format(rtime, '%Y-%m-%d')) 가입일, count(*) '가입자 수' " + 

@@ -128,9 +128,8 @@
 							<div class="form-group has-default bmd-form-group">
 								<div style="display: inline-block;">
 									<img id="img" src="../assets/images/profile-circle.png" alt="" width="150px"
-									height="150px" class="rounded-circle img-fluid"  />  <!--style="border-radius: 10px;" -->
-									<!-- <span id="imgFileName" style="display: none;">&nbsp;&nbsp;</span> -->
-									<label class="btn btn-primary btn-default btn-file btn-sm">
+									height="150px" class="rounded-circle"  /> 
+									<label class="btn btn-primary btn-default btn-file btn-sm" style="position: absolute; bottom: -9px; right: -1px;">
 										이미지 설정/변경 
 										<input class="input--style-4" type="file" name="file" style="display: none;" onchange="readURL(this);">
 									</label>

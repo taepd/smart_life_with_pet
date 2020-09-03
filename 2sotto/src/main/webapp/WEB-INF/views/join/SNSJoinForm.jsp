@@ -78,19 +78,7 @@
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" value="${sns_id}" id="userid" name="userid" readonly>
 							</div>
-
-							<!-- <div class="form-group has-default bmd-form-group">
-								<input type="password" class="form-control" placeholder="비밀번호를 입력하세요." id="pwd" name="pwd">
-								8~20자 사이에 적어도 하나의 영어대문자,숫자, 특수문자가 포함되어야 합니다.
-								<div class="tdpw" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
-							</div>
-
-							<div class="form-group has-default bmd-form-group">
-								<input type="password" class="form-control" placeholder="비밀번호를 확인합니다." id="pwdCheck" name="pwdCheck">
-								비밀번호가 다릅니다.
-								<div class="tdpwch" style="font-size: 12px; color: #F27D7D; text-align: left;"></div>
-							</div> -->
-
+							
 							<div class="form-group has-default bmd-form-group">
 								<input type="text" class="form-control" placeholder="닉네임을 입력하세요." value="${user.nick}" id="nick" name="nick">
 								<button type="button" class="btn btn-sm" id="btn-nickchk" style="position: absolute; top: 23px; right: 0;">중복확인</button>
@@ -127,9 +115,8 @@
 							<div class="form-group has-default bmd-form-group">
 								<div style="display: inline-block;">
 									<img id="img" src="../assets/images/profile-circle.png" alt="" width="150px"
-									height="150px" class="rounded-circle img-fluid"  />  <!--style="border-radius: 10px;" -->
-									<!-- <span id="imgFileName" style="display: none;">&nbsp;&nbsp;</span> -->
-									<label class="btn btn-primary btn-default btn-file btn-sm">
+									height="150px" class="rounded-circle"  /> 
+									<label class="btn btn-primary btn-default btn-file btn-sm" style="position: absolute; bottom: -9px; right: -1px;">
 										이미지 설정/변경 
 										<input class="input--style-4" type="file" name="file" style="display: none;" onchange="readURL(this);">
 									</label>
@@ -416,7 +403,7 @@
 		//***********************************//
 		function readURL(input) {
 			if (input.files && input.files[0]) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = function(e) {
 					$('#img').attr('src', e.target.result);
 				}

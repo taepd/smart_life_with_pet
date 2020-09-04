@@ -140,7 +140,8 @@ public class JoinController {
 				String path = request.getServletContext().getRealPath("/assets/images");
 				//System.out.println("checkPath: "+checkPath);
 				
-				String fpath = path + "\\"+ filename; 
+				//String fpath = path + "\\"+ filename; //윈도우  
+				String fpath = path + "/"+ filename; //맥이랑 윈도우 다른거??
 				System.out.println("fpath: "+fpath);
 				
 				if(!filename.equals("")) { //실 파일 업로드

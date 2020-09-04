@@ -82,8 +82,8 @@ public class MainService {
 		Collections.shuffle(list);
 		System.out.println("섞은 후: "+ list);
 		
-		// 배열 중 3개만 뽑기  //3개가 안되면 에러 발생 >> 리스트가  null이면 패스
-		if(list.size()>2) {
+		// 배열 중 6개만 뽑기  //6개가 안되면 에러 발생 >> 리스트가  null이면 패스
+		if(list.size()>6) {
 			list = list.subList(0, 6);
 		}
 		System.out.println("추천리스트 최종: "+ list);

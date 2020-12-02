@@ -78,8 +78,8 @@ CREATE TABLE INSPECTION (
 	PETINDEX INT          NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)  NOT NULL, -- USERID
 	LIST     VARCHAR(100) NOT NULL, -- 항목
-	VADATE   TIMESTAMP   NULL,  -- 접종일
-	EVDATE   TIMESTAMP    NULL,     -- 접종예정일(Estimated Vadate)
+	VADATE    TIMESTAMP   NULL,  -- 접종일
+	EVDATE    TIMESTAMP    NULL,     -- 접종예정일(Estimated Vadate)
 	VSTATE   VARCHAR(4)   NULL,     -- 접종여부
 	VCOUNT   INT          NULL      -- 잔여접종횟수
 );
@@ -103,7 +103,7 @@ CREATE TABLE BLOG (
 	BINDEX  INT            PRIMARY KEY AUTO_INCREMENT, -- 글번호
 	PETINDEX VARCHAR(200)  NOT NULL, -- 동물식별번호
 	USERID   VARCHAR(40)   NOT NULL, -- USERID
-	NICK     VARCHAR(20)       NOT NULL,
+	NICK VARCHAR(20)       NOT NULL,
 	BLIKE    INT           NULL,     -- 추천수(보류)
 	TITLE    VARCHAR(100)  NOT NULL, -- 제목
 	CONTENT  VARCHAR(4000) NOT NULL, -- 내용
@@ -120,7 +120,7 @@ CREATE TABLE BLOGCOMMENT (
 	BCINDEX INT          PRIMARY KEY AUTO_INCREMENT, -- 댓글번호
 	BINDEX  INT          NOT NULL, -- 글번호
 	USERID  VARCHAR(40)  NOT NULL, -- USERID
-	NICK    VARCHAR(20) NOT NULL,
+	NICK VARCHAR(20) NOT NULL,
 	BCLIKE  INT          NULL,     -- 추천수(보류)
 	CONTENT VARCHAR(400) NOT NULL, -- 내용
 	SCSTATE VARCHAR(4)   NOT NULL, -- 비밀유무
@@ -323,7 +323,7 @@ CREATE TABLE POINT (
     
 );
 -- 채팅 참여멤버
-CREATE TABLE CHATMEMBER(
+CREATE TABLE ChatMember (
 	MEM_NUMBER   VARCHAR(40)  NOT NULL, -- 번호
 	ROOM_NUMBER     VARCHAR(20)  NOT NULL, -- 번호
 	USER_EMAIL      VARCHAR(5000) NULL,     -- 이메일
@@ -332,7 +332,7 @@ CREATE TABLE CHATMEMBER(
 );
 
 -- 채팅방
-CREATE TABLE CHATROOM (
+CREATE TABLE ChatRoom (
 	ROOM_NUMBER   INT  PRIMARY KEY AUTO_INCREMENT,  -- 번호
 	ROOM_TITLE     VARCHAR(20)  NOT NULL, -- 제목
 	USER_EMAIL      VARCHAR(5000) NOT NULL,     -- 이메일
@@ -803,23 +803,23 @@ SET Global log_bin_trust_function_creators='ON';
 # roles테이블 권한 추가
 insert into ROLES values ('1', 'ROLE_ADMIN'),
 				         ('2', 'ROLE_USER');
-commit; 
+commit;
 
 # admin계정 추가(비번 1004)
-INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
+INSERT INTO USER (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
 VALUES ('admin', 'admin', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now());
 # a 계정 추가(비번 1004)
-INSERT INTO user (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
+INSERT INTO USER (USERID, NICK, PWD, LOC, CPNUMBER, ENABLED, rtime) 
 VALUES ('a', 'a', '$2a$10$NjV33E7sf0/W1xvBB57wGezZtZZ6r/iOABFnniAZFe9ca.Bhtl0RO', '1', '1', '1',now());
 
 commit;
 
 # 동물 대분류 카테고리 추가
-INSERT INTO `2sotto`.`MAINCATEGORY` (`MCATEGORY`, `MCANAME`) VALUES ('1', '개'), ('2', '고양이');
+INSERT INTO MAINCATEGORY (`MCATEGORY`, `MCANAME`) VALUES ('1', '개'), ('2', '고양이');
 commit;
 
 # 동물 소분류 카테고리 추가
-INSERT INTO `2sotto`.`SUBCATEGORY` (`SCATEGORY`, `MCATEGORY`, `SCANAME`) 
+INSERT INTO SUBCATEGORY (`SCATEGORY`, `MCATEGORY`, `SCANAME`) 
 VALUES ('1', '1', '시츄'),('2', '1', '포메라니안'),('3', '1', '진돗개'),
        ('4', '1', '치와와'), ('5', '2', '페르시안'),('6', '2', '러시안블루'),
 	   ('7', '2', '코리안숏헤어');
@@ -889,7 +889,7 @@ CREATE TRIGGER UPDATE_USERPOINT
 AFTER INSERT ON PAY
 FOR EACH ROW
 BEGIN
-UPDATE user
+UPDATE USER
 SET
 userPoint = (userPoint + new.PAMOUNT)
 where userid = new.userid;
@@ -1013,4 +1013,14 @@ delimiter ;
 
 show triggers;
 
-show variables like 'c%';
+select * from point;
+
+select * from pay;
+
+select * from USER;
+select * from PET;
+select * from donationrecord;
+
+select * from donation;
+
+select * from USER;

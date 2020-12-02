@@ -1,3 +1,4 @@
 /.metadata/
 /Servers/
-/pom.xml/
+pom.xml
+root-context.xml

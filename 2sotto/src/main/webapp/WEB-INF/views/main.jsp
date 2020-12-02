@@ -328,7 +328,7 @@
 
 		// 날씨 API 시작
 		 
-		let publicAPI = "http://api.openweathermap.org/data/2.5/weather?"; 
+		let publicAPI = "https://api.openweathermap.org/data/2.5/weather?"; 
         let data = { lat: ${user.lat}, lon: ${user.lon}, units:"metric", appid: "d2f22ea4bf87f5e2f1c91e3d19c58d8a"};
 
         $.getJSON(publicAPI, data, function (resp, textStatus, xhr) {
@@ -649,13 +649,13 @@
 					        info = `<p class="text-center">다가올 일정이 없습니다.</p>
 					        		<button onclick='location.href="${pageContext.request.contextPath}/management/main.bit?tab=schedule"' class="btn btn-outline-primary btn-round" >
 					        	  		<i class="material-icons">calendar_today</i> 일정 등록하기
-					        		</button>`;   
+					        		</button>`;    
 				    }
 					//(추가)반려동물 마이페이지 링크 래핑함
     				var imageSrc = "<a href='${pageContext.request.contextPath}/mypage/petPage.bit?petindex="+ petindex + "'>" +
         							"<img src='${pageContext.request.contextPath}/assets/images/" + image + 
         							"' class='rounded-circle img-fluid img' width='150px' height='150px'></a>";
-
+					console.log('#########'+ image)
     				$('#myPetSchedule').html(info);
     				$('#myPetSchedule p').css('font-size', '16px');
     				$('#myPetImage').empty().append(imageSrc);

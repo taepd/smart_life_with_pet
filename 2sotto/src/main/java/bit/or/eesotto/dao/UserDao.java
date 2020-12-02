@@ -57,8 +57,8 @@ public interface UserDao {
 	public int getUserCount();
 	
 	// 어드민 > 일자별 가입자수 차트 조회
-	@Select("select (date_format(rtime, '%Y-%m-%d')) 가입일, count(*) '가입자 수' " + 
-			"from USER group by 가입일 order by 가입일")
+	@Select("select (date_format(rtime, '%Y-%m-%d')) '가입일', count(*) '가입자 수' " + 
+			"from USER group by '가입일' order by '가입일'")
 	public List<Map<String, Object>> signUpCountbyDay();
 		
 	

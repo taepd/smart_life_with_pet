@@ -125,16 +125,15 @@ public class LoginController {
 		logger.info("구글:" + googleUrl);
 		model.addAttribute("google_url", googleUrl);
 		//model.addAttribute("google_url", url);
-		 //구글URL을 생성한다 끝.
-				logger.info("네이버:" + naver_url);	
-				//네이버
-				
-				model.addAttribute("naver_url", naver_url);
-				logger.info("url:" + naver_url);
-				//페이스북 시작
-				model.addAttribute("facebook_url", facebook_url);
-		        System.out.println("/facebook" + facebook_url);
-				//페이스북 끝
+		//구글URL을 생성한다 끝.
+		logger.info("네이버:" + naver_url);	
+		//네이버
+		model.addAttribute("naver_url", naver_url);
+		logger.info("url:" + naver_url);
+		//페이스북 시작
+		model.addAttribute("facebook_url", facebook_url);
+        System.out.println("/facebook" + facebook_url);
+		//페이스북 끝
 				
 		return "login/loginForm";
 	}

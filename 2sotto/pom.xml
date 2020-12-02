@@ -413,10 +413,10 @@
 		        <artifactId>tomcat-maven-plugin</artifactId>
 		        <version>1.1</version>
 		        <configuration>
-		            <url>http://ec2-3-35-3-255.ap-northeast-2.compute.amazonaws.com:8080/manager/text</url>
+		            <url>http://3.34.179.126:8080/manager/text</url>
 		            <path>/eesotto</path>
 		            <username>admin</username>
-		            <password>admin</password>
+		            <password>passowrd</password>
 		        </configuration>
 		    </plugin>
 		</plugins>

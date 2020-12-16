@@ -43,4 +43,4 @@
 ## etc.
 
 - [http://spring.taepd.p-e.kr/](http://spring.taepd.p-e.kr/) 에서 본 프로젝트를 직접 테스트해 볼 수 있습니다.
-- 프로젝트에 대한 보다 자세한 설명은 (링크 추가할 것)에 있습니다.
+- 프로젝트에 대한 보다 자세한 설명은 [여기](https://www.notion.so/taepd/98776343ed3d4a9ea05f2e05d507be6f)에 있습니다.
